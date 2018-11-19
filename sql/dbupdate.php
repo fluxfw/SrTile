@@ -10,3 +10,8 @@ require_once "./Customizing/global/plugins/Services/UIComponent/UserInterfaceHoo
 require_once "./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SrTile/src/Tile/Tile.php";
 \srag\plugins\SrTile\Tile\Tile::updateDB();
 ?>
+<#3>
+<?php
+require_once "./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SrTile/src/Tile/Tile.php";
+\srag\plugins\SrTile\Tile\Tile::updateDB();
+?>

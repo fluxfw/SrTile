@@ -78,6 +78,15 @@ class Tile extends ActiveRecord {
 	 * @con_is_notnull  true
 	 */
 	protected $tile_image = "";
+	/**
+	 * @var string
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   text
+	 * @con_is_notnull  true
+	 */
+	protected $level_color = "";
+
 
 
 	/**
@@ -205,6 +214,24 @@ class Tile extends ActiveRecord {
 
 
 	/**
+	 * @return string
+	 */
+	public function getLevelColor(): string {
+		return $this->level_color;
+	}
+
+
+	/**
+	 * @param string $level_color
+	 */
+	public function setLevelColor(string $level_color) {
+		$this->level_color = $level_color;
+	}
+
+
+
+
+	/**
 	 * @param string $field_name
 	 * @param mixed  $field_value
 	 *
@@ -234,17 +261,17 @@ class Tile extends ActiveRecord {
 	 * @return string
 	 */
 	public function returnImagePath($append_filename = false) {
-		$path = ilUtil::getWebspaceDir() . '/' . ilSrTilePlugin::WEB_DATA_FOLDER . '/' . 'tile_' . $this->getTileId() . '/';
+
+		if(strlen($this->getTileImage()) > 0) {
+			$tile = $this;
+		} elseif($this->getObjRefId() > 0) {
+			$tile = Tile::getInstanceForObjRefId(self::dic()->tree()->getParentId($this->getObjRefId()));
+		}
+
+		$path = ilUtil::getWebspaceDir() . '/' . ilSrTilePlugin::WEB_DATA_FOLDER . '/' . 'tile_' . $tile->getTileId() . '/';
 		if ($append_filename) {
-			if(strlen($this->getTileImage()) > 0) {
-				$path .= $this->getTileImage();
-			} else {
-
-				if($this->obj_ref_id > 0) {
-					$parent_tile = new Tile(self::dic()->tree()->getParentId($this->obj_ref_id));
-					$path .= $parent_tile->$this->getTileImage();
-				}
-
+			if(strlen($tile->getTileImage()) > 0) {
+				$path .= $tile->getTileImage();
 			}
 		}
 
@@ -272,5 +299,9 @@ class Tile extends ActiveRecord {
 	public function returnLink() {
 			return ilLink::_getStaticLink($this->getObjRefId(), ilObject::_lookupType($this->getObjRefId(), true));
 
+	}
+
+	public static function returnTileIdByRefId($obj_ref_id) {
+		return self::where([ 'obj_ref_id' => $obj_ref_id ])->first()->getTileId();
 	}
 }

@@ -49,9 +49,9 @@ class TileGUI {
 		$tpl =  self::plugin()->template("Tile/tpl.tile.html");
 		$tpl->setCurrentBlock("course");
 		$tpl->setVariable("LABEL", is_object($this->tile->returnIlObject()) ? $this->tile->returnIlObject()->getTitle() : "");
-		$tpl->setVariable("COLOR", "red");
-		$tpl->setVariable("LINK", $this->tile->returnLink(), true);
-		$tpl->setVariable("IMAGE", $this->tile->returnImagePath(true), true);
+		$tpl->setVariable("COLOR", $this->tile->getLevelColor());
+		$tpl->setVariable("LINK", $this->tile->returnLink());
+		$tpl->setVariable("IMAGE", $this->tile->returnImagePath(true));
 		$tpl->parseCurrentBlock();
 		return $tpl->get();
 	}

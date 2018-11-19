@@ -52,7 +52,10 @@ class TileList {
 			if($child['child'] > 0) {
 
 				$tile = Tile::getInstanceForObjRefId($child['child']);
-				$tile_list[] = $tile;
+				if($tile->getTileId() > 0) {
+					$tile_list[] = $tile;
+				}
+
 			}
 
 		}

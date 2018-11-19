@@ -1,3 +1,40 @@
+@import "tiles_variables.less";
+.ilContainerListItemOuter {
+  display:none;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus, .nav-tabs {
+  display: none;
+}
+
+h3.ilHeader {
+  display: none !important;
+}
+
+.ilObjListRow {
+  border-bottom: none !important;
+}
+
+#headerimage {
+  display:none;
+}
+
+.ilBlockHeader {
+  display: none !important;
+}
+
+.ilBlockHeader H3 {
+  display: none !important;
+}
+
+.ilPDBlockSubHeader {
+  display: none !important;
+}
+
+body {
+  background-color: transparent !important;
+}
+
 body .tile {
 
   text-align:    center;
@@ -72,7 +109,6 @@ body .tile {
 	.card-label {
 
 	  background-color: transparent;
-	  margin-top:       -40px;
 	}
 
 	.badge-wrapper {
@@ -174,6 +210,37 @@ body .tile {
 	box-shadow:    0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
 
+
+	.orange {
+	  background-color: @srtile_orange;
+	  font-color: #fff;
+	}
+
+	.red {
+	  background-color: @srtile_red;
+	  font-color: #fff;
+	}
+	.green {
+	  background-color: @srtile_green;
+	  font-color: #fff;
+	}
+
+	.dark-blue {
+	  background-color: @srtile_dark-blue;
+	  font-color: #fff;
+	}
+
+	.blue {
+	  background-color: @srtile_blue;
+	  font-color: #fff;
+	}
+
+	.violet {
+	  background-color: @srtile_violet;
+	  font-color: #fff;
+	}
+
+
 	//&:hover {
 	//  visibility: visible;
 	//}
@@ -208,6 +275,7 @@ body .tile {
 	}
 	.card-title {
 	  flex-grow: 1;
+
 	}
 
 	.card-label {
@@ -253,32 +321,31 @@ body .tile {
 		  }
 		}
 	  }
-	  .edge {
-		border-top:       40px solid transparent;
-		background-color: transparent !important;
-		&.red {
-		  border-left: 40px solid red;
-		}/*
+
 		&.orange {
-		  border-left: 40px solid @weka-orange;
+		  border-left: 40px solid @srtile_orange;
+		}
+
+		&.red {
+		  border-left: 40px solid @srtile_red;
 		}
 
 		&.green {
-		  border-left: 40px solid @weka-green;
+		  border-left: 40px solid @srtile_green;
 		}
 
 		&.dark-blue {
-		  border-left: 40px solid @weka-dark-blue;
+		  border-left: 40px solid @srtile_dark-blue;
 		}
 
 		&.blue {
-		  border-left: 40px solid @weka-blue;
+		  border-left: 40px solid @srtile_blue;
 		}
 
 		&.violet {
-		  border-left: 40px solid @weka-violet;
-		}*/
-	  }
+		  border-left: 40px solid @srtile_violet;
+		}
+
 	}
 
 	.like_count {

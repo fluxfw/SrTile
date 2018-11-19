@@ -34,10 +34,9 @@ class TileListGUI {
 	 */
 	public function __construct(int $container_obj_ref_id) {
 
-
 		$this->container_obj_ref_id = $container_obj_ref_id;
 
-		self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
+
 	}
 
 

@@ -5,6 +5,7 @@ namespace srag\Plugins\SrTile\Tile;
 use ilCheckboxInputGUI;
 use ilHiddenInputGUI;
 use ilImageFileInputGUI;
+use ilSelectInputGUI;
 use SrTileGUI;
 use ilSrTilePlugin;
 use ilUtil;
@@ -23,6 +24,16 @@ class TileFormGUI extends PropertyFormGUI {
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const LANG_MODULE = SrTileGUI::LANG_MODULE_TILE;
+	const COLOR_TRANSPARENT = "";
+	const COLOR_TRANSPARENT_TEXT = "transparent";
+	const COLOR_RED = "red";
+	const COLOR_GREEN = "green";
+	const COLOR_DARK_BLUE = "dark-blue";
+	const COLOR_ORANGE = "orange";
+	const COLOR_BLUE = "blue";
+	const COLOR_VIOLET = "violet";
+
+
 	/**
 	 * @var Tile|null
 	 */
@@ -92,9 +103,23 @@ class TileFormGUI extends PropertyFormGUI {
 			],
 			"tile_image" => [
 				self::PROPERTY_CLASS => ilImageFileInputGUI::class,
-				self::PROPERTY_REQUIRED => false
+				self::PROPERTY_REQUIRED => true
+			],
+			"level_color" => [
+				self::PROPERTY_CLASS => ilSelectInputGUI::class,
+				self::PROPERTY_REQUIRED => true,
+				self::PROPERTY_OPTIONS => [
+					self::COLOR_TRANSPARENT => self::plugin()->translate(self::COLOR_TRANSPARENT_TEXT),
+					self::COLOR_RED => self::plugin()->translate(self::COLOR_RED),
+					self::COLOR_GREEN => self::plugin()->translate(self::COLOR_GREEN),
+					self::COLOR_DARK_BLUE => self::plugin()->translate(self::COLOR_DARK_BLUE),
+					self::COLOR_ORANGE => self::plugin()->translate(self::COLOR_ORANGE),
+					self::COLOR_BLUE => self::plugin()->translate(self::COLOR_BLUE),
+					self::COLOR_VIOLET => self::plugin()->translate(self::COLOR_VIOLET)
+					]
 			]
 		];
+
 	}
 
 
@@ -137,6 +162,10 @@ class TileFormGUI extends PropertyFormGUI {
 		}
 		$tile_image_name = $this->tile->getTileImage() ? $this->tile->getTileImage() : $tile_image['name'];
 		ilUtil::moveUploadedFile($tile_image['tmp_name'], $tile_image_name, $this->tile->returnImagePath(true), false);
+
+
+		$level_color = $this->getInput("level_color");
+		$this->tile->setLevelColor($level_color);
 
 
 		$this->tile->save();

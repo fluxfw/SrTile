@@ -1,3 +1,33 @@
+.ilContainerListItemOuter {
+  display: none;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus,
+.nav-tabs {
+  display: none;
+}
+h3.ilHeader {
+  display: none !important;
+}
+.ilObjListRow {
+  border-bottom: none !important;
+}
+#headerimage {
+  display: none;
+}
+.ilBlockHeader {
+  display: none !important;
+}
+.ilBlockHeader H3 {
+  display: none !important;
+}
+.ilPDBlockSubHeader {
+  display: none !important;
+}
+body {
+  background-color: transparent !important;
+}
 body .tile {
   text-align: center;
   padding: 0 15px 0 0;
@@ -58,7 +88,6 @@ body .tile > div {
 }
 body .tile.course .card-label {
   background-color: transparent;
-  margin-top: -40px;
 }
 body .tile.course .badge-wrapper .right {
   margin-top: -10px;
@@ -130,6 +159,30 @@ body .tile .card {
   overflow: hidden;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+body .tile .card .orange {
+  background-color: #FA9495 D;
+  font-color: #fff;
+}
+body .tile .card .red {
+  background-color: #FA463A;
+  font-color: #fff;
+}
+body .tile .card .green {
+  background-color: #7ADD9F;
+  font-color: #fff;
+}
+body .tile .card .dark-blue {
+  background-color: #1A2DDD;
+  font-color: #fff;
+}
+body .tile .card .blue {
+  background-color: #70B4F4;
+  font-color: #fff;
+}
+body .tile .card .violet {
+  background-color: #AD6FDD;
+  font-color: #fff;
+}
 body .tile .card:after {
   pointer-events: none;
   content: " ";
@@ -196,32 +249,23 @@ body .tile .card .card-label .card-block .badge-wrapper .certbadge {
   padding-right: 5px;
   padding-bottom: 1px;
 }
-body .tile .card .card-label .edge {
-  border-top: 40px solid transparent;
-  background-color: transparent !important;
-  /*
-		&.orange {
-		  border-left: 40px solid @weka-orange;
-		}
-
-		&.green {
-		  border-left: 40px solid @weka-green;
-		}
-
-		&.dark-blue {
-		  border-left: 40px solid @weka-dark-blue;
-		}
-
-		&.blue {
-		  border-left: 40px solid @weka-blue;
-		}
-
-		&.violet {
-		  border-left: 40px solid @weka-violet;
-		}*/
+body .tile .card .card-label.orange {
+  border-left: 40px solid #FA9495 D;
 }
-body .tile .card .card-label .edge.red {
-  border-left: 40px solid red;
+body .tile .card .card-label.red {
+  border-left: 40px solid #FA463A;
+}
+body .tile .card .card-label.green {
+  border-left: 40px solid #7ADD9F;
+}
+body .tile .card .card-label.dark-blue {
+  border-left: 40px solid #1A2DDD;
+}
+body .tile .card .card-label.blue {
+  border-left: 40px solid #70B4F4;
+}
+body .tile .card .card-label.violet {
+  border-left: 40px solid #AD6FDD;
 }
 body .tile .card .like_count {
   margin-left: -5px;
