@@ -1,0 +1,240 @@
+body .tile {
+  text-align: center;
+  padding: 0 15px 0 0;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+body .tile.category > div {
+  font-family: "Open Sans Semibold", sans-serif;
+  text-decoration: none;
+  display: block;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+body .tile.category .ratio-container:after {
+  content: " ";
+  z-index: 10;
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+}
+body .tile.category .ratio-container:hover:after {
+  content: " ";
+  z-index: 10;
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.075);
+}
+body .tile.category .ratio-container {
+  padding-top: 100%;
+  overflow: hidden;
+}
+body .tile.category .ratio-container img {
+  padding: 12%;
+}
+body .tile .ratio-container {
+  padding-top: 70%;
+  position: relative;
+  max-height: 100%;
+  text-align: left;
+}
+body .tile .ratio-container img {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+body .tile > div {
+  cursor: pointer;
+}
+body .tile.course .card-label {
+  background-color: transparent;
+  margin-top: -40px;
+}
+body .tile.course .badge-wrapper .right {
+  margin-top: -10px;
+}
+body .tile.course .badge-wrapper .right > img {
+  margin-top: 16px;
+}
+body .tile.scorm .card .card-label {
+  height: 84px;
+  width: 100%;
+  display: table;
+}
+body .tile.scorm .card .card-label .card-title {
+  padding-left: 5px;
+  padding-right: 20px;
+  display: table-cell;
+  vertical-align: middle;
+}
+body .tile.scorm .card .card-label .badge-wrapper {
+  text-align: left;
+  width: 30px;
+  /*position: relative;*/
+}
+body .tile.scorm .card .card-label .badge-wrapper img {
+  position: absolute;
+  bottom: 8px;
+  height: 18px;
+  right: 5px;
+  max-height: 100%;
+}
+body .tile.scorm .card .card-label .badge-wrapper .certbadge {
+  height: 35px !important;
+  padding-right: 5px;
+  padding-bottom: 1px;
+}
+body .tile.scorm .card .card-label .badge-wrapper a:nth-child(2) > img {
+  right: 30px;
+}
+body .tile.scorm .card .card-label .card-title-container {
+  flex-grow: 1;
+  height: 100%;
+  margin-right: 5px;
+}
+body .tile.scorm .card .card-label .number {
+  font-family: 'Open Sans Bold', sans-serif;
+  font-weight: bold;
+  font-size: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: table-cell;
+  /*display: table;*/
+  height: 100%;
+}
+body .tile.scorm .card .card-label .number span {
+  vertical-align: middle;
+}
+body .tile > div {
+  text-decoration: none;
+  display: block;
+  text-transform: uppercase;
+  padding: 0;
+}
+body .tile img.card-img-top {
+  width: 100%;
+}
+body .tile .card {
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+body .tile .card:after {
+  pointer-events: none;
+  content: " ";
+  z-index: 10;
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0);
+}
+body .tile .card:hover:after {
+  content: " ";
+  z-index: 10;
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.075);
+}
+body .tile .card .flex-container {
+  display: flex;
+  height: 50px;
+}
+body .tile .card .card-title {
+  flex-grow: 1;
+}
+body .tile .card .card-label {
+  font-size: 22px;
+  position: relative;
+}
+body .tile .card .card-label .card-title-container {
+  min-width: 0;
+}
+body .tile .card .card-label .card-title {
+  /*padding:    20px 5px 0 20px*/
+  text-align: left;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body .tile .card .card-label .card-block {
+  padding: 0 20px 10px 5px;
+}
+body .tile .card .card-label .card-block .badge-wrapper {
+  text-align: left;
+  display: flex;
+}
+body .tile .card .card-label .card-block .badge-wrapper .left {
+  flex-grow: 1;
+}
+body .tile .card .card-label .card-block .badge-wrapper .right {
+  text-align: right;
+}
+body .tile .card .card-label .card-block .badge-wrapper img {
+  font-size: inherit;
+  height: 18px;
+}
+body .tile .card .card-label .card-block .badge-wrapper .certbadge {
+  height: 35px !important;
+  padding-right: 5px;
+  padding-bottom: 1px;
+}
+body .tile .card .card-label .edge {
+  border-top: 40px solid transparent;
+  background-color: transparent !important;
+  /*
+		&.orange {
+		  border-left: 40px solid @weka-orange;
+		}
+
+		&.green {
+		  border-left: 40px solid @weka-green;
+		}
+
+		&.dark-blue {
+		  border-left: 40px solid @weka-dark-blue;
+		}
+
+		&.blue {
+		  border-left: 40px solid @weka-blue;
+		}
+
+		&.violet {
+		  border-left: 40px solid @weka-violet;
+		}*/
+}
+body .tile .card .card-label .edge.red {
+  border-left: 40px solid red;
+}
+body .tile .card .like_count {
+  margin-left: -5px;
+  margin-top: 2px;
+}
+.card-text,
+.card-title {
+  line-height: 1;
+  text-align: center;
+  padding: 5px !important;
+  font-size: 18px;
+  line-height: 1.2em;
+}
+.img-responsive {
+  width: 100%;
+}

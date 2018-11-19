@@ -1,0 +1,303 @@
+body .tile {
+
+  text-align:    center;
+
+  // Category Tile Only.
+  &.category {
+	> div {
+	  font-family:     "Open Sans Semibold", sans-serif;
+
+	  text-decoration: none;
+	  display:         block;
+	  text-transform:  uppercase;
+	  //padding:         10px 0;
+	  font-size:       15px;
+	}
+	.ratio-container {
+	  &:after {
+		content:        " ";
+		z-index:        10;
+		display:        block;
+		position:       absolute;
+		height:         100%;
+		top:            0;
+		left:           0;
+		right:          0;
+		background:     rgba(0, 0, 0, 0);
+		pointer-events: none;
+	  }
+
+	  &:hover:after {
+		content:    " ";
+		z-index:    10;
+		display:    block;
+		position:   absolute;
+		height:     100%;
+		top:        0;
+		left:       0;
+		right:      0;
+		background: rgba(255, 255, 255, 0.075);
+	  }
+	}
+
+	.ratio-container {
+	  padding-top: 100%;
+	  overflow:    hidden;
+	  img {
+		padding: 12%;
+	  }
+	}
+  }
+
+  .ratio-container {
+	padding-top: 70%;
+	position:    relative;
+	max-height:  100%;
+	text-align:  left;
+
+	img {
+	  position: absolute;
+	  height: 100%;
+	  top:      0;
+	  bottom:   0;
+	}
+  }
+
+  > div {
+	cursor: pointer;
+  }
+
+  // Course Tile Only.
+  &.course {
+	.card-label {
+
+	  background-color: transparent;
+	  margin-top:       -40px;
+	}
+
+	.badge-wrapper {
+	  .right {
+		margin-top: -10px;
+
+		> img {
+		  margin-top: 16px;
+		}
+	  }
+	}
+  }
+
+  // Scorm Tile Only
+  &.scorm {
+	.card .card-label {
+
+	  height:  84px;
+	  width:   100%;
+	  display: table;
+
+	  .card-title {
+		padding-left:   5px;
+		padding-right:  20px;
+
+		display:        table-cell;
+		vertical-align: middle;
+	  }
+
+	  .badge-wrapper {
+		text-align: left;
+		width:      30px;
+		/*position: relative;*/
+		img {
+		  position:   absolute;
+		  bottom:     8px;
+		  height:     18px;
+		  right:      5px;
+		  max-height: 100%;
+		}
+
+		.certbadge {
+		  height: 35px !important;
+		  padding-right: 5px;
+		  padding-bottom: 1px;
+		}
+
+		a:nth-child(2) > img {
+		  right: 30px;
+		}
+	  }
+	  .card-title-container {
+		flex-grow:    1;
+
+		height:       100%;
+		margin-right: 5px;
+	  }
+
+	  .number {
+		font-family:   'Open Sans Bold', sans-serif;
+		font-weight:   bold;
+		font-size:     60px;
+		padding-left:  10px;
+		padding-right: 10px;
+		display:       table-cell;
+		/*display: table;*/
+		height:        100%;
+
+		span {
+		  vertical-align: middle;
+		}
+	  }
+
+	}
+  }
+
+  padding:       0 15px 0 0;
+
+  margin-bottom: 15px;
+  font-size:     13px;
+
+  > div {
+
+	text-decoration: none;
+	display:         block;
+	text-transform:  uppercase;
+	padding:         0;
+  }
+
+  img.card-img-top {
+	width: 100%;
+  }
+  // All tiles
+  .card {
+	max-width: 100%;
+	width:     100%;
+	overflow:  hidden;
+
+	box-shadow:    0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+
+	//&:hover {
+	//  visibility: visible;
+	//}
+
+	&:after {
+	  pointer-events: none;
+	  content:        " ";
+	  z-index:        10;
+	  display:        block;
+	  position:       absolute;
+	  height:         100%;
+	  top:            0;
+	  left:           0;
+	  right:          0;
+	  background:     rgba(0, 0, 0, 0);
+	}
+
+	&:hover:after {
+	  content:    " ";
+	  z-index:    10;
+	  display:    block;
+	  position:   absolute;
+	  height:     100%;
+	  top:        0;
+	  left:       0;
+	  right:      0;
+	  background: rgba(255, 255, 255, 0.075);
+	}
+	.flex-container {
+	  display: flex;
+	  height:  50px;
+	}
+	.card-title {
+	  flex-grow: 1;
+	}
+
+	.card-label {
+	  font-size: 22px;
+	  position:  relative;
+
+	  .card-title-container {
+		min-width: 0;
+	  }
+
+	  .card-title {
+		/*padding:    20px 5px 0 20px*/;
+		text-align:    left;
+		min-width:     0;
+		overflow:      hidden;
+		text-overflow: ellipsis;
+	  }
+
+	  .card-block {
+		padding: 0 20px 10px 5px;
+
+		.badge-wrapper {
+		  text-align: left;
+		  display:    flex;
+
+		  .left {
+			flex-grow: 1;
+		  }
+
+		  .right {
+			text-align: right;
+		  }
+
+		  img {
+			font-size: inherit;
+			height:    18px;
+		  }
+
+		  .certbadge {
+			height: 35px !important;
+			padding-right: 5px;
+			padding-bottom: 1px;
+		  }
+		}
+	  }
+	  .edge {
+		border-top:       40px solid transparent;
+		background-color: transparent !important;
+		&.red {
+		  border-left: 40px solid red;
+		}/*
+		&.orange {
+		  border-left: 40px solid @weka-orange;
+		}
+
+		&.green {
+		  border-left: 40px solid @weka-green;
+		}
+
+		&.dark-blue {
+		  border-left: 40px solid @weka-dark-blue;
+		}
+
+		&.blue {
+		  border-left: 40px solid @weka-blue;
+		}
+
+		&.violet {
+		  border-left: 40px solid @weka-violet;
+		}*/
+	  }
+	}
+
+	.like_count {
+	  margin-left: -5px;
+	  margin-top:  2px;
+	}
+  }
+}
+
+
+.card-text, .card-title {
+  line-height: 1;
+  text-align:  center;
+  padding:     5px !important;
+  font-size:   18px;
+  line-height: 1.2em;
+}
+
+
+.img-responsive {
+  width: 100%;
+}
