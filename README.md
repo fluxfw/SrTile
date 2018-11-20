@@ -15,7 +15,8 @@ Update, activate and config the plugin in the ILIAS Plugin Administration
 * [composer](https://getcomposer.org)
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
 * [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
-* [srag/dic](https://packagist.org/packages/srag/dic)* [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
+* [srag/dic](https://packagist.org/packages/srag/dic)
+* [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
 * [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
 
 Please use it for further development!
