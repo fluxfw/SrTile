@@ -1,5 +1,6 @@
 <?php
-require_once _DIR_ . "/vendor/srag/dic/src/PHPVersionChecker.php";
+require_once __DIR__ . "/vendor/srag/dic/src/PHPVersionChecker.php";
+
 
 /* Copyright (c) 1998-2009 ILIAS open source, Extended GPL, see https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/docs/LICENSE */
 
