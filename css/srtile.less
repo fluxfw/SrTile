@@ -1,14 +1,14 @@
 @import "tiles_variables.less";
 .ilContainerListItemOuter {
-  display:none;
+  //display:none;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus, .nav-tabs {
-  display: none;
+ // display: none;
 }
 
 h3.ilHeader {
-  display: none !important;
+//  display: none !important;
 }
 
 .ilObjListRow {
@@ -16,24 +16,45 @@ h3.ilHeader {
 }
 
 #headerimage {
-  display:none;
+ // display:none;
 }
 
 .ilBlockHeader {
-  display: none !important;
+ // display: none !important;
 }
 
 .ilBlockHeader H3 {
-  display: none !important;
+ // display: none !important;
 }
 
 .ilPDBlockSubHeader {
-  display: none !important;
+ // display: none !important;
 }
 
 body {
   background-color: transparent !important;
 }
+
+/**
+Personal Desktop
+ */
+//Do Not Display Header of Center View
+#block_pditems_0 {
+  div.il_Block{
+	div.ilBlockHeader {
+	  display: none !important;
+	}
+  }
+}
+
+h3.ilPDBlockSubHeader {
+  display: none !important;
+}
+
+
+/**
+Tiles
+ */
 
 body .tile {
 

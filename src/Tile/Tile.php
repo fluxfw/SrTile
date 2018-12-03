@@ -40,7 +40,7 @@ class Tile extends ActiveRecord {
 	/**
 	 * @var self
 	 */
-	protected static $instances = array();
+	protected static $instances_by_ref_id = array();
 	/**
 	 * @var int
 	 *
@@ -87,6 +87,13 @@ class Tile extends ActiveRecord {
 	 */
 	protected $level_color = "";
 
+	//Other
+	/**
+	 * @var int
+	 *
+	 */
+	protected $parent_ref_id;
+
 
 
 	/**
@@ -104,21 +111,18 @@ class Tile extends ActiveRecord {
 	/**
 	 * @param int $obj_ref_id
 	 *
-	 * @return Tile
+	 * @return Tile|null
 	 */
-	public static function getInstanceForObjRefId(int $obj_ref_id): self {
-		if (self::$instances[$obj_ref_id] === NULL) {
-			if (self::$instances[$obj_ref_id] = self::where([ 'obj_ref_id' => $obj_ref_id ])->first()) {
-				return self::$instances[$obj_ref_id];
+	public static function getInstanceForObjRefId(int $obj_ref_id) /*:?self*/ {
+		if (self::$instances_by_ref_id[$obj_ref_id] === NULL) {
+			if (self::$instances_by_ref_id[$obj_ref_id] = self::where([ 'obj_ref_id' => $obj_ref_id ])->first()) {
+				return self::$instances_by_ref_id[$obj_ref_id];
 			};
 
-			$tile = new self();
-			$tile->setObjRefId($obj_ref_id); //TODO
-
-			return self::$instances[$obj_ref_id] = $tile;
+			return NULL;
 		}
 
-		return self::$instances[$obj_ref_id];
+		return self::$instances_by_ref_id[$obj_ref_id];
 	}
 
 
@@ -229,7 +233,20 @@ class Tile extends ActiveRecord {
 	}
 
 
+	/**
+	 * @return int
+	 */
+	public function getParentRefId(): int {
+		return $this->parent_ref_id;
+	}
 
+
+	/**
+	 * @param int $parent_ref_id
+	 */
+	public function setParentRefId(int $parent_ref_id) {
+		$this->parent_ref_id = $parent_ref_id;
+	}
 
 	/**
 	 * @param string $field_name

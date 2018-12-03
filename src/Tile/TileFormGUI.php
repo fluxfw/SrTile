@@ -5,6 +5,7 @@ namespace srag\Plugins\SrTile\Tile;
 use ilCheckboxInputGUI;
 use ilHiddenInputGUI;
 use ilImageFileInputGUI;
+use ilColorPickerInputGUI;
 use ilSelectInputGUI;
 use SrTileGUI;
 use ilSrTilePlugin;
@@ -92,33 +93,32 @@ class TileFormGUI extends PropertyFormGUI {
 	}
 
 
+
 	/**
 	 * @inheritdoc
 	 */
 	protected function initFields()/*: void*/ {
+
+
+		$tile_image = new ilImageFileInputGUI(self::plugin()->translate("tile_image ", self::LANG_MODULE), "tile_image ");
+		$tile_image->setImage($this->getTile()->returnImagePath(true));
+		$this->addItem($tile_image);
+
 		$this->fields = [
 			"show_children_as_tile" => [
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
-				self::PROPERTY_REQUIRED => true,
-			],
-			"tile_image" => [
-				self::PROPERTY_CLASS => ilImageFileInputGUI::class,
-				self::PROPERTY_REQUIRED => true
+				self::PROPERTY_REQUIRED => false
 			],
 			"level_color" => [
-				self::PROPERTY_CLASS => ilSelectInputGUI::class,
-				self::PROPERTY_REQUIRED => true,
-				self::PROPERTY_OPTIONS => [
-					self::COLOR_TRANSPARENT => self::plugin()->translate(self::COLOR_TRANSPARENT_TEXT),
-					self::COLOR_RED => self::plugin()->translate(self::COLOR_RED),
-					self::COLOR_GREEN => self::plugin()->translate(self::COLOR_GREEN),
-					self::COLOR_DARK_BLUE => self::plugin()->translate(self::COLOR_DARK_BLUE),
-					self::COLOR_ORANGE => self::plugin()->translate(self::COLOR_ORANGE),
-					self::COLOR_BLUE => self::plugin()->translate(self::COLOR_BLUE),
-					self::COLOR_VIOLET => self::plugin()->translate(self::COLOR_VIOLET)
-					]
+				self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
+				self::PROPERTY_REQUIRED => false
 			]
 		];
+
+
+
+
+
 
 	}
 
@@ -141,7 +141,7 @@ class TileFormGUI extends PropertyFormGUI {
 	/**
 	 * @inheritdoc
 	 */
-	protected function setValue(/*string*/
+	protected function storeValue(/*string*/
 		$key, $value)/*: void*/ {
 	}
 

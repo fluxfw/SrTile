@@ -1,33 +1,21 @@
-.ilContainerListItemOuter {
-  display: none;
-}
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus,
-.nav-tabs {
-  display: none;
-}
-h3.ilHeader {
-  display: none !important;
-}
 .ilObjListRow {
   border-bottom: none !important;
-}
-#headerimage {
-  display: none;
-}
-.ilBlockHeader {
-  display: none !important;
-}
-.ilBlockHeader H3 {
-  display: none !important;
-}
-.ilPDBlockSubHeader {
-  display: none !important;
 }
 body {
   background-color: transparent !important;
 }
+/**
+Personal Desktop
+ */
+#block_pditems_0 div.il_Block div.ilBlockHeader {
+  display: none !important;
+}
+h3.ilPDBlockSubHeader {
+  display: none !important;
+}
+/**
+Tiles
+ */
 body .tile {
   text-align: center;
   padding: 0 15px 0 0;

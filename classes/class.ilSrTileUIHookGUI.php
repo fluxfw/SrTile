@@ -6,7 +6,9 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Tile\TileListGUI;
+use \srag\Plugins\SrTile\TileList\TileListContainerGUI;
+use \srag\Plugins\SrTile\TileList\TileListDesktopGUI;
+use srag\Plugins\srTile\Tile\TileList;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Tile\TileGUI;
 
@@ -30,21 +32,28 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TEMPLATE_ADD = "template_add";
 	const TEMPLATE_GET = "template_get";
 	const TEMPLATE_SHOW = "template_show";
-	const PART_1 = "tile_config_tab";
-	const PART_2 = "tile_list_view";
+	const TILE_CONFIG_TAB_LOADER = "tile_config_tab";
+	const TILE_CONTAINER_LOADER = "tile_container";
+	const TILE_DESKTOP_LOADER = "tile_desktop_loader";
 	const SESSION_PROJECT_KEY = ilSrTilePlugin::PLUGIN_ID . "_project_key";
 	const GET_PARAM_REF_ID = "ref_id";
 	const GET_PARAM_TARGET = "target";
 	const TEMPLATE_ID_CONTAINER_PAGE = "Services/Container/tpl.container_page.html";
 	const TEMPLATE_ID_CONTAINER_LIST_ITEM = "Services/Container/tpl.container_list_item.html";
 	const CMD_CLASS_PERSONALDESKTOP_GUI = "ilPersonalDesktopGUI";
+	const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
+
 
 
 	const GET = 'template_get';
 	/**
 	 * @var bool[]
 	 */
-	protected static $load = [];
+	protected static $load = [
+		self::TILE_CONFIG_TAB_LOADER => false,
+		self::TILE_CONTAINER_LOADER => false,
+		self::TILE_DESKTOP_LOADER => false
+	];
 
 
 	/**
@@ -69,16 +78,15 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		$a_par = []): array {
 
 
-		if (!self::$load[self::PART_1]) {
+		if (!self::$load[self::TILE_CONFIG_TAB_LOADER]) {
 			if ($a_part == self::PAR_TABS AND $_GET['ref_id']) {
-				self::$load[self::PART_1] = true;
+				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
 				self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, SrTileGUI::GET_PARAM_OBJ_REF_ID);
 				$ilTabsGUI = $a_par['tabs'];
 				$ilTabsGUI->addTab('tile', self::plugin()->translate('tile'), self::dic()->ctrl()->getLinkTargetByClass(array(
-						'ilUIPluginRouterGUI',
-						SrTileGUI::class,
-					), SrTileGUI::CMD_EDIT_TILE));
-
+					'ilUIPluginRouterGUI',
+					SrTileGUI::class,
+				), SrTileGUI::CMD_EDIT_TILE));
 
 				if (self::dic()->ctrl()->getCmdClass() == NULL) {
 					$ilTabsGUI->setTabActive('view_content');
@@ -93,67 +101,57 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	public function getHTML($a_comp, $a_part, $a_par = array()) {
 
 		if (in_array(2, self::dic()->rbacreview()->assignedGlobalRoles(self::dic()->user()->getId()))) {
-			return array( "mode" => ilUIHookPluginGUI::KEEP, "html" => "" );
+			//return array( "mode" => ilUIHookPluginGUI::KEEP, "html" => "" );
 		}
 
 		self::dic()->log()->write($a_par['tpl_id']);
-		if (!self::$load[self::PART_2]) {
-			if ($a_part == self::GET
-				&& ($a_par['tpl_id'] == self::TEMPLATE_ID_CONTAINER_PAGE
-					|| $a_par['tpl_id'] == self::TEMPLATE_ID_CONTAINER_LIST_ITEM)) {
-				if (self::dic()->ctrl() instanceof ilCtrl) {
 
-					self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
+		if ($a_part == self::GET
+			&& ($a_par['tpl_id'] == self::TEMPLATE_ID_CONTAINER_PAGE
+				|| $a_par['tpl_id'] == self::TEMPLATE_ID_CONTAINER_LIST_ITEM)) {
+			if (self::dic()->ctrl() instanceof ilCtrl) {
 
-					$ref_id = $this->filterRefId();
+				$ref_id = $this->filterRefId();
 
-					if ($ref_id > 0) {
-						if (Tile::getInstanceForObjRefId($ref_id)->isShowChildrenAsTile()) {
-							self::$load[self::PART_2] = true;
-							$main_tpl = self::dic()->mainTemplate();
+				//$main_tpl = self::dic()->mainTemplate();
 
-							$tile_list_gui = new TileListGUI($ref_id);
+				//Repository
+				if ($ref_id > 0 && self::$load[self::TILE_CONTAINER_LOADER] == false) {
+					self::$load[self::TILE_CONTAINER_LOADER] = true;
 
-							return array( "mode" => ilUIHookPluginGUI::PREPEND, "html" => $tile_list_gui->render() );
-						}
-					}
+					$tile_list_gui = new TileListContainerGUI($ref_id);
 
-					//TODO
-					if ($_GET['baseClass'] == self::CMD_CLASS_PERSONALDESKTOP_GUI) {
-
-						$desktop_items = self::dic()->user()->getDesktopItems('cat');
-
-						$arr_tiles = array();
-
-						$tpl = self::plugin()->template("Tile/tpl.tiles.html");
-						$tpl->setCurrentBlock('row');
-
-						$tile_html = '';
-						foreach ($desktop_items as $item) {
-
-
-							$tile_id = Tile::returnTileIdByRefId($item['ref_id']);
-
-							if ($tile_id > 0) {
-								$tile = new Tile($tile_id);
-								$tile_gui = new TileGUI($tile->getTileId());
-
-								$tile_html .= $tile_gui->render();
-							}
-
-							$tpl->setVariable("TILES", $tile_html);
-							$tpl->parseCurrentBlock();
-
-							$tile_list_html = $tpl->get();
-
-							return array( "mode" => ilUIHookPluginGUI::PREPEND, "html" => $tile_list_html );
-						}
-					}
+					return [
+						"mode" => ilUIHookPluginGUI::PREPEND,
+						"html" => '</div>' . $tile_list_gui->render() . '<div class="ilCLI ilObjListRow row">'
+					];
 				}
 			}
-
-			return parent::getHTML($a_comp, $a_part, $a_par); // TODO: Change the autogenerated stub
 		}
+
+		//Personal Desktop
+		if (strtolower($_GET['baseClass']) == strtolower(self::CMD_CLASS_PERSONALDESKTOP_GUI)
+			&& $a_par['tpl_id'] == self::TEMPLATE_ID_PERSONAL_DESKTOP
+			&& self::$load[self::TILE_DESKTOP_LOADER] == false) {
+
+			/*
+			if(self::dic()->user()->getPref('pd_order_items') != ilPDSelectedItemsBlockViewSettings::SORT_BY_TYPE) {
+				self::dic()->user()->writePref('pd_order_items', );
+			}
+			*/
+
+			self::$load[self::TILE_DESKTOP_LOADER] = true;
+			$tile_list_gui = new TileListDesktopGUI(self::dic()->user()->getId());
+
+
+			return [
+				"mode" => ilUIHookPluginGUI::PREPEND,
+				"html" => $tile_list_gui->render()
+			];
+		}
+
+		return parent::getHTML($a_comp, $a_part, $a_par); // TODO: Change the autogenerated stub
+
 	}
 
 
@@ -162,10 +160,9 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 */
 	public static function filterRefId() {
 		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
-
-		if(is_null($ref_id)) {
+		if (is_null($ref_id)) {
 			$param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);
-			$ref_id = explode('_',$param_target)[1];
+			$ref_id = explode('_', $param_target)[1];
 		}
 
 		return $ref_id;
