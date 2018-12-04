@@ -1,24 +1,20 @@
 <!-- BEGIN course -->
 <div class="col-xs-6 col-md-3 tile course">
-	<div onclick="location.href='{LINK}'">
-		<div class="card">
-			<div class="ratio-container {COLOR}">
+	<div>
+		<div class="card" id="sr-tile-{TILE_ID}">
+			<div class="ratio-container {COLOR}" onclick="location.href='{LINK}'">
 				<img class="card-img-top" src="{IMAGE}" alt="Card image">
 			</div>
 			<div class="card-label">
 				<div class="flex-container">
-					<div class="card-title {COLOR}">{LABEL}</div>
-				</div>
-				<div class="card-block {COLOR}">
-					<!--<p class="card-text">{DESCRIPTION}</p>-->
-					<div class="badge-wrapper">
+					<div class="card-title">{LABEL}</div>
+
+					<div class="card-footer">
 						<div class="left">
-							<a href="{LIKE_LINK}" onclick="event.stopPropagation();" title="{LIKE_TEXT}"><img src="{LIKE_IMAGE_PATH}" alt="" onmouseover="this.src='{LIKE_SELECTED_IMAGE_PATH}';" onmouseout="this.src='{LIKE_IMAGE_PATH}';">{LIKE_COUNT}</a>
-							<a href="{FAVORITE_LINK}" onclick="event.stopPropagation();" title="{FAVORITE_TEXT}"><img src="{FAVORITE_IMAGE_PATH}" alt="" onmouseover="this.src='{FAVORITE_SELECTED_IMAGE_PATH}';" onmouseout="this.src='{FAVORITE_IMAGE_PATH}';"></a>
-							<a class="tile_recommend" href="{RECOMMEND_LINK}" onclick="event.stopPropagation();" title="{RECOMMEND_TEXT}"><img src="{RECOMMEND_IMAGE_PATH}" alt="" onmouseover="this.src='{RECOMMEND_SELECTED_IMAGE_PATH}';" onmouseout="this.src='{RECOMMEND_IMAGE_PATH}';"></a>
+
 						</div>
 						<div class="right">
-							{DOWNLOAD_CERTIFICATE}<img src="{LP_IMAGE_PATH}" alt="" title="{LP_TEXT}">
+							{ACTIONS}
 						</div>
 					</div>
 				</div>

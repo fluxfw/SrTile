@@ -1,34 +1,7 @@
 @import "tiles_variables.less";
-.ilContainerListItemOuter {
-  //display:none;
-}
-
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus, .nav-tabs {
- // display: none;
-}
-
-h3.ilHeader {
-//  display: none !important;
-}
 
 .ilObjListRow {
   border-bottom: none !important;
-}
-
-#headerimage {
- // display:none;
-}
-
-.ilBlockHeader {
- // display: none !important;
-}
-
-.ilBlockHeader H3 {
- // display: none !important;
-}
-
-.ilPDBlockSubHeader {
- // display: none !important;
 }
 
 body {
@@ -121,103 +94,24 @@ body .tile {
 	}
   }
 
-  > div {
+  .card-img-top {
 	cursor: pointer;
   }
 
-  // Course Tile Only.
-  &.course {
-	.card-label {
-
-	  background-color: transparent;
-	}
-
-	.badge-wrapper {
-	  .right {
-		margin-top: -10px;
-
-		> img {
-		  margin-top: 16px;
-		}
-	  }
-	}
-  }
-
-  // Scorm Tile Only
-  &.scorm {
-	.card .card-label {
-
-	  height:  84px;
-	  width:   100%;
-	  display: table;
-
-	  .card-title {
-		padding-left:   5px;
-		padding-right:  20px;
-
-		display:        table-cell;
-		vertical-align: middle;
-	  }
-
-	  .badge-wrapper {
-		text-align: left;
-		width:      30px;
-		/*position: relative;*/
-		img {
-		  position:   absolute;
-		  bottom:     8px;
-		  height:     18px;
-		  right:      5px;
-		  max-height: 100%;
-		}
-
-		.certbadge {
-		  height: 35px !important;
-		  padding-right: 5px;
-		  padding-bottom: 1px;
-		}
-
-		a:nth-child(2) > img {
-		  right: 30px;
-		}
-	  }
-	  .card-title-container {
-		flex-grow:    1;
-
-		height:       100%;
-		margin-right: 5px;
-	  }
-
-	  .number {
-		font-family:   'Open Sans Bold', sans-serif;
-		font-weight:   bold;
-		font-size:     60px;
-		padding-left:  10px;
-		padding-right: 10px;
-		display:       table-cell;
-		/*display: table;*/
-		height:        100%;
-
-		span {
-		  vertical-align: middle;
-		}
-	  }
-
-	}
-  }
 
   padding:       0 15px 0 0;
 
   margin-bottom: 15px;
   font-size:     13px;
 
+  /*
   > div {
 
 	text-decoration: none;
 	display:         block;
 	text-transform:  uppercase;
 	padding:         0;
-  }
+  }*/
 
   img.card-img-top {
 	width: 100%;
@@ -226,70 +120,10 @@ body .tile {
   .card {
 	max-width: 100%;
 	width:     100%;
-	overflow:  hidden;
+	/*overflow:  hidden;*/
 
 	box-shadow:    0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
-
-
-	.orange {
-	  background-color: @srtile_orange;
-	  font-color: #fff;
-	}
-
-	.red {
-	  background-color: @srtile_red;
-	  font-color: #fff;
-	}
-	.green {
-	  background-color: @srtile_green;
-	  font-color: #fff;
-	}
-
-	.dark-blue {
-	  background-color: @srtile_dark-blue;
-	  font-color: #fff;
-	}
-
-	.blue {
-	  background-color: @srtile_blue;
-	  font-color: #fff;
-	}
-
-	.violet {
-	  background-color: @srtile_violet;
-	  font-color: #fff;
-	}
-
-
-	//&:hover {
-	//  visibility: visible;
-	//}
-
-	&:after {
-	  pointer-events: none;
-	  content:        " ";
-	  z-index:        10;
-	  display:        block;
-	  position:       absolute;
-	  height:         100%;
-	  top:            0;
-	  left:           0;
-	  right:          0;
-	  background:     rgba(0, 0, 0, 0);
-	}
-
-	&:hover:after {
-	  content:    " ";
-	  z-index:    10;
-	  display:    block;
-	  position:   absolute;
-	  height:     100%;
-	  top:        0;
-	  left:       0;
-	  right:      0;
-	  background: rgba(255, 255, 255, 0.075);
-	}
 	.flex-container {
 	  display: flex;
 	  height:  50px;
@@ -315,10 +149,8 @@ body .tile {
 		text-overflow: ellipsis;
 	  }
 
-	  .card-block {
-		padding: 0 20px 10px 5px;
 
-		.badge-wrapper {
+		.card-footer {
 		  text-align: left;
 		  display:    flex;
 
@@ -328,6 +160,7 @@ body .tile {
 
 		  .right {
 			text-align: right;
+			padding-right: 5px;
 		  }
 
 		  img {
@@ -335,39 +168,11 @@ body .tile {
 			height:    18px;
 		  }
 
-		  .certbadge {
-			height: 35px !important;
-			padding-right: 5px;
-			padding-bottom: 1px;
-		  }
+
 		}
 	  }
 
-		&.orange {
-		  border-left: 40px solid @srtile_orange;
-		}
 
-		&.red {
-		  border-left: 40px solid @srtile_red;
-		}
-
-		&.green {
-		  border-left: 40px solid @srtile_green;
-		}
-
-		&.dark-blue {
-		  border-left: 40px solid @srtile_dark-blue;
-		}
-
-		&.blue {
-		  border-left: 40px solid @srtile_blue;
-		}
-
-		&.violet {
-		  border-left: 40px solid @srtile_violet;
-		}
-
-	}
 
 	.like_count {
 	  margin-left: -5px;

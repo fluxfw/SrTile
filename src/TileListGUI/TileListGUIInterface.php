@@ -1,6 +1,6 @@
 <?php
-namespace srag\Plugins\SrTile\TileList;
 
+namespace srag\Plugins\SrTile\TileList;
 
 /**
  * Class TileListContainerGUI
@@ -31,5 +31,6 @@ interface TileListGUIInterface {
 	/**
 	 * @return void
 	 */
-	public function hideOriginalRowsOfTiles() /*:void*/;
+	public function hideOriginalRowsOfTiles() /*:void*/
+	;
 }

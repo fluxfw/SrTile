@@ -2,14 +2,15 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
-use ilCheckboxInputGUI;
-use ilHiddenInputGUI;
+use ilFileSystemStorage;
+use ILIAS\Filesystem\Filesystem;
+use ILIAS\FileUpload\Location;
+use ILIAS\FileUpload\DTO\UploadResult;
+use ILIAS\DI\Container;
 use ilImageFileInputGUI;
 use ilColorPickerInputGUI;
-use ilSelectInputGUI;
 use SrTileGUI;
 use ilSrTilePlugin;
-use ilUtil;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -25,16 +26,6 @@ class TileFormGUI extends PropertyFormGUI {
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const LANG_MODULE = SrTileGUI::LANG_MODULE_TILE;
-	const COLOR_TRANSPARENT = "";
-	const COLOR_TRANSPARENT_TEXT = "transparent";
-	const COLOR_RED = "red";
-	const COLOR_GREEN = "green";
-	const COLOR_DARK_BLUE = "dark-blue";
-	const COLOR_ORANGE = "orange";
-	const COLOR_BLUE = "blue";
-	const COLOR_VIOLET = "violet";
-
-
 	/**
 	 * @var Tile|null
 	 */
@@ -60,10 +51,11 @@ class TileFormGUI extends PropertyFormGUI {
 	protected function getValue(/*string*/
 		$key) {
 		switch ($key) {
-			case 'show_children_as_tile':
-				return $this->tile->isShowChildrenAsTile();
+			case 'tile_image':
+				return "./" . ILIAS_WEB_DIR . '/' . CLIENT_ID . '/' . $this->tile->returnRelativeImagePath(true);
+				break;
 			default:
-				if (method_exists($this->tile, $method = 'get' . ucfirst($key))) {
+				if (method_exists($this->tile, $method = 'get' . $this->strToCamelCasE($key))) {
 					return $this->tile->{$method}($key);
 				}
 		}
@@ -84,8 +76,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initCommands()/*: void*/ {
-		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, self::plugin()
-			->translate("submit", SrTileGUI::LANG_MODULE_TILE), "tile_submit");
+		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, self::plugin()->translate("submit", SrTileGUI::LANG_MODULE_TILE), "tile_submit");
 
 		$this->addCommandButton("", self::plugin()->translate("cancel", SrTileGUI::LANG_MODULE_TILE), "tile_cancel");
 
@@ -93,33 +84,21 @@ class TileFormGUI extends PropertyFormGUI {
 	}
 
 
-
 	/**
 	 * @inheritdoc
 	 */
 	protected function initFields()/*: void*/ {
-
-
-		$tile_image = new ilImageFileInputGUI(self::plugin()->translate("tile_image ", self::LANG_MODULE), "tile_image ");
-		$tile_image->setImage($this->getTile()->returnImagePath(true));
-		$this->addItem($tile_image);
-
 		$this->fields = [
-			"show_children_as_tile" => [
-				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
+			"tile_image" => [
+				self::PROPERTY_CLASS => ilImageFileInputGUI::class,
 				self::PROPERTY_REQUIRED => false
 			],
 			"level_color" => [
 				self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
-				self::PROPERTY_REQUIRED => false
+				self::PROPERTY_REQUIRED => false,
+				'setDefaultColor' => '#ffffff'
 			]
 		];
-
-
-
-
-
-
 	}
 
 
@@ -135,6 +114,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initTitle()/*: void*/ {
+		$this->setTitle(self::plugin()->translate("tile", SrTileGUI::LANG_MODULE_TILE));
 	}
 
 
@@ -143,6 +123,32 @@ class TileFormGUI extends PropertyFormGUI {
 	 */
 	protected function storeValue(/*string*/
 		$key, $value)/*: void*/ {
+		switch ($key) {
+			case 'tile_image':
+				if (!self::dic()->upload()->hasBeenProcessed()) {
+					self::dic()->upload()->process();
+				}
+				/** @var UploadResult $result */
+				$result = array_pop(self::dic()->upload()->getResults());
+				if ($result->getSize() == 0) {
+					break;
+				}
+				$file_name = $this->tile->getTileId() . "." . pathinfo($result->getName(), PATHINFO_EXTENSION);
+				self::dic()->upload()->moveOneFileTo($result, $this->tile->returnRelativeImagePath(), Location::WEB, $file_name, true);
+				$this->tile->setTileImage($file_name);
+				break;
+			default:
+				if (method_exists($this->tile, $method = 'set' . $this->strToCamelCasE($key))) {
+					$this->tile->{$method}($this->getInput($key));
+				}
+				break;
+		}
+
+		if($this->getInput('tile_image_delete')) {
+			$this->tile->setTileImage('');
+		}
+
+		$this->tile->store();
 	}
 
 
@@ -150,25 +156,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	public function updateTile()/*: void*/ {
-		$show_children_as_tile = $this->getInput("show_children_as_tile");
-		$this->tile->setShowChildrenAsTile("show_children_as_tile" ? 1 : 0);
-
-		$tile_image = (array)$this->getInput('tile_image');
-		if (count($tile_image) > 0 && strlen($tile_image['name']) > 0) {
-			if (!is_dir($this->tile->returnImagePath())) {
-				ilUtil::makeDirParents($this->tile->returnImagePath());
-			}
-			$this->tile->setTileImage($tile_image['name']);
-		}
-		$tile_image_name = $this->tile->getTileImage() ? $this->tile->getTileImage() : $tile_image['name'];
-		ilUtil::moveUploadedFile($tile_image['tmp_name'], $tile_image_name, $this->tile->returnImagePath(true), false);
-
-
-		$level_color = $this->getInput("level_color");
-		$this->tile->setLevelColor($level_color);
-
-
-		$this->tile->save();
+		exit;
 	}
 
 
@@ -177,5 +165,15 @@ class TileFormGUI extends PropertyFormGUI {
 	 */
 	public function getTile(): Tile {
 		return $this->tile;
+	}
+
+
+	/**
+	 * @param $string
+	 *
+	 * @return string
+	 */
+	protected function strToCamelCasE($string): string {
+		return str_replace('_', '', ucwords($string, '_'));
 	}
 }

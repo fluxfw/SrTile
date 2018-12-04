@@ -21,6 +21,14 @@ body .tile {
   padding: 0 15px 0 0;
   margin-bottom: 15px;
   font-size: 13px;
+  /*
+  > div {
+
+	text-decoration: none;
+	display:         block;
+	text-transform:  uppercase;
+	padding:         0;
+  }*/
 }
 body .tile.category > div {
   font-family: "Open Sans Semibold", sans-serif;
@@ -71,72 +79,8 @@ body .tile .ratio-container img {
   top: 0;
   bottom: 0;
 }
-body .tile > div {
+body .tile .card-img-top {
   cursor: pointer;
-}
-body .tile.course .card-label {
-  background-color: transparent;
-}
-body .tile.course .badge-wrapper .right {
-  margin-top: -10px;
-}
-body .tile.course .badge-wrapper .right > img {
-  margin-top: 16px;
-}
-body .tile.scorm .card .card-label {
-  height: 84px;
-  width: 100%;
-  display: table;
-}
-body .tile.scorm .card .card-label .card-title {
-  padding-left: 5px;
-  padding-right: 20px;
-  display: table-cell;
-  vertical-align: middle;
-}
-body .tile.scorm .card .card-label .badge-wrapper {
-  text-align: left;
-  width: 30px;
-  /*position: relative;*/
-}
-body .tile.scorm .card .card-label .badge-wrapper img {
-  position: absolute;
-  bottom: 8px;
-  height: 18px;
-  right: 5px;
-  max-height: 100%;
-}
-body .tile.scorm .card .card-label .badge-wrapper .certbadge {
-  height: 35px !important;
-  padding-right: 5px;
-  padding-bottom: 1px;
-}
-body .tile.scorm .card .card-label .badge-wrapper a:nth-child(2) > img {
-  right: 30px;
-}
-body .tile.scorm .card .card-label .card-title-container {
-  flex-grow: 1;
-  height: 100%;
-  margin-right: 5px;
-}
-body .tile.scorm .card .card-label .number {
-  font-family: 'Open Sans Bold', sans-serif;
-  font-weight: bold;
-  font-size: 60px;
-  padding-left: 10px;
-  padding-right: 10px;
-  display: table-cell;
-  /*display: table;*/
-  height: 100%;
-}
-body .tile.scorm .card .card-label .number span {
-  vertical-align: middle;
-}
-body .tile > div {
-  text-decoration: none;
-  display: block;
-  text-transform: uppercase;
-  padding: 0;
 }
 body .tile img.card-img-top {
   width: 100%;
@@ -144,55 +88,8 @@ body .tile img.card-img-top {
 body .tile .card {
   max-width: 100%;
   width: 100%;
-  overflow: hidden;
+  /*overflow:  hidden;*/
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-body .tile .card .orange {
-  background-color: #FA9495 D;
-  font-color: #fff;
-}
-body .tile .card .red {
-  background-color: #FA463A;
-  font-color: #fff;
-}
-body .tile .card .green {
-  background-color: #7ADD9F;
-  font-color: #fff;
-}
-body .tile .card .dark-blue {
-  background-color: #1A2DDD;
-  font-color: #fff;
-}
-body .tile .card .blue {
-  background-color: #70B4F4;
-  font-color: #fff;
-}
-body .tile .card .violet {
-  background-color: #AD6FDD;
-  font-color: #fff;
-}
-body .tile .card:after {
-  pointer-events: none;
-  content: " ";
-  z-index: 10;
-  display: block;
-  position: absolute;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0);
-}
-body .tile .card:hover:after {
-  content: " ";
-  z-index: 10;
-  display: block;
-  position: absolute;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.075);
 }
 body .tile .card .flex-container {
   display: flex;
@@ -215,45 +112,20 @@ body .tile .card .card-label .card-title {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-body .tile .card .card-label .card-block {
-  padding: 0 20px 10px 5px;
-}
-body .tile .card .card-label .card-block .badge-wrapper {
+body .tile .card .card-label .card-footer {
   text-align: left;
   display: flex;
 }
-body .tile .card .card-label .card-block .badge-wrapper .left {
+body .tile .card .card-label .card-footer .left {
   flex-grow: 1;
 }
-body .tile .card .card-label .card-block .badge-wrapper .right {
+body .tile .card .card-label .card-footer .right {
   text-align: right;
+  padding-right: 5px;
 }
-body .tile .card .card-label .card-block .badge-wrapper img {
+body .tile .card .card-label .card-footer img {
   font-size: inherit;
   height: 18px;
-}
-body .tile .card .card-label .card-block .badge-wrapper .certbadge {
-  height: 35px !important;
-  padding-right: 5px;
-  padding-bottom: 1px;
-}
-body .tile .card .card-label.orange {
-  border-left: 40px solid #FA9495 D;
-}
-body .tile .card .card-label.red {
-  border-left: 40px solid #FA463A;
-}
-body .tile .card .card-label.green {
-  border-left: 40px solid #7ADD9F;
-}
-body .tile .card .card-label.dark-blue {
-  border-left: 40px solid #1A2DDD;
-}
-body .tile .card .card-label.blue {
-  border-left: 40px solid #70B4F4;
-}
-body .tile .card .card-label.violet {
-  border-left: 40px solid #AD6FDD;
 }
 body .tile .card .like_count {
   margin-left: -5px;

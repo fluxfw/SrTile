@@ -1,6 +1,8 @@
 <?php
+
 namespace srag\Plugins\SrTile\TileList;
 
+use srag\Plugins\SrTile\Tile\TileDesktopGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\DIC\SrTile\DICTrait;
 
@@ -25,6 +27,24 @@ class TileListDesktopGUI extends TileListGUIAbstract {
 	public function __construct(int $usr_id) /*:void*/ {
 		$this->tile_list = TileListDesktop::getInstance($usr_id);
 	}
+
+
+	/**
+	 *
+	 * @return string
+	 * @throws \ilTemplateException
+	 * @throws \srag\DIC\SrTile\Exception\DICException
+	 */
+	public function getHtml(): string {
+		$tile_html = '';
+		foreach ($this->tile_list->getTiles() as $tile) {
+			$tile_gui = new TileDesktopGUI($tile);
+			$tile_html .= $tile_gui->render();
+		}
+
+		return $tile_html;
+	}
+
 
 	/**
 	 * @return void

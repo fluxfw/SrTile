@@ -30,7 +30,6 @@ class SrTileGUI {
 	const GET_PARAM_OBJ_REF_ID = 'ref_id';
 
 
-
 	/**
 	 * SrTileGUI constructor
 	 */
@@ -48,8 +47,6 @@ class SrTileGUI {
 		switch (strtolower($next_class)) {
 			default:
 				$cmd = self::dic()->ctrl()->getCmd();
-
-
 
 				switch ($cmd) {
 					case self::CMD_EDIT_TILE:
@@ -82,7 +79,11 @@ class SrTileGUI {
 	protected function editTile()/*: void*/ {
 
 		$tile = Tile::getInstanceForObjRefId(filter_input(INPUT_GET, "ref_id"));
-		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class,self::GET_PARAM_OBJ_REF_ID);
+		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, self::GET_PARAM_OBJ_REF_ID);
+
+		if (!is_object($tile)) {
+			$tile = new Tile();
+		}
 
 		$form = $this->getTileFormGUI($tile);
 
@@ -91,26 +92,25 @@ class SrTileGUI {
 
 
 	/**
-	 *
+	 * @throws \srag\DIC\SrTile\Exception\DICException
 	 */
 	protected function updateTile()/*: void*/ {
 
 		$tile = Tile::getInstanceForObjRefId(filter_input(INPUT_GET, "ref_id"));
-		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class,self::GET_PARAM_OBJ_REF_ID);
+		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, self::GET_PARAM_OBJ_REF_ID);
+
+		if (!is_object($tile)) {
+			$tile = new Tile();
+			$tile->setObjRefId(filter_input(INPUT_GET, "ref_id"));
+		}
+
 
 		$form = $this->getTileFormGUI($tile);
 		$form->setValuesByPost();
+		$form->storeForm();
 
-		if (!$form->checkInput()) {
-			$this->editTile();
-			return;
-		}
+		ilUtil::sendSuccess(self::plugin()->translate("saved", self::LANG_MODULE_TILE), true);
 
-		$form->updateTile();
-
-		ilUtil::sendSuccess(self::plugin()->translate("saved", self::LANG_MODULE_TILE));
-
-		self::plugin()->output($form);
+		self::dic()->ctrl()->redirect($this, self::CMD_EDIT_TILE);
 	}
-
 }

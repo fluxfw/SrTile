@@ -4,7 +4,9 @@ namespace srag\Plugins\SrTile\TileList;
 
 use ilException;
 use ilObject;
-use srag\Plugins\SrTile\Tile\Tile;;
+use srag\Plugins\SrTile\Tile\Tile;
+
+;
 
 /**
  * Class Tile
@@ -47,8 +49,9 @@ class TileListContainer extends TileListAbstract {
 	 */
 	private function __construct(int $container_obj_ref_id) /*:void*/ {
 
-		if(!in_array(ilObject::_lookupType($container_obj_ref_id,true),self::$possible_obj_types)) {
-			throw new ilException("ILIAS Object with ".$container_obj_ref_id." has a wrong object type: ".ilObject::_lookupType($container_obj_ref_id,true));
+		if (!in_array(ilObject::_lookupType($container_obj_ref_id, true), self::$possible_obj_types)) {
+			throw new ilException("ILIAS Object with " . $container_obj_ref_id . " has a wrong object type: "
+				. ilObject::_lookupType($container_obj_ref_id, true));
 		}
 
 		$this->container_obj_ref_id = $container_obj_ref_id;
@@ -76,11 +79,11 @@ class TileListContainer extends TileListAbstract {
 	 */
 	public function read() /*:void*/ {
 		$children = self::dic()->tree()->getChilds($this->container_obj_ref_id);
-		if(count($children) > 0) {
+		if (count($children) > 0) {
 			foreach ($children as $child) {
 				if ($child['child'] > 0) {
 					$tile = Tile::getInstanceForObjRefId($child['child']);
-					if ($tile instanceof Tile) {
+					if ($tile instanceof Tile && self::dic()->filesystem()->web()->has($tile->returnRelativeImagePath(true))) {
 						$this->addTile($tile);
 					}
 				}

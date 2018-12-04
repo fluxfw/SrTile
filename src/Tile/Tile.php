@@ -13,7 +13,6 @@ use ilUtil;
 use ilObject;
 use ilLink;
 
-
 /**
  * Class Tile
  *
@@ -53,15 +52,6 @@ class Tile extends ActiveRecord {
 	 */
 	protected $tile_id;
 	/**
-	 * @var bool
-	 *
-	 * @con_has_field    true
-	 * @con_fieldtype    integer
-	 * @con_length       1
-	 * @con_is_notnull   true
-	 */
-	protected $show_children_as_tile = false;
-	/**
 	 * @var int
 	 *
 	 * @con_has_field   true
@@ -86,14 +76,6 @@ class Tile extends ActiveRecord {
 	 * @con_is_notnull  true
 	 */
 	protected $level_color = "";
-
-	//Other
-	/**
-	 * @var int
-	 *
-	 */
-	protected $parent_ref_id;
-
 
 
 	/**
@@ -169,22 +151,6 @@ class Tile extends ActiveRecord {
 
 
 	/**
-	 * @return bool
-	 */
-	public function isShowChildrenAsTile(): bool {
-		return $this->show_children_as_tile;
-	}
-
-
-	/**
-	 * @param bool $show_children_as_tile
-	 */
-	public function setShowChildrenAsTile(bool $show_children_as_tile) {
-		$this->show_children_as_tile = $show_children_as_tile;
-	}
-
-
-	/**
 	 * @return int
 	 */
 	public function getObjRefId() {
@@ -234,21 +200,6 @@ class Tile extends ActiveRecord {
 
 
 	/**
-	 * @return int
-	 */
-	public function getParentRefId(): int {
-		return $this->parent_ref_id;
-	}
-
-
-	/**
-	 * @param int $parent_ref_id
-	 */
-	public function setParentRefId(int $parent_ref_id) {
-		$this->parent_ref_id = $parent_ref_id;
-	}
-
-	/**
 	 * @param string $field_name
 	 * @param mixed  $field_value
 	 *
@@ -277,18 +228,12 @@ class Tile extends ActiveRecord {
 	 *
 	 * @return string
 	 */
-	public function returnImagePath($append_filename = false) {
+	public function returnRelativeImagePath($append_filename = false) {
 
-		if(strlen($this->getTileImage()) > 0) {
-			$tile = $this;
-		} elseif($this->getObjRefId() > 0) {
-			$tile = Tile::getInstanceForObjRefId(self::dic()->tree()->getParentId($this->getObjRefId()));
-		}
-
-		$path = ilUtil::getWebspaceDir() . '/' . ilSrTilePlugin::WEB_DATA_FOLDER . '/' . 'tile_' . $tile->getTileId() . '/';
+		$path = ilSrTilePlugin::WEB_DATA_FOLDER . '/' . 'tile_' . $this->getTileId() . '/';
 		if ($append_filename) {
-			if(strlen($tile->getTileImage()) > 0) {
-				$path .= $tile->getTileImage();
+			if (strlen($this->getTileImage()) > 0) {
+				$path .= $this->getTileImage();
 			}
 		}
 
@@ -314,9 +259,9 @@ class Tile extends ActiveRecord {
 
 
 	public function returnLink() {
-			return ilLink::_getStaticLink($this->getObjRefId(), ilObject::_lookupType($this->getObjRefId(), true));
-
+		return ilLink::_getStaticLink($this->getObjRefId(), ilObject::_lookupType($this->getObjRefId(), true));
 	}
+
 
 	public static function returnTileIdByRefId($obj_ref_id) {
 		return self::where([ 'obj_ref_id' => $obj_ref_id ])->first()->getTileId();

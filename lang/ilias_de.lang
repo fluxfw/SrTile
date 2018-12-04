@@ -9,3 +9,9 @@ removeplugindataconfirm_keep_data#:#%1$s-Daten behalten
 removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten!
 removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt!
 removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
+tile_tile#:#Kachel
+tile_tile_image#:#Bild
+tile_level_color#:#Farbe
+tile_submit#:#Speichern
+tile_cancel#:#Abbrechen
+tile_saved#:#Die Kachel wurde gespeichert

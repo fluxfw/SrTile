@@ -35,7 +35,7 @@ class TileListDesktop extends TileListAbstract {
 	 */
 	private function __construct(int $usr_id) /*:void*/ {
 
-		if(!ilObjUser::_exists($usr_id)) {
+		if (!ilObjUser::_exists($usr_id)) {
 			throw new ilException("User does not exist.");
 		}
 
@@ -69,11 +69,13 @@ class TileListDesktop extends TileListAbstract {
 		$desktop_items = $usr_obj->getDesktopItems();
 		foreach ($desktop_items as $item) {
 			$tile = Tile::getInstanceForObjRefId($item['ref_id']);
-			if(is_object($tile)) {
+			if (is_object($tile) && self::dic()->filesystem()->web()->has($tile->returnRelativeImagePath(true))) {
 				$this->addTile($tile);
 			}
 		}
 	}
+
+
 	/**
 	 * @return int
 	 */

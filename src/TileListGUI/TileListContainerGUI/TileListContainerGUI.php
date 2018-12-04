@@ -1,11 +1,8 @@
 <?php
+
 namespace srag\Plugins\SrTile\TileList;
 
-use function GuzzleHttp\Psr7\parse_header;
-use srag\Plugins\SrTile\Utils\SrTileTrait;
-use srag\DIC\SrTile\DICTrait;
-
-use ilSrTilePlugin;
+use srag\Plugins\SrTile\Tile\TileContainerGUI;
 
 /**
  * Class TileListContainerGUI
@@ -27,6 +24,23 @@ class TileListContainerGUI extends TileListGUIAbstract {
 		$this->tile_list = TileListContainer::getInstance($container_obj_ref_id);
 	}
 
+
+	/**
+	 * @return string
+	 * @throws \ilTemplateException
+	 * @throws \srag\DIC\SrTile\Exception\DICException
+	 */
+	public function getHtml(): string {
+		$tile_html = '';
+		foreach ($this->tile_list->getTiles() as $tile) {
+			$tile_gui = new TileContainerGUI($tile);
+			$tile_html .= $tile_gui->render();
+		}
+
+		return $tile_html;
+	}
+
+
 	/**
 	 * @return void
 	 */
@@ -43,5 +57,4 @@ class TileListContainerGUI extends TileListGUIAbstract {
 
 		self::dic()->mainTemplate()->addInlineCss($css);
 	}
-
 }

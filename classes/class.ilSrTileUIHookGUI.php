@@ -9,8 +9,6 @@ use srag\DIC\SrTile\DICTrait;
 use \srag\Plugins\SrTile\TileList\TileListContainerGUI;
 use \srag\Plugins\SrTile\TileList\TileListDesktopGUI;
 use srag\Plugins\srTile\Tile\TileList;
-use srag\Plugins\SrTile\Tile\Tile;
-use srag\Plugins\SrTile\Tile\TileGUI;
 
 /**
  * Class ilSrTileUIHookGUI
@@ -42,9 +40,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TEMPLATE_ID_CONTAINER_LIST_ITEM = "Services/Container/tpl.container_list_item.html";
 	const CMD_CLASS_PERSONALDESKTOP_GUI = "ilPersonalDesktopGUI";
 	const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
-
-
-
 	const GET = 'template_get';
 	/**
 	 * @var bool[]
@@ -99,13 +94,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 
 	public function getHTML($a_comp, $a_part, $a_par = array()) {
-
-		if (in_array(2, self::dic()->rbacreview()->assignedGlobalRoles(self::dic()->user()->getId()))) {
-			//return array( "mode" => ilUIHookPluginGUI::KEEP, "html" => "" );
-		}
-
-		self::dic()->log()->write($a_par['tpl_id']);
-
 		if ($a_part == self::GET
 			&& ($a_par['tpl_id'] == self::TEMPLATE_ID_CONTAINER_PAGE
 				|| $a_par['tpl_id'] == self::TEMPLATE_ID_CONTAINER_LIST_ITEM)) {
@@ -134,15 +122,9 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 			&& $a_par['tpl_id'] == self::TEMPLATE_ID_PERSONAL_DESKTOP
 			&& self::$load[self::TILE_DESKTOP_LOADER] == false) {
 
-			/*
-			if(self::dic()->user()->getPref('pd_order_items') != ilPDSelectedItemsBlockViewSettings::SORT_BY_TYPE) {
-				self::dic()->user()->writePref('pd_order_items', );
-			}
-			*/
 
 			self::$load[self::TILE_DESKTOP_LOADER] = true;
 			$tile_list_gui = new TileListDesktopGUI(self::dic()->user()->getId());
-
 
 			return [
 				"mode" => ilUIHookPluginGUI::PREPEND,

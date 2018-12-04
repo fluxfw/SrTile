@@ -1,7 +1,7 @@
 <?php
+
 namespace srag\Plugins\SrTile\TileList;
 
-use srag\Plugins\SrTile\Tile\TileGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\DIC\SrTile\DICTrait;
 
@@ -20,10 +20,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 
 	use SrTileTrait;
 	use DICTrait;
-
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-
-
 	/**
 	 * @var TileListInterface $tile_list
 	 */
@@ -35,18 +32,18 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 	 * @throws \ilTemplateException
 	 * @throws \srag\DIC\SrTile\Exception\DICException
 	 */
-	public function render():string {
+	public function render(): string {
 		$tile_list_html = "";
 
-		if(count($this->tile_list->getTiles()) > 0) {
+		if (count($this->tile_list->getTiles()) > 0) {
 			self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
 
-			$tpl = self::plugin()->template("Tile/tpl.tiles.html");
+			$tpl = self::plugin()->template("TileList/tpl.tile_list.html");
 
 			$tpl->setCurrentBlock('row');
-				$tile_html = self::getHtml($this->tile_list);
-				$tpl->setVariable("TILES", $tile_html);
-				$tpl->parseCurrentBlock();
+			$tile_html = $this->getHtml();
+			$tpl->setVariable("TILES", $tile_html);
+			$tpl->parseCurrentBlock();
 			$tile_list_html = $tpl->get();
 		}
 
@@ -55,24 +52,10 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		return $tile_list_html;
 	}
 
-	/**
-	 *
-	 * @return string
-	 * @throws \ilTemplateException
-	 * @throws \srag\DIC\SrTile\Exception\DICException
-	 */
-	public function getHtml(): string {
-		$tile_html = '';
-		foreach ($this->tile_list->getTiles() as $tile) {
-			$tile_gui = new TileGUI($tile);
-			$tile_html .= $tile_gui->render();
-		}
-		return $tile_html;
-	}
-
 
 	/**
 	 * return void
 	 */
-	abstract function hideOriginalRowsOfTiles() /*:void*/;
+	abstract function hideOriginalRowsOfTiles() /*:void*/
+	;
 }
