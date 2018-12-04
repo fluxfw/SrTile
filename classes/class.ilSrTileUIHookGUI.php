@@ -81,7 +81,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 				if(self::dic()->user()->getId() != 13) {
 					if(!self::dic()->access()->checkAccess("write","", $ref_id)) {
-						return false;
+						return [ "mode" => self::KEEP, "html" => "" ];
 					}
 				}
 
