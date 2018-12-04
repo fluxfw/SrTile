@@ -35,7 +35,6 @@ class TileListContainer extends TileListAbstract {
 		'root',
 		'cat',
 		'crs',
-		'fld',
 		'grp'
 	);
 
@@ -50,8 +49,7 @@ class TileListContainer extends TileListAbstract {
 	private function __construct(int $container_obj_ref_id) /*:void*/ {
 
 		if (!in_array(ilObject::_lookupType($container_obj_ref_id, true), self::$possible_obj_types)) {
-			throw new ilException("ILIAS Object with " . $container_obj_ref_id . " has a wrong object type: "
-				. ilObject::_lookupType($container_obj_ref_id, true));
+			return;
 		}
 
 		$this->container_obj_ref_id = $container_obj_ref_id;

@@ -10,6 +10,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\TileList\TileListDesktopGUI;
 use srag\Plugins\srTile\TileList\TileListContainerGUI;
+use srag\Plugins\SrTile\TileList\TileListContainer;
 
 
 
@@ -75,7 +76,9 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 
 		if (!self::$load[self::TILE_CONFIG_TAB_LOADER]) {
-			if ($a_part == self::PAR_TABS AND $ref_id = SrTileGUI::filterRefId()) {
+			if ($a_part == self::PAR_TABS &&
+				$ref_id = SrTileGUI::filterRefId() &&
+					in_array(ilObject::_lookupType(SrTileGUI::filterRefId(), true),TileListContainer::$possible_obj_types)) {
 
 				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
 
