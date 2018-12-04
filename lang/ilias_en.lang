@@ -9,9 +9,10 @@ removeplugindataconfirm_keep_data#:#Keep %1$s data
 removeplugindataconfirm_msg_kept_data#:#The %1$s data was kept!
 removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed!
 removeplugindataconfirm_remove_data#:#Remove %1$s data
-tile_tile#:#Kachel
+tile_tile#:#Tile
 tile_tile_image#:#Image
 tile_level_color#:#Color
 tile_submit#:#Save
 tile_cancel#:#Cancel
 tile_saved#:#The tile was saved
+tile#:#Tile

@@ -26,8 +26,11 @@ class SrTileGUI {
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const CMD_EDIT_TILE = "editTile";
 	const CMD_UPDATE_TILE = "updateTile";
+	const CMD_CANCEL = "cancel";
 	const LANG_MODULE_TILE = "tile";
 	const GET_PARAM_OBJ_REF_ID = 'ref_id';
+	const GET_PARAM_REF_ID = "ref_id";
+	const GET_PARAM_TARGET = "target";
 
 
 	/**
@@ -51,6 +54,7 @@ class SrTileGUI {
 				switch ($cmd) {
 					case self::CMD_EDIT_TILE:
 					case self::CMD_UPDATE_TILE:
+					case self::CMD_CANCEL:
 						$this->{$cmd}();
 						break;
 					default:
@@ -71,6 +75,14 @@ class SrTileGUI {
 
 		return $form;
 	}
+
+
+	protected function cancel()/*:void*/ {
+
+		$this->dic()->ctrl()->initBaseClass('ilRepositoryGUI');
+		ilObjectGUI::_gotoRepositoryNode(self::filterRefId());
+	}
+
 
 
 	/**
@@ -96,14 +108,13 @@ class SrTileGUI {
 	 */
 	protected function updateTile()/*: void*/ {
 
-		$tile = Tile::getInstanceForObjRefId(filter_input(INPUT_GET, "ref_id"));
+		$tile = Tile::getInstanceForObjRefId($this->filterRefId());
 		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, self::GET_PARAM_OBJ_REF_ID);
 
 		if (!is_object($tile)) {
 			$tile = new Tile();
-			$tile->setObjRefId(filter_input(INPUT_GET, "ref_id"));
+			$tile->setObjRefId(self::filterRefId());
 		}
-
 
 		$form = $this->getTileFormGUI($tile);
 		$form->setValuesByPost();
@@ -112,5 +123,18 @@ class SrTileGUI {
 		ilUtil::sendSuccess(self::plugin()->translate("saved", self::LANG_MODULE_TILE), true);
 
 		self::dic()->ctrl()->redirect($this, self::CMD_EDIT_TILE);
+	}
+
+	/**
+	 * @return int
+	 */
+	public static function filterRefId() {
+		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
+		if (is_null($ref_id)) {
+			$param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);
+			$ref_id = explode('_', $param_target)[1];
+		}
+
+		return $ref_id;
 	}
 }

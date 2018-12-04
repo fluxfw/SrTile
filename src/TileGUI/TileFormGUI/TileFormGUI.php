@@ -78,7 +78,7 @@ class TileFormGUI extends PropertyFormGUI {
 	protected function initCommands()/*: void*/ {
 		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, self::plugin()->translate("submit", SrTileGUI::LANG_MODULE_TILE), "tile_submit");
 
-		$this->addCommandButton("", self::plugin()->translate("cancel", SrTileGUI::LANG_MODULE_TILE), "tile_cancel");
+		$this->addCommandButton(SrTileGUI::CMD_CANCEL, self::plugin()->translate("cancel", SrTileGUI::LANG_MODULE_TILE), "tile_cancel");
 
 		$this->setShowTopButtons(false);
 	}

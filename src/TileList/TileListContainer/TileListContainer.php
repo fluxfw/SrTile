@@ -31,7 +31,7 @@ class TileListContainer extends TileListAbstract {
 	 *
 	 * @var array
 	 */
-	protected static $possible_obj_types = array(
+	public static $possible_obj_types = array(
 		'root',
 		'cat',
 		'crs',
