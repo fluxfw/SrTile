@@ -4,6 +4,9 @@
 body {
   background-color: transparent !important;
 }
+.ilContainerBlockHeader {
+  display: none !important;
+}
 /**
 Personal Desktop
  */
@@ -122,6 +125,7 @@ body .tile .card .card-label .card-footer .left {
 body .tile .card .card-label .card-footer .right {
   text-align: right;
   padding-right: 5px;
+  padding-top: 12px;
 }
 body .tile .card .card-label .card-footer img {
   font-size: inherit;
@@ -136,8 +140,9 @@ body .tile .card .like_count {
   line-height: 1;
   text-align: center;
   padding: 5px !important;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.2em;
+  color: #0d0d0d;
 }
 .img-responsive {
   width: 100%;

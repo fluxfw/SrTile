@@ -9,7 +9,6 @@ use ilObjCourse;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
-use ilUtil;
 use ilObject;
 use ilLink;
 

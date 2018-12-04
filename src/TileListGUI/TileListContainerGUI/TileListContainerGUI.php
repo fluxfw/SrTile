@@ -3,6 +3,7 @@
 namespace srag\Plugins\SrTile\TileList;
 
 use srag\Plugins\SrTile\Tile\TileContainerGUI;
+use srag\Plugins\SrTile\Tile\Tile;
 
 /**
  * Class TileListContainerGUI
@@ -47,12 +48,35 @@ class TileListContainerGUI extends TileListGUIAbstract {
 	public function hideOriginalRowsOfTiles() /*:void*/ {
 
 		$css = '';
+		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {
 			$css .= ' #lg_div_';
 			$css .= $tile->getObjRefId();
 			$css .= '_pref_';
 			$css .= $this->tile_list->getContainerObjRefId();
 			$css .= '{ display: none !important;} ';
+
+
+			$css .= '#sr-tile-'.$tile->getTileId();
+			$css .= '{ background-color: #'.$tile->getLevelColor() .'!important;}';
+
+			if($is_parent_css_rendered == false) {
+
+				$parent_tile = Tile::getInstanceForObjRefId(self::dic()->tree()->getParentId($tile->getObjRefId()));
+				if(is_object($parent_tile)) {
+					$css .= 'a#il_mhead_t_focus';
+					$css .= '{ color: #'.$parent_tile->getLevelColor() .'!important;}';
+
+					$css .= '.card';
+					$css .= '{ border: 4px solid #'.$parent_tile->getLevelColor() .'!important;}';
+
+					$css .= '.btn-default';
+					$css .= '{ background-color: #'.$parent_tile->getLevelColor() .'!important; ';
+					$css .=  'border-color:'.$parent_tile->getLevelColor() .'!important; }';
+
+				}
+			}
+			$is_parent_css_rendered = true;
 		}
 
 		self::dic()->mainTemplate()->addInlineCss($css);
