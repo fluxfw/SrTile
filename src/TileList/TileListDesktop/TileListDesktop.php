@@ -69,7 +69,7 @@ class TileListDesktop extends TileListAbstract {
 		$desktop_items = $usr_obj->getDesktopItems();
 		foreach ($desktop_items as $item) {
 			$tile = Tile::getInstanceForObjRefId($item['ref_id']);
-			if (is_object($tile) && self::dic()->filesystem()->web()->has($tile->returnRelativeImagePath(true))) {
+			if (is_object($tile) && strlen($tile->getTileImage()) > 0) {
 				$this->addTile($tile);
 			}
 		}
