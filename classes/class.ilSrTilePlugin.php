@@ -64,5 +64,7 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 	 */
 	protected function deleteData()/*: void*/ {
 		self::dic()->database()->dropTable(Tile::TABLE_NAME, false);
+
+		ilUtil::delDir(ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . self::WEB_DATA_FOLDER);
 	}
 }
