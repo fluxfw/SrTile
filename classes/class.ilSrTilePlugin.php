@@ -4,7 +4,6 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use srag\Plugins\SrTile\Config\Config;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\RemovePluginDataConfirm\SrTile\PluginUninstallTrait;
 
