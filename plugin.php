@@ -1,6 +1,4 @@
 <?php
-require_once __DIR__ . "/vendor/srag/dic/src/PHPVersionChecker.php";
-
 
 /* Copyright (c) 1998-2009 ILIAS open source, Extended GPL, see https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/docs/LICENSE */
 
@@ -10,6 +8,8 @@ require_once __DIR__ . "/vendor/srag/dic/src/PHPVersionChecker.php";
  * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
+
+require_once __DIR__ . "/vendor/srag/dic/src/PHPVersionChecker.php";
 
 $id = "srtile";
 $version = "0.4.0";
