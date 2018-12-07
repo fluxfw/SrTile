@@ -4,10 +4,10 @@
 
 namespace srag\Plugins\SrTile\Config;
 
-use srag\Plugins\SrTile\Utils\SrTileTrait;
 use ilSrTilePlugin;
 use ilTextInputGUI;
 use srag\ActiveRecordConfig\SrTile\ActiveRecordConfigFormGUI;
+use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
  * Class ConfigFormGUI

@@ -2,20 +2,16 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
-use ilException;
-use ilFileSystemStorage;
-use ILIAS\DI\Exceptions\Exception;
-use ILIAS\Filesystem\Filesystem;
-use ILIAS\FileUpload\Location;
-use ILIAS\FileUpload\DTO\UploadResult;
-use ILIAS\DI\Container;
-use ilImageFileInputGUI;
 use ilColorPickerInputGUI;
+use ilException;
+use ILIAS\FileUpload\DTO\UploadResult;
+use ILIAS\FileUpload\Location;
+use ilImageFileInputGUI;
 use ilObject;
-use SrTileGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
+use SrTileGUI;
 
 /**
  * Class TileFormGUI
@@ -48,7 +44,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 		parent::__construct($parent);
 
-		if(!self::dic()->access()->checkAccess("write","",srTileGUI::filterRefId())) {
+		if (!self::dic()->access()->checkAccess("write", "", srTileGUI::filterRefId())) {
 			throw new ilException("You have no permission to access this page");
 		}
 	}
@@ -123,7 +119,8 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initTitle()/*: void*/ {
-		$this->setTitle(self::plugin()->translate("tile", SrTileGUI::LANG_MODULE_TILE).": ".ilObject::_lookupTitle(ilObject::_lookupObjectId(srTileGUI::filterRefId())));
+		$this->setTitle(self::plugin()->translate("tile", SrTileGUI::LANG_MODULE_TILE) . ": "
+			. ilObject::_lookupTitle(ilObject::_lookupObjectId(srTileGUI::filterRefId())));
 	}
 
 
@@ -133,7 +130,7 @@ class TileFormGUI extends PropertyFormGUI {
 	protected function storeValue(/*string*/
 		$key, $value)/*: void*/ {
 
-		if($this->tile->getTileId() == 0) {
+		if ($this->tile->getTileId() == 0) {
 			//Store a new Object to get an Id for later.
 			$this->tile->store();
 		}
@@ -159,7 +156,7 @@ class TileFormGUI extends PropertyFormGUI {
 				break;
 		}
 
-		if($this->getInput('tile_image_delete')) {
+		if ($this->getInput('tile_image_delete')) {
 			$this->tile->setTileImage('');
 		}
 

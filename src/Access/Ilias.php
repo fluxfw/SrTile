@@ -4,9 +4,9 @@
 
 namespace srag\Plugins\SrTile\Access;
 
-use srag\Plugins\SrTile\Utils\SrTileTrait;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
  * Class Ilias

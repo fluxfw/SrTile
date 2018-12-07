@@ -3,16 +3,13 @@
 /* Copyright (c) 1998-2009 ILIAS open source, Extended GPL, see https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/docs/LICENSE */
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once("Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SrTile/classes/class.ilSrTileUIHookGUI.php");
-require_once"./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SrTile/src/TileListGUI/TileListContainerGUI/TileListContainerGUI.php";
+require_once "./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SrTile/src/TileListGUI/TileListContainerGUI/TileListContainerGUI.php";
 
-
-use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\TileList\TileListDesktopGUI;
-use srag\Plugins\srTile\TileList\TileListContainerGUI;
 use srag\Plugins\SrTile\TileList\TileListContainer;
-
-
+use srag\Plugins\srTile\TileList\TileListContainerGUI;
+use srag\Plugins\SrTile\TileList\TileListDesktopGUI;
+use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
  * Class ilSrTileUIHookGUI
@@ -76,18 +73,17 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 
 		if (!self::$load[self::TILE_CONFIG_TAB_LOADER]) {
-			if ($a_part == self::PAR_TABS &&
-				$ref_id = SrTileGUI::filterRefId() &&
-					in_array(ilObject::_lookupType(SrTileGUI::filterRefId(), true),TileListContainer::$possible_obj_types)) {
+			if ($a_part == self::PAR_TABS
+				&& $ref_id = SrTileGUI::filterRefId()
+					&& in_array(ilObject::_lookupType(SrTileGUI::filterRefId(), true), TileListContainer::$possible_obj_types)) {
 
 				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
 
-				if(self::dic()->user()->getId() != 13) {
-					if(!self::dic()->access()->checkAccess("write","", $ref_id)) {
+				if (self::dic()->user()->getId() != 13) {
+					if (!self::dic()->access()->checkAccess("write", "", $ref_id)) {
 						return [ "mode" => self::KEEP, "html" => "" ];
 					}
 				}
-
 
 				self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, SrTileGUI::GET_PARAM_OBJ_REF_ID);
 				$ilTabsGUI = $a_par['tabs'];
@@ -114,7 +110,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 				$ref_id = SrTileGUI::filterRefId();
 
-				if(is_file('TileListContainerGUI')) {
+				if (is_file('TileListContainerGUI')) {
 					return [ "mode" => self::KEEP, "html" => "" ];
 				}
 

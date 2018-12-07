@@ -24,7 +24,7 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 	const PLUGIN_NAME = "SrTile";
 	const PLUGIN_CLASS_NAME = self::class;
 	const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = SrTileRemoveDataConfirm::class;
-	const WEB_DATA_FOLDER = self::PLUGIN_ID."_data";
+	const WEB_DATA_FOLDER = self::PLUGIN_ID . "_data";
 	/**
 	 * @var self|null
 	 */

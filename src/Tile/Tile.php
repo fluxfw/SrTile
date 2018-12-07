@@ -4,13 +4,13 @@ namespace srag\Plugins\SrTile\Tile;
 
 use ActiveRecord;
 use arConnector;
+use ilLink;
 use ilObjCategory;
 use ilObjCourse;
+use ilObject;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
-use ilObject;
-use ilLink;
 
 /**
  * Class Tile

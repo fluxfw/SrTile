@@ -4,10 +4,10 @@
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 
-use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Tile\TileFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
+use srag\Plugins\SrTile\Tile\TileFormGUI;
+use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
  * Class SrTileGUI
@@ -84,7 +84,6 @@ class SrTileGUI {
 	}
 
 
-
 	/**
 	 *
 	 */
@@ -124,6 +123,7 @@ class SrTileGUI {
 
 		self::dic()->ctrl()->redirect($this, self::CMD_EDIT_TILE);
 	}
+
 
 	/**
 	 * @return int

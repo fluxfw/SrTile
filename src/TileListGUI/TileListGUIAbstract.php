@@ -2,10 +2,9 @@
 
 namespace srag\Plugins\SrTile\TileList;
 
-use srag\Plugins\SrTile\Utils\SrTileTrait;
-use srag\DIC\SrTile\DICTrait;
-
 use ilSrTilePlugin;
+use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
  * Class TileListContainerGUI

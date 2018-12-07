@@ -2,8 +2,8 @@
 
 namespace srag\Plugins\SrTile\TileList;
 
-use srag\Plugins\SrTile\Tile\Tile;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**

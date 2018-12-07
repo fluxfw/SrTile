@@ -4,9 +4,9 @@
 
 namespace srag\Plugins\SrTile\Config;
 
-use srag\Plugins\SrTile\Utils\SrTileTrait;
 use ilSrTilePlugin;
 use srag\ActiveRecordConfig\SrTile\ActiveRecordConfig;
+use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
  * Class Config
