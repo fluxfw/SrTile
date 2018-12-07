@@ -35,8 +35,8 @@ class TileListContainer extends TileListAbstract {
 	 */
 	public static $possible_obj_types = array(
 		'root',
-		'cat',
-		'crs',
+		Tile::OBJ_TYPE_CAT,
+		Tile::OBJ_TYPE_CRS,
 		'grp'
 	);
 
