@@ -1,6 +1,3 @@
-config_configuration#:#Konfiguration
-config_configuration_saved#:#Konfiguration gespeichert
-config_save#:#Speichern
 removeplugindataconfirm_cancel#:#Abbrechen
 removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
 removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren
