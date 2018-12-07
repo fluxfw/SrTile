@@ -1,15 +1,17 @@
 <?php
 
-namespace srag\Plugins\SrTile\TileList;
+namespace srag\Plugins\SrTile\TileList\TileListDesktop;
 
 use ilException;
 use ilObjUser;
 use srag\Plugins\SrTile\Tile\Tile;
+use srag\Plugins\SrTile\TileList\TileListAbstract;
+use srag\Plugins\SrTile\TileList\TileListInterface;
 
 /**
  * Class Tile
  *
- * @package srag\Plugins\SrTile\Tile
+ * @package srag\Plugins\SrTile\TileList\TileListDesktop
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
@@ -27,14 +29,13 @@ class TileListDesktop extends TileListAbstract {
 
 
 	/**
-	 * TileListDesktop constructor.
+	 * TileListDesktop constructor
 	 *
 	 * @param int $usr_id
 	 *
 	 * @throws ilException
 	 */
 	private function __construct(int $usr_id) /*:void*/ {
-
 		if (!ilObjUser::_exists($usr_id)) {
 			throw new ilException("User does not exist.");
 		}
@@ -45,13 +46,9 @@ class TileListDesktop extends TileListAbstract {
 
 
 	/**
-	 * @param int|NULL $usr_id
-	 *
-	 * @return TileListDesktop
-	 * @throws ilException
+	 * @inheritdoc
 	 */
-	public static function getInstance(int $usr_id = NULL): self {
-
+	public static function getInstance(int $usr_id = NULL): TileListInterface {
 		if (self::$instances[$usr_id] == NULL) {
 			return self::$instances[$usr_id] = new self($usr_id);
 		}
@@ -61,7 +58,7 @@ class TileListDesktop extends TileListAbstract {
 
 
 	/**
-	 *
+	 * @inheritdoc
 	 */
 	public function read() /*:void*/ {
 		$usr_obj = new ilObjUser($this->usr_id);

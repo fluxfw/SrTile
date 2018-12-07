@@ -1,17 +1,19 @@
 <?php
 
-namespace srag\Plugins\SrTile\TileList;
+namespace srag\Plugins\SrTile\TileList\TileListContainer;
 
 use ilException;
 use ilObject;
 use srag\Plugins\SrTile\Tile\Tile;
+use srag\Plugins\SrTile\TileList\TileListAbstract;
+use srag\Plugins\SrTile\TileList\TileListInterface;
 
 ;
 
 /**
  * Class Tile
  *
- * @package srag\Plugins\SrTile\Tile
+ * @package srag\Plugins\SrTile\TileList\TileListContainer
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
@@ -40,14 +42,13 @@ class TileListContainer extends TileListAbstract {
 
 
 	/**
-	 * TileListContainer constructor.
+	 * TileListContainer constructor
 	 *
 	 * @param int $container_obj_ref_id
 	 *
 	 * @throws ilException
 	 */
 	private function __construct(int $container_obj_ref_id) /*:void*/ {
-
 		if (!in_array(ilObject::_lookupType($container_obj_ref_id, true), self::$possible_obj_types)) {
 			return;
 		}
@@ -58,12 +59,9 @@ class TileListContainer extends TileListAbstract {
 
 
 	/**
-	 * @param int $container_obj_ref_id
-	 *
-	 * @return TileListContainer
+	 * @inheritdoc
 	 */
-	public static function getInstance(int $container_obj_ref_id = NULL): self {
-
+	public static function getInstance(int $container_obj_ref_id = NULL): TileListInterface {
 		if (self::$instances[$container_obj_ref_id] == NULL) {
 			return self::$instances[$container_obj_ref_id] = new self($container_obj_ref_id);
 		}
@@ -73,7 +71,7 @@ class TileListContainer extends TileListAbstract {
 
 
 	/**
-	 * @return void
+	 * @inheritdoc
 	 */
 	public function read() /*:void*/ {
 		$children = self::dic()->tree()->getChilds($this->container_obj_ref_id);

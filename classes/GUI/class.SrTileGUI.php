@@ -6,7 +6,7 @@ require_once __DIR__ . "/../../vendor/autoload.php";
 
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
-use srag\Plugins\SrTile\Tile\TileFormGUI;
+use srag\Plugins\SrTile\TileGUI\TileFormGUI\TileFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**

@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\TileList;
 
+use ilException;
 use srag\Plugins\srTile\Tile\Tile;
 
 /**
@@ -15,30 +16,33 @@ use srag\Plugins\srTile\Tile\Tile;
 interface TileListInterface {
 
 	/**
-	 * @return void
+	 *
 	 */
 	public function read() /*:void*/
 	;
 
 
 	/**
-	 * @return self
+	 * @param int|null $id
+	 *
+	 * @return TileListInterface
+	 *
+	 * @throws ilException
 	 */
-	public static function getInstance() /*:self*/
-	;
+	public static function getInstance(int $id = NULL): TileListInterface;
 
 
 	/**
 	 * @param Tile $tile
 	 */
-	public function addTile(Tile $tile) /*:void*/
+	public function addTile(Tile $tile)/*:void*/
 	;
 
 
 	/**
 	 * @param int $tile_id
 	 */
-	public function removeTile(int $tile_id) /*:void*/
+	public function removeTile(int $tile_id)/*:void*/
 	;
 
 

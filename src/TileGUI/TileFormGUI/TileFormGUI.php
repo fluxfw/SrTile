@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrTile\Tile;
+namespace srag\Plugins\SrTile\TileGUI\TileFormGUI;
 
 use ilColorPickerInputGUI;
 use ilException;
@@ -10,13 +10,14 @@ use ilImageFileInputGUI;
 use ilObject;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileGUI;
 
 /**
  * Class TileFormGUI
  *
- * @package srag\Plugins\srTile\Tile
+ * @package srag\Plugins\srTile\TileGUI\TileFormGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

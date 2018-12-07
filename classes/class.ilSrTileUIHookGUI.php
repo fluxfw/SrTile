@@ -1,14 +1,13 @@
 <?php
 
 /* Copyright (c) 1998-2009 ILIAS open source, Extended GPL, see https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/docs/LICENSE */
+
 require_once __DIR__ . "/../vendor/autoload.php";
-require_once("Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SrTile/classes/class.ilSrTileUIHookGUI.php");
-require_once "./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/SrTile/src/TileListGUI/TileListContainerGUI/TileListContainerGUI.php";
 
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\TileList\TileListContainer;
-use srag\Plugins\srTile\TileList\TileListContainerGUI;
-use srag\Plugins\SrTile\TileList\TileListDesktopGUI;
+use srag\Plugins\SrTile\TileList\TileListContainer\TileListContainer;
+use srag\Plugins\SrTile\TileListGUI\TileListContainerGUI\TileListContainerGUI;
+use srag\Plugins\SrTile\TileListGUI\TileListDesktopGUI\TileListDesktopGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -37,7 +36,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const SESSION_PROJECT_KEY = ilSrTilePlugin::PLUGIN_ID . "_project_key";
 	const TEMPLATE_ID_CONTAINER_PAGE = "Services/Container/tpl.container_page.html";
 	const TEMPLATE_ID_CONTAINER_LIST_ITEM = "Services/Container/tpl.container_list_item.html";
-	const CMD_CLASS_PERSONALDESKTOP_GUI = "ilPersonalDesktopGUI";
+	const CMD_CLASS_PERSONALDESKTOP_GUI = ilPersonalDesktopGUI::class;
 	const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const GET = 'template_get';
 	/**
@@ -85,7 +84,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 				self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, SrTileGUI::GET_PARAM_OBJ_REF_ID);
 				$ilTabsGUI = $a_par['tabs'];
 				$ilTabsGUI->addTab('tile', self::plugin()->translate('tile'), self::dic()->ctrl()->getLinkTargetByClass(array(
-					'ilUIPluginRouterGUI',
+					ilUIPluginRouterGUI::class,
 					SrTileGUI::class,
 				), SrTileGUI::CMD_EDIT_TILE));
 
