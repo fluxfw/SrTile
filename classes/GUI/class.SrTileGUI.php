@@ -77,9 +77,11 @@ class SrTileGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function cancel()/*:void*/ {
-
-		$this->dic()->ctrl()->initBaseClass('ilRepositoryGUI');
+		$this->dic()->ctrl()->initBaseClass(ilRepositoryGUI::class);
 		ilObjectGUI::_gotoRepositoryNode(self::filterRefId());
 	}
 
@@ -88,7 +90,6 @@ class SrTileGUI {
 	 *
 	 */
 	protected function editTile()/*: void*/ {
-
 		$tile = Tile::getInstanceForObjRefId(filter_input(INPUT_GET, "ref_id"));
 		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, self::GET_PARAM_OBJ_REF_ID);
 
@@ -103,10 +104,9 @@ class SrTileGUI {
 
 
 	/**
-	 * @throws \srag\DIC\SrTile\Exception\DICException
+	 *
 	 */
 	protected function updateTile()/*: void*/ {
-
 		$tile = Tile::getInstanceForObjRefId($this->filterRefId());
 		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, self::GET_PARAM_OBJ_REF_ID);
 
@@ -128,7 +128,7 @@ class SrTileGUI {
 	/**
 	 * @return int
 	 */
-	public static function filterRefId() {
+	public static function filterRefId(): int {
 		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
 		if (is_null($ref_id)) {
 			$param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);
