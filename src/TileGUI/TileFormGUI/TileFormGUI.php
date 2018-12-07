@@ -32,7 +32,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 
 	/**
-	 * TileFormGUI constructor.
+	 * TileFormGUI constructor
 	 *
 	 * @param SrTileGUI $parent
 	 * @param Tile      $tile
@@ -58,7 +58,7 @@ class TileFormGUI extends PropertyFormGUI {
 		switch ($key) {
 			case 'tile_image':
 				return "./" . ILIAS_WEB_DIR . '/' . CLIENT_ID . '/' . $this->tile->returnRelativeImagePath(true);
-				break;
+
 			default:
 				if (method_exists($this->tile, $method = 'get' . $this->strToCamelCasE($key))) {
 					return $this->tile->{$method}($key);
@@ -81,9 +81,9 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initCommands()/*: void*/ {
-		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, self::plugin()->translate("submit", SrTileGUI::LANG_MODULE_TILE), "tile_submit");
+		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, $this->txt("submit"), "tile_submit");
 
-		$this->addCommandButton(SrTileGUI::CMD_CANCEL, self::plugin()->translate("cancel", SrTileGUI::LANG_MODULE_TILE), "tile_cancel");
+		$this->addCommandButton(SrTileGUI::CMD_CANCEL, $this->txt("cancel"), "tile_cancel");
 
 		$this->setShowTopButtons(false);
 	}
@@ -119,8 +119,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initTitle()/*: void*/ {
-		$this->setTitle(self::plugin()->translate("tile", SrTileGUI::LANG_MODULE_TILE) . ": "
-			. ilObject::_lookupTitle(ilObject::_lookupObjectId(srTileGUI::filterRefId())));
+		$this->setTitle($this->txt("tile") . ": " . ilObject::_lookupTitle(ilObject::_lookupObjectId(srTileGUI::filterRefId())));
 	}
 
 
@@ -149,6 +148,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::dic()->upload()->moveOneFileTo($result, $this->tile->returnRelativeImagePath(), Location::WEB, $file_name, true);
 				$this->tile->setTileImage($file_name);
 				break;
+
 			default:
 				if (method_exists($this->tile, $method = 'set' . $this->strToCamelCasE($key))) {
 					$this->tile->{$method}($this->getInput($key));
@@ -165,14 +165,6 @@ class TileFormGUI extends PropertyFormGUI {
 
 
 	/**
-	 * @inheritdoc
-	 */
-	public function updateTile()/*: void*/ {
-		exit;
-	}
-
-
-	/**
 	 * @return Tile
 	 */
 	public function getTile(): Tile {
@@ -181,7 +173,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 
 	/**
-	 * @param $string
+	 * @param string $string
 	 *
 	 * @return string
 	 */

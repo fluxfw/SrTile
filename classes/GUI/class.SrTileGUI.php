@@ -116,7 +116,7 @@ class SrTileGUI {
 		}
 
 		$form = $this->getTileFormGUI($tile);
-		$form->setValuesByPost();
+
 		$form->storeForm();
 
 		ilUtil::sendSuccess(self::plugin()->translate("saved", self::LANG_MODULE_TILE), true);
