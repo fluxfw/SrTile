@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\TileListGUI\TileListContainerGUI;
 
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileGUI\TileContainerGUI\TileContainerGUI;
 use srag\Plugins\SrTile\TileList\TileListContainer\TileListContainer;
 use srag\Plugins\SrTile\TileListGUI\TileListGUIAbstract;
