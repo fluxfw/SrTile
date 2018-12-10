@@ -4,10 +4,10 @@
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 
-use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Tile\TileFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
+use srag\Plugins\SrTile\TileGUI\TileFormGUI\TileFormGUI;
+use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
  * Class SrTileGUI
@@ -77,19 +77,19 @@ class SrTileGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function cancel()/*:void*/ {
-
-		$this->dic()->ctrl()->initBaseClass('ilRepositoryGUI');
+		$this->dic()->ctrl()->initBaseClass(ilRepositoryGUI::class);
 		ilObjectGUI::_gotoRepositoryNode(self::filterRefId());
 	}
-
 
 
 	/**
 	 *
 	 */
 	protected function editTile()/*: void*/ {
-
 		$tile = Tile::getInstanceForObjRefId(filter_input(INPUT_GET, "ref_id"));
 		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, self::GET_PARAM_OBJ_REF_ID);
 
@@ -104,10 +104,9 @@ class SrTileGUI {
 
 
 	/**
-	 * @throws \srag\DIC\SrTile\Exception\DICException
+	 *
 	 */
 	protected function updateTile()/*: void*/ {
-
 		$tile = Tile::getInstanceForObjRefId($this->filterRefId());
 		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, self::GET_PARAM_OBJ_REF_ID);
 
@@ -117,7 +116,7 @@ class SrTileGUI {
 		}
 
 		$form = $this->getTileFormGUI($tile);
-		$form->setValuesByPost();
+
 		$form->storeForm();
 
 		ilUtil::sendSuccess(self::plugin()->translate("saved", self::LANG_MODULE_TILE), true);
@@ -125,10 +124,11 @@ class SrTileGUI {
 		self::dic()->ctrl()->redirect($this, self::CMD_EDIT_TILE);
 	}
 
+
 	/**
 	 * @return int
 	 */
-	public static function filterRefId() {
+	public static function filterRefId(): int {
 		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
 		if (is_null($ref_id)) {
 			$param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);

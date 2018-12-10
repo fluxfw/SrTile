@@ -4,13 +4,13 @@ namespace srag\Plugins\SrTile\Tile;
 
 use ActiveRecord;
 use arConnector;
+use ilLink;
 use ilObjCategory;
 use ilObjCourse;
+use ilObject;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
-use ilObject;
-use ilLink;
 
 /**
  * Class Tile
@@ -92,7 +92,7 @@ class Tile extends ActiveRecord {
 	/**
 	 * @param int $obj_ref_id
 	 *
-	 * @return Tile|null
+	 * @return self|null
 	 */
 	public static function getInstanceForObjRefId(int $obj_ref_id) /*:?self*/ {
 		if (self::$instances_by_ref_id[$obj_ref_id] === NULL) {
@@ -227,8 +227,7 @@ class Tile extends ActiveRecord {
 	 *
 	 * @return string
 	 */
-	public function returnRelativeImagePath($append_filename = false) {
-
+	public function returnRelativeImagePath(bool $append_filename = false): string {
 		$path = ilSrTilePlugin::WEB_DATA_FOLDER . '/' . 'tile_' . $this->getTileId() . '/';
 		if ($append_filename) {
 			if (strlen($this->getTileImage()) > 0) {
@@ -241,15 +240,13 @@ class Tile extends ActiveRecord {
 
 
 	/**
-	 * @return ilObjCategory|ilObjCourse|null
+	 * @return ilObject|null
 	 */
-	public function returnIlObject() {
-
-
+	public function returnIlObject()/*: ?ilObject*/ {
 		switch (ilObject::_lookupType($this->getObjRefId(), true)) {
-			case 'cat':
+			case self::OBJ_TYPE_CAT:
 				return new ilObjCategory($this->getObjRefId());
-			case 'crs':
+			case self::OBJ_TYPE_CRS:
 				return new ilObjCourse($this->getObjRefId());
 			default:
 				return NULL;
@@ -257,12 +254,20 @@ class Tile extends ActiveRecord {
 	}
 
 
-	public function returnLink() {
+	/**
+	 * @return string
+	 */
+	public function returnLink(): string {
 		return ilLink::_getStaticLink($this->getObjRefId(), ilObject::_lookupType($this->getObjRefId(), true));
 	}
 
 
-	public static function returnTileIdByRefId($obj_ref_id) {
+	/**
+	 * @param int $obj_ref_id
+	 *
+	 * @return int
+	 */
+	public static function returnTileIdByRefId(int $obj_ref_id): int {
 		return self::where([ 'obj_ref_id' => $obj_ref_id ])->first()->getTileId();
 	}
 }

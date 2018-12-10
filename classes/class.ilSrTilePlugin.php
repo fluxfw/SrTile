@@ -4,7 +4,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use srag\Plugins\SrTile\Config\Config;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\RemovePluginDataConfirm\SrTile\PluginUninstallTrait;
 
@@ -24,7 +24,7 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 	const PLUGIN_NAME = "SrTile";
 	const PLUGIN_CLASS_NAME = self::class;
 	const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = SrTileRemoveDataConfirm::class;
-	const WEB_DATA_FOLDER = self::PLUGIN_ID."_data";
+	const WEB_DATA_FOLDER = self::PLUGIN_ID . "_data";
 	/**
 	 * @var self|null
 	 */
@@ -63,6 +63,8 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 	 * @inheritdoc
 	 */
 	protected function deleteData()/*: void*/ {
-		self::dic()->database()->dropTable(Config::TABLE_NAME, false);
+		self::dic()->database()->dropTable(Tile::TABLE_NAME, false);
+
+		ilUtil::delDir(ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . self::WEB_DATA_FOLDER);
 	}
 }

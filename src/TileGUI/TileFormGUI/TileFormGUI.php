@@ -1,26 +1,23 @@
 <?php
 
-namespace srag\Plugins\SrTile\Tile;
+namespace srag\Plugins\SrTile\TileGUI\TileFormGUI;
 
-use ilException;
-use ilFileSystemStorage;
-use ILIAS\DI\Exceptions\Exception;
-use ILIAS\Filesystem\Filesystem;
-use ILIAS\FileUpload\Location;
-use ILIAS\FileUpload\DTO\UploadResult;
-use ILIAS\DI\Container;
-use ilImageFileInputGUI;
 use ilColorPickerInputGUI;
+use ilException;
+use ILIAS\FileUpload\DTO\UploadResult;
+use ILIAS\FileUpload\Location;
+use ilImageFileInputGUI;
 use ilObject;
-use SrTileGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
+use SrTileGUI;
 
 /**
  * Class TileFormGUI
  *
- * @package srag\Plugins\srTile\Tile
+ * @package srag\Plugins\srTile\TileGUI\TileFormGUI
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -36,7 +33,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 
 	/**
-	 * TileFormGUI constructor.
+	 * TileFormGUI constructor
 	 *
 	 * @param SrTileGUI $parent
 	 * @param Tile      $tile
@@ -48,7 +45,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 		parent::__construct($parent);
 
-		if(!self::dic()->access()->checkAccess("write","",srTileGUI::filterRefId())) {
+		if (!self::dic()->access()->checkAccess("write", "", srTileGUI::filterRefId())) {
 			throw new ilException("You have no permission to access this page");
 		}
 	}
@@ -62,7 +59,7 @@ class TileFormGUI extends PropertyFormGUI {
 		switch ($key) {
 			case 'tile_image':
 				return "./" . ILIAS_WEB_DIR . '/' . CLIENT_ID . '/' . $this->tile->returnRelativeImagePath(true);
-				break;
+
 			default:
 				if (method_exists($this->tile, $method = 'get' . $this->strToCamelCasE($key))) {
 					return $this->tile->{$method}($key);
@@ -85,9 +82,9 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initCommands()/*: void*/ {
-		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, self::plugin()->translate("submit", SrTileGUI::LANG_MODULE_TILE), "tile_submit");
+		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, $this->txt("submit"), "tile_submit");
 
-		$this->addCommandButton(SrTileGUI::CMD_CANCEL, self::plugin()->translate("cancel", SrTileGUI::LANG_MODULE_TILE), "tile_cancel");
+		$this->addCommandButton(SrTileGUI::CMD_CANCEL, $this->txt("cancel"), "tile_cancel");
 
 		$this->setShowTopButtons(false);
 	}
@@ -123,7 +120,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initTitle()/*: void*/ {
-		$this->setTitle(self::plugin()->translate("tile", SrTileGUI::LANG_MODULE_TILE).": ".ilObject::_lookupTitle(ilObject::_lookupObjectId(srTileGUI::filterRefId())));
+		$this->setTitle($this->txt("tile") . ": " . ilObject::_lookupTitle(ilObject::_lookupObjectId(srTileGUI::filterRefId())));
 	}
 
 
@@ -133,7 +130,7 @@ class TileFormGUI extends PropertyFormGUI {
 	protected function storeValue(/*string*/
 		$key, $value)/*: void*/ {
 
-		if($this->tile->getTileId() == 0) {
+		if ($this->tile->getTileId() == 0) {
 			//Store a new Object to get an Id for later.
 			$this->tile->store();
 		}
@@ -152,6 +149,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::dic()->upload()->moveOneFileTo($result, $this->tile->returnRelativeImagePath(), Location::WEB, $file_name, true);
 				$this->tile->setTileImage($file_name);
 				break;
+
 			default:
 				if (method_exists($this->tile, $method = 'set' . $this->strToCamelCasE($key))) {
 					$this->tile->{$method}($this->getInput($key));
@@ -159,19 +157,11 @@ class TileFormGUI extends PropertyFormGUI {
 				break;
 		}
 
-		if($this->getInput('tile_image_delete')) {
+		if ($this->getInput('tile_image_delete')) {
 			$this->tile->setTileImage('');
 		}
 
 		$this->tile->store();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function updateTile()/*: void*/ {
-		exit;
 	}
 
 
@@ -184,7 +174,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 
 	/**
-	 * @param $string
+	 * @param string $string
 	 *
 	 * @return string
 	 */
