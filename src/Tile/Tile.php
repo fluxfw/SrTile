@@ -25,7 +25,6 @@ class Tile extends ActiveRecord {
 	use SrTileTrait;
 	const TABLE_NAME = "ui_uihk_srtile_tile";
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const GRAY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==";
 	/**
 	 * @var self[]
 	 */
@@ -259,7 +258,7 @@ class Tile extends ActiveRecord {
 			}
 		}
 
-		return self::GRAY_IMAGE;
+		return self::plugin()->directory() . "/templates/images/default_image.png";
 	}
 
 
