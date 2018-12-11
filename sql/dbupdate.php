@@ -1,12 +1,12 @@
 <#1>
 <?php
-\srag\plugins\SrTile\Tile\Tile::updateDB();
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
 ?>
 <#2>
 <?php
-\srag\plugins\SrTile\Tile\Tile::updateDB();
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
 ?>
 <#3>
 <?php
-\srag\plugins\SrTile\Tile\Tile::updateDB();
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
 ?>
