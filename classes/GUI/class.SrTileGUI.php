@@ -49,13 +49,13 @@ class SrTileGUI {
 
 		switch (strtolower($next_class)) {
 			default:
-
 				$cmd = self::dic()->ctrl()->getCmd();
 
 				switch ($cmd) {
 					case self::CMD_EDIT_TILE:
 					case self::CMD_UPDATE_TILE:
 						$this->setTabs();
+						
 						$this->{$cmd}();
 						break;
 
