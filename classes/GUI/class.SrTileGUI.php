@@ -130,16 +130,18 @@ class SrTileGUI {
 
 
 	/**
-	 * @return int|null
+	 * @return int
 	 */
-	public static function filterRefId()/*: ?int*/ {
+	public static function filterRefId(): int {
 		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
+
 		if (is_null($ref_id)) {
 			$param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);
+
 			$ref_id = explode('_', $param_target)[1];
 		}
 
-		return $ref_id;
+		return intval($ref_id);
 	}
 
 
