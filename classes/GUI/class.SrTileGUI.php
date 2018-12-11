@@ -151,8 +151,6 @@ class SrTileGUI {
 	 *
 	 */
 	protected function setTabs()/*: void*/ {
-		self::dic()->tabs()->clearTargets();
-
 		self::dic()->ctrl()->setParameter($this, "ref_id", self::filterRefId());
 
 		self::dic()->tabs()->setBackTarget(self::plugin()->translate("back", self::LANG_MODULE_TILE), self::dic()->ctrl()
