@@ -111,6 +111,7 @@ class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
         'srag\\Plugins\\SrTile\\TileList\\TileListInterface' => __DIR__ . '/../..' . '/src/TileList/TileListInterface.php',
         'srag\\Plugins\\SrTile\\Tile\\Tile' => __DIR__ . '/../..' . '/src/Tile/Tile.php',
         'srag\\Plugins\\SrTile\\Tile\\TileDesktopGUI\\TileDesktopGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileDesktopGUI/TileDesktopGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\Tiles' => __DIR__ . '/../..' . '/src/Tile/Tiles.php',
         'srag\\Plugins\\SrTile\\Utils\\SrTileTrait' => __DIR__ . '/../..' . '/src/Utils/SrTileTrait.php',
         'srag\\RemovePluginDataConfirm\\SrTile\\AbstractPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractPluginUninstallTrait.php',
         'srag\\RemovePluginDataConfirm\\SrTile\\AbstractRemovePluginDataConfirm' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractRemovePluginDataConfirm.php',

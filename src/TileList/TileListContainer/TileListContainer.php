@@ -62,7 +62,7 @@ class TileListContainer extends TileListAbstract {
 		if (count($children) > 0) {
 			foreach ($children as $child) {
 				if ($child['child'] > 0) {
-					$tile = Tile::getInstanceForObjRefId($child['child']);
+					$tile = self::tiles()->getInstanceForObjRefId($child['child']);
 					if ($tile instanceof Tile && $tile->isTileEnabled()) {
 						$this->addTile($tile);
 					}

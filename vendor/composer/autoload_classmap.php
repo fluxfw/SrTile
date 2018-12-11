@@ -71,6 +71,7 @@ return array(
     'srag\\Plugins\\SrTile\\TileList\\TileListInterface' => $baseDir . '/src/TileList/TileListInterface.php',
     'srag\\Plugins\\SrTile\\Tile\\Tile' => $baseDir . '/src/Tile/Tile.php',
     'srag\\Plugins\\SrTile\\Tile\\TileDesktopGUI\\TileDesktopGUI' => $baseDir . '/src/TileGUI/TileDesktopGUI/TileDesktopGUI.php',
+    'srag\\Plugins\\SrTile\\Tile\\Tiles' => $baseDir . '/src/Tile/Tiles.php',
     'srag\\Plugins\\SrTile\\Utils\\SrTileTrait' => $baseDir . '/src/Utils/SrTileTrait.php',
     'srag\\RemovePluginDataConfirm\\SrTile\\AbstractPluginUninstallTrait' => $vendorDir . '/srag/removeplugindataconfirm/src/AbstractPluginUninstallTrait.php',
     'srag\\RemovePluginDataConfirm\\SrTile\\AbstractRemovePluginDataConfirm' => $vendorDir . '/srag/removeplugindataconfirm/src/AbstractRemovePluginDataConfirm.php',

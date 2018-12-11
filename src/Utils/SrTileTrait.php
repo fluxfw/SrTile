@@ -6,6 +6,7 @@ namespace srag\Plugins\SrTile\Utils;
 
 use srag\Plugins\SrTile\Access\Access;
 use srag\Plugins\SrTile\Access\Ilias;
+use srag\Plugins\SrTile\Tile\Tiles;
 
 /**
  * Trait SrTileTrait
@@ -32,5 +33,13 @@ trait SrTileTrait {
 	 */
 	protected static function ilias(): Ilias {
 		return Ilias::getInstance();
+	}
+
+
+	/**
+	 * @return Tiles
+	 */
+	protected static function tiles(): Tiles {
+		return Tiles::getInstance();
 	}
 }

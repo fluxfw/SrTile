@@ -26,10 +26,6 @@ class Tile extends ActiveRecord {
 	const TABLE_NAME = "ui_uihk_srtile_tile";
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	/**
-	 * @var self[]
-	 */
-	protected static $instances_by_ref_id = [];
-	/**
 	 * @var int
 	 *
 	 * @con_has_field    true
@@ -97,24 +93,6 @@ class Tile extends ActiveRecord {
 	public function __construct(/*int*/
 		$primary_key_value = 0, arConnector $connector = NULL) {
 		parent::__construct($primary_key_value, $connector);
-	}
-
-
-	/**
-	 * @param int $obj_ref_id
-	 *
-	 * @return self|null
-	 */
-	public static function getInstanceForObjRefId(int $obj_ref_id) /*:?self*/ {
-		if (self::$instances_by_ref_id[$obj_ref_id] === NULL) {
-			if (self::$instances_by_ref_id[$obj_ref_id] = self::where([ 'obj_ref_id' => $obj_ref_id ])->first()) {
-				return self::$instances_by_ref_id[$obj_ref_id];
-			};
-
-			return NULL;
-		}
-
-		return self::$instances_by_ref_id[$obj_ref_id];
 	}
 
 
@@ -348,16 +326,6 @@ class Tile extends ActiveRecord {
 	 */
 	public function returnLink(): string {
 		return ilLink::_getStaticLink($this->getObjRefId(), ilObject::_lookupType($this->getObjRefId(), true));
-	}
-
-
-	/**
-	 * @param int $obj_ref_id
-	 *
-	 * @return int
-	 */
-	public static function returnTileIdByRefId(int $obj_ref_id): int {
-		return self::where([ 'obj_ref_id' => $obj_ref_id ])->first()->getTileId();
 	}
 
 

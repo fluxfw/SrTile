@@ -61,7 +61,7 @@ class TileListContainerGUI extends TileListGUIAbstract {
 
 			if ($is_parent_css_rendered == false) {
 
-				$parent_tile = Tile::getInstanceForObjRefId(self::dic()->tree()->getParentId($tile->getObjRefId()));
+				$parent_tile = self::tiles()->getInstanceForObjRefId(self::dic()->tree()->getParentId($tile->getObjRefId()));
 				if (is_object($parent_tile)) {
 					if (!empty($parent_tile->getLevelColor())) {
 						$css .= 'a#il_mhead_t_focus';
