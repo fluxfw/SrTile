@@ -155,6 +155,7 @@ class SrTileGUI {
 
 		self::dic()->ctrl()->setParameter($this, "ref_id", self::filterRefId());
 
-		self::dic()->tabs()->setBackTarget(self::plugin()->translate("back"), self::dic()->ctrl()->getLinkTarget($this, self::CMD_CANCEL));
+		self::dic()->tabs()->setBackTarget(self::plugin()->translate("back", self::LANG_MODULE_TILE), self::dic()->ctrl()
+			->getLinkTarget($this, self::CMD_CANCEL));
 	}
 }
