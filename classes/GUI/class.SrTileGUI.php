@@ -93,7 +93,7 @@ class SrTileGUI {
 	 */
 	protected function editTile()/*: void*/ {
 		$tile = Tile::getInstanceForObjRefId(filter_input(INPUT_GET, "ref_id"));
-		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, self::GET_PARAM_OBJ_REF_ID);
+		self::dic()->ctrl()->saveParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID);
 
 		if (!is_object($tile)) {
 			$tile = new Tile();
@@ -110,7 +110,7 @@ class SrTileGUI {
 	 */
 	protected function updateTile()/*: void*/ {
 		$tile = Tile::getInstanceForObjRefId($this->filterRefId());
-		self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, self::GET_PARAM_OBJ_REF_ID);
+		self::dic()->ctrl()->saveParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID);
 
 		if (!is_object($tile)) {
 			$tile = new Tile();
@@ -153,6 +153,13 @@ class SrTileGUI {
 	 *
 	 */
 	protected function setTabs()/*: void*/ {
+		self::dic()->tabs()->clearTargets();
+
+		self::dic()->tabs()->addTab(ilSrTileUIHookGUI::TAB_ID, self::plugin()->translate(ilSrTileUIHookGUI::TAB_ID), self::dic()->ctrl()->getLinkTargetByClass([
+			ilUIPluginRouterGUI::class,
+			self::class
+		], self::CMD_EDIT_TILE));
+
 		self::dic()->ctrl()->setParameter($this, "ref_id", self::filterRefId());
 
 		self::dic()->tabs()->setBackTarget(self::plugin()->translate("back", self::LANG_MODULE_TILE), self::dic()->ctrl()

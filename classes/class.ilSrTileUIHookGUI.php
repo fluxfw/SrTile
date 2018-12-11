@@ -36,6 +36,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TEMPLATE_ID_CONTAINER_LIST_ITEM = "Services/Container/tpl.container_list_item.html";
 	const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const GET = 'template_get';
+	const TAB_ID = "tile";
 	/**
 	 * @var bool[]
 	 */
@@ -69,7 +70,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 		//Repository
 		if (!self::$load[self::TILE_CONTAINER_LOADER]) {
-			if (($baseClass === strtolower(ilRepositoryGUI::class) ||$baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
+			if (($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
 				&& $a_part === self::GET
 				&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE
 					|| $a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_LIST_ITEM)) {
@@ -128,7 +129,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			$ref_id = SrTileGUI::filterRefId();
 
-			if (($baseClass === strtolower(ilRepositoryGUI::class) ||$baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
+			if (($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
 				&& $a_part === self::PAR_TABS
 				&& $ref_id !== NULL
 				&& ($ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($ref_id, false) !== false)) {
@@ -143,14 +144,12 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 				self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, SrTileGUI::GET_PARAM_OBJ_REF_ID);
 
-				self::dic()->tabs()->addTab('tile', self::plugin()->translate('tile'), self::dic()->ctrl()->getLinkTargetByClass(array(
+				self::dic()->tabs()->addTab(self::TAB_ID, self::plugin()->translate(self::TAB_ID), self::dic()->ctrl()->getLinkTargetByClass([
 					ilUIPluginRouterGUI::class,
-					SrTileGUI::class,
-				), SrTileGUI::CMD_EDIT_TILE));
+					SrTileGUI::class
+				], SrTileGUI::CMD_EDIT_TILE));
 
-				if (self::dic()->ctrl()->getCmdClass() == NULL) {
-					self::dic()->tabs()->activateTab('view_content');
-				}
+				self::dic()->tabs()->target[count(self::dic()->tabs()->target) - 1]['cmd'] = [];
 			}
 		}
 
