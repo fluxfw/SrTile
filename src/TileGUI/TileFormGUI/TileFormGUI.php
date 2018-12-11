@@ -137,6 +137,16 @@ class TileFormGUI extends PropertyFormGUI {
 
 		switch ($key) {
 			case 'tile_image':
+				if ($this->getInput('tile_image_delete')) {
+					$image_path = ILIAS_ABSOLUTE_PATH . "/" . ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
+					if (file_exists($image_path)) {
+						unlink($image_path);
+					}
+					$this->tile->setTileImage('');
+
+					return;
+				}
+
 				if (!self::dic()->upload()->hasBeenProcessed()) {
 					self::dic()->upload()->process();
 				}
@@ -155,10 +165,6 @@ class TileFormGUI extends PropertyFormGUI {
 					$this->tile->{$method}($this->getInput($key));
 				}
 				break;
-		}
-
-		if ($this->getInput('tile_image_delete')) {
-			$this->tile->setTileImage('');
 		}
 
 		$this->tile->store();
