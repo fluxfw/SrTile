@@ -55,7 +55,7 @@ class SrTileGUI {
 					case self::CMD_EDIT_TILE:
 					case self::CMD_UPDATE_TILE:
 						$this->setTabs();
-						
+
 						$this->{$cmd}();
 						break;
 
@@ -87,6 +87,7 @@ class SrTileGUI {
 	 *
 	 */
 	protected function cancel()/*:void*/ {
+		// TODO: Redirect
 		$this->dic()->ctrl()->initBaseClass(ilRepositoryGUI::class);
 
 		ilObjectGUI::_gotoRepositoryNode(self::filterRefId());
