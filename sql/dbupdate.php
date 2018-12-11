@@ -18,3 +18,7 @@
 <?php
 \srag\Plugins\SrTile\Config\Config::updateDB();
 ?>
+<#6>
+<?php
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
+?>

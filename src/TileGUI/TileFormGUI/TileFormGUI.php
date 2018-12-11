@@ -111,6 +111,11 @@ class TileFormGUI extends PropertyFormGUI {
 						self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
 						self::PROPERTY_REQUIRED => false,
 						'setDefaultColor' => ''
+					],
+					"level_color_font" => [
+						self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
+						self::PROPERTY_REQUIRED => false,
+						'setDefaultColor' => ''
 					]
 				]
 			],
@@ -175,7 +180,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 			default:
 				if (method_exists($this->tile, $method = 'set' . $this->strToCamelCasE($key))) {
-					$this->tile->{$method}($this->getInput($key));
+					$this->tile->{$method}($value);
 				}
 				break;
 		}

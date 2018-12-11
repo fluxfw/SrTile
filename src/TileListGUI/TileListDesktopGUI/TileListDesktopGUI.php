@@ -52,8 +52,8 @@ class TileListDesktopGUI extends TileListGUIAbstract {
 			$css .= ' #lg_div_';
 			$css .= $tile->getObjRefId();
 			$css .= '_pref_';
-			$css .= 0;
-			$css .= '{ display: none !important;} ';
+			$css .= '0';
+			$css .= '{display:none!important;}';
 		}
 
 		self::dic()->mainTemplate()->addInlineCss($css);

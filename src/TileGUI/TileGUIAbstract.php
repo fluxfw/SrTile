@@ -51,7 +51,6 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setCurrentBlock("tile");
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
 		$tpl->setVariable("LABEL", ($this->tile->returnIlObject() !== NULL ? $this->tile->returnIlObject()->getTitle() : ""));
-		$tpl->setVariable("COLOR", $this->tile->getLevelColor());
 		$tpl->setVariable("LINK", $this->tile->returnLink());
 		$tpl->setVariable("IMAGE", $this->tile->getImage());
 
@@ -102,10 +101,11 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 * @inheritdoc
 	 */
 	public function setCardColor()/*: void*/ {
+		// TODO: Not work?!
 		if (strlen($this->tile->getLevelColor()) > 0) {
-			$css = ' #sr-tile-_';
-			$css .= $this->tile->getTileId();
-			$css .= '{ background-color: ' . $this->tile->getLevelColor() . '} ';
+			$id = "#sr-tile-_" . $this->tile->getTileId();
+
+			$css = $id . '{' . $this->tile->getColor() . '}';
 			self::dic()->mainTemplate()->addInlineCss($css);
 		}
 	}

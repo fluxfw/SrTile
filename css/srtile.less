@@ -1,5 +1,3 @@
-@import "tiles_variables.less";
-
 .ilObjListRow {
   border-bottom: none !important;
 }
@@ -32,59 +30,13 @@ h3.ilPDBlockSubHeader {
 /**
 Tiles
  */
+.tile {
+  padding: 0 15px 0 0;
 
-body .tile {
+  margin-bottom: 15px;
+  font-size: 13px;
 
   text-align: center;
-
-  // Category Tile Only.
-  &.category {
-	> div {
-	  font-family: "Open Sans Semibold", sans-serif;
-
-	  text-decoration: none;
-	  display: block;
-	  text-transform: uppercase;
-	  //padding:         10px 0;
-	  font-size: 15px;
-	}
-
-	.ratio-container {
-	  &:after {
-		content: " ";
-		z-index: 10;
-		display: block;
-		position: absolute;
-		height: 100%;
-		top: 0;
-		left: 0;
-		right: 0;
-		background: rgba(0, 0, 0, 0);
-		pointer-events: none;
-	  }
-
-	  &:hover:after {
-		content: " ";
-		z-index: 10;
-		display: block;
-		position: absolute;
-		height: 100%;
-		top: 0;
-		left: 0;
-		right: 0;
-		background: rgba(255, 255, 255, 0.075);
-	  }
-	}
-
-	.ratio-container {
-	  padding-top: 100%;
-	  overflow: hidden;
-
-	  img {
-		padding: 12%;
-	  }
-	}
-  }
 
   .ratio-container {
 	cursor: pointer;
@@ -109,37 +61,15 @@ body .tile {
 	}
   }
 
-
-  padding: 0 15px 0 0;
-
-  margin-bottom: 15px;
-  font-size: 13px;
-
-  /*
-  > div {
-
-	text-decoration: none;
-	display:         block;
-	text-transform:  uppercase;
-	padding:         0;
-  }*/
-
-  // All tiles
   .card {
 	max-width: 100%;
 	width: 100%;
-	/*overflow:  hidden;*/
 
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
 	.flex-container {
 	  display: flex;
 	  height: 50px;
-	}
-
-	.card-title {
-	  flex-grow: 1;
-
 	}
 
 	.card-label {
@@ -151,13 +81,14 @@ body .tile {
 	  }
 
 	  .card-title {
-		/*padding:    20px 5px 0 20px*/;
-		text-align: left;
-		min-width: 0;
+		flex-grow: 1;
+		font-size: 16px;
+		line-height: 1.2em;
 		overflow: hidden;
+		padding: 5px !important;
+		text-align: left;
 		text-overflow: ellipsis;
 	  }
-
 
 	  .card-footer {
 		text-align: left;
@@ -171,37 +102,8 @@ body .tile {
 		  text-align: right;
 		  padding-right: 5px;
 		  padding-top: 12px;
-
 		}
-
-		img {
-		  font-size: inherit;
-		  height: 18px;
-		}
-
-
 	  }
 	}
-
-
-	.like_count {
-	  margin-left: -5px;
-	  margin-top: 2px;
-	}
   }
-}
-
-
-.card-text, .card-title {
-  line-height: 1;
-  text-align: center;
-  padding: 5px !important;
-  font-size: 16px;
-  line-height: 1.2em;
-  color: lighten(#000, 5%);
-}
-
-
-.img-responsive {
-  width: 100%;
 }

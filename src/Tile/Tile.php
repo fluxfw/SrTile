@@ -75,6 +75,14 @@ class Tile extends ActiveRecord {
 	 */
 	protected $level_color = "";
 	/**
+	 * @var string
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   text
+	 * @con_is_notnull  true
+	 */
+	protected $level_color_font = "";
+	/**
 	 * @var ilObject|null
 	 */
 	protected $object = NULL;
@@ -242,6 +250,44 @@ class Tile extends ActiveRecord {
 	/**
 	 * @return string
 	 */
+	public function getLevelColorFont(): string {
+		return $this->level_color_font;
+	}
+
+
+	/**
+	 * @param string $level_color_font
+	 */
+	public function setLevelColorFont(string $level_color_font) {
+		$this->level_color_font = $level_color_font;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getColor(): string {
+		$css = "";
+
+		if (!empty($this->getLevelColor())) {
+			$css .= 'background-color:#' . $this->getLevelColor() . '!important;';
+		}
+
+		if (!empty($this->getLevelColorFont())) {
+			$css .= 'color:#' . $this->getLevelColorFont() . '!important;';
+		} else {
+			if (!empty($this->getLevelColor())) {
+				$css .= 'color:#' . $this->getContrastYIQ($this->getLevelColor()) . '!important;';
+			}
+		}
+
+		return $css;
+	}
+
+
+	/**
+	 * @return string
+	 */
 	public function getImage(): string {
 		if (!empty($this->getTileImage())) {
 			$image_path = ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->returnRelativeImagePath(true);
@@ -312,5 +358,23 @@ class Tile extends ActiveRecord {
 	 */
 	public static function returnTileIdByRefId(int $obj_ref_id): int {
 		return self::where([ 'obj_ref_id' => $obj_ref_id ])->first()->getTileId();
+	}
+
+
+	/**
+	 * https://24ways.org/2010/calculating-color-contrast/
+	 *
+	 * @param string $hexcolor
+	 *
+	 * @return string
+	 */
+	private function getContrastYIQ(string $hexcolor): string {
+		$r = hexdec(substr($hexcolor, 0, 2));
+		$g = hexdec(substr($hexcolor, 2, 2));
+		$b = hexdec(substr($hexcolor, 4, 2));
+
+		$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+		return ($yiq >= 128) ? '000000' : 'FFFFFF';
 	}
 }

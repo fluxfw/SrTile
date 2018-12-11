@@ -54,24 +54,33 @@ class TileListContainerGUI extends TileListGUIAbstract {
 			$css .= $tile->getObjRefId();
 			$css .= '_pref_';
 			$css .= $this->tile_list->getContainerObjRefId();
-			$css .= '{ display: none !important;} ';
+			$css .= '{display:none!important;}';
 
 			$css .= '#sr-tile-' . $tile->getTileId();
-			$css .= '{ background-color: #' . $tile->getLevelColor() . '!important;}';
+			$css .= '{' . $tile->getColor() . '}';
 
 			if ($is_parent_css_rendered == false) {
 
 				$parent_tile = Tile::getInstanceForObjRefId(self::dic()->tree()->getParentId($tile->getObjRefId()));
 				if (is_object($parent_tile)) {
-					$css .= 'a#il_mhead_t_focus';
-					$css .= '{ color: #' . $parent_tile->getLevelColor() . '!important;}';
+					if (!empty($parent_tile->getLevelColor())) {
+						$css .= 'a#il_mhead_t_focus';
+						$css .= '{color:#' . $parent_tile->getLevelColor() . '!important;}';
+					}
 
 					$css .= '.card';
-					$css .= '{ border: 4px solid #' . $parent_tile->getLevelColor() . '!important;}';
+					$css .= '{border:4px solid';
+					if (!empty($parent_tile->getLevelColor())) {
+						$css .= ' #' . $parent_tile->getLevelColor() . '!important';
+					}
+					$css .= ';}';
 
 					$css .= '.btn-default';
-					$css .= '{ background-color: #' . $parent_tile->getLevelColor() . '!important; ';
-					$css .= 'border-color:' . $parent_tile->getLevelColor() . '!important; }';
+					$css .= '{' . $parent_tile->getColor();
+					if (!empty($parent_tile->getLevelColor())) {
+						$css .= 'border-color:#' . $parent_tile->getLevelColor() . '!important;';
+					}
+					$css .= '}';
 				}
 			}
 			$is_parent_css_rendered = true;
