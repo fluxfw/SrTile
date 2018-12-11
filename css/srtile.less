@@ -17,7 +17,7 @@ Personal Desktop
  */
 //Do Not Display Header of Center View
 #block_pditems_0 {
-  div.il_Block{
+  div.il_Block {
 	div.ilBlockHeader {
 	  display: none !important;
 	}
@@ -35,49 +35,51 @@ Tiles
 
 body .tile {
 
-  text-align:    center;
+  text-align: center;
 
   // Category Tile Only.
   &.category {
 	> div {
-	  font-family:     "Open Sans Semibold", sans-serif;
+	  font-family: "Open Sans Semibold", sans-serif;
 
 	  text-decoration: none;
-	  display:         block;
-	  text-transform:  uppercase;
+	  display: block;
+	  text-transform: uppercase;
 	  //padding:         10px 0;
-	  font-size:       15px;
+	  font-size: 15px;
 	}
+
 	.ratio-container {
 	  &:after {
-		content:        " ";
-		z-index:        10;
-		display:        block;
-		position:       absolute;
-		height:         100%;
-		top:            0;
-		left:           0;
-		right:          0;
-		background:     rgba(0, 0, 0, 0);
+		content: " ";
+		z-index: 10;
+		display: block;
+		position: absolute;
+		height: 100%;
+		top: 0;
+		left: 0;
+		right: 0;
+		background: rgba(0, 0, 0, 0);
 		pointer-events: none;
 	  }
 
 	  &:hover:after {
-		content:    " ";
-		z-index:    10;
-		display:    block;
-		position:   absolute;
-		height:     100%;
-		top:        0;
-		left:       0;
-		right:      0;
+		content: " ";
+		z-index: 10;
+		display: block;
+		position: absolute;
+		height: 100%;
+		top: 0;
+		left: 0;
+		right: 0;
 		background: rgba(255, 255, 255, 0.075);
 	  }
 	}
 
 	.ratio-container {
 	  padding-top: 100%;
-	  overflow:    hidden;
+	  overflow: hidden;
+
 	  img {
 		padding: 12%;
 	  }
@@ -85,16 +87,24 @@ body .tile {
   }
 
   .ratio-container {
+	max-height: 100%;
+	overflow: hidden;
 	padding-top: 70%;
-	position:    relative;
-	max-height:  100%;
-	text-align:  left;
+	position: relative;
+	text-align: left;
 
-	img {
+	img:first-of-type {
+	  height: auto;
 	  position: absolute;
-	  height: 100%;
-	  top:      0;
-	  bottom:   0;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	}
+
+	img:nth-child(2) {
+	  bottom: 0;
+	  left: 0;
+	  position: absolute;
 	}
   }
 
@@ -103,10 +113,10 @@ body .tile {
   }
 
 
-  padding:       0 15px 0 0;
+  padding: 0 15px 0 0;
 
   margin-bottom: 15px;
-  font-size:     13px;
+  font-size: 13px;
 
   /*
   > div {
@@ -120,18 +130,20 @@ body .tile {
   img.card-img-top {
 	width: 100%;
   }
+
   // All tiles
   .card {
 	max-width: 100%;
-	width:     100%;
+	width: 100%;
 	/*overflow:  hidden;*/
 
-	box-shadow:    0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
 	.flex-container {
 	  display: flex;
-	  height:  50px;
+	  height: 50px;
 	}
+
 	.card-title {
 	  flex-grow: 1;
 
@@ -139,7 +151,7 @@ body .tile {
 
 	.card-label {
 	  font-size: 22px;
-	  position:  relative;
+	  position: relative;
 
 	  .card-title-container {
 		min-width: 0;
@@ -147,42 +159,41 @@ body .tile {
 
 	  .card-title {
 		/*padding:    20px 5px 0 20px*/;
-		text-align:    left;
-		min-width:     0;
-		overflow:      hidden;
+		text-align: left;
+		min-width: 0;
+		overflow: hidden;
 		text-overflow: ellipsis;
 	  }
 
 
-		.card-footer {
-		  text-align: left;
-		  display:    flex;
+	  .card-footer {
+		text-align: left;
+		display: flex;
 
-		  .left {
-			flex-grow: 1;
-		  }
+		.left {
+		  flex-grow: 1;
+		}
 
-		  .right {
-			text-align: right;
-			padding-right: 5px;
-			padding-top: 12px;
-
-		  }
-
-		  img {
-			font-size: inherit;
-			height:    18px;
-		  }
-
+		.right {
+		  text-align: right;
+		  padding-right: 5px;
+		  padding-top: 12px;
 
 		}
-	  }
 
+		img {
+		  font-size: inherit;
+		  height: 18px;
+		}
+
+
+	  }
+	}
 
 
 	.like_count {
 	  margin-left: -5px;
-	  margin-top:  2px;
+	  margin-top: 2px;
 	}
   }
 }
@@ -190,9 +201,9 @@ body .tile {
 
 .card-text, .card-title {
   line-height: 1;
-  text-align:  center;
-  padding:     5px !important;
-  font-size:   16px;
+  text-align: center;
+  padding: 5px !important;
+  font-size: 16px;
   line-height: 1.2em;
   color: lighten(#000, 5%);
 }

@@ -3,6 +3,7 @@
 namespace srag\Plugins\SrTile\TileGUI;
 
 use ilAdvancedSelectionListGUI;
+use ilObject;
 use ilObjRootFolderGUI;
 use ilRepositoryGUI;
 use ilSrTilePlugin;
@@ -49,12 +50,18 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl = self::plugin()->template("Tile/tpl.tile.html");
 		$tpl->setCurrentBlock("tile");
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
-		$tpl->setVariable("LABEL", is_object($this->tile->returnIlObject()) ? $this->tile->returnIlObject()->getTitle() : "");
+		$tpl->setVariable("LABEL", ($this->tile->returnIlObject() !== NULL ? $this->tile->returnIlObject()->getTitle() : ""));
 		$tpl->setVariable("COLOR", $this->tile->getLevelColor());
 		$tpl->setVariable("LINK", $this->tile->returnLink());
 		$tpl->setVariable("IMAGE", $this->tile->getImage());
 
 		$tpl->setVariable("ACTIONS", $this->getActions());
+
+		$icon = ilObject::_getIcon(($this->tile->returnIlObject() !== NULL ? $this->tile->returnIlObject()->getId() : NULL), "small");
+		if (file_exists($icon)) {
+			$tpl->setVariable("ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
+		}
+
 		$tpl->parseCurrentBlock();
 
 		return $tpl->get();

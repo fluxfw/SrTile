@@ -75,6 +75,10 @@ class Tile extends ActiveRecord {
 	 * @con_is_notnull  true
 	 */
 	protected $level_color = "";
+	/**
+	 * @var ilObject|null
+	 */
+	protected $object = NULL;
 
 
 	/**
@@ -282,13 +286,15 @@ class Tile extends ActiveRecord {
 	 * @return ilObject|null
 	 */
 	public function returnIlObject()/*: ?ilObject*/ {
-		$object = ilObjectFactory::getInstanceByRefId($this->getObjRefId(), false);
+		if ($this->object === NULL) {
+			$this->object = ilObjectFactory::getInstanceByRefId($this->getObjRefId(), false);
 
-		if ($object !== false) {
-			return $object;
-		} else {
-			return NULL;
+			if ($this->object === false) {
+				$this->object = NULL;
+			}
 		}
+
+		return $this->object;
 	}
 
 
