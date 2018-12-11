@@ -103,7 +103,7 @@ class SrTileGUI {
 
 		$form = $this->getTileFormGUI($tile);
 
-		self::output()->output($form);
+		self::output()->output($form, true);
 	}
 
 

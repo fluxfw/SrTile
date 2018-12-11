@@ -52,7 +52,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("LABEL", is_object($this->tile->returnIlObject()) ? $this->tile->returnIlObject()->getTitle() : "");
 		$tpl->setVariable("COLOR", $this->tile->getLevelColor());
 		$tpl->setVariable("LINK", $this->tile->returnLink());
-		$tpl->setVariable("IMAGE", "./" . ILIAS_WEB_DIR . '/' . CLIENT_ID . '/' . $this->tile->returnRelativeImagePath(true));
+		$tpl->setVariable("IMAGE", $this->tile->getImage());
 
 		$tpl->setVariable("ACTIONS", $this->getActions());
 		$tpl->parseCurrentBlock();

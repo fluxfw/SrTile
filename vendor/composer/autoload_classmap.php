@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'SrTileGUI' => $baseDir . '/classes/GUI/class.SrTileGUI.php',
     'SrTileRemoveDataConfirm' => $baseDir . '/classes/uninstall/class.SrTileRemoveDataConfirm.php',
+    'ilSrTileConfigGUI' => $baseDir . '/classes/class.ilSrTileConfigGUI.php',
     'ilSrTilePlugin' => $baseDir . '/classes/class.ilSrTilePlugin.php',
     'ilSrTileUIHookGUI' => $baseDir . '/classes/class.ilSrTileUIHookGUI.php',
     'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordConfig' => $vendorDir . '/srag/activerecordconfig/src/ActiveRecordConfig.php',
@@ -54,6 +55,8 @@ return array(
     'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => $vendorDir . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
     'srag\\Plugins\\SrTile\\Access\\Access' => $baseDir . '/src/Access/Access.php',
     'srag\\Plugins\\SrTile\\Access\\Ilias' => $baseDir . '/src/Access/Ilias.php',
+    'srag\\Plugins\\SrTile\\Config\\Config' => $baseDir . '/src/Config/Config.php',
+    'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => $baseDir . '/src/Config/ConfigFormGUI.php',
     'srag\\Plugins\\SrTile\\TileGUI\\TileContainerGUI\\TileContainerGUI' => $baseDir . '/src/TileGUI/TileContainerGUI/TileContainerGUI.php',
     'srag\\Plugins\\SrTile\\TileGUI\\TileFormGUI\\TileFormGUI' => $baseDir . '/src/TileGUI/TileFormGUI/TileFormGUI.php',
     'srag\\Plugins\\SrTile\\TileGUI\\TileGUIAbstract' => $baseDir . '/src/TileGUI/TileGUIAbstract.php',

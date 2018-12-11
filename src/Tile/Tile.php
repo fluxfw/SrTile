@@ -10,6 +10,7 @@ use ilObjCourse;
 use ilObject;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Config\Config;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -35,6 +36,7 @@ class Tile extends ActiveRecord {
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const OBJ_TYPE_CAT = "cat";
 	const OBJ_TYPE_CRS = "crs";
+	const GRAY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==";
 	/**
 	 * @var self
 	 */
@@ -59,6 +61,15 @@ class Tile extends ActiveRecord {
 	 * @con_is_notnull  true
 	 */
 	protected $obj_ref_id;
+	/**
+	 * @var bool
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_length      1
+	 * @con_is_notnull  true
+	 */
+	protected $tile_enabled = false;
 	/**
 	 * @var string
 	 *
@@ -125,8 +136,30 @@ class Tile extends ActiveRecord {
 		$field_value = $this->{$field_name};
 
 		switch ($field_name) {
-			case "show_children_as_tile":
+			case "tile_enabled":
 				return ($field_value ? 1 : 0);
+			default:
+				return NULL;
+		}
+	}
+
+
+	/**
+	 * @param string $field_name
+	 * @param mixed  $field_value
+	 *
+	 * @return mixed|null
+	 */
+	public function wakeUp(/*string*/
+		$field_name, $field_value) {
+		switch ($field_name) {
+			case "tile_id":
+			case "obj_ref_id":
+				return intval($field_value);
+
+			case "tile_enabled":
+				return boolval($field_value);
+
 			default:
 				return NULL;
 		}
@@ -166,6 +199,22 @@ class Tile extends ActiveRecord {
 
 
 	/**
+	 * @return bool
+	 */
+	public function isTileEnabled(): bool {
+		return $this->tile_enabled;
+	}
+
+
+	/**
+	 * @param bool $tile_enabled
+	 */
+	public function setTileEnabled(bool $tile_enabled) {
+		$this->tile_enabled = $tile_enabled;
+	}
+
+
+	/**
 	 * @return string
 	 *
 	 */
@@ -199,24 +248,25 @@ class Tile extends ActiveRecord {
 
 
 	/**
-	 * @param string $field_name
-	 * @param mixed  $field_value
-	 *
-	 * @return mixed|null
+	 * @return string
 	 */
-	public function wakeUp(/*string*/
-		$field_name, $field_value) {
-		switch ($field_name) {
-			case "tile_id":
-			case "obj_ref_id":
-				return intval($field_value);
-
-			case "show_children_as_tile":
-				return boolval($field_value);
-
-			default:
-				return NULL;
+	public function getImage(): string {
+		if (!empty($this->getTileImage())) {
+			$image_path = ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->returnRelativeImagePath(true);
+			if (file_exists($image_path)) {
+				return "./" . $image_path;
+			}
 		}
+
+		$default_image = Config::getField(Config::KEY_DEFAULT_IMAGE);
+		if (!empty($default_image)) {
+			$image_path = ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . ilSrTilePlugin::WEB_DATA_FOLDER . "/" . $default_image;
+			if (file_exists($image_path)) {
+				return "./" . $image_path;
+			}
+		}
+
+		return self::GRAY_IMAGE;
 	}
 
 

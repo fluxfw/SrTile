@@ -10,3 +10,11 @@
 <?php
 \srag\Plugins\SrTile\Tile\Tile::updateDB();
 ?>
+<#4>
+<?php
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
+?>
+<#5>
+<?php
+\srag\Plugins\SrTile\Config\Config::updateDB();
+?>

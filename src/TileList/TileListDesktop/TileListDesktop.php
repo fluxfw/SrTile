@@ -66,7 +66,7 @@ class TileListDesktop extends TileListAbstract {
 		$desktop_items = $usr_obj->getDesktopItems();
 		foreach ($desktop_items as $item) {
 			$tile = Tile::getInstanceForObjRefId($item['ref_id']);
-			if (is_object($tile) && strlen($tile->getTileImage()) > 0) {
+			if ($tile instanceof Tile && $tile->isTileEnabled()) {
 				$this->addTile($tile);
 			}
 		}

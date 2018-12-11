@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\TileGUI\TileFormGUI;
 
+use ilCheckboxInputGUI;
 use ilColorPickerInputGUI;
 use ilException;
 use ILIAS\FileUpload\DTO\UploadResult;
@@ -64,6 +65,9 @@ class TileFormGUI extends PropertyFormGUI {
 				if (method_exists($this->tile, $method = 'get' . $this->strToCamelCasE($key))) {
 					return $this->tile->{$method}($key);
 				}
+				if (method_exists($this->tile, $method = 'is' . $this->strToCamelCasE($key))) {
+					return $this->tile->{$method}($key);
+				}
 		}
 
 		return NULL;
@@ -95,15 +99,21 @@ class TileFormGUI extends PropertyFormGUI {
 	 */
 	protected function initFields()/*: void*/ {
 		$this->fields = [
-			"tile_image" => [
-				self::PROPERTY_CLASS => ilImageFileInputGUI::class,
-				self::PROPERTY_REQUIRED => false
-			],
-			"level_color" => [
-				self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
+			"tile_enabled" => [
+				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
-				'setDefaultColor' => ''
-			]
+				self::PROPERTY_SUBITEMS => [
+					"tile_image" => [
+						self::PROPERTY_CLASS => ilImageFileInputGUI::class,
+						self::PROPERTY_REQUIRED => false
+					],
+					"level_color" => [
+						self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
+						self::PROPERTY_REQUIRED => false,
+						'setDefaultColor' => ''
+					]
+				]
+			],
 		];
 	}
 
@@ -137,26 +147,29 @@ class TileFormGUI extends PropertyFormGUI {
 
 		switch ($key) {
 			case 'tile_image':
-				if ($this->getInput('tile_image_delete')) {
-					$image_path = ILIAS_ABSOLUTE_PATH . "/" . ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
+				if (!self::dic()->upload()->hasBeenProcessed()) {
+					self::dic()->upload()->process();
+				}
+
+				/** @var UploadResult $result */
+				$result = array_pop(self::dic()->upload()->getResults());
+
+				if ($this->getInput('tile_image_delete') || $result->getSize() > 0) {
+					$image_path = ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
 					if (file_exists($image_path)) {
 						unlink($image_path);
 					}
 					$this->tile->setTileImage('');
-
-					return;
 				}
 
-				if (!self::dic()->upload()->hasBeenProcessed()) {
-					self::dic()->upload()->process();
-				}
-				/** @var UploadResult $result */
-				$result = array_pop(self::dic()->upload()->getResults());
-				if ($result->getSize() == 0) {
+				if (intval($result->getSize()) === 0) {
 					break;
 				}
+
 				$file_name = $this->tile->getTileId() . "." . pathinfo($result->getName(), PATHINFO_EXTENSION);
+
 				self::dic()->upload()->moveOneFileTo($result, $this->tile->returnRelativeImagePath(), Location::WEB, $file_name, true);
+
 				$this->tile->setTileImage($file_name);
 				break;
 

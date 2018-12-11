@@ -79,7 +79,7 @@ class TileListContainer extends TileListAbstract {
 			foreach ($children as $child) {
 				if ($child['child'] > 0) {
 					$tile = Tile::getInstanceForObjRefId($child['child']);
-					if ($tile instanceof Tile && self::dic()->filesystem()->web()->has($tile->returnRelativeImagePath(true))) {
+					if ($tile instanceof Tile && $tile->isTileEnabled()) {
 						$this->addTile($tile);
 					}
 				}
