@@ -49,14 +49,20 @@ class SrTileGUI {
 
 		switch (strtolower($next_class)) {
 			default:
+
 				$cmd = self::dic()->ctrl()->getCmd();
 
 				switch ($cmd) {
 					case self::CMD_EDIT_TILE:
 					case self::CMD_UPDATE_TILE:
+						$this->setTabs();
+						$this->{$cmd}();
+						break;
+
 					case self::CMD_CANCEL:
 						$this->{$cmd}();
 						break;
+
 					default:
 						break;
 				}
@@ -82,6 +88,7 @@ class SrTileGUI {
 	 */
 	protected function cancel()/*:void*/ {
 		$this->dic()->ctrl()->initBaseClass(ilRepositoryGUI::class);
+
 		ilObjectGUI::_gotoRepositoryNode(self::filterRefId());
 	}
 
@@ -136,5 +143,17 @@ class SrTileGUI {
 		}
 
 		return $ref_id;
+	}
+
+
+	/**
+	 *
+	 */
+	protected function setTabs()/*: void*/ {
+		self::dic()->tabs()->clearTargets();
+
+		self::dic()->ctrl()->setParameter($this, "ref_id", self::filterRefId());
+
+		self::dic()->tabs()->setBackTarget(self::plugin()->translate("back"), self::dic()->ctrl()->getLinkTarget($this, self::CMD_CANCEL));
 	}
 }
