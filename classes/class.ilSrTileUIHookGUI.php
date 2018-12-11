@@ -5,7 +5,6 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\TileList\TileListContainer\TileListContainer;
 use srag\Plugins\SrTile\TileListGUI\TileListContainerGUI\TileListContainerGUI;
 use srag\Plugins\SrTile\TileListGUI\TileListDesktopGUI\TileListDesktopGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -33,10 +32,8 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TILE_CONFIG_TAB_LOADER = "tile_config_tab";
 	const TILE_CONTAINER_LOADER = "tile_container";
 	const TILE_DESKTOP_LOADER = "tile_desktop_loader";
-	const SESSION_PROJECT_KEY = ilSrTilePlugin::PLUGIN_ID . "_project_key";
 	const TEMPLATE_ID_CONTAINER_PAGE = "Services/Container/tpl.container_page.html";
 	const TEMPLATE_ID_CONTAINER_LIST_ITEM = "Services/Container/tpl.container_list_item.html";
-	const CMD_CLASS_PERSONALDESKTOP_GUI = ilPersonalDesktopGUI::class;
 	const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const GET = 'template_get';
 	/**
@@ -64,60 +61,25 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 *
 	 * @return array
 	 */
-	public function modifyGUI(/*string*/
-		$a_comp, /*string*/
-		$a_part, /*array*/
-		$a_par = []): array {
-		if (!self::$load[self::TILE_CONFIG_TAB_LOADER]) {
-			if ($a_part == self::PAR_TABS
-				&& $ref_id = SrTileGUI::filterRefId()
-					&& in_array(ilObject::_lookupType(SrTileGUI::filterRefId(), true), TileListContainer::$possible_obj_types)) {
-
-				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
-
-				if (self::dic()->user()->getId() != 13) {
-					if (!self::dic()->access()->checkAccess("write", "", $ref_id)) {
-						return [ "mode" => self::KEEP, "html" => "" ];
-					}
-				}
-
-				self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, SrTileGUI::GET_PARAM_OBJ_REF_ID);
-				$ilTabsGUI = $a_par['tabs'];
-				$ilTabsGUI->addTab('tile', self::plugin()->translate('tile'), self::dic()->ctrl()->getLinkTargetByClass(array(
-					ilUIPluginRouterGUI::class,
-					SrTileGUI::class,
-				), SrTileGUI::CMD_EDIT_TILE));
-
-				if (self::dic()->ctrl()->getCmdClass() == NULL) {
-					$ilTabsGUI->setTabActive('view_content');
-				}
-			}
-		}
-
-		return [ "mode" => self::KEEP, "html" => "" ];
-	}
-
-
-	/**
-	 * @param string $a_comp
-	 * @param string $a_part
-	 * @param array  $a_par
-	 *
-	 * @return array
-	 */
 	public function getHTML(/*string*/
 		$a_comp, /*string*/
 		$a_part, $a_par = []): array {
-		if ($a_part == self::GET
-			&& ($a_par['tpl_id'] == self::TEMPLATE_ID_CONTAINER_PAGE
-				|| $a_par['tpl_id'] == self::TEMPLATE_ID_CONTAINER_LIST_ITEM)) {
-			if (self::dic()->ctrl() instanceof ilCtrl) {
+
+		$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
+
+		//Repository
+		if (!self::$load[self::TILE_CONTAINER_LOADER]) {
+			if (($baseClass === strtolower(ilRepositoryGUI::class) ||$baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
+				&& $a_part === self::GET
+				&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE
+					|| $a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_LIST_ITEM)) {
+
+				self::$load[self::TILE_CONTAINER_LOADER] = true;
 
 				$ref_id = SrTileGUI::filterRefId();
 
-				//Repository
-				if ($ref_id > 0 && self::$load[self::TILE_CONTAINER_LOADER] == false) {
-					self::$load[self::TILE_CONTAINER_LOADER] = true;
+				if ($ref_id !== NULL
+					&& ($ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($ref_id, false) !== false)) {
 
 					$tile_list_gui = new TileListContainerGUI($ref_id);
 
@@ -130,20 +92,68 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		}
 
 		//Personal Desktop
-		if (strtolower($_GET['baseClass']) == strtolower(self::CMD_CLASS_PERSONALDESKTOP_GUI)
-			&& $a_par['tpl_id'] == self::TEMPLATE_ID_PERSONAL_DESKTOP
-			&& self::$load[self::TILE_DESKTOP_LOADER] == false) {
+		if (!self::$load[self::TILE_DESKTOP_LOADER]) {
+			if ($baseClass === strtolower(ilPersonalDesktopGUI::class)
+				&& $a_par['tpl_id'] === self::TEMPLATE_ID_PERSONAL_DESKTOP) {
 
+				self::$load[self::TILE_DESKTOP_LOADER] = true;
 
-			self::$load[self::TILE_DESKTOP_LOADER] = true;
-			$tile_list_gui = new TileListDesktopGUI(self::dic()->user()->getId());
+				$tile_list_gui = new TileListDesktopGUI(self::dic()->user()->getId());
 
-			return [
-				"mode" => ilUIHookPluginGUI::PREPEND,
-				"html" => $tile_list_gui->render()
-			];
+				return [
+					"mode" => ilUIHookPluginGUI::PREPEND,
+					"html" => $tile_list_gui->render()
+				];
+			}
 		}
 
 		return parent::getHTML($a_comp, $a_part, $a_par);
+	}
+
+
+	/**
+	 * @param string $a_comp
+	 * @param string $a_part
+	 * @param array  $a_par
+	 *
+	 * @return array
+	 */
+	public function modifyGUI(/*string*/
+		$a_comp, /*string*/
+		$a_part, /*array*/
+		$a_par = []): array {
+		if (!self::$load[self::TILE_CONFIG_TAB_LOADER]) {
+
+			$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
+
+			$ref_id = SrTileGUI::filterRefId();
+
+			if (($baseClass === strtolower(ilRepositoryGUI::class) ||$baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
+				&& $a_part === self::PAR_TABS
+				&& $ref_id !== NULL
+				&& ($ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($ref_id, false) !== false)) {
+
+				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
+
+				if (self::dic()->user()->getId() != 13) {
+					if (!self::dic()->access()->checkAccess("write", "", $ref_id)) {
+						return [ "mode" => self::KEEP, "html" => "" ];
+					}
+				}
+
+				self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, SrTileGUI::GET_PARAM_OBJ_REF_ID);
+
+				self::dic()->tabs()->addTab('tile', self::plugin()->translate('tile'), self::dic()->ctrl()->getLinkTargetByClass(array(
+					ilUIPluginRouterGUI::class,
+					SrTileGUI::class,
+				), SrTileGUI::CMD_EDIT_TILE));
+
+				if (self::dic()->ctrl()->getCmdClass() == NULL) {
+					self::dic()->tabs()->activateTab('view_content');
+				}
+			}
+		}
+
+		return [ "mode" => self::KEEP, "html" => "" ];
 	}
 }

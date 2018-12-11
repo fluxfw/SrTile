@@ -3,7 +3,7 @@
 namespace srag\Plugins\SrTile\TileGUI;
 
 use ilAdvancedSelectionListGUI;
-use ilObjCategoryGUI;
+use ilObjRootFolderGUI;
 use ilRepositoryGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -78,18 +78,14 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 * @inheritdoc
 	 */
 	public function getActionAsyncUrl(): string {
-		self::dic()->ctrl()->setParameterByClass(ilObjCategoryGUI::class, "cmdrefid", $this->tile->getObjRefId());
-		self::dic()->ctrl()->setParameterByClass(ilObjCategoryGUI::class, "cmdmode", 'asynch');
-		self::dic()->ctrl()->setParameterByClass(ilObjCategoryGUI::class, "ref_id", $this->tile->getObjRefId());
+		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", $this->tile->getObjRefId());
 
 		$async_url = self::dic()->ctrl()->getLinkTargetByClass(array(
 			ilRepositoryGUI::class,
-			ilObjCategoryGUI::class
-		), "getAsynchItemList", "", false, false);
+			ilObjRootFolderGUI::class
+		), "getAsynchItemList", "", true, false);
 
-		self::dic()->ctrl()->setParameterByClass(ilObjCategoryGUI::class, "cmdrefid", '');
-		self::dic()->ctrl()->setParameterByClass(ilObjCategoryGUI::class, "cmdmode", '');
-		self::dic()->ctrl()->setParameterByClass(ilObjCategoryGUI::class, "ref_id", '');
+		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", NULL);
 
 		return $async_url;
 	}

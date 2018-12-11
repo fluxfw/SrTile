@@ -3,7 +3,6 @@
 namespace srag\Plugins\SrTile\TileList\TileListContainer;
 
 use ilException;
-use ilObject;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileList\TileListAbstract;
 use srag\Plugins\SrTile\TileList\TileListInterface;
@@ -28,17 +27,6 @@ class TileListContainer extends TileListAbstract {
 	 * @var self[]
 	 */
 	protected static $instances = array();
-	/**
-	 * All possible object types
-	 *
-	 * @var array
-	 */
-	public static $possible_obj_types = array(
-		'root',
-		Tile::OBJ_TYPE_CAT,
-		Tile::OBJ_TYPE_CRS,
-		'grp'
-	);
 
 
 	/**
@@ -49,10 +37,6 @@ class TileListContainer extends TileListAbstract {
 	 * @throws ilException
 	 */
 	private function __construct(int $container_obj_ref_id) /*:void*/ {
-		if (!in_array(ilObject::_lookupType($container_obj_ref_id, true), self::$possible_obj_types)) {
-			return;
-		}
-
 		$this->container_obj_ref_id = $container_obj_ref_id;
 		$this->read();
 	}

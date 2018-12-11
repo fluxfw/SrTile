@@ -5,9 +5,8 @@ namespace srag\Plugins\SrTile\Tile;
 use ActiveRecord;
 use arConnector;
 use ilLink;
-use ilObjCategory;
-use ilObjCourse;
 use ilObject;
+use ilObjectFactory;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Config\Config;
@@ -24,23 +23,13 @@ class Tile extends ActiveRecord {
 
 	use DICTrait;
 	use SrTileTrait;
-	/**
-	 * @var string
-	 *
-	 */
 	const TABLE_NAME = "ui_uihk_srtile_tile";
-	/**
-	 * @var string
-	 *
-	 */
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const OBJ_TYPE_CAT = "cat";
-	const OBJ_TYPE_CRS = "crs";
 	const GRAY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==";
 	/**
-	 * @var self
+	 * @var self[]
 	 */
-	protected static $instances_by_ref_id = array();
+	protected static $instances_by_ref_id = [];
 	/**
 	 * @var int
 	 *
@@ -293,13 +282,12 @@ class Tile extends ActiveRecord {
 	 * @return ilObject|null
 	 */
 	public function returnIlObject()/*: ?ilObject*/ {
-		switch (ilObject::_lookupType($this->getObjRefId(), true)) {
-			case self::OBJ_TYPE_CAT:
-				return new ilObjCategory($this->getObjRefId());
-			case self::OBJ_TYPE_CRS:
-				return new ilObjCourse($this->getObjRefId());
-			default:
-				return NULL;
+		$object = ilObjectFactory::getInstanceByRefId($this->getObjRefId(), false);
+
+		if ($object !== false) {
+			return $object;
+		} else {
+			return NULL;
 		}
 	}
 

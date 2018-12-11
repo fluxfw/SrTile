@@ -84,9 +84,7 @@ class SrTileGUI {
 	 *
 	 */
 	protected function cancel()/*:void*/ {
-		$this->dic()->ctrl()->setParameterByClass(ilRepositoryGUI::class, "ref_id", self::filterRefId());
-
-		$this->dic()->ctrl()->redirectByClass(ilRepositoryGUI::class);
+		$this->dic()->ctrl()->redirectToURL(ilLink::_getStaticLink(self::filterRefId()));
 	}
 
 
@@ -130,9 +128,9 @@ class SrTileGUI {
 
 
 	/**
-	 * @return int
+	 * @return int|null
 	 */
-	public static function filterRefId(): int {
+	public static function filterRefId()/*: ?int*/ {
 		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
 
 		if (is_null($ref_id)) {
@@ -141,7 +139,13 @@ class SrTileGUI {
 			$ref_id = explode('_', $param_target)[1];
 		}
 
-		return intval($ref_id);
+		$ref_id = intval($ref_id);
+
+		if ($ref_id > 0) {
+			return $ref_id;
+		} else {
+			return NULL;
+		}
 	}
 
 
