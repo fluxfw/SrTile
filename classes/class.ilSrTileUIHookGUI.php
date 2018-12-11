@@ -115,10 +115,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 				$ref_id = SrTileGUI::filterRefId();
 
-				if (is_file('TileListContainerGUI')) {
-					return [ "mode" => self::KEEP, "html" => "" ];
-				}
-
 				//Repository
 				if ($ref_id > 0 && self::$load[self::TILE_CONTAINER_LOADER] == false) {
 					self::$load[self::TILE_CONTAINER_LOADER] = true;
