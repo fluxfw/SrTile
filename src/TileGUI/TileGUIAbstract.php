@@ -84,6 +84,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 * @inheritdoc
 	 */
 	public function getActionAsyncUrl(): string {
+		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "ref_id", ROOT_FOLDER_ID);
 		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", $this->tile->getObjRefId());
 
 		$async_url = self::dic()->ctrl()->getLinkTargetByClass(array(
@@ -91,6 +92,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			ilObjRootFolderGUI::class
 		), "getAsynchItemList", "", true, false);
 
+		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "ref_id", NULL);
 		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", NULL);
 
 		return $async_url;
