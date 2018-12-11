@@ -87,10 +87,9 @@ class SrTileGUI {
 	 *
 	 */
 	protected function cancel()/*:void*/ {
-		// TODO: Redirect
-		$this->dic()->ctrl()->initBaseClass(ilRepositoryGUI::class);
+		$this->dic()->ctrl()->setParameterByClass(ilRepositoryGUI::class,"ref_id",self::filterRefId());
 
-		ilObjectGUI::_gotoRepositoryNode(self::filterRefId());
+		$this->dic()->ctrl()->redirectByClass(ilRepositoryGUI::class);
 	}
 
 
