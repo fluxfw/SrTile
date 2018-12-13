@@ -55,9 +55,9 @@ class TileListDesktopGUI extends TileListGUIAbstract {
 			$css .= '0';
 			$css .= '{display:none!important;}';
 
+			// TODO: Move color code to same method (TileListContainerGUI and TileListDesktopGUI)
 			$css .= '#sr-tile-' . $tile->getTileId();
 			$css .= '{' . $tile->getColor() . '}';
-
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default';
 			$css .= '{border:none!important;' . $tile->getColor(true) . '}';
 		}

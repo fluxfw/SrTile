@@ -55,10 +55,10 @@ class TileListContainerGUI extends TileListGUIAbstract {
 			$css .= $this->tile_list->getContainerObjRefId();
 			$css .= '{display:none!important;}';
 
+			// TODO: Move color code to same method (TileListContainerGUI and TileListDesktopGUI)
 			$css .= '#sr-tile-' . $tile->getTileId();
 			$css .= '{' . $tile->getColor() . '}';
-
-			$css .= '#sr-tile-' . $tile->getTileId().' .btn-default';
+			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default';
 			$css .= '{border:none!important;' . $tile->getColor(true) . '}';
 
 			if ($is_parent_css_rendered == false) {
@@ -68,13 +68,6 @@ class TileListContainerGUI extends TileListGUIAbstract {
 						$css .= 'a#il_mhead_t_focus';
 						$css .= '{color:#' . $parent_tile->getLevelColor() . '!important;}';
 					}
-
-					$css .= '.card';
-					$css .= '{border:4px solid';
-					if (!empty($parent_tile->getLevelColor())) {
-						$css .= ' #' . $parent_tile->getLevelColor() . '!important';
-					}
-					$css .= ';}';
 
 					$css .= '.btn-default';
 					$css .= '{' . $parent_tile->getColor();

@@ -280,10 +280,11 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param bool $invert
+	 * @param bool $border
 	 *
 	 * @return string
 	 */
-	public function getColor(bool $invert = false): string {
+	public function getColor(bool $invert = false,$border=false): string {
 		$parent_tile = self::tiles()->getParentTile($this);
 
 		$css = "";
@@ -311,10 +312,18 @@ class Tile extends ActiveRecord {
 
 			if (!empty($font_color)) {
 				$css .= 'background-color:#' . $font_color . '!important;';
+
+				if($border) {
+					$css .= 'border-color:#' . $font_color . '!important;';
+				}
 			}
 		} else {
 			if (!empty($background_color)) {
 				$css .= 'background-color:#' . $background_color . '!important;';
+
+				if($border) {
+					$css .= 'border-color:#' . $background_color . '!important;';
+				}
 			}
 
 			if (!empty($font_color)) {
