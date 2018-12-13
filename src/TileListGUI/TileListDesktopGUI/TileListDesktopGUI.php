@@ -54,6 +54,9 @@ class TileListDesktopGUI extends TileListGUIAbstract {
 			$css .= '_pref_';
 			$css .= '0';
 			$css .= '{display:none!important;}';
+
+			$css .= '#sr-tile-' . $tile->getTileId();
+			$css .= '{' . $tile->getColor() . '}';
 		}
 
 		self::dic()->mainTemplate()->addInlineCss($css);

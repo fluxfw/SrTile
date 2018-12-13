@@ -60,7 +60,6 @@ class TileListContainerGUI extends TileListGUIAbstract {
 			$css .= '{' . $tile->getColor() . '}';
 
 			if ($is_parent_css_rendered == false) {
-
 				$parent_tile = self::tiles()->getInstanceForObjRefId(self::dic()->tree()->getParentId($tile->getObjRefId()));
 				if (is_object($parent_tile)) {
 					if (!empty($parent_tile->getLevelColor())) {
