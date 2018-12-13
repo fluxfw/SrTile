@@ -54,7 +54,9 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("LINK", $this->tile->returnLink());
 		$tpl->setVariable("IMAGE", $this->tile->getImage());
 
-		$tpl->setVariable("ACTIONS", $this->getActions());
+		if (self::access()->hasWriteAccess($this->tile->getObjRefId())) {
+			$tpl->setVariable("ACTIONS", $this->getActions());
+		}
 
 		$icon = ilObject::_getIcon(($this->tile->returnIlObject() !== NULL ? $this->tile->returnIlObject()->getId() : NULL), "small");
 		if (file_exists($icon)) {
