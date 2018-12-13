@@ -119,7 +119,11 @@ class SrTileGUI {
 
 		$form = $this->getTileFormGUI($tile);
 
-		$form->storeForm();
+		if (!$form->storeForm()) {
+			self::output()->output($form);
+
+			return;
+		}
 
 		ilUtil::sendSuccess(self::plugin()->translate("saved", self::LANG_MODULE_TILE), true);
 
