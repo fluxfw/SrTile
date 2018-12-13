@@ -63,9 +63,9 @@ class TileListDesktop extends TileListAbstract {
 	public function read() /*:void*/ {
 		$usr_obj = new ilObjUser($this->usr_id);
 
-		$desktop_items = $usr_obj->getDesktopItems();
+		$desktop_items = self::ilias()->favorites($usr_obj)->getFavorites();
 		foreach ($desktop_items as $item) {
-			$tile = self::tiles()->getInstanceForObjRefId($item['ref_id']);
+			$tile = self::tiles()->getInstanceForObjRefId($item['child']);
 			if ($tile instanceof Tile && $tile->isTileEnabled()) {
 				$this->addTile($tile);
 			}
