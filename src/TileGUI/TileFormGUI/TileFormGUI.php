@@ -46,7 +46,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 		parent::__construct($parent);
 
-		if (!self::dic()->access()->checkAccess("write", "", srTileGUI::filterRefId())) {
+		if (!self::access()->hasWriteAccess(srTileGUI::filterRefId())) {
 			throw new ilException("You have no permission to access this page");
 		}
 	}

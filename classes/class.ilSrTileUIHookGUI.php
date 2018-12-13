@@ -136,11 +136,8 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
 
-				// TODO: Move to Access class
-				if (self::dic()->user()->getId() != 13) {
-					if (!self::dic()->access()->checkAccess("write", "", $ref_id)) {
+				if (!self::access()->hasWriteAccess($ref_id)) {
 						return [ "mode" => self::KEEP, "html" => "" ];
-					}
 				}
 
 				self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, SrTileGUI::GET_PARAM_OBJ_REF_ID);

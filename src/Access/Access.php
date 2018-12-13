@@ -47,4 +47,18 @@ final class Access {
 	private function __construct() {
 
 	}
+
+
+	/**
+	 * @param int $ref_id
+	 *
+	 * @return bool
+	 */
+	public function hasWriteAccess(int $ref_id): bool {
+		if (self::dic()->user()->getId() != ANONYMOUS_USER_ID) {
+			return self::dic()->access()->checkAccess("write", "", $ref_id);
+		}
+
+		return true;
+	}
 }
