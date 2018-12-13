@@ -79,14 +79,6 @@ class TileFormGUI extends PropertyFormGUI {
 	/**
 	 * @inheritdoc
 	 */
-	protected function initAction()/*: void*/ {
-		$this->setFormAction(self::dic()->ctrl()->getFormAction($this->parent));
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
 	protected function initCommands()/*: void*/ {
 		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, $this->txt("submit"), "tile_submit");
 
