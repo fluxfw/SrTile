@@ -33,6 +33,7 @@ Please use it for further development!
 If you want development in this plugin you should install this plugin like follow:
 
 Start at your ILIAS root directory
+```
 mkdir -p Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
 cd Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
 git clone -b develop git@git.studer-raimann.ch:ILIAS/Plugins/SrTile.git SrTile
