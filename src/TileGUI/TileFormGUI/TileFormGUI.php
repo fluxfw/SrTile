@@ -62,6 +62,7 @@ class TileFormGUI extends PropertyFormGUI {
 				if (!empty($this->tile->getTileImage())) {
 					return "./" . ILIAS_WEB_DIR . '/' . CLIENT_ID . '/' . $this->tile->returnRelativeImagePath(true);
 				}
+				break;
 
 			default:
 				if (method_exists($this->tile, $method = 'get' . $this->strToCamelCasE($key))) {
