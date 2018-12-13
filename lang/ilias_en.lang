@@ -15,14 +15,15 @@ removeplugindataconfirm_keep_data#:#Keep %1$s data
 removeplugindataconfirm_msg_kept_data#:#The %1$s data was kept
 removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
 removeplugindataconfirm_remove_data#:#Remove %1$s data
-tile_tile#:#Tile
-tile_tile_image#:#Image
-tile_level_color#:#Background color
-tile_submit#:#Save
-tile_cancel#:#Cancel
-tile_saved#:#The tile was saved
 tile#:#Tile
 tile_back#:#Back
-tile_tile_enabled#:#Display as tile
+tile_cancel#:#Cancel
+tile_level_color#:#Background color
 tile_level_color_font#:#Font color
 tile_level_color_font_info#:#If not set this is calculated automatically based on the contrast of the background color (black or white)
+tile_saved#:#The tile was saved
+tile_submit#:#Save
+tile_tile#:#Tile
+tile_tile_enabled#:#Display as tile
+tile_tile_image#:#Image
+tile_tile_image_info#:#If no image uploaded, the default image will be used
