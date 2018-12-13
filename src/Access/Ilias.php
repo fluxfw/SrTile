@@ -4,8 +4,10 @@
 
 namespace srag\Plugins\SrTile\Access;
 
+use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Favorite\Favorites;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -46,5 +48,15 @@ final class Ilias {
 	 */
 	private function __construct() {
 
+	}
+
+
+	/**
+	 * @param ilObjUser $user
+	 *
+	 * @return Favorites
+	 */
+	public function favorites(ilObjUser $user): Favorites {
+		return Favorites::getInstance($user);
 	}
 }

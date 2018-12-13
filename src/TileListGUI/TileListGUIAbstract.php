@@ -42,7 +42,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			$tile_html = $this->getHtml();
 			$tpl->setVariable("TILES", $tile_html);
 			$tpl->parseCurrentBlock();
-			$tile_list_html = $tpl->get();
+			$tile_list_html = self::output()->getHTML($tpl);
 		}
 
 		$this->hideOriginalRowsOfTiles();

@@ -82,6 +82,8 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 				if ($ref_id !== NULL
 					&& ($ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($ref_id, false) !== false)) {
 
+					$this->initJS();
+
 					$tile_list_gui = new TileListContainerGUI($ref_id);
 
 					return [
@@ -98,6 +100,8 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 				&& $a_par['tpl_id'] === self::TEMPLATE_ID_PERSONAL_DESKTOP) {
 
 				self::$load[self::TILE_DESKTOP_LOADER] = true;
+
+				$this->initJS();
 
 				$tile_list_gui = new TileListDesktopGUI(self::dic()->user()->getId());
 
@@ -137,7 +141,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
 
 				if (!self::access()->hasWriteAccess($ref_id)) {
-						return [ "mode" => self::KEEP, "html" => "" ];
+					return [ "mode" => self::KEEP, "html" => "" ];
 				}
 
 				self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, SrTileGUI::GET_PARAM_OBJ_REF_ID);
@@ -152,5 +156,13 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		}
 
 		return [ "mode" => self::KEEP, "html" => "" ];
+	}
+
+
+	/**
+	 *
+	 */
+	protected function initJS()/*: void*/ {
+		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
 	}
 }

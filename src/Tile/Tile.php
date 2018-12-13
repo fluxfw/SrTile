@@ -325,7 +325,7 @@ class Tile extends ActiveRecord {
 	 * @return string
 	 */
 	public function returnLink(): string {
-		return ilLink::_getStaticLink($this->getObjRefId(), ilObject::_lookupType($this->getObjRefId(), true));
+		return ilLink::_getStaticLink($this->getObjRefId());
 	}
 
 

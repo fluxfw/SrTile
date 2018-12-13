@@ -46,6 +46,7 @@ class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
     );
 
     public static $classMap = array (
+        'SrTileFavoritesGUI' => __DIR__ . '/../..' . '/classes/Favorite/class.SrTileFavoritesGUI.php',
         'SrTileGUI' => __DIR__ . '/../..' . '/classes/GUI/class.SrTileGUI.php',
         'SrTileRemoveDataConfirm' => __DIR__ . '/../..' . '/classes/uninstall/class.SrTileRemoveDataConfirm.php',
         'ilSrTileConfigGUI' => __DIR__ . '/../..' . '/classes/class.ilSrTileConfigGUI.php',
@@ -97,6 +98,7 @@ class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
         'srag\\Plugins\\SrTile\\Access\\Ilias' => __DIR__ . '/../..' . '/src/Access/Ilias.php',
         'srag\\Plugins\\SrTile\\Config\\Config' => __DIR__ . '/../..' . '/src/Config/Config.php',
         'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => __DIR__ . '/../..' . '/src/Config/ConfigFormGUI.php',
+        'srag\\Plugins\\SrTile\\Favorite\\Favorites' => __DIR__ . '/../..' . '/src/Favorite/Favorites.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileContainerGUI\\TileContainerGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileContainerGUI/TileContainerGUI.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileFormGUI\\TileFormGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileFormGUI/TileFormGUI.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileGUIAbstract' => __DIR__ . '/../..' . '/src/TileGUI/TileGUIAbstract.php',

@@ -7,9 +7,12 @@ use ilObject;
 use ilObjRootFolderGUI;
 use ilRepositoryGUI;
 use ilSrTilePlugin;
+use ilUIPluginRouterGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
+use SrTileFavoritesGUI;
+use SrTileGUI;
 
 /**
  * Class TileListContainerGUI
@@ -47,6 +50,9 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	public function render(): string {
 		$this->setCardColor();
 
+		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "parent_ref_id", SrTileGUI::filterRefId());
+		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "ref_id", $this->tile->getObjRefId());
+
 		$tpl = self::plugin()->template("Tile/tpl.tile.html");
 		$tpl->setCurrentBlock("tile");
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
@@ -63,9 +69,25 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			$tpl->setVariable("ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
 		}
 
+		if (self::ilias()->favorites(self::dic()->user())->hasFavorite($this->tile->getObjRefId())) {
+			$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+				ilUIPluginRouterGUI::class,
+				SrTileFavoritesGUI::class
+			], SrTileFavoritesGUI::CMD_REMOVE_FROM_FAVORITES));
+			$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("remove_from_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+			$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
+		} else {
+			$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+				ilUIPluginRouterGUI::class,
+				SrTileFavoritesGUI::class
+			], SrTileFavoritesGUI::CMD_ADD_TO_FAVORITES));
+			$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("add_to_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+			$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
+		}
+
 		$tpl->parseCurrentBlock();
 
-		return $tpl->get();
+		return self::output()->getHTML($tpl);
 	}
 
 
@@ -78,7 +100,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$advanced_selection_list->setId('act_' . $this->tile->getObjRefId() . '_tile_' . $this->tile->getTileId());
 		$advanced_selection_list->setAsynchUrl($this->getActionAsyncUrl());
 
-		return $advanced_selection_list->getHTML(false);
+		return self::output()->getHTML($advanced_selection_list);
 	}
 
 
@@ -106,7 +128,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 */
 	public function setCardColor()/*: void*/ {
 		// TODO: Not work?!
-		if (strlen($this->tile->getLevelColor()) > 0) {
+		if (!empty($this->tile->getLevelColor())) {
 			$id = "#sr-tile-_" . $this->tile->getTileId();
 
 			$css = $id . '{' . $this->tile->getColor() . '}';

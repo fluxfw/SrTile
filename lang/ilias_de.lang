@@ -3,6 +3,10 @@ config_configuration_saved#:#Konfiguration gespeichert
 config_default_image#:#Standard-Bild
 config_default_image_info#:#Wenn kein Bild hochgeladen, wird ein graues Platzhalter-Bild verwendet
 config_save#:#Speichern
+favorites_add_to_favorites#:#Zu den Favoriten legen
+favorites_added_to_favorites#:#Das Objekt wurde zu den Favoriten gelegt
+favorites_remove_from_favorites#:#Aus den Favoriten entfernen
+favorites_removed_from_favorites#:#Das Objekt wurde aus den Favoriten entfernt
 removeplugindataconfirm_cancel#:#Abbrechen
 removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
 removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren

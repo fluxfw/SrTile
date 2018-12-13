@@ -75,34 +75,45 @@ Tiles
 	.card-label {
 	  font-size: 22px;
 	  position: relative;
+	}
 
-	  .card-title-container {
-		min-width: 0;
-	  }
+	.card-title-container {
+	  min-width: 0;
+	}
 
-	  .card-title {
+	.card-title {
+	  color: inherit;
+	  font-size: 16px;
+	  line-height: 1.2em;
+	  overflow: hidden;
+	  padding: 5px !important;
+	  text-align: left;
+	  text-overflow: ellipsis;
+	}
+
+	.card-footer {
+	  display: flex;
+	  flex-grow: 1;
+	  text-align: left;
+
+	  .left {
 		flex-grow: 1;
-		font-size: 16px;
-		line-height: 1.2em;
-		overflow: hidden;
-		padding: 5px !important;
-		text-align: left;
-		text-overflow: ellipsis;
+
+		a, img, svg {
+		  color: inherit;
+		  height: 28px;
+		  width: 28px;
+		}
+
+		a:hover {
+		  opacity: 0.6;
+		}
 	  }
 
-	  .card-footer {
-		text-align: left;
-		display: flex;
-
-		.left {
-		  flex-grow: 1;
-		}
-
-		.right {
-		  text-align: right;
-		  padding-right: 5px;
-		  padding-top: 12px;
-		}
+	  .right {
+		text-align: right;
+		padding-right: 5px;
+		padding-top: 12px;
 	  }
 	}
   }
