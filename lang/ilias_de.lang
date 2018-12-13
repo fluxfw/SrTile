@@ -19,11 +19,13 @@ tile#:#Kachel
 tile_back#:#Zurück
 tile_cancel#:#Abbrechen
 tile_level_color#:#Hintergrund-Farbe
+tile_level_color_info#:#Falls nicht gesetzt wird die Hintergrund-Farbe der Eltern-Kachel genommen
 tile_level_color_font#:#Schrift-Farbe
 tile_level_color_font_info#:#Falls nicht gesetzt wird dies automatisch anhand des Kontrasts der Hintergrund-Farbe berechnet (schwarz oder weiss)
 tile_saved#:#Die Kachel wurde gespeichert
 tile_submit#:#Speichern
 tile_tile#:#Kachel
 tile_tile_enabled#:#Als Kachel anzeigen
+tile_tile_enabled_children#:#Alle Kinder-Objekte als Kachel anzeigen
 tile_tile_image#:#Bild
 tile_tile_image_info#:#Wenn kein Bild hochgeladen, wird das Standard-Bild verwendet

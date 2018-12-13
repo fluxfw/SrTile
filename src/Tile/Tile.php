@@ -55,6 +55,15 @@ class Tile extends ActiveRecord {
 	 */
 	protected $tile_enabled = false;
 	/**
+	 * @var bool
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_length      1
+	 * @con_is_notnull  true
+	 */
+	protected $tile_enabled_children = false;
+	/**
 	 * @var string
 	 *
 	 * @con_has_field   true
@@ -115,6 +124,7 @@ class Tile extends ActiveRecord {
 
 		switch ($field_name) {
 			case "tile_enabled":
+			case "tile_enabled_children":
 				return ($field_value ? 1 : 0);
 			default:
 				return NULL;
@@ -136,6 +146,7 @@ class Tile extends ActiveRecord {
 				return intval($field_value);
 
 			case "tile_enabled":
+			case "tile_enabled_children":
 				return boolval($field_value);
 
 			default:
@@ -180,7 +191,17 @@ class Tile extends ActiveRecord {
 	 * @return bool
 	 */
 	public function isTileEnabled(): bool {
-		return $this->tile_enabled;
+		if ($this->tile_enabled) {
+			return true;
+		}
+
+		$parent_tile = self::tiles()->getParentTile($this);
+
+		if ($parent_tile !== NULL) {
+			return $parent_tile->isTileEnabledChildren();
+		} else {
+			return false;
+		}
 	}
 
 
@@ -189,6 +210,22 @@ class Tile extends ActiveRecord {
 	 */
 	public function setTileEnabled(bool $tile_enabled) {
 		$this->tile_enabled = $tile_enabled;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isTileEnabledChildren(): bool {
+		return $this->tile_enabled_children;
+	}
+
+
+	/**
+	 * @param bool $tile_enabled_children
+	 */
+	public function setTileEnabledChildren(bool $tile_enabled_children) {
+		$this->tile_enabled_children = $tile_enabled_children;
 	}
 
 
@@ -242,20 +279,46 @@ class Tile extends ActiveRecord {
 
 
 	/**
+	 * @param bool $invert
+	 *
 	 * @return string
 	 */
-	public function getColor(): string {
+	public function getColor(bool $invert = false): string {
+		$parent_tile = self::tiles()->getParentTile($this);
+
 		$css = "";
 
-		if (!empty($this->getLevelColor())) {
-			$css .= 'background-color:#' . $this->getLevelColor() . '!important;';
+		$background_color = $this->getLevelColor();
+		if (empty($background_color) && $parent_tile !== NULL) {
+			$background_color = $parent_tile->getLevelColor();
 		}
 
-		if (!empty($this->getLevelColorFont())) {
-			$css .= 'color:#' . $this->getLevelColorFont() . '!important;';
+		$font_color = $this->getLevelColorFont();
+		if (empty($font_color) && !empty($this->getLevelColor())) {
+			$font_color = $this->getContrastYIQ($this->getLevelColor());
+		}
+		if (empty($font_color) && $parent_tile !== NULL) {
+			$font_color = $parent_tile->getLevelColorFont();
+		}
+		if (empty($font_color) && !empty($parent_tile->getLevelColor())) {
+			$font_color = $this->getContrastYIQ($parent_tile->getLevelColor());
+		}
+
+		if ($invert) {
+			if (!empty($background_color)) {
+				$css .= 'color:#' . $background_color . '!important;';
+			}
+
+			if (!empty($font_color)) {
+				$css .= 'background-color:#' . $font_color . '!important;';
+			}
 		} else {
-			if (!empty($this->getLevelColor())) {
-				$css .= 'color:#' . $this->getContrastYIQ($this->getLevelColor()) . '!important;';
+			if (!empty($background_color)) {
+				$css .= 'background-color:#' . $background_color . '!important;';
+			}
+
+			if (!empty($font_color)) {
+				$css .= 'color:#' . $font_color . '!important;';
 			}
 		}
 

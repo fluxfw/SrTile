@@ -97,6 +97,8 @@ class TileFormGUI extends PropertyFormGUI {
 			"tile_enabled" => [
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_DISABLED => (($parent_tile = self::tiles()->getParentTile($this->tile)) !== NULL
+					&& $parent_tile->isTileEnabledChildren()),
 				self::PROPERTY_SUBITEMS => [
 					"tile_image" => [
 						self::PROPERTY_CLASS => ilImageFileInputGUI::class,
@@ -114,6 +116,10 @@ class TileFormGUI extends PropertyFormGUI {
 					]
 				]
 			],
+			"tile_enabled_children" => [
+				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
+				self::PROPERTY_REQUIRED => false
+			]
 		];
 	}
 
@@ -171,6 +177,14 @@ class TileFormGUI extends PropertyFormGUI {
 				self::dic()->upload()->moveOneFileTo($result, $this->tile->returnRelativeImagePath(), Location::WEB, $file_name, true);
 
 				$this->tile->setTileImage($file_name);
+				break;
+
+			case "tile_enabled":
+				if ($this->getItemByPostVar($key)->getDisabled()) {
+					$value = true;
+				}
+
+				$this->tile->setTileEnabled($value);
 				break;
 
 			default:

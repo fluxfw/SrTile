@@ -55,7 +55,7 @@ final class Tiles {
 	 *
 	 * @return Tile|null
 	 */
-	public function getInstanceForObjRefId(int $obj_ref_id) /*:?Tile*/ {
+	public function getInstanceForObjRefId(int $obj_ref_id)/*:?Tile*/ {
 		if (self::$instances_by_ref_id[$obj_ref_id] === NULL) {
 			if (self::$instances_by_ref_id[$obj_ref_id] = Tile::where([ 'obj_ref_id' => $obj_ref_id ])->first()) {
 				return self::$instances_by_ref_id[$obj_ref_id];
@@ -65,5 +65,15 @@ final class Tiles {
 		}
 
 		return self::$instances_by_ref_id[$obj_ref_id];
+	}
+
+
+	/**
+	 * @param Tile $tile
+	 *
+	 * @return Tile|null
+	 */
+	public function getParentTile(Tile $tile)/*:?Tile*/ {
+		return $this->getInstanceForObjRefId(self::dic()->tree()->getParentId($tile->getObjRefId()));
 	}
 }

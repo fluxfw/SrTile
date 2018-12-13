@@ -22,3 +22,7 @@
 <?php
 \srag\Plugins\SrTile\Tile\Tile::updateDB();
 ?>
+<#7>
+<?php
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
+?>

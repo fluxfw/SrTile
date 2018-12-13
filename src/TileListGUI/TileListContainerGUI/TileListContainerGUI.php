@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\TileListGUI\TileListContainerGUI;
 
-use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileGUI\TileContainerGUI\TileContainerGUI;
 use srag\Plugins\SrTile\TileList\TileListContainer\TileListContainer;
 use srag\Plugins\SrTile\TileListGUI\TileListGUIAbstract;
@@ -59,9 +58,12 @@ class TileListContainerGUI extends TileListGUIAbstract {
 			$css .= '#sr-tile-' . $tile->getTileId();
 			$css .= '{' . $tile->getColor() . '}';
 
+			$css .= '#sr-tile-' . $tile->getTileId().' .btn-default';
+			$css .= '{border:none!important;' . $tile->getColor(true) . '}';
+
 			if ($is_parent_css_rendered == false) {
-				$parent_tile = self::tiles()->getInstanceForObjRefId(self::dic()->tree()->getParentId($tile->getObjRefId()));
-				if (is_object($parent_tile)) {
+				$parent_tile = self::tiles()->getParentTile($tile);
+				if ($parent_tile !== NULL) {
 					if (!empty($parent_tile->getLevelColor())) {
 						$css .= 'a#il_mhead_t_focus';
 						$css .= '{color:#' . $parent_tile->getLevelColor() . '!important;}';
