@@ -34,13 +34,14 @@ class TileListDesktop extends TileListAbstract {
 	 *
 	 * @throws ilException
 	 */
-	private function __construct(int $usr_id) /*:void*/ {
+	protected function __construct(int $usr_id) /*:void*/ {
 		if (!ilObjUser::_exists($usr_id)) {
 			throw new ilException("User does not exist.");
 		}
 
 		$this->usr_id = $usr_id;
-		$this->read();
+
+		parent::__construct();
 	}
 
 
@@ -59,16 +60,12 @@ class TileListDesktop extends TileListAbstract {
 	/**
 	 * @inheritdoc
 	 */
-	public function read() /*:void*/ {
+	public function read(array $items = []) /*:void*/ {
 		$usr_obj = new ilObjUser($this->usr_id);
 
-		$desktop_items = self::ilias()->favorites($usr_obj)->getFavorites();
-		foreach ($desktop_items as $item) {
-			$tile = self::tiles()->getInstanceForObjRefId($item['child']);
-			if ($tile->isTileEnabled()) {
-				$this->addTile($tile);
-			}
-		}
+		$favorites = self::ilias()->favorites($usr_obj)->getFavorites();
+
+		parent::read($favorites);
 	}
 
 

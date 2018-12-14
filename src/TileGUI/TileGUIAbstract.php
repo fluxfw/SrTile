@@ -56,7 +56,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl = self::plugin()->template("Tile/tpl.tile.html");
 		$tpl->setCurrentBlock("tile");
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
-		$tpl->setVariable("LABEL", ($this->tile->returnIlObject() !== NULL ? $this->tile->returnIlObject()->getTitle() : ""));
+		$tpl->setVariable("LABEL", ($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getTitle() : ""));
 		$tpl->setVariable("LINK", $this->tile->returnLink());
 		$tpl->setVariable("IMAGE", $this->tile->getImage());
 
@@ -64,7 +64,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			$tpl->setVariable("ACTIONS", $this->getActions());
 		}
 
-		$icon = ilObject::_getIcon(($this->tile->returnIlObject() !== NULL ? $this->tile->returnIlObject()->getId() : NULL), "small");
+		$icon = ilObject::_getIcon(($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getId() : NULL), "small");
 		if (file_exists($icon)) {
 			$tpl->setVariable("ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
 		}

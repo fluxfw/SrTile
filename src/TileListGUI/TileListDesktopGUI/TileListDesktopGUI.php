@@ -17,29 +17,16 @@ use srag\Plugins\SrTile\TileListGUI\TileListGUIAbstract;
  */
 class TileListDesktopGUI extends TileListGUIAbstract {
 
+	const GUI_CLASS = TileDesktopGUI::class;
+
+
 	/**
-	 * TileListDesktopGUIGUI constructor
+	 * TileListDesktopGUI constructor
 	 *
 	 * @param int $usr_id
 	 */
 	public function __construct(int $usr_id) /*:void*/ {
 		$this->tile_list = TileListDesktop::getInstance($usr_id);
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function getHtml(): string {
-		$tile_html = '';
-		foreach ($this->tile_list->getTiles() as $tile) {
-			if (!empty($tile->getTileImage())) {
-				$tile_gui = new TileDesktopGUI($tile);
-				$tile_html .= $tile_gui->render();
-			}
-		}
-
-		return $tile_html;
 	}
 
 

@@ -7,11 +7,19 @@ namespace srag\Plugins\SrTile\TileListGUI;
  *
  * @package srag\Plugins\SrTile\TileListGUI
  *
- * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- * @author studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
  *
  */
 interface TileListGUIInterface {
+
+	/**
+	 * @var string
+	 *
+	 * @abstract
+	 */
+	const GUI_CLASS = "";
+
 
 	/**
 	 * @return string

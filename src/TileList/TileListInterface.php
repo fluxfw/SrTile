@@ -16,9 +16,9 @@ use srag\Plugins\srTile\Tile\Tile;
 interface TileListInterface {
 
 	/**
-	 *
+	 * @param array $items
 	 */
-	public function read() /*:void*/
+	public function read(array $items = []) /*:void*/
 	;
 
 

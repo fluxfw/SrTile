@@ -90,7 +90,7 @@ class Tile extends ActiveRecord {
 	/**
 	 * @var ilObject|null
 	 */
-	protected $object = NULL;
+	protected $il_object = NULL;
 
 
 	/**
@@ -126,6 +126,7 @@ class Tile extends ActiveRecord {
 			case "tile_enabled":
 			case "tile_enabled_children":
 				return ($field_value ? 1 : 0);
+
 			default:
 				return NULL;
 		}
@@ -380,16 +381,16 @@ class Tile extends ActiveRecord {
 	/**
 	 * @return ilObject|null
 	 */
-	public function returnIlObject()/*: ?ilObject*/ {
-		if ($this->object === NULL) {
-			$this->object = ilObjectFactory::getInstanceByRefId($this->getObjRefId(), false);
+	public function getIlObject()/*: ?ilObject*/ {
+		if ($this->il_object === NULL) {
+			$this->il_object = ilObjectFactory::getInstanceByRefId($this->getObjRefId(), false);
 
-			if ($this->object === false) {
-				$this->object = NULL;
+			if ($this->il_object === false) {
+				$this->il_object = NULL;
 			}
 		}
 
-		return $this->object;
+		return $this->il_object;
 	}
 
 

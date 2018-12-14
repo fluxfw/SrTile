@@ -4,6 +4,8 @@ namespace srag\Plugins\SrTile\TileListGUI;
 
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Tile\Tile;
+use srag\Plugins\SrTile\TileGUI\TileGUIInterface;
 use srag\Plugins\SrTile\TileList\TileListInterface;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -48,5 +50,17 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$this->hideOriginalRowsOfTiles();
 
 		return $tile_list_html;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getHtml(): string {
+		$gui_class = static::GUI_CLASS;
+
+		return self::output()->getHTML(array_map(function (Tile $tile) use ($gui_class): TileGUIInterface {
+			return new $gui_class($tile);
+		}, $this->tile_list->getTiles()));
 	}
 }

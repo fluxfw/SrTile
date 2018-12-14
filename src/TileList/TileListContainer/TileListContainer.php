@@ -35,9 +35,10 @@ class TileListContainer extends TileListAbstract {
 	 *
 	 * @throws ilException
 	 */
-	private function __construct(int $container_obj_ref_id) /*:void*/ {
+	protected function __construct(int $container_obj_ref_id) /*:void*/ {
 		$this->container_obj_ref_id = $container_obj_ref_id;
-		$this->read();
+
+		parent::__construct();
 	}
 
 
@@ -56,18 +57,10 @@ class TileListContainer extends TileListAbstract {
 	/**
 	 * @inheritdoc
 	 */
-	public function read() /*:void*/ {
+	public function read(array $items = []) /*:void*/ {
 		$children = self::dic()->tree()->getChilds($this->container_obj_ref_id);
-		if (count($children) > 0) {
-			foreach ($children as $child) {
-				if (self::tiles()->isObject($child['child'])) {
-					$tile = self::tiles()->getInstanceForObjRefId($child['child']);
-					if ($tile->isTileEnabled()) {
-						$this->addTile($tile);
-					}
-				}
-			}
-		}
+
+		parent::read($children);
 	}
 
 

@@ -17,6 +17,9 @@ use srag\Plugins\SrTile\TileListGUI\TileListGUIAbstract;
  */
 class TileListContainerGUI extends TileListGUIAbstract {
 
+	const GUI_CLASS = TileContainerGUI::class;
+
+
 	/**
 	 * TileListContainerGUI constructor
 	 *
@@ -30,22 +33,7 @@ class TileListContainerGUI extends TileListGUIAbstract {
 	/**
 	 * @inheritdoc
 	 */
-	public function getHtml(): string {
-		$tile_html = '';
-		foreach ($this->tile_list->getTiles() as $tile) {
-			$tile_gui = new TileContainerGUI($tile);
-			$tile_html .= $tile_gui->render();
-		}
-
-		return $tile_html;
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
 	public function hideOriginalRowsOfTiles() /*:void*/ {
-
 		$css = '';
 		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {

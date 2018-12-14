@@ -25,6 +25,14 @@ abstract class TileListAbstract implements TileListInterface {
 
 
 	/**
+	 * TileListAbstract constructor
+	 */
+	protected function __construct() {
+		$this->read();
+	}
+
+
+	/**
 	 * @inheritdoc
 	 */
 	public function addTile(Tile $tile)/*:void*/ {
@@ -47,5 +55,21 @@ abstract class TileListAbstract implements TileListInterface {
 	 */
 	public function getTiles(): array {
 		return $this->tiles;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function read(array $items = []) /*:void*/ {
+		foreach ($items as $item) {
+			if (self::tiles()->isObject($item['child'])) {
+				$tile = self::tiles()->getInstanceForObjRefId($item['child']);
+
+				if ($tile->isTileEnabled()) {
+					$this->addTile($tile);
+				}
+			}
+		}
 	}
 }
