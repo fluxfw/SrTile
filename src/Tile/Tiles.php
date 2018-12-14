@@ -20,6 +20,8 @@ final class Tiles {
 	use DICTrait;
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+	const GET_PARAM_REF_ID = "ref_id";
+	const GET_PARAM_TARGET = "target";
 	/**
 	 * @var self
 	 */
@@ -57,6 +59,28 @@ final class Tiles {
 	 */
 	private function __construct() {
 
+	}
+
+
+	/**
+	 * @return int|null
+	 */
+	public function filterRefId()/*: ?int*/ {
+		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
+
+		if ($ref_id === NULL) {
+			$param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);
+
+			$ref_id = explode('_', $param_target)[1];
+		}
+
+		$ref_id = intval($ref_id);
+
+		if ($ref_id > 0) {
+			return $ref_id;
+		} else {
+			return NULL;
+		}
 	}
 
 

@@ -56,7 +56,7 @@ class SrTileFavoritesGUI {
 	 *
 	 */
 	protected function addToFavorites() {
-		$ref_id = SrTileGUI::filterRefId();
+		$ref_id = self::tiles()->filterRefId();
 		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
 
 		self::ilias()->favorites(self::dic()->user())->addToFavorites($ref_id);
@@ -75,7 +75,7 @@ class SrTileFavoritesGUI {
 	 *
 	 */
 	protected function removeFromFavorites() {
-		$ref_id = SrTileGUI::filterRefId();
+		$ref_id = self::tiles()->filterRefId();
 		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
 
 		self::ilias()->favorites(self::dic()->user())->removeFromFavorites($ref_id);

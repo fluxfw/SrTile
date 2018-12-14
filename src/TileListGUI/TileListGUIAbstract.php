@@ -83,23 +83,18 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$css = '';
 		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {
-			$css .= ' #lg_div_';
-			$css .= $tile->getObjRefId();
-			$css .= '_pref_';
-			$css .= $this->tile_list->getId();
-			$css .= '{display:none!important;}';
-			$css .= ' #lg_div_';
-			$css .= $tile->getObjRefId();
-			$css .= '_pref_';
-			$css .= '0';
-			$css .= '{display:none!important;}';
-
 			$css .= '#sr-tile-' . $tile->getTileId();
 			$css .= '{' . $tile->getColor() . '}';
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default';
 			$css .= '{border:none!important;' . $tile->getColor(true) . '}';
 
 			if ($global_layout) {
+				$css .= ' #lg_div_';
+				$css .= $tile->getObjRefId();
+				$css .= '_pref_';
+				$css .= $this->tile_list->getId();
+				$css .= '{display:none!important;}';
+
 				if ($is_parent_css_rendered == false) {
 					$parent_tile = self::tiles()->getParentTile($tile);
 					if ($parent_tile !== NULL) {
@@ -117,6 +112,12 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 					}
 				}
 				$is_parent_css_rendered = true;
+			} else {
+				$css .= ' #lg_div_';
+				$css .= $tile->getObjRefId();
+				$css .= '_pref_';
+				$css .= '0';
+				$css .= '{display:none!important;}';
 			}
 		}
 

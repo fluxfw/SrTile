@@ -29,8 +29,6 @@ class SrTileGUI {
 	const CMD_CANCEL = "cancel";
 	const LANG_MODULE_TILE = "tile";
 	const GET_PARAM_OBJ_REF_ID = 'ref_id';
-	const GET_PARAM_REF_ID = "ref_id";
-	const GET_PARAM_TARGET = "target";
 
 
 	/**
@@ -84,7 +82,7 @@ class SrTileGUI {
 	 *
 	 */
 	protected function cancel()/*:void*/ {
-		$this->dic()->ctrl()->redirectToURL(ilLink::_getStaticLink(self::filterRefId()));
+		$this->dic()->ctrl()->redirectToURL(ilLink::_getStaticLink(self::tiles()->filterRefId()));
 	}
 
 
@@ -106,7 +104,7 @@ class SrTileGUI {
 	 *
 	 */
 	protected function updateTile()/*: void*/ {
-		$tile = self::tiles()->getInstanceForObjRefId(self::filterRefId());
+		$tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
 
 		self::dic()->ctrl()->saveParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID);
 
@@ -125,28 +123,6 @@ class SrTileGUI {
 
 
 	/**
-	 * @return int|null
-	 */
-	public static function filterRefId()/*: ?int*/ {
-		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
-
-		if ($ref_id === NULL) {
-			$param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);
-
-			$ref_id = explode('_', $param_target)[1];
-		}
-
-		$ref_id = intval($ref_id);
-
-		if ($ref_id > 0) {
-			return $ref_id;
-		} else {
-			return NULL;
-		}
-	}
-
-
-	/**
 	 *
 	 */
 	protected function setTabs()/*: void*/ {
@@ -158,7 +134,7 @@ class SrTileGUI {
 				self::class
 			], self::CMD_EDIT_TILE));
 
-		self::dic()->ctrl()->setParameter($this, "ref_id", self::filterRefId());
+		self::dic()->ctrl()->setParameter($this, "ref_id", self::tiles()->filterRefId());
 
 		self::dic()->tabs()->setBackTarget(self::plugin()->translate("back", self::LANG_MODULE_TILE), self::dic()->ctrl()
 			->getLinkTarget($this, self::CMD_CANCEL));

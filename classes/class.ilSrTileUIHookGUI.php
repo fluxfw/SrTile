@@ -77,7 +77,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 				self::$load[self::TILE_CONTAINER_LOADER] = true;
 
-				$ref_id = SrTileGUI::filterRefId();
+				$ref_id = self::tiles()->filterRefId();
 
 				if (self::tiles()->isObject($ref_id)) {
 
@@ -130,7 +130,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
 
-			$ref_id = SrTileGUI::filterRefId();
+			$ref_id = self::tiles()->filterRefId();
 
 			if (($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
 				&& $a_part === self::PAR_TABS

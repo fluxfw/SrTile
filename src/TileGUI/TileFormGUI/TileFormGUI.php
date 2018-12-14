@@ -46,7 +46,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 		parent::__construct($parent);
 
-		if (!self::access()->hasWriteAccess(srTileGUI::filterRefId())) {
+		if (!self::access()->hasWriteAccess(self::tiles()->filterRefId())) {
 			throw new ilException("You have no permission to access this page");
 		}
 	}
@@ -136,7 +136,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initTitle()/*: void*/ {
-		$this->setTitle($this->txt("tile") . ": " . ilObject::_lookupTitle(ilObject::_lookupObjectId(srTileGUI::filterRefId())));
+		$this->setTitle($this->txt("tile") . ": " . ilObject::_lookupTitle(ilObject::_lookupObjectId(self::tiles()->filterRefId())));
 	}
 
 

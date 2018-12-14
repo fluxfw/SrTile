@@ -12,7 +12,6 @@ use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileFavoritesGUI;
-use SrTileGUI;
 
 /**
  * Class TileListContainerGUI
@@ -49,7 +48,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	public function render(): string {
 		$this->setCardColor();
 
-		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "parent_ref_id", SrTileGUI::filterRefId());
+		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "parent_ref_id", self::tiles()->filterRefId());
 		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "ref_id", $this->tile->getObjRefId());
 
 		$tpl = self::plugin()->template("Tile/tpl.tile.html");
