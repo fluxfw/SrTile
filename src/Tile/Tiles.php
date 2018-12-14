@@ -2,9 +2,11 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
+use ilObjectFactory;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
+use Throwable;
 
 /**
  * Class Tiles
@@ -40,6 +42,14 @@ final class Tiles {
 	 * @var Tile[]
 	 */
 	protected static $instances_by_ref_id = [];
+	/**
+	 * @var Tile[]
+	 */
+	protected static $parent_tile_cache = [];
+	/**
+	 * @var bool[]
+	 */
+	protected static $is_object_cache = [];
 
 
 	/**
@@ -53,15 +63,23 @@ final class Tiles {
 	/**
 	 * @param int $obj_ref_id
 	 *
-	 * @return Tile|null
+	 * @return Tile
 	 */
-	public function getInstanceForObjRefId(int $obj_ref_id)/*:?Tile*/ {
-		if (self::$instances_by_ref_id[$obj_ref_id] === NULL) {
-			if (self::$instances_by_ref_id[$obj_ref_id] = Tile::where([ 'obj_ref_id' => $obj_ref_id ])->first()) {
-				return self::$instances_by_ref_id[$obj_ref_id];
-			};
+	public function getInstanceForObjRefId(int $obj_ref_id): Tile {
+		if (!isset(self::$instances_by_ref_id[$obj_ref_id])) {
+			$tile = Tile::where([ 'obj_ref_id' => $obj_ref_id ])->first();
 
-			return NULL;
+			if ($tile === NULL) {
+				$tile = new Tile();
+
+				if ($this->isObject($obj_ref_id)) {
+					$tile->setObjRefId($obj_ref_id);
+
+					$tile->store();
+				}
+			}
+
+			self::$instances_by_ref_id[$obj_ref_id] = $tile;
 		}
 
 		return self::$instances_by_ref_id[$obj_ref_id];
@@ -74,6 +92,32 @@ final class Tiles {
 	 * @return Tile|null
 	 */
 	public function getParentTile(Tile $tile)/*:?Tile*/ {
-		return $this->getInstanceForObjRefId(self::dic()->tree()->getParentId($tile->getObjRefId()));
+		if (!isset(self::$parent_tile_cache[$tile->getObjRefId()])) {
+			try {
+				self::$parent_tile_cache[$tile->getObjRefId()] = $this->getInstanceForObjRefId(self::dic()->tree()
+					->getParentId($tile->getObjRefId()));
+			} catch (Throwable $ex) {
+				// Fix No node_id given!
+				self::$parent_tile_cache[$tile->getObjRefId()] = NULL;
+			}
+		}
+
+		return self::$parent_tile_cache[$tile->getObjRefId()];
+	}
+
+
+	/**
+	 * @param int|null $ref_id
+	 *
+	 * @return bool
+	 */
+	public function isObject(/*?*/
+		int $ref_id = NULL): bool {
+		if (!isset(self::$is_object_cache[$ref_id])) {
+			self::$is_object_cache[$ref_id] = ($ref_id !== NULL && $ref_id > 0 && $ref_id !== intval(SYSTEM_FOLDER_ID)
+				&& ($ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($ref_id, false) !== false));
+		}
+
+		return self::$is_object_cache[$ref_id];
 	}
 }

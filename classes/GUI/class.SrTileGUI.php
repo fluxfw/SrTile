@@ -93,11 +93,8 @@ class SrTileGUI {
 	 */
 	protected function editTile()/*: void*/ {
 		$tile = self::tiles()->getInstanceForObjRefId(filter_input(INPUT_GET, "ref_id"));
-		self::dic()->ctrl()->saveParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID);
 
-		if (!is_object($tile)) {
-			$tile = new Tile();
-		}
+		self::dic()->ctrl()->saveParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID);
 
 		$form = $this->getTileFormGUI($tile);
 
@@ -109,13 +106,9 @@ class SrTileGUI {
 	 *
 	 */
 	protected function updateTile()/*: void*/ {
-		$tile = self::tiles()->getInstanceForObjRefId($this->filterRefId());
-		self::dic()->ctrl()->saveParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID);
+		$tile = self::tiles()->getInstanceForObjRefId(self::filterRefId());
 
-		if (!is_object($tile)) {
-			$tile = new Tile();
-			$tile->setObjRefId(self::filterRefId());
-		}
+		self::dic()->ctrl()->saveParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID);
 
 		$form = $this->getTileFormGUI($tile);
 
@@ -137,7 +130,7 @@ class SrTileGUI {
 	public static function filterRefId()/*: ?int*/ {
 		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
 
-		if (is_null($ref_id)) {
+		if ($ref_id === NULL) {
 			$param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);
 
 			$ref_id = explode('_', $param_target)[1];

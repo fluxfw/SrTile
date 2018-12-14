@@ -7,7 +7,7 @@ use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
- * Class Tile
+ * Class TileListAbstract
  *
  * @package srag\Plugins\SrTile\TileList
  *

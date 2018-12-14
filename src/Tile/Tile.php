@@ -284,7 +284,7 @@ class Tile extends ActiveRecord {
 	 *
 	 * @return string
 	 */
-	public function getColor(bool $invert = false,$border=false): string {
+	public function getColor(bool $invert = false, $border = false): string {
 		$parent_tile = self::tiles()->getParentTile($this);
 
 		$css = "";
@@ -313,7 +313,7 @@ class Tile extends ActiveRecord {
 			if (!empty($font_color)) {
 				$css .= 'background-color:#' . $font_color . '!important;';
 
-				if($border) {
+				if ($border) {
 					$css .= 'border-color:#' . $font_color . '!important;';
 				}
 			}
@@ -321,7 +321,7 @@ class Tile extends ActiveRecord {
 			if (!empty($background_color)) {
 				$css .= 'background-color:#' . $background_color . '!important;';
 
-				if($border) {
+				if ($border) {
 					$css .= 'border-color:#' . $background_color . '!important;';
 				}
 			}
@@ -368,7 +368,7 @@ class Tile extends ActiveRecord {
 	public function returnRelativeImagePath(bool $append_filename = false): string {
 		$path = ilSrTilePlugin::WEB_DATA_FOLDER . '/' . 'tile_' . $this->getTileId() . '/';
 		if ($append_filename) {
-			if (strlen($this->getTileImage()) > 0) {
+			if (!empty($this->getTileImage())) {
 				$path .= $this->getTileImage();
 			}
 		}

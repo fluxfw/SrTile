@@ -28,9 +28,9 @@ class TileFormGUI extends PropertyFormGUI {
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const LANG_MODULE = SrTileGUI::LANG_MODULE_TILE;
 	/**
-	 * @var Tile|null
+	 * @var Tile
 	 */
-	protected $tile = NULL;
+	protected $tile;
 
 
 	/**
@@ -145,12 +145,6 @@ class TileFormGUI extends PropertyFormGUI {
 	 */
 	protected function storeValue(/*string*/
 		$key, $value)/*: void*/ {
-
-		if ($this->tile->getTileId() == 0) {
-			//Store a new Object to get an Id for later.
-			$this->tile->store();
-		}
-
 		switch ($key) {
 			case 'tile_image':
 				if (!self::dic()->upload()->hasBeenProcessed()) {
@@ -193,8 +187,20 @@ class TileFormGUI extends PropertyFormGUI {
 				}
 				break;
 		}
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function storeForm()/*: bool*/ {
+		if (!parent::storeForm()) {
+			return false;
+		}
 
 		$this->tile->store();
+
+		return true;
 	}
 
 

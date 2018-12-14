@@ -3,14 +3,13 @@
 namespace srag\Plugins\SrTile\TileList\TileListContainer;
 
 use ilException;
-use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileList\TileListAbstract;
 use srag\Plugins\SrTile\TileList\TileListInterface;
 
 ;
 
 /**
- * Class Tile
+ * Class TileListContainer
  *
  * @package srag\Plugins\SrTile\TileList\TileListContainer
  *
@@ -61,9 +60,9 @@ class TileListContainer extends TileListAbstract {
 		$children = self::dic()->tree()->getChilds($this->container_obj_ref_id);
 		if (count($children) > 0) {
 			foreach ($children as $child) {
-				if ($child['child'] > 0) {
+				if (self::tiles()->isObject($child['child'])) {
 					$tile = self::tiles()->getInstanceForObjRefId($child['child']);
-					if ($tile instanceof Tile && $tile->isTileEnabled()) {
+					if ($tile->isTileEnabled()) {
 						$this->addTile($tile);
 					}
 				}

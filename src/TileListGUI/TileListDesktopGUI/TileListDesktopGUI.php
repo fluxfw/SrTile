@@ -33,7 +33,7 @@ class TileListDesktopGUI extends TileListGUIAbstract {
 	public function getHtml(): string {
 		$tile_html = '';
 		foreach ($this->tile_list->getTiles() as $tile) {
-			if (strlen($tile->getTileImage()) > 0) {
+			if (!empty($tile->getTileImage())) {
 				$tile_gui = new TileDesktopGUI($tile);
 				$tile_html .= $tile_gui->render();
 			}

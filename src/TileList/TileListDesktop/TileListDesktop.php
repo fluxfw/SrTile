@@ -4,12 +4,11 @@ namespace srag\Plugins\SrTile\TileList\TileListDesktop;
 
 use ilException;
 use ilObjUser;
-use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileList\TileListAbstract;
 use srag\Plugins\SrTile\TileList\TileListInterface;
 
 /**
- * Class Tile
+ * Class TileListDesktop
  *
  * @package srag\Plugins\SrTile\TileList\TileListDesktop
  *
@@ -66,7 +65,7 @@ class TileListDesktop extends TileListAbstract {
 		$desktop_items = self::ilias()->favorites($usr_obj)->getFavorites();
 		foreach ($desktop_items as $item) {
 			$tile = self::tiles()->getInstanceForObjRefId($item['child']);
-			if ($tile instanceof Tile && $tile->isTileEnabled()) {
+			if ($tile->isTileEnabled()) {
 				$this->addTile($tile);
 			}
 		}

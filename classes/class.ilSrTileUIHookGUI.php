@@ -79,8 +79,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 				$ref_id = SrTileGUI::filterRefId();
 
-				if ($ref_id !== NULL
-					&& ($ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($ref_id, false) !== false)) {
+				if (self::tiles()->isObject($ref_id)) {
 
 					$this->initJS();
 
@@ -135,8 +134,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			if (($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
 				&& $a_part === self::PAR_TABS
-				&& $ref_id !== NULL
-				&& ($ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($ref_id, false) !== false)) {
+				&& self::tiles()->isObject($ref_id)) {
 
 				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
 
