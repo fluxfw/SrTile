@@ -16,7 +16,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
- *
  */
 abstract class TileListGUIAbstract implements TileListGUIInterface {
 
@@ -26,7 +25,19 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 	/**
 	 * @var TileListInterface $tile_list
 	 */
-	protected $tile_list = array();
+	protected $tile_list;
+
+
+	/**
+	 * TileListGUIAbstract constructor
+	 *
+	 * @param int $id
+	 */
+	public function __construct(int $id) {
+		$list_class = static::LIST_CLASS;
+
+		$this->tile_list = $list_class::getInstance($id);
+	}
 
 
 	/**
@@ -62,5 +73,53 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		return self::output()->getHTML(array_map(function (Tile $tile) use ($gui_class): TileGUIInterface {
 			return new $gui_class($tile);
 		}, $this->tile_list->getTiles()));
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function hideOriginalRowsOfTiles(bool $global_layout = true) /*:void*/ {
+		$css = '';
+		$is_parent_css_rendered = false;
+		foreach ($this->tile_list->getTiles() as $tile) {
+			$css .= ' #lg_div_';
+			$css .= $tile->getObjRefId();
+			$css .= '_pref_';
+			$css .= $this->tile_list->getId();
+			$css .= '{display:none!important;}';
+			$css .= ' #lg_div_';
+			$css .= $tile->getObjRefId();
+			$css .= '_pref_';
+			$css .= '0';
+			$css .= '{display:none!important;}';
+
+			$css .= '#sr-tile-' . $tile->getTileId();
+			$css .= '{' . $tile->getColor() . '}';
+			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default';
+			$css .= '{border:none!important;' . $tile->getColor(true) . '}';
+
+			if ($global_layout) {
+				if ($is_parent_css_rendered == false) {
+					$parent_tile = self::tiles()->getParentTile($tile);
+					if ($parent_tile !== NULL) {
+						if (!empty($parent_tile->getLevelColor())) {
+							$css .= 'a#il_mhead_t_focus';
+							$css .= '{color:#' . $parent_tile->getLevelColor() . '!important;}';
+						}
+
+						$css .= '.btn-default';
+						$css .= '{' . $parent_tile->getColor();
+						if (!empty($parent_tile->getLevelColor())) {
+							$css .= 'border-color:#' . $parent_tile->getLevelColor() . '!important;';
+						}
+						$css .= '}';
+					}
+				}
+				$is_parent_css_rendered = true;
+			}
+		}
+
+		self::dic()->mainTemplate()->addInlineCss($css);
 	}
 }

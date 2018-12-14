@@ -5,7 +5,6 @@ namespace srag\Plugins\SrTile\TileList\TileListDesktop;
 use ilException;
 use ilObjUser;
 use srag\Plugins\SrTile\TileList\TileListAbstract;
-use srag\Plugins\SrTile\TileList\TileListInterface;
 
 /**
  * Class TileListDesktop
@@ -18,42 +17,18 @@ use srag\Plugins\SrTile\TileList\TileListInterface;
 class TileListDesktop extends TileListAbstract {
 
 	/**
-	 * @var int
-	 */
-	protected $usr_id;
-	/**
-	 * @var self[]
-	 */
-	protected static $instances = array();
-
-
-	/**
 	 * TileListDesktop constructor
 	 *
-	 * @param int $usr_id
+	 * @param int $id
 	 *
 	 * @throws ilException
 	 */
-	protected function __construct(int $usr_id) /*:void*/ {
-		if (!ilObjUser::_exists($usr_id)) {
+	protected function __construct(int $id) /*:void*/ {
+		if (!ilObjUser::_exists($id)) {
 			throw new ilException("User does not exist.");
 		}
 
-		$this->usr_id = $usr_id;
-
-		parent::__construct();
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public static function getInstance(int $usr_id = NULL): TileListInterface {
-		if (self::$instances[$usr_id] == NULL) {
-			return self::$instances[$usr_id] = new self($usr_id);
-		}
-
-		return self::$instances[$usr_id];
+		parent::__construct($id);
 	}
 
 
@@ -61,26 +36,10 @@ class TileListDesktop extends TileListAbstract {
 	 * @inheritdoc
 	 */
 	public function read(array $items = []) /*:void*/ {
-		$usr_obj = new ilObjUser($this->usr_id);
+		$usr_obj = new ilObjUser($this->getId());
 
-		$favorites = self::ilias()->favorites($usr_obj)->getFavorites();
+		$items = self::ilias()->favorites($usr_obj)->getFavorites();
 
-		parent::read($favorites);
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public function getUsrId(): int {
-		return $this->usr_id;
-	}
-
-
-	/**
-	 * @param int $usr_id
-	 */
-	public function setUsrId(int $usr_id) /*:void*/ {
-		$this->usr_id = $usr_id;
+		parent::read($items);
 	}
 }

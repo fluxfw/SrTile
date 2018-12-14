@@ -11,7 +11,6 @@ use srag\Plugins\SrTile\TileGUI\TileGUIAbstract;
  *
  * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
- *
  */
 class TileContainerGUI extends TileGUIAbstract {
 

@@ -50,4 +50,10 @@ interface TileListInterface {
 	 * @return Tile[]
 	 */
 	public function getTiles(): array;
+
+
+	/**
+	 * @return id
+	 */
+	public function getId(): int;
 }

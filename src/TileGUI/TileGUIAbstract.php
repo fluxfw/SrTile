@@ -21,7 +21,6 @@ use SrTileGUI;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
- *
  */
 abstract class TileGUIAbstract implements TileGUIInterface {
 
@@ -31,7 +30,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	/**
 	 * @var Tile
 	 */
-	protected $tile;
+	private $tile;
 
 
 	/**

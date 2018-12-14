@@ -19,15 +19,41 @@ abstract class TileListAbstract implements TileListInterface {
 	use DICTrait;
 	use SrTileTrait;
 	/**
+	 * @var TileListInterface[]
+	 */
+	protected static $instances = [];
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function getInstance(int $id = NULL): TileListInterface {
+		if (self::$instances[static::class . "_" . $id] == NULL) {
+			return self::$instances[static::class . "_" . $id] = new static($id);
+		}
+
+		return self::$instances[static::class . "_" . $id];
+	}
+
+
+	/**
+	 * @var int
+	 */
+	private $id;
+	/**
 	 * @var tile[]
 	 */
-	protected $tiles = [];
+	private $tiles = [];
 
 
 	/**
 	 * TileListAbstract constructor
+	 *
+	 * @param int $id
 	 */
-	protected function __construct() {
+	protected function __construct(int $id) {
+		$this->id = $id;
+
 		$this->read();
 	}
 
@@ -71,5 +97,13 @@ abstract class TileListAbstract implements TileListInterface {
 				}
 			}
 		}
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getId(): int {
+		return $this->id;
 	}
 }

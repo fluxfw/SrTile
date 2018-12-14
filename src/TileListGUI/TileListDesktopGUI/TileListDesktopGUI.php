@@ -13,42 +13,17 @@ use srag\Plugins\SrTile\TileListGUI\TileListGUIAbstract;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
- *
  */
 class TileListDesktopGUI extends TileListGUIAbstract {
 
 	const GUI_CLASS = TileDesktopGUI::class;
-
-
-	/**
-	 * TileListDesktopGUI constructor
-	 *
-	 * @param int $usr_id
-	 */
-	public function __construct(int $usr_id) /*:void*/ {
-		$this->tile_list = TileListDesktop::getInstance($usr_id);
-	}
+	const LIST_CLASS = TileListDesktop::class;
 
 
 	/**
 	 * @inheritdoc
 	 */
-	public function hideOriginalRowsOfTiles() /*:void*/ {
-		$css = '';
-		foreach ($this->tile_list->getTiles() as $tile) {
-			$css .= ' #lg_div_';
-			$css .= $tile->getObjRefId();
-			$css .= '_pref_';
-			$css .= '0';
-			$css .= '{display:none!important;}';
-
-			// TODO: Move color code to same method (TileListContainerGUI and TileListDesktopGUI)
-			$css .= '#sr-tile-' . $tile->getTileId();
-			$css .= '{' . $tile->getColor() . '}';
-			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default';
-			$css .= '{border:none!important;' . $tile->getColor(true) . '}';
-		}
-
-		self::dic()->mainTemplate()->addInlineCss($css);
+	public function hideOriginalRowsOfTiles(bool $global_layout = false) /*:void*/ {
+		parent::hideOriginalRowsOfTiles($global_layout);
 	}
 }
