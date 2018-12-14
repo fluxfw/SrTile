@@ -36,7 +36,7 @@ class TileListDesktop extends TileListAbstract {
 	 * @inheritdoc
 	 */
 	public function read(array $items = []) /*:void*/ {
-		$usr_obj = new ilObjUser($this->getId());
+		$usr_obj = new ilObjUser($this->getBaseId());
 
 		$items = self::ilias()->favorites($usr_obj)->getFavorites();
 

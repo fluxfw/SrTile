@@ -89,10 +89,10 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			$css .= '{border:none!important;' . $tile->getColor(true) . '}';
 
 			if ($global_layout) {
-				$css .= ' #lg_div_';
+				$css .= '#lg_div_';
 				$css .= $tile->getObjRefId();
 				$css .= '_pref_';
-				$css .= $this->tile_list->getId();
+				$css .= $this->tile_list->getBaseId();
 				$css .= '{display:none!important;}';
 
 				if ($is_parent_css_rendered == false) {
@@ -113,7 +113,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 				}
 				$is_parent_css_rendered = true;
 			} else {
-				$css .= ' #lg_div_';
+				$css .= '#lg_div_';
 				$css .= $tile->getObjRefId();
 				$css .= '_pref_';
 				$css .= '0';

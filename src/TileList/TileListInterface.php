@@ -53,7 +53,7 @@ interface TileListInterface {
 
 
 	/**
-	 * @return id
+	 * @return int
 	 */
-	public function getId(): int;
+	public function getBaseId(): int;
 }

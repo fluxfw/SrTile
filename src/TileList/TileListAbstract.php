@@ -39,7 +39,7 @@ abstract class TileListAbstract implements TileListInterface {
 	/**
 	 * @var int
 	 */
-	private $id;
+	private $base_id;
 	/**
 	 * @var tile[]
 	 */
@@ -52,7 +52,7 @@ abstract class TileListAbstract implements TileListInterface {
 	 * @param int $id
 	 */
 	protected function __construct(int $id) {
-		$this->id = $id;
+		$this->base_id = $id;
 
 		$this->read();
 	}
@@ -103,7 +103,7 @@ abstract class TileListAbstract implements TileListInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public function getId(): int {
-		return $this->id;
+	public function getBaseId(): int {
+		return $this->base_id;
 	}
 }

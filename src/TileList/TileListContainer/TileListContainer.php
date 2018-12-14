@@ -20,7 +20,7 @@ class TileListContainer extends TileListAbstract {
 	 * @inheritdoc
 	 */
 	public function read(array $items = []) /*:void*/ {
-		$items = self::dic()->tree()->getChilds($this->getId());
+		$items = self::dic()->tree()->getChilds($this->getBaseId());
 
 		parent::read($items);
 	}
