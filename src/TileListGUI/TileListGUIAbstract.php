@@ -36,7 +36,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$tile_list_html = "";
 
 		if (count($this->tile_list->getTiles()) > 0) {
-			self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.min.css");
+			self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
 
 			$tpl = self::plugin()->template("TileList/tpl.tile_list.html");
 
