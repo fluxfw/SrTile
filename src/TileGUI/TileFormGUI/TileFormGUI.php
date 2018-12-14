@@ -205,14 +205,6 @@ class TileFormGUI extends PropertyFormGUI {
 
 
 	/**
-	 * @return Tile
-	 */
-	public function getTile(): Tile {
-		return $this->tile;
-	}
-
-
-	/**
 	 * @param string $string
 	 *
 	 * @return string
