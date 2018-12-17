@@ -57,6 +57,22 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("LABEL", ($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getTitle() : ""));
 		if (self::access()->hasOpenAccess($this->tile)) {
 			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->returnLink()) . '\'"');
+
+			if (self::ilias()->favorites(self::dic()->user())->hasFavorite($this->tile->getObjRefId())) {
+				$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+					ilUIPluginRouterGUI::class,
+					SrTileFavoritesGUI::class
+				], SrTileFavoritesGUI::CMD_REMOVE_FROM_FAVORITES));
+				$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("remove_from_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+				$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
+			} else {
+				$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+					ilUIPluginRouterGUI::class,
+					SrTileFavoritesGUI::class
+				], SrTileFavoritesGUI::CMD_ADD_TO_FAVORITES));
+				$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("add_to_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+				$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
+			}
 		} else {
 			$tpl->setVariable("DISABLED", " tile_disabled");
 		}
@@ -70,22 +86,6 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$icon = ilObject::_getIcon(($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getId() : NULL), "small");
 		if (file_exists($icon)) {
 			$tpl->setVariable("ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
-		}
-
-		if (self::ilias()->favorites(self::dic()->user())->hasFavorite($this->tile->getObjRefId())) {
-			$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
-				ilUIPluginRouterGUI::class,
-				SrTileFavoritesGUI::class
-			], SrTileFavoritesGUI::CMD_REMOVE_FROM_FAVORITES));
-			$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("remove_from_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
-			$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
-		} else {
-			$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
-				ilUIPluginRouterGUI::class,
-				SrTileFavoritesGUI::class
-			], SrTileFavoritesGUI::CMD_ADD_TO_FAVORITES));
-			$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("add_to_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
-			$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
 		}
 
 		$tpl->parseCurrentBlock();
