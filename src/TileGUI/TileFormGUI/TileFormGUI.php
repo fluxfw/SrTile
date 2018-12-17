@@ -65,10 +65,10 @@ class TileFormGUI extends PropertyFormGUI {
 				break;
 
 			default:
-				if (method_exists($this->tile, $method = 'get' . $this->strToCamelCasE($key))) {
+				if (method_exists($this->tile, $method = 'get' . $this->strToCamelCase($key))) {
 					return $this->tile->{$method}($key);
 				}
-				if (method_exists($this->tile, $method = 'is' . $this->strToCamelCasE($key))) {
+				if (method_exists($this->tile, $method = 'is' . $this->strToCamelCase($key))) {
 					return $this->tile->{$method}($key);
 				}
 		}
@@ -182,7 +182,7 @@ class TileFormGUI extends PropertyFormGUI {
 				break;
 
 			default:
-				if (method_exists($this->tile, $method = 'set' . $this->strToCamelCasE($key))) {
+				if (method_exists($this->tile, $method = 'set' . $this->strToCamelCase($key))) {
 					$this->tile->{$method}($value);
 				}
 				break;
@@ -209,7 +209,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 *
 	 * @return string
 	 */
-	protected function strToCamelCasE($string): string {
+	protected function strToCamelCase($string): string {
 		return str_replace('_', '', ucwords($string, '_'));
 	}
 }
