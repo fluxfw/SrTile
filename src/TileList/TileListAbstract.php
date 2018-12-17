@@ -92,7 +92,7 @@ abstract class TileListAbstract implements TileListInterface {
 			if (self::tiles()->isObject($item['child'])) {
 				$tile = self::tiles()->getInstanceForObjRefId($item['child']);
 
-				if ($tile->isTileEnabled()) {
+				if ($tile->isTileEnabled() && self::access()->hasVisibleAccess($tile->getObjRefId())) {
 					$this->addTile($tile);
 				}
 			}

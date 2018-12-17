@@ -4,8 +4,14 @@
 
 namespace srag\Plugins\SrTile\Access;
 
+use ilObjCourse;
+use ilObjCourseAccess;
+use ilObject;
+use ilObjGroup;
+use ilObjGroupAccess;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -42,10 +48,64 @@ final class Access {
 
 
 	/**
+	 * @var bool[]
+	 */
+	protected static $has_open_access = [];
+	/**
+	 * @var bool[]
+	 */
+	protected static $has_visible_access = [];
+	/**
+	 * @var bool[]
+	 */
+	protected static $has_write_access = [];
+
+
+	/**
 	 * Access constructor
 	 */
 	private function __construct() {
 
+	}
+
+
+	/**
+	 * @param Tile $tile
+	 *
+	 * @return bool
+	 */
+	public function hasOpenAccess(Tile $tile): bool {
+		if (!isset(self::$has_open_access[$tile->getObjRefId()])) {
+			if (self::dic()->access()->checkAccess("read", "", $tile->getObjRefId())) {
+				self::$has_open_access[$tile->getObjRefId()] = true;
+			} else {
+				if ($tile->getIlObject() instanceof ilObjCourse) {
+					self::$has_open_access[$tile->getObjRefId()] = (new ilObjCourseAccess())->_checkAccess("join", "join", $tile->getObjRefId(), ilObject::_lookupObjectId($tile->getObjRefId()));
+				} else {
+					if ($tile->getIlObject() instanceof ilObjGroup) {
+						self::$has_open_access[$tile->getObjRefId()] = (new ilObjGroupAccess())->_checkAccess("join", "join", $tile->getObjRefId(), ilObject::_lookupObjectId($tile->getObjRefId()));
+					} else {
+						self::$has_open_access[$tile->getObjRefId()] = false;
+					}
+				}
+			}
+		}
+
+		return self::$has_open_access[$tile->getObjRefId()];
+	}
+
+
+	/**
+	 * @param int $ref_id
+	 *
+	 * @return bool
+	 */
+	public function hasVisibleAccess(int $ref_id): bool {
+		if (!isset(self::$has_visible_access[$ref_id])) {
+			self::$has_visible_access[$ref_id] = self::dic()->access()->checkAccess("visible", "", $ref_id);
+		}
+
+		return self::$has_visible_access[$ref_id];
 	}
 
 
@@ -55,10 +115,10 @@ final class Access {
 	 * @return bool
 	 */
 	public function hasWriteAccess(int $ref_id): bool {
-		if (self::dic()->user()->getId() != ANONYMOUS_USER_ID) {
-			return self::dic()->access()->checkAccess("write", "", $ref_id);
+		if (!isset(self::$has_write_access[$ref_id])) {
+			self::$has_write_access[$ref_id] = self::dic()->access()->checkAccess("write", "", $ref_id);
 		}
 
-		return true;
+		return self::$has_write_access[$ref_id];
 	}
 }

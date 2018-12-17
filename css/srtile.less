@@ -38,8 +38,15 @@ Tiles
 
   text-align: center;
 
-  .ratio-container {
+  &:not(.tile_disabled) .ratio-container {
 	cursor: pointer;
+  }
+
+  &.tile_disabled {
+	opacity: 0.5;
+  }
+
+  .ratio-container {
 	max-height: 100%;
 	overflow: hidden;
 	padding-top: 70%;

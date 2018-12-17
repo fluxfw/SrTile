@@ -1,22 +1,20 @@
 <!-- BEGIN tile -->
-<div class="col-xs-6 col-md-3 tile">
-	<div>
-		<div class="card" id="sr-tile-{TILE_ID}">
-			<div class="ratio-container" onclick="location.href='{LINK}'">
-				<img src="{IMAGE}" alt="Card image">
-				{ICON}
-			</div>
-			<div class="card-label">
-				<div class="flex-container">
-					<div class="card-title">{LABEL}</div>
+<div class="col-xs-6 col-md-3 tile{DISABLED}">
+	<div class="card" id="sr-tile-{TILE_ID}">
+		<div class="ratio-container"{LINK}>
+			<img src="{IMAGE}" alt="Card image">
+			{ICON}
+		</div>
+		<div class="card-label">
+			<div class="flex-container">
+				<div class="card-title">{LABEL}</div>
 
-					<div class="card-footer">
-						<div class="left">
-							<a href="{FAVORITE_LINK}" onclick="event.stopPropagation();" title="{FAVORITE_TEXT}"><img src="{FAVORITE_IMAGE_PATH}" alt="" onload="SVGInject(this);"></a>
-						</div>
-						<div class="right">
-							{ACTIONS}
-						</div>
+				<div class="card-footer">
+					<div class="left">
+						<a href="{FAVORITE_LINK}" onclick="event.stopPropagation();" title="{FAVORITE_TEXT}"><img src="{FAVORITE_IMAGE_PATH}" alt="" onload="SVGInject(this);"></a>
+					</div>
+					<div class="right">
+						{ACTIONS}
 					</div>
 				</div>
 			</div>

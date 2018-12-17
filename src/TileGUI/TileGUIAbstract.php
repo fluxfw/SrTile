@@ -55,7 +55,12 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setCurrentBlock("tile");
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
 		$tpl->setVariable("LABEL", ($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getTitle() : ""));
-		$tpl->setVariable("LINK", $this->tile->returnLink());
+		if (self::access()->hasOpenAccess($this->tile)) {
+			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->returnLink()) . '\'"');
+		} else {
+			$tpl->setVariable("DISABLED", " tile_disabled");
+		}
+
 		$tpl->setVariable("IMAGE", $this->tile->getImage());
 
 		if (self::access()->hasWriteAccess($this->tile->getObjRefId())) {
