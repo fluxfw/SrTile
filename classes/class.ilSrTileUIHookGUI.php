@@ -70,7 +70,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 		//Repository
 		if (!self::$load[self::TILE_CONTAINER_LOADER]) {
-			if (($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
+			if ($this->matchObjectBaseClass()
 				&& $a_part === self::GET
 				&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE
 					|| $a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_LIST_ITEM)) {
@@ -128,11 +128,9 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		$a_par = []): array {
 		if (!self::$load[self::TILE_CONFIG_TAB_LOADER]) {
 
-			$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
-
 			$ref_id = self::tiles()->filterRefId();
 
-			if (($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class) || empty($baseClass))
+			if ($this->matchObjectBaseClass()
 				&& $a_part === self::PAR_TABS
 				&& self::tiles()->isObject($ref_id)) {
 
@@ -162,5 +160,17 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 */
 	protected function initJS()/*: void*/ {
 		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	protected function matchObjectBaseClass(): bool {
+		$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
+
+		return ($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class)
+			|| $baseClass === strtolower(ilSAHSEditGUI::class)
+			|| empty($baseClass));
 	}
 }
