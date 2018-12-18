@@ -89,18 +89,19 @@ final class Tiles {
 
 
 	/**
-	 * @param int $obj_ref_id
+	 * @param int  $obj_ref_id
+	 * @param bool $store
 	 *
 	 * @return Tile
 	 */
-	public function getInstanceForObjRefId(int $obj_ref_id): Tile {
+	public function getInstanceForObjRefId(int $obj_ref_id, $store = true): Tile {
 		if (!isset(self::$instances_by_ref_id[$obj_ref_id])) {
 			$tile = Tile::where([ 'obj_ref_id' => $obj_ref_id ])->first();
 
 			if ($tile === NULL) {
 				$tile = new Tile();
 
-				if ($this->isObject($obj_ref_id)) {
+				if ($store && $this->isObject($obj_ref_id)) {
 					$tile->setObjRefId($obj_ref_id);
 
 					$tile->store();

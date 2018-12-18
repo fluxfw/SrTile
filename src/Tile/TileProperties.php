@@ -87,7 +87,7 @@ class TileProperties {
 			}
 		}
 
-		return TILE::DEFAULT_BACKGROUND_COLOR;
+		return "";
 	}
 
 
@@ -117,7 +117,7 @@ class TileProperties {
 				break;
 		}
 
-		return Tile::DEFAULT_FONT_COLOR;
+		return "";
 	}
 
 

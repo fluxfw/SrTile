@@ -305,40 +305,6 @@ class Tile extends ActiveRecord {
 
 
 	/**
-	 *
-	 */
-	public function create()/*: void*/ {
-		parent::create();
-
-		if (self::tiles()->isTopTile($this)) {
-			$this->setTileEnabledChildren(true);
-
-			$this->setBackgroundColorType(self::DEFAULT_BACKGROUND_COLOR_TYPE);
-
-			$this->setFontColorType(self::DEFAULT_FONT_COLOR_TYPE);
-
-			$this->setMarginType(self::DEFAULT_MARGIN_TYPE);
-			$this->setMargin(self::DEFAULT_MARGIN);
-
-			$this->setFontSizeType(self::MARGIN_TYPE_SET);
-			$this->setFontSize(self::DEFAULT_FONT_SIZE);
-
-			$this->setImagePosition(self::DEFAULT_IMAGE_POSITION);
-
-			$this->setLabelHorizontalAlign(self::DEFAULT_LABEL_HORIZONTAL_ALIGN);
-			$this->setLabelVerticalAlign(self::DEFAULT_LABEL_VERTICAL_ALIGN);
-
-			$this->setActionsPosition(self::DEFAULT_ACTIONS_POSITION);
-			$this->setActionsVerticalAlign(self::DEFAULT_ACTIONS_VERTICAL_ALIGN);
-
-			$this->setObjectIconPosition(self::DEFAULT_OBJECT_ICON_POSITION);
-
-			$this->store();
-		}
-	}
-
-
-	/**
 	 * @return int
 	 *
 	 * @internal
@@ -350,8 +316,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $tile_id
-	 *
-	 * @internal
 	 */
 	public function setTileId(int $tile_id)/*: void*/ {
 		$this->tile_id = $tile_id;
@@ -370,8 +334,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $obj_ref_id
-	 *
-	 * @internal
 	 */
 	public function setObjRefId(int $obj_ref_id)/*: void*/ {
 		$this->obj_ref_id = $obj_ref_id;
@@ -404,8 +366,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param bool $tile_enabled
-	 *
-	 * @internal
 	 */
 	public function setTileEnabled(bool $tile_enabled)/*: void*/ {
 		$this->tile_enabled = $tile_enabled;
@@ -424,8 +384,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param bool $tile_enabled_children
-	 *
-	 * @internal
 	 */
 	public function setTileEnabledChildren(bool $tile_enabled_children)/*: void*/ {
 		$this->tile_enabled_children = $tile_enabled_children;
@@ -445,8 +403,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param string $image
-	 *
-	 * @internal
 	 */
 	public function setImage(string $image)/*: void*/ {
 		$this->image = $image;
@@ -465,8 +421,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $background_color_type
-	 *
-	 * @internal
 	 */
 	public function setBackgroundColorType(int $background_color_type)/*: void*/ {
 		$this->background_color_type = $background_color_type;
@@ -485,8 +439,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param string $background_color
-	 *
-	 * @internal
 	 */
 	public function setBackgroundColor(string $background_color)/*: void*/ {
 		$this->background_color = $background_color;
@@ -505,8 +457,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $font_color_type
-	 *
-	 * @internal
 	 */
 	public function setFontColorType(int $font_color_type)/*: void*/ {
 		$this->font_color_type = $font_color_type;
@@ -525,8 +475,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param string $font_color
-	 *
-	 * @internal
 	 */
 	public function setFontColor(string $font_color)/*: void*/ {
 		$this->font_color = $font_color;
@@ -545,8 +493,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $margin_type
-	 *
-	 * @internal
 	 */
 	public function setMarginType(int $margin_type)/*: void*/ {
 		$this->margin_type = $margin_type;
@@ -565,8 +511,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $margin
-	 *
-	 * @internal
 	 */
 	public function setMargin(int $margin)/*: void*/ {
 		$this->margin = $margin;
@@ -585,8 +529,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $font_size_type
-	 *
-	 * @internal
 	 */
 	public function setFontSizeType(int $font_size_type)/*: void*/ {
 		$this->font_size_type = $font_size_type;
@@ -605,8 +547,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $font_size
-	 *
-	 * @internal
 	 */
 	public function setFontSize(int $font_size)/*: void*/ {
 		$this->font_size = $font_size;
@@ -625,8 +565,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $image_position
-	 *
-	 * @internal
 	 */
 	public function setImagePosition(int $image_position)/*: void*/ {
 		$this->image_position = $image_position;
@@ -645,8 +583,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $label_horizontal_align
-	 *
-	 * @internal
 	 */
 	public function setLabelHorizontalAlign(int $label_horizontal_align)/*: void*/ {
 		$this->label_horizontal_align = $label_horizontal_align;
@@ -665,8 +601,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $label_vertical_align
-	 *
-	 * @internal
 	 */
 	public function setLabelVerticalAlign(int $label_vertical_align)/*: void*/ {
 		$this->label_vertical_align = $label_vertical_align;
@@ -685,8 +619,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $actions_position
-	 *
-	 * @internal
 	 */
 	public function setActionsPosition(int $actions_position)/*: void*/ {
 		$this->actions_position = $actions_position;
@@ -705,8 +637,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $actions_vertical_align
-	 *
-	 * @internal
 	 */
 	public function setActionsVerticalAlign(int $actions_vertical_align)/*: void*/ {
 		$this->actions_vertical_align = $actions_vertical_align;
@@ -725,8 +655,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @param int $object_icon_position
-	 *
-	 * @internal
 	 */
 	public function setObjectIconPosition(int $object_icon_position)/*: void*/ {
 		$this->object_icon_position = $object_icon_position;
