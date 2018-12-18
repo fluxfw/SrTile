@@ -353,6 +353,10 @@ class Tile extends ActiveRecord {
 	 * @internal
 	 */
 	public function isTileEnabled(): bool {
+		if (self::tiles()->isTopTile($this)) {
+			return false;
+		}
+
 		if ($this->tile_enabled) {
 			return true;
 		}

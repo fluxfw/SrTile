@@ -52,6 +52,10 @@ final class Tiles {
 	 * @var bool[]
 	 */
 	protected static $is_object_cache = [];
+	/**
+	 * @var bool[]
+	 */
+	protected static $is_top_tile_cache = [];
 
 
 	/**
@@ -143,5 +147,25 @@ final class Tiles {
 		}
 
 		return self::$is_object_cache[$ref_id];
+	}
+
+
+	/**
+	 * @param Tile $tile
+	 *
+	 * @return bool
+	 */
+	public function isTopTile(Tile $tile): bool {
+		if (!isset(self::$is_top_tile_cache[$tile->getTileId()])) {
+			$parent_tile = $this->getParentTile($tile);
+
+			if ($parent_tile !== NULL) {
+				self::$is_top_tile_cache[$tile->getTileId()] = (!$this->isObject($parent_tile->getObjRefId()));
+			} else {
+				self::$is_top_tile_cache[$tile->getTileId()] = true;
+			}
+		}
+
+		return self::$is_top_tile_cache[$tile->getTileId()];
 	}
 }

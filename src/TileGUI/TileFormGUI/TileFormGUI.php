@@ -100,7 +100,8 @@ class TileFormGUI extends PropertyFormGUI {
 			"tile_enabled" => [
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
-				self::PROPERTY_DISABLED => (($parent_tile = self::tiles()->getParentTile($this->tile)) !== NULL
+				self::PROPERTY_DISABLED => (self::tiles()->isTopTile($this->tile)
+					|| ($parent_tile = self::tiles()->getParentTile($this->tile)) !== NULL
 					&& $parent_tile->isTileEnabledChildren())
 			],
 			"tile_enabled_children" => [
@@ -117,6 +118,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::COLOR_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::COLOR_TYPE_SET => [
@@ -139,6 +141,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::MARGIN_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::MARGIN_TYPE_SET => [
@@ -170,6 +173,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::POSITION_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::POSITION_TOP => [
@@ -189,6 +193,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::POSITION_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::POSITION_NONE => [
@@ -223,6 +228,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::COLOR_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::COLOR_TYPE_CONTRAST => [
@@ -249,6 +255,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::FONT_SIZE_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::FONT_SIZE_TYPE_SET => [
@@ -271,6 +278,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::HORIZONTAL_ALIGN_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::HORIZONTAL_ALIGN_LEFT => [
@@ -294,6 +302,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::VERTICAL_ALIGN_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::VERTICAL_ALIGN_TOP => [
@@ -321,6 +330,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::POSITION_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::POSITION_LEFT => [
@@ -340,6 +350,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::VERTICAL_ALIGN_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::VERTICAL_ALIGN_TOP => [
