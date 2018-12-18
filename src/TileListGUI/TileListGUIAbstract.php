@@ -84,9 +84,9 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {
 			$css .= '#sr-tile-' . $tile->getTileId();
-			$css .= '{' . $tile->getColor() . '}';
+			$css .= '{' . $tile->getProperties()->getColor() . $tile->getProperties()->getSize() . '}';
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default';
-			$css .= '{border:none!important;' . $tile->getColor(true) . '}';
+			$css .= '{' . $tile->getProperties()->getColor(true) . '}';
 
 			if ($global_layout) {
 				$css .= '#lg_div_';
@@ -98,21 +98,22 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 				if ($is_parent_css_rendered == false) {
 					$parent_tile = self::tiles()->getParentTile($tile);
 					if ($parent_tile !== NULL) {
-						if (!empty($parent_tile->getLevelColor())) {
+						if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
 							$css .= 'a#il_mhead_t_focus';
-							$css .= '{color:#' . $parent_tile->getLevelColor() . '!important;}';
+							$css .= '{color:#' . $parent_tile->getProperties()->getBackgroundColor() . '!important;}';
 						}
 
 						$css .= '.btn-default';
-						$css .= '{' . $parent_tile->getColor();
-						if (!empty($parent_tile->getLevelColor())) {
-							$css .= 'border-color:#' . $parent_tile->getLevelColor() . '!important;';
+						$css .= '{' . $tile->getProperties()->getColor();
+						if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
+							$css .= 'border-color:#' . $parent_tile->getProperties()->getBackgroundColor() . '!important;';
 						}
 						$css .= '}';
 					}
 				}
 				$is_parent_css_rendered = true;
 			} else {
+				// Personal desktop
 				$css .= '#lg_div_';
 				$css .= $tile->getObjRefId();
 				$css .= '_pref_';

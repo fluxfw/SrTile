@@ -1,8 +1,3 @@
-config_configuration#:#Configuration
-config_configuration_saved#:#Configuration saved
-config_default_image#:#Default image
-config_default_image_info#:#If no image uploaded, a gray placeholder image will be used
-config_save#:#Save
 favorites_add_to_favorites#:#Add to favorites
 favorites_added_to_favorites#:#The object has been added to the favorites
 favorites_remove_from_favorites#:#Remove from favorites
@@ -16,16 +11,41 @@ removeplugindataconfirm_msg_kept_data#:#The %1$s data was kept
 removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
 removeplugindataconfirm_remove_data#:#Remove %1$s data
 tile#:#Tile
+tile_actions#:#Actions
 tile_back#:#Back
+tile_background_color#:#Background color
 tile_cancel#:#Cancel
-tile_level_color#:#Background color
-tile_level_color_info#:#If not set, it's parent tile background color is taken
-tile_level_color_font#:#Font color
-tile_level_color_font_info#:#If not set this is calculated automatically based on the contrast of the background color (black or white)
+tile_color_contrast#:#Calculate automatically based on the contrast of the background color (black or white)
+tile_font_color#:#Font color
+tile_font_size#:#Font size
+tile_horizontal_align#:#Horizontal align
+tile_horizontal_align_center#:#Center
+tile_horizontal_align_left#:#Left
+tile_horizontal_align_right#:#Right
+tile_image#:#Image
+tile_image_info#:#If no image uploaded, the default image will be used
+tile_label#:#Label
+tile_margin#:#Margin
+tile_object#:#Object: %s
+tile_object_icon_none#:#Not show
+tile_object_icon_position#:#Object icon
+tile_parent#:#From parent object
+tile_position#:#Position
+tile_position_bottom#:#Bottom
+tile_position_left#:#Left
+tile_position_left_bottom#:#Left / Bottom
+tile_position_left_top#:#Left / Top
+tile_position_right#:#Right
+tile_position_right_bottom#:#Right / Bottom
+tile_position_right_top#:#Right / Top
+tile_position_top#:#Top
 tile_saved#:#The tile was saved
+tile_set#:#Set
 tile_submit#:#Save
 tile_tile#:#Tile
 tile_tile_enabled#:#Display as tile
 tile_tile_enabled_children#:#Display all child objects as tile
-tile_tile_image#:#Image
-tile_tile_image_info#:#If no image uploaded, the default image will be used
+tile_vertical_align#:#Vertical align
+tile_vertical_align_bottom#:#Bottom
+tile_vertical_align_center#:#Center
+tile_vertical_align_top#:#Top

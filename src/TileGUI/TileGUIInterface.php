@@ -28,11 +28,4 @@ interface TileGUIInterface {
 	 * @return string
 	 */
 	public function getActionAsyncUrl(): string;
-
-
-	/**
-	 *
-	 */
-	public function setCardColor() /*:void*/
-	;
 }
