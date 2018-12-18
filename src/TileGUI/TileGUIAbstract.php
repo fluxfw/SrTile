@@ -46,7 +46,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 * @inheritdoc
 	 */
 	public function render(): string {
-		$this->setCardColor();
+		$parent_tile = self::tiles()->getParentTile($this->tile);
 
 		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "parent_ref_id", self::tiles()->filterRefId());
 		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "ref_id", $this->tile->getObjRefId());
@@ -54,7 +54,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl = self::plugin()->template("Tile/tpl.tile.html");
 		$tpl->setCurrentBlock("tile");
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
-		$tpl->setVariable("LABEL", ($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getTitle() : ""));
+		$tpl->setVariable("LABEL", $this->tile->getProperties()->getTitle());
 		if (self::access()->hasOpenAccess($this->tile)) {
 			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->returnLink()) . '\'"');
 
@@ -77,7 +77,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			$tpl->setVariable("DISABLED", " tile_disabled");
 		}
 
-		$tpl->setVariable("IMAGE", $this->tile->getImage());
+		$tpl->setVariable("IMAGE", $this->tile->getProperties()->getImage());
 
 		if (self::access()->hasWriteAccess($this->tile->getObjRefId())) {
 			$tpl->setVariable("ACTIONS", $this->getActions());
@@ -85,7 +85,16 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 		$icon = ilObject::_getIcon(($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getId() : NULL), "small");
 		if (file_exists($icon)) {
-			$tpl->setVariable("ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
+			$tpl->setVariable("OBJECT_ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
+		}
+
+		if ($parent_tile !== NULL) {
+			$tpl->setVariable("IMAGE_POSITION", $parent_tile->getProperties()->getImagePosition());
+			$tpl->setVariable("TITLE_HORIZONTAL_ALIGN", $parent_tile->getProperties()->getLabelHorizontalAlign());
+			$tpl->setVariable("TITLE_VERTICAL_ALIGN", $parent_tile->getProperties()->getLabelVerticalAlign());
+			$tpl->setVariable("ACTIONS_POSITION", $parent_tile->getProperties()->getActionsPosition());
+			$tpl->setVariable("ACTIONS_VERTICAL_ALIGN", $parent_tile->getProperties()->getActionsVerticalAlign());
+			$tpl->setVariable("OBJECT_ICON_POSITION", $parent_tile->getProperties()->getObjectIconPosition());
 		}
 
 		$tpl->parseCurrentBlock();
@@ -123,19 +132,5 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", NULL);
 
 		return $async_url;
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function setCardColor()/*: void*/ {
-		// TODO: Not work?!
-		if (!empty($this->tile->getLevelColor())) {
-			$id = "#sr-tile-_" . $this->tile->getTileId();
-
-			$css = $id . '{' . $this->tile->getColor() . '}';
-			self::dic()->mainTemplate()->addInlineCss($css);
-		}
 	}
 }

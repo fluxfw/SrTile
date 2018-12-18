@@ -1,0 +1,336 @@
+<?php
+
+namespace srag\Plugins\SrTile\Tile;
+
+use ilSrTilePlugin;
+use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Utils\SrTileTrait;
+
+/**
+ * Class TileProperties
+ *
+ * @package srag\Plugins\SrTile\Tile
+ *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ */
+class TileProperties {
+
+	use DICTrait;
+	use SrTileTrait;
+	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+	const COLOR_BLACK = "000000";
+	const COLOR_WHITE = "FFFFFF";
+	/**
+	 * @var Tile
+	 */
+	protected $tile;
+	/**
+	 * @var Tile|null
+	 */
+	protected $parent_tile;
+
+
+	/**
+	 * Tile constructor
+	 *
+	 * @param Tile $tile
+	 */
+	public function __construct(Tile $tile) {
+		$this->tile = $tile;
+		$this->parent_tile = self::tiles()->getParentTile($this->tile);
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getActionsPosition(): int {
+		if ($this->tile->getActionsPosition() !== Tile::POSITION_PARENT) {
+			return $this->tile->getActionsPosition();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getActionsPosition();
+		}
+
+		return Tile::DEFAULT_ACTIONS_POSITION;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getActionsVerticalAlign(): int {
+		if ($this->tile->getActionsVerticalAlign() !== Tile::VERTICAL_ALIGN_PARENT) {
+			return $this->tile->getActionsVerticalAlign();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getActionsPosition();
+		}
+
+		return Tile::DEFAULT_ACTIONS_VERTICAL_ALIGN;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getBackgroundColor(): string {
+		if ($this->tile->getBackgroundColorType() !== Tile::COLOR_TYPE_PARENT) {
+			if (!empty($this->tile->getBackgroundColor())) {
+				return $this->tile->getBackgroundColor();
+			}
+		} else {
+			if ($this->parent_tile !== NULL) {
+				return $this->parent_tile->getProperties()->getBackgroundColor();
+			}
+		}
+
+		return TILE::DEFAULT_BACKGROUND_COLOR;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getFontColor(): string {
+		switch ($this->tile->getFontColorType()) {
+			case Tile::COLOR_TYPE_PARENT:
+				if ($this->parent_tile !== NULL) {
+					return $this->parent_tile->getProperties()->getFontColor();
+				}
+				break;
+
+			case Tile::COLOR_TYPE_CONTRAST:
+				$background_color = $this->getBackgroundColor();
+
+				if (!empty($background_color)) {
+					return $this->getContrastYIQ($background_color);
+				}
+				break;
+
+			case Tile::COLOR_TYPE_SET:
+				return $this->tile->getFontColor();
+
+			default:
+				break;
+		}
+
+		return Tile::DEFAULT_FONT_COLOR;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getFontSize(): int {
+		if ($this->tile->getFontSizeType() !== Tile::FONT_SIZE_TYPE_PARENT) {
+			if (!empty($this->tile->getFontSize())) {
+				return $this->tile->getFontSize();
+			}
+		} else {
+			if ($this->parent_tile !== NULL) {
+				return $this->parent_tile->getProperties()->getFontSize();
+			}
+		}
+
+		return Tile::DEFAULT_FONT_SIZE;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getImage(): string {
+		if (!empty($this->tile->getImage())) {
+			$image_path = ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
+			if (file_exists($image_path)) {
+				return "./" . $image_path;
+			}
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getImage();
+		}
+
+		return self::plugin()->directory() . "/templates/images/default_image.png";
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getImagePosition(): int {
+		if ($this->tile->getImagePosition() !== Tile::POSITION_PARENT) {
+			return $this->tile->getImagePosition();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getImagePosition();
+		}
+
+		return Tile::DEFAULT_IMAGE_POSITION;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getLabelHorizontalAlign(): int {
+		if ($this->tile->getLabelHorizontalAlign() !== Tile::HORIZONTAL_ALIGN_PARENT) {
+			return $this->tile->getLabelHorizontalAlign();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getLabelHorizontalAlign();
+		}
+
+		return Tile::DEFAULT_LABEL_HORIZONTAL_ALIGN;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getLabelVerticalAlign(): int {
+		if ($this->tile->getLabelVerticalAlign() !== Tile::VERTICAL_ALIGN_PARENT) {
+			return $this->tile->getLabelVerticalAlign();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getLabelVerticalAlign();
+		}
+
+		return Tile::DEFAULT_LABEL_VERTICAL_ALIGN;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getMargin(): int {
+		if ($this->tile->getMarginType() !== Tile::MARGIN_TYPE_PARENT) {
+			if (!empty($this->tile->getMargin())) {
+				return $this->tile->getMargin();
+			}
+		} else {
+			if ($this->parent_tile !== NULL) {
+				return $this->parent_tile->getProperties()->getMargin();
+			}
+		}
+
+		return Tile::DEFAULT_MARGIN;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getObjectIconPosition(): int {
+		if ($this->tile->getObjectIconPosition() !== Tile::POSITION_PARENT) {
+			return $this->tile->getObjectIconPosition();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getObjectIconPosition();
+		}
+
+		return Tile::DEFAULT_OBJECT_ICON_POSITION;
+	}
+
+
+	/**
+	 * @param bool $invert
+	 * @param bool $border
+	 *
+	 * @return string
+	 */
+	public function getColor(bool $invert = false, $border = false): string {
+		$css = "";
+
+		$background_color = $this->getBackgroundColor();
+
+		$font_color = $this->getFontColor();
+
+		if ($invert) {
+			if (!empty($background_color)) {
+				$css .= "color:#" . $background_color . "!important;";
+			}
+
+			if (!empty($font_color)) {
+				$css .= "background-color:#" . $font_color . "!important;";
+
+				if ($border) {
+					$css .= "border-color:#" . $font_color . "!important;";
+				}
+			}
+		} else {
+			if (!empty($background_color)) {
+				$css .= "background-color:#" . $background_color . "!important;";
+
+				if ($border) {
+					$css .= "border-color:#" . $background_color . "!important;";
+				}
+			}
+
+			if (!empty($font_color)) {
+				$css .= "color:#" . $font_color . "!important;";
+			}
+		}
+
+		return $css;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getSize(): string {
+		$size = "";
+
+		$margin = $this->getMargin();
+
+		$font_size = $this->getFontSize();
+
+		if (!empty($margin)) {
+			$size .= "margin:" . $margin . "px!important;";
+		}
+
+		if (!empty($font_size)) {
+			$size .= "font-size:" . $font_size . "px!important;";
+		}
+
+		return $size;
+	}
+
+
+	/**
+	 * https://24ways.org/2010/calculating-color-contrast/
+	 *
+	 * @param string $hexcolor
+	 *
+	 * @return string
+	 */
+	private function getContrastYIQ(string $hexcolor): string {
+		$r = hexdec(substr($hexcolor, 0, 2));
+		$g = hexdec(substr($hexcolor, 2, 2));
+		$b = hexdec(substr($hexcolor, 4, 2));
+
+		$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+		return ($yiq >= 128) ? self::COLOR_BLACK : self::COLOR_WHITE;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getTitle(): string {
+		if ($this->tile->getIlObject() !== NULL) {
+			return $this->tile->getIlObject()->getTitle();
+		}
+
+		return "";
+	}
+}

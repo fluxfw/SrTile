@@ -1,13 +1,13 @@
 <!-- BEGIN tile -->
-<div class="col-xs-6 col-md-3 tile{DISABLED}">
-	<div class="card" id="sr-tile-{TILE_ID}">
+<div class="col-xs-6 col-md-3 tile{DISABLED}" id="sr-tile-{TILE_ID}">
+	<div class="card" data-image_position="{IMAGE_POSITION}">
 		<div class="card_image"{LINK}>
-			<img src="{IMAGE}" alt="Card image">
-			{ICON}
+			<img class="tile_image" src="{IMAGE}" alt="Card image">
+			<div class="tile_object_icon" data-object_icon_position="{OBJECT_ICON_POSITION}">{OBJECT_ICON}</div>
 		</div>
-		<div class="card-bottom">
-			<div class="card-title" title="{LABEL}">{LABEL}</div>
-			<div class="card-icons">
+		<div class="card-bottom" data-actions_position="{ACTIONS_POSITION}">
+			<div class="card-title" data-horizontal_align="{TITLE_HORIZONTAL_ALIGN}" data-vertical_align="{TITLE_VERTICAL_ALIGN}" title="{LABEL}">{LABEL}</div>
+			<div class="card-icons" data-vertical_align="{ACTIONS_VERTICAL_ALIGN}">
 				<a href="{FAVORITE_LINK}" onclick="event.stopPropagation();" title="{FAVORITE_TEXT}"><img src="{FAVORITE_IMAGE_PATH}" alt="" onload="SVGInject(this);"></a>
 				<div>
 					{ACTIONS}

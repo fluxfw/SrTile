@@ -5,10 +5,13 @@ namespace srag\Plugins\SrTile\TileGUI\TileFormGUI;
 use ilCheckboxInputGUI;
 use ilColorPickerInputGUI;
 use ilException;
+use ilFormSectionHeaderGUI;
 use ILIAS\FileUpload\DTO\UploadResult;
 use ILIAS\FileUpload\Location;
 use ilImageFileInputGUI;
-use ilObject;
+use ilNumberInputGUI;
+use ilRadioGroupInputGUI;
+use ilRadioOption;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
@@ -58,17 +61,17 @@ class TileFormGUI extends PropertyFormGUI {
 	protected function getValue(/*string*/
 		$key) {
 		switch ($key) {
-			case 'tile_image':
-				if (!empty($this->tile->getTileImage())) {
-					return "./" . ILIAS_WEB_DIR . '/' . CLIENT_ID . '/' . $this->tile->returnRelativeImagePath(true);
+			case "image":
+				if (!empty($this->tile->getImage())) {
+					return "./" . ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
 				}
 				break;
 
 			default:
-				if (method_exists($this->tile, $method = 'get' . $this->strToCamelCase($key))) {
+				if (method_exists($this->tile, $method = "get" . $this->strToCamelCase($key))) {
 					return $this->tile->{$method}($key);
 				}
-				if (method_exists($this->tile, $method = 'is' . $this->strToCamelCase($key))) {
+				if (method_exists($this->tile, $method = "is" . $this->strToCamelCase($key))) {
 					return $this->tile->{$method}($key);
 				}
 		}
@@ -98,27 +101,261 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_DISABLED => (($parent_tile = self::tiles()->getParentTile($this->tile)) !== NULL
-					&& $parent_tile->isTileEnabledChildren()),
-				self::PROPERTY_SUBITEMS => [
-					"tile_image" => [
-						self::PROPERTY_CLASS => ilImageFileInputGUI::class,
-						self::PROPERTY_REQUIRED => false
-					],
-					"level_color" => [
-						self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
-						self::PROPERTY_REQUIRED => false,
-						'setDefaultColor' => ''
-					],
-					"level_color_font" => [
-						self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
-						self::PROPERTY_REQUIRED => false,
-						'setDefaultColor' => ''
-					]
-				]
+					&& $parent_tile->isTileEnabledChildren())
 			],
 			"tile_enabled_children" => [
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
 				self::PROPERTY_REQUIRED => false
+			],
+
+			"tile" => [
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"background_color_type" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::COLOR_TYPE_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::COLOR_TYPE_SET => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"background_color" => [
+								self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								"setDefaultColor" => ""
+							]
+						],
+						"setTitle" => $this->txt("set")
+					]
+				],
+				"setTitle" => $this->txt("background_color")
+			],
+			"margin_type" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::MARGIN_TYPE_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::MARGIN_TYPE_SET => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"margin" => [
+								self::PROPERTY_CLASS => ilNumberInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								"setSuffix" => "px"
+							]
+						],
+						"setTitle" => $this->txt("set")
+					]
+				],
+				"setTitle" => $this->txt("margin")
+			],
+
+			"image_header" => [
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class,
+				"setTitle" => $this->txt("image")
+			],
+			"image" => [
+				self::PROPERTY_CLASS => ilImageFileInputGUI::class,
+				self::PROPERTY_REQUIRED => false
+			],
+			"image_position" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::POSITION_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::POSITION_TOP => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_top")
+					],
+					Tile::POSITION_BOTTOM => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_bottom")
+					]
+				],
+				"setTitle" => $this->txt("position")
+			],
+			"object_icon_position" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::POSITION_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::POSITION_NONE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("object_icon_none")
+					],
+					Tile::POSITION_LEFT_TOP => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_left_top")
+					],
+					Tile::POSITION_LEFT_BOTTOM => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_left_bottom")
+					],
+					Tile::POSITION_RIGHT_TOP => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_right_top")
+					],
+					Tile::POSITION_RIGHT_BOTTOM => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_right_bottom")
+					]
+				]
+			],
+
+			"label" => [
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"font_color_type" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::COLOR_TYPE_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::COLOR_TYPE_CONTRAST => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("color_contrast")
+					],
+					Tile::COLOR_TYPE_SET => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"font_color" => [
+								self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								"setDefaultColor" => ""
+							]
+						],
+						"setTitle" => $this->txt("set")
+					]
+				],
+				"setTitle" => $this->txt("font_color")
+			],
+			"font_size_type" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::FONT_SIZE_TYPE_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::FONT_SIZE_TYPE_SET => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"font_size" => [
+								self::PROPERTY_CLASS => ilNumberInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								"setSuffix" => "px"
+							]
+						],
+						"setTitle" => $this->txt("set")
+					]
+				],
+				"setTitle" => $this->txt("font_size")
+			],
+			"label_horizontal_align" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::HORIZONTAL_ALIGN_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::HORIZONTAL_ALIGN_LEFT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("horizontal_align_left")
+					],
+					Tile::HORIZONTAL_ALIGN_CENTER => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("horizontal_align_center")
+					],
+					Tile::HORIZONTAL_ALIGN_RIGHT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("horizontal_align_right")
+					]
+				],
+				"setTitle" => $this->txt("horizontal_align")
+			],
+			"label_vertical_align" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::VERTICAL_ALIGN_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::VERTICAL_ALIGN_TOP => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("vertical_align_top")
+					],
+					Tile::VERTICAL_ALIGN_CENTER => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("vertical_align_center")
+					],
+					Tile::VERTICAL_ALIGN_BOTTOM => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("vertical_align_bottom")
+					]
+				],
+				"setTitle" => $this->txt("vertical_align")
+			],
+
+			"actions" => [
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"actions_position" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::POSITION_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::POSITION_LEFT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_left")
+					],
+					Tile::POSITION_RIGHT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_right")
+					]
+				],
+				"setTitle" => $this->txt("position")
+			],
+			"actions_vertical_align" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::VERTICAL_ALIGN_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::VERTICAL_ALIGN_TOP => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("vertical_align_top")
+					],
+					Tile::VERTICAL_ALIGN_CENTER => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("vertical_align_center")
+					],
+					Tile::VERTICAL_ALIGN_BOTTOM => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("vertical_align_bottom")
+					]
+				],
+				"setTitle" => $this->txt("vertical_align")
 			]
 		];
 	}
@@ -136,7 +373,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initTitle()/*: void*/ {
-		$this->setTitle($this->txt("tile") . ": " . ilObject::_lookupTitle(ilObject::_lookupObjectId(self::tiles()->filterRefId())));
+		$this->setTitle(self::plugin()->translate("object", self::LANG_MODULE, [ $this->tile->getProperties()->getTitle() ]));
 	}
 
 
@@ -146,7 +383,7 @@ class TileFormGUI extends PropertyFormGUI {
 	protected function storeValue(/*string*/
 		$key, $value)/*: void*/ {
 		switch ($key) {
-			case 'tile_image':
+			case "image":
 				if (!self::dic()->upload()->hasBeenProcessed()) {
 					self::dic()->upload()->process();
 				}
@@ -154,12 +391,14 @@ class TileFormGUI extends PropertyFormGUI {
 				/** @var UploadResult $result */
 				$result = array_pop(self::dic()->upload()->getResults());
 
-				if ($this->getInput('tile_image_delete') || $result->getSize() > 0) {
-					$image_path = ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
-					if (file_exists($image_path)) {
-						unlink($image_path);
+				if ($this->getInput("image_delete") || $result->getSize() > 0) {
+					if (!empty($this->tile->getImage())) {
+						$image_path = ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
+						if (file_exists($image_path)) {
+							unlink($image_path);
+						}
+						$this->tile->setImage("");
 					}
-					$this->tile->setTileImage('');
 				}
 
 				if (intval($result->getSize()) === 0) {
@@ -170,7 +409,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 				self::dic()->upload()->moveOneFileTo($result, $this->tile->returnRelativeImagePath(), Location::WEB, $file_name, true);
 
-				$this->tile->setTileImage($file_name);
+				$this->tile->setImage($file_name);
 				break;
 
 			case "tile_enabled":
@@ -182,7 +421,7 @@ class TileFormGUI extends PropertyFormGUI {
 				break;
 
 			default:
-				if (method_exists($this->tile, $method = 'set' . $this->strToCamelCase($key))) {
+				if (method_exists($this->tile, $method = "set" . $this->strToCamelCase($key))) {
 					$this->tile->{$method}($value);
 				}
 				break;
@@ -210,6 +449,6 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @return string
 	 */
 	protected function strToCamelCase($string): string {
-		return str_replace('_', '', ucwords($string, '_'));
+		return str_replace("_", "", ucwords($string, "_"));
 	}
 }

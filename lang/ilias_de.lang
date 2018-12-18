@@ -1,8 +1,3 @@
-config_configuration#:#Konfiguration
-config_configuration_saved#:#Konfiguration gespeichert
-config_default_image#:#Standard-Bild
-config_default_image_info#:#Wenn kein Bild hochgeladen, wird ein graues Platzhalter-Bild verwendet
-config_save#:#Speichern
 favorites_add_to_favorites#:#Zu den Favoriten legen
 favorites_added_to_favorites#:#Das Objekt wurde zu den Favoriten gelegt
 favorites_remove_from_favorites#:#Aus den Favoriten entfernen
@@ -16,16 +11,41 @@ removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten
 removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt
 removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
 tile#:#Kachel
+tile_actions#:#Aktionen
 tile_back#:#Zurück
+tile_background_color#:#Hintergrund-Farbe
 tile_cancel#:#Abbrechen
-tile_level_color#:#Hintergrund-Farbe
-tile_level_color_info#:#Falls nicht gesetzt wird die Hintergrund-Farbe der Eltern-Kachel genommen
-tile_level_color_font#:#Schrift-Farbe
-tile_level_color_font_info#:#Falls nicht gesetzt wird dies automatisch anhand des Kontrasts der Hintergrund-Farbe berechnet (schwarz oder weiss)
+tile_color_contrast#:#Automatisch anhand des Kontrasts der Hintergrund-Farbe berechnen (schwarz oder weiss)
+tile_font_color#:#Schrift-Farbe
+tile_font_size#:#Schriftgrösse
+tile_horizontal_align#:#Horizontale-Ausrichtung
+tile_horizontal_align_center#:#Mitte
+tile_horizontal_align_left#:#Links
+tile_horizontal_align_right#:#Rechts
+tile_image#:#Bild
+tile_image_info#:#Wenn kein Bild hochgeladen, wird das Standard-Bild verwendet
+tile_label#:#Beschriftung
+tile_margin#:#Abstand
+tile_object#:#Objekt: %s
+tile_object_icon_none#:#Nicht anzeigen
+tile_object_icon_position#:#Objekt-Icon
+tile_parent#:#Vom Eltern-Objekt
+tile_position#:#Position
+tile_position_bottom#:#Unten
+tile_position_left#:#Links
+tile_position_left_bottom#:#Links / Unten
+tile_position_left_top#:#Links / Oben
+tile_position_right#:#Rechts
+tile_position_right_bottom#:#Rechts / Unten
+tile_position_right_top#:#Rechts / Oben
+tile_position_top#:#Oben
 tile_saved#:#Die Kachel wurde gespeichert
+tile_set#:#Setzen
 tile_submit#:#Speichern
 tile_tile#:#Kachel
 tile_tile_enabled#:#Als Kachel anzeigen
 tile_tile_enabled_children#:#Alle Kinder-Objekte als Kachel anzeigen
-tile_tile_image#:#Bild
-tile_tile_image_info#:#Wenn kein Bild hochgeladen, wird das Standard-Bild verwendet
+tile_vertical_align#:#Vertikale-Ausrichtung
+tile_vertical_align_bottom#:#Unten
+tile_vertical_align_center#:#Mitte
+tile_vertical_align_top#:#Oben
