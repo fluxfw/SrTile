@@ -51,17 +51,14 @@ class Tile extends ActiveRecord {
 	const VERTICAL_ALIGN_PARENT = 4;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
-	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_PARENT;
-	const DEFAULT_BACKGROUND_COLOR = "";
-	const DEFAULT_FONT_COLOR_TYPE = self::COLOR_TYPE_PARENT;
-	const DEFAULT_FONT_COLOR = "";
-	const DEFAULT_FONT_SIZE_TYPE = self::FONT_SIZE_TYPE_PARENT;
+	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
+	const DEFAULT_FONT_COLOR_TYPE = self::COLOR_TYPE_CONTRAST;
+	const DEFAULT_FONT_SIZE_TYPE = self::FONT_SIZE_TYPE_SET;
 	const DEFAULT_FONT_SIZE = 16;
-	const DEFAULT_IMAGE = "";
 	const DEFAULT_IMAGE_POSITION = self::POSITION_TOP;
 	const DEFAULT_LABEL_HORIZONTAL_ALIGN = self::HORIZONTAL_ALIGN_LEFT;
 	const DEFAULT_LABEL_VERTICAL_ALIGN = self::VERTICAL_ALIGN_TOP;
-	const DEFAULT_MARGIN_TYPE = self::MARGIN_TYPE_PARENT;
+	const DEFAULT_MARGIN_TYPE = self::MARGIN_TYPE_SET;
 	const DEFAULT_MARGIN = 10;
 	const DEFAULT_OBJECT_ICON_POSITION = Tile::POSITION_LEFT_BOTTOM;
 	/**
@@ -109,7 +106,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   text
 	 * @con_is_notnull  true
 	 */
-	protected $image = self::DEFAULT_IMAGE;
+	protected $image = "";
 	/**
 	 * @var int
 	 *
@@ -117,7 +114,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $background_color_type = self::DEFAULT_BACKGROUND_COLOR_TYPE;
+	protected $background_color_type = self::COLOR_TYPE_PARENT;
 	/**
 	 * @var string
 	 *
@@ -125,7 +122,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   text
 	 * @con_is_notnull  true
 	 */
-	protected $background_color = self::DEFAULT_BACKGROUND_COLOR;
+	protected $background_color = "";
 	/**
 	 * @var int
 	 *
@@ -133,7 +130,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $font_color_type = self::DEFAULT_FONT_COLOR_TYPE;
+	protected $font_color_type = self::COLOR_TYPE_PARENT;
 	/**
 	 * @var string
 	 *
@@ -141,7 +138,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   text
 	 * @con_is_notnull  true
 	 */
-	protected $font_color = self::DEFAULT_FONT_COLOR;
+	protected $font_color = "";
 	/**
 	 * @var int
 	 *
@@ -149,7 +146,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $margin_type = self::DEFAULT_MARGIN_TYPE;
+	protected $margin_type = self::MARGIN_TYPE_PARENT;
 	/**
 	 * @var int
 	 *
@@ -157,7 +154,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $margin = self::DEFAULT_MARGIN;
+	protected $margin = 0;
 	/**
 	 * @var int
 	 *
@@ -165,7 +162,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $font_size_type = self::DEFAULT_FONT_SIZE_TYPE;
+	protected $font_size_type = self::FONT_SIZE_TYPE_PARENT;
 	/**
 	 * @var int
 	 *
@@ -173,7 +170,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $font_size = self::DEFAULT_FONT_SIZE;
+	protected $font_size = 0;
 	/**
 	 * @var int
 	 *
@@ -303,6 +300,40 @@ class Tile extends ActiveRecord {
 
 			default:
 				return NULL;
+		}
+	}
+
+
+	/**
+	 *
+	 */
+	public function create()/*: void*/ {
+		parent::create();
+
+		if (self::tiles()->isTopTile($this)) {
+			$this->setTileEnabledChildren(true);
+
+			$this->setBackgroundColorType(self::DEFAULT_BACKGROUND_COLOR_TYPE);
+
+			$this->setFontColorType(self::DEFAULT_FONT_COLOR_TYPE);
+
+			$this->setMarginType(self::DEFAULT_MARGIN_TYPE);
+			$this->setMargin(self::DEFAULT_MARGIN);
+
+			$this->setFontSizeType(self::MARGIN_TYPE_SET);
+			$this->setFontSize(self::DEFAULT_FONT_SIZE);
+
+			$this->setImagePosition(self::DEFAULT_IMAGE_POSITION);
+
+			$this->setLabelHorizontalAlign(self::DEFAULT_LABEL_HORIZONTAL_ALIGN);
+			$this->setLabelVerticalAlign(self::DEFAULT_LABEL_VERTICAL_ALIGN);
+
+			$this->setActionsPosition(self::DEFAULT_ACTIONS_POSITION);
+			$this->setActionsVerticalAlign(self::DEFAULT_ACTIONS_VERTICAL_ALIGN);
+
+			$this->setObjectIconPosition(self::DEFAULT_OBJECT_ICON_POSITION);
+
+			$this->store();
 		}
 	}
 
