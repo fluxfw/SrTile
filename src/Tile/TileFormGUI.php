@@ -108,7 +108,7 @@ class TileFormGUI extends PropertyFormGUI {
 			"tile_enabled" => [
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
-				self::PROPERTY_NOT_ADD => (self::tiles()->isTopTile($this->tile)
+				self::PROPERTY_DISABLED => (self::tiles()->isTopTile($this->tile)
 					|| ($parent_tile = self::tiles()->getParentTile($this->tile)) !== NULL
 					&& $parent_tile->isTileEnabledChildren())
 			],
@@ -483,7 +483,8 @@ class TileFormGUI extends PropertyFormGUI {
 			],
 
 			"recommendation" => [
-				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class,
+				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins)
 			],
 			"show_recommend_icon" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -502,18 +503,19 @@ class TileFormGUI extends PropertyFormGUI {
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("show_true")
 					]
-				]
+				],
+				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins)
 			],
 			"recommend_mail_template_type" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [
-					Tile::MARGIN_TYPE_PARENT => [
+					Tile::MAIL_TEMPLATE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
-					Tile::MARGIN_TYPE_SET => [
+					Tile::MAIL_TEMPLATE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
 							"recommend_mail_template" => [
@@ -526,7 +528,8 @@ class TileFormGUI extends PropertyFormGUI {
 						"setTitle" => $this->txt("set")
 					]
 				],
-				"setTitle" => $this->txt("recommend_mail_template")
+				"setTitle" => $this->txt("recommend_mail_template"),
+				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins)
 			],
 
 			"learning_process" => [
