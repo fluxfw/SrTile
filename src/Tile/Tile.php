@@ -49,6 +49,9 @@ class Tile extends ActiveRecord {
 	const VERTICAL_ALIGN_CENTER = 2;
 	const VERTICAL_ALIGN_BOTTOM = 3;
 	const VERTICAL_ALIGN_PARENT = 4;
+	const SHOW_FALSE = 1;
+	const SHOW_TRUE = 2;
+	const SHOW_PARENT = 3;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
@@ -61,6 +64,9 @@ class Tile extends ActiveRecord {
 	const DEFAULT_MARGIN_TYPE = self::MARGIN_TYPE_SET;
 	const DEFAULT_MARGIN = 10;
 	const DEFAULT_OBJECT_ICON_POSITION = Tile::POSITION_LEFT_BOTTOM;
+	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
+	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
+	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
 	/**
 	 * @var int
 	 *
@@ -220,6 +226,30 @@ class Tile extends ActiveRecord {
 	 */
 	protected $object_icon_position = self::POSITION_PARENT;
 	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_favorites_icon = self::SHOW_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_actions = self::SHOW_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_title = self::SHOW_PARENT;
+	/**
 	 * @var ilObject|null
 	 */
 	protected $il_object = NULL;
@@ -291,6 +321,9 @@ class Tile extends ActiveRecord {
 			case "margin_type":
 			case "object_icon_position":
 			case "obj_ref_id":
+			case "show_favorites_icon":
+			case "show_actions":
+			case "show_title":
 			case "tile_id":
 				return intval($field_value);
 
@@ -324,8 +357,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getObjRefId() {
 		return $this->obj_ref_id;
@@ -342,8 +373,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return bool
-	 *
-	 * @internal
 	 */
 	public function isTileEnabled(): bool {
 		if (self::tiles()->isTopTile($this)) {
@@ -374,8 +403,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return bool
-	 *
-	 * @internal
 	 */
 	public function isTileEnabledChildren(): bool {
 		return $this->tile_enabled_children;
@@ -658,6 +685,60 @@ class Tile extends ActiveRecord {
 	 */
 	public function setObjectIconPosition(int $object_icon_position)/*: void*/ {
 		$this->object_icon_position = $object_icon_position;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowFavoritesIcon(): int {
+		return $this->show_favorites_icon;
+	}
+
+
+	/**
+	 * @param int $show_favorites_icon
+	 */
+	public function setShowFavoritesIcon(int $show_favorites_icon)/*: void*/ {
+		$this->show_favorites_icon = $show_favorites_icon;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowActions(): int {
+		return $this->show_actions;
+	}
+
+
+	/**
+	 * @param int $show_actions
+	 */
+	public function setShowActions(int $show_actions)/*: void*/ {
+		$this->show_actions = $show_actions;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowTitle(): int {
+		return $this->show_title;
+	}
+
+
+	/**
+	 * @param int $show_title
+	 */
+	public function setShowTitle(int $show_title)/*: void*/ {
+		$this->show_title = $show_title;
 	}
 
 

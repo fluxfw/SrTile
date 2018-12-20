@@ -54,6 +54,10 @@ final class Access {
 	/**
 	 * @var bool[]
 	 */
+	protected static $has_read_access = [];
+	/**
+	 * @var bool[]
+	 */
 	protected static $has_visible_access = [];
 	/**
 	 * @var bool[]
@@ -76,7 +80,7 @@ final class Access {
 	 */
 	public function hasOpenAccess(Tile $tile): bool {
 		if (!isset(self::$has_open_access[$tile->getObjRefId()])) {
-			if (self::dic()->access()->checkAccess("read", "", $tile->getObjRefId())) {
+			if ($this->hasReadAccess($tile->getObjRefId())) {
 				self::$has_open_access[$tile->getObjRefId()] = true;
 			} else {
 				if ($tile->getIlObject() instanceof ilObjCourse) {
@@ -92,6 +96,20 @@ final class Access {
 		}
 
 		return self::$has_open_access[$tile->getObjRefId()];
+	}
+
+
+	/**
+	 * @param int $ref_id
+	 *
+	 * @return bool
+	 */
+	public function hasReadAccess(int $ref_id): bool {
+		if (!isset(self::$has_read_access[$ref_id])) {
+			self::$has_read_access[$ref_id] = self::dic()->access()->checkAccess("read", "", $ref_id);
+		}
+
+		return self::$has_read_access[$ref_id];
 	}
 
 

@@ -19,6 +19,9 @@ if (\srag\Plugins\SrTile\Tile\Tiles::getInstance()->getInstanceForObjRefId(ROOT_
 	$tile->setActionsPosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_ACTIONS_POSITION);
 	$tile->setActionsVerticalAlign(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_ACTIONS_VERTICAL_ALIGN);
 	$tile->setObjectIconPosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_OBJECT_ICON_POSITION);
+	$tile->setShowActions(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_ACTIONS);
+	$tile->setShowFavoritesIcon(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_FAVORITES_ICON);
+	$tile->setShowTitle(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_TITLE);
 	$tile->store();
 }
 ?>

@@ -41,6 +41,12 @@ tile_position_right_top#:#Rechts / Oben
 tile_position_top#:#Oben
 tile_saved#:#Die Kachel wurde gespeichert
 tile_set#:#Setzen
+tile_show_actions#:#Aktionen-Menü anzeigen
+tile_show_false#:#Nicht anzeigen
+tile_show_favorites_icon#:#Favoriten-Icon anzeigen
+tile_show_title#:#Titel anzeigen
+tile_show_true#:#Anzeigen
+tile_show_true_if_permitted#:#Anzeigen (Wenn Zugang genehmigt)
 tile_submit#:#Speichern
 tile_tile#:#Kachel
 tile_tile_enabled#:#Als Kachel anzeigen

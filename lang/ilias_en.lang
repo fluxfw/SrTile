@@ -41,6 +41,12 @@ tile_position_right_top#:#Right / Top
 tile_position_top#:#Top
 tile_saved#:#The tile was saved
 tile_set#:#Set
+tile_show_actions#:#Show actions menu
+tile_show_false#:Not show
+tile_show_favorites_icon#:#Show favorites icon
+tile_show_title#:#Show title
+tile_show_true#:#Show
+tile_show_true_if_permitted#:#Show (If access permitted)
 tile_submit#:#Save
 tile_tile#:#Tile
 tile_tile_enabled#:#Display as tile

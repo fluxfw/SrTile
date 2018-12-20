@@ -241,6 +241,54 @@ class TileProperties {
 
 
 	/**
+	 * @return int
+	 */
+	public function getShowActions(): int {
+		if ($this->tile->getShowActions() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowActions();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowActions();
+		}
+
+		return Tile::DEFAULT_SHOW_ACTIONS;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getShowFavoritesIcon(): int {
+		if ($this->tile->getShowFavoritesIcon() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowFavoritesIcon();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowFavoritesIcon();
+		}
+
+		return Tile::DEFAULT_SHOW_FAVORITES_ICON;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getShowTitle(): int {
+		if ($this->tile->getShowTitle() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowTitle();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowTitle();
+		}
+
+		return Tile::DEFAULT_SHOW_TITLE;
+	}
+
+
+	/**
 	 * @param bool $invert
 	 * @param bool $border
 	 *

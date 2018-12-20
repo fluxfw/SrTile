@@ -53,25 +53,33 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 		$tpl = self::plugin()->template("Tile/tpl.tile.html");
 		$tpl->setCurrentBlock("tile");
+
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
-		$tpl->setVariable("LABEL", $this->tile->getProperties()->getTitle());
+
+		if ($this->tile->getProperties()->getShowTitle() === Tile::SHOW_TRUE) {
+			$tpl->setVariable("TITLE", $this->tile->getProperties()->getTitle());
+		}
+
 		if (self::access()->hasOpenAccess($this->tile)) {
 			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->returnLink()) . '\'"');
 
-			if (self::ilias()->favorites(self::dic()->user())->hasFavorite($this->tile->getObjRefId())) {
-				$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
-					ilUIPluginRouterGUI::class,
-					SrTileFavoritesGUI::class
-				], SrTileFavoritesGUI::CMD_REMOVE_FROM_FAVORITES));
-				$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("remove_from_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
-				$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
-			} else {
-				$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
-					ilUIPluginRouterGUI::class,
-					SrTileFavoritesGUI::class
-				], SrTileFavoritesGUI::CMD_ADD_TO_FAVORITES));
-				$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("add_to_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
-				$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
+			if ($this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE
+				&& self::access()->hasReadAccess($this->tile->getObjRefId())) {
+				if (self::ilias()->favorites(self::dic()->user())->hasFavorite($this->tile->getObjRefId())) {
+					$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+						ilUIPluginRouterGUI::class,
+						SrTileFavoritesGUI::class
+					], SrTileFavoritesGUI::CMD_REMOVE_FROM_FAVORITES));
+					$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("remove_from_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+					$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
+				} else {
+					$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+						ilUIPluginRouterGUI::class,
+						SrTileFavoritesGUI::class
+					], SrTileFavoritesGUI::CMD_ADD_TO_FAVORITES));
+					$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("add_to_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+					$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
+				}
 			}
 		} else {
 			$tpl->setVariable("DISABLED", " tile_disabled");
@@ -79,7 +87,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 		$tpl->setVariable("IMAGE", $this->tile->getProperties()->getImage());
 
-		if (self::access()->hasWriteAccess($this->tile->getObjRefId())) {
+		if ($this->tile->getProperties()->getShowActions() === Tile::SHOW_TRUE && self::access()->hasWriteAccess($this->tile->getObjRefId())) {
 			$tpl->setVariable("ACTIONS", $this->getActions());
 		}
 
