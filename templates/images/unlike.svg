@@ -4,7 +4,7 @@
 <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="240px" height="240px" viewBox="0 0 240 240" enable-background="new 0 0 240 240" xml:space="preserve">
 <g id="Ebene_3" display="none">
-	<rect x="-5.333" y="-5.333" display="inline" fill="#C1272D" width="257" height="250.667"/>
+	<rect x="-5.333" y="-5.333" display="inline" fill="currentColor" width="257" height="250.667"/>
 </g>
 <g id="like" display="none">
 	<path id="selected" display="inline" fill="currentColor" d="M239.568,67.901c-0.469,4.336-1.289,8.641-2.401,12.822

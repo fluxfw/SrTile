@@ -13,6 +13,7 @@ use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileFavoritesGUI;
 use SrTileRatingGUI;
+use SrTileRecommendGUI;
 
 /**
  * Class TileListContainerGUI
@@ -53,6 +54,8 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "ref_id", $this->tile->getObjRefId());
 		self::dic()->ctrl()->setParameterByClass(SrTileRatingGUI::class, "parent_ref_id", self::tiles()->filterRefId());
 		self::dic()->ctrl()->setParameterByClass(SrTileRatingGUI::class, "ref_id", $this->tile->getObjRefId());
+		self::dic()->ctrl()->setParameterByClass(SrTileRecommendGUI::class, "parent_ref_id", self::tiles()->filterRefId());
+		self::dic()->ctrl()->setParameterByClass(SrTileRecommendGUI::class, "ref_id", $this->tile->getObjRefId());
 
 		$tpl = self::plugin()->template("Tile/tpl.tile.html");
 		$tpl->setCurrentBlock("tile");
@@ -68,7 +71,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("TITLE_VERTICAL_ALIGN", $this->tile->getProperties()->getLabelVerticalAlign());
 
 		if (self::access()->hasOpenAccess($this->tile)) {
-			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->returnLink()) . '\'"');
+			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->getProperties()->getLink()) . '\'"');
 
 			if ($this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE
 				&& self::access()->hasReadAccess($this->tile->getObjRefId())) {
@@ -126,6 +129,21 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 				}
 
 				$tpl->setVariable("RATING", self::output()->getHTML($tpl_rating));
+			}
+
+			if ($this->tile->getProperties()->getShowRecommendIcon() === Tile::SHOW_TRUE
+				&& !empty($this->tile->getProperties()->getRecommendMailTemplate())
+				&& self::access()->hasReadAccess($this->tile->getObjRefId())) {
+				$tpl_recommend = self::plugin()->template("Tile/tpl.recommend.html");
+
+				$tpl_recommend->setVariable("RECOMMEND_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+					ilUIPluginRouterGUI::class,
+					SrTileRecommendGUI::class
+				], SrTileRecommendGUI::CMD_ADD_RECOMMEND, "", true));
+				$tpl_recommend->setVariable("RECOMMEND_TEXT", self::plugin()->translate("recommend", SrTileRecommendGUI::LANG_MODULE_RECOMMENDATION));
+				$tpl_recommend->setVariable("RECOMMEND_IMAGE_PATH", self::plugin()->directory() . "/templates/images/recommend.svg");
+
+				$tpl->setVariable("RECOMMEND", self::output()->getHTML($tpl_recommend));
 			}
 		} else {
 			$tpl->setVariable("DISABLED", " tile_disabled");

@@ -4,7 +4,6 @@ namespace srag\Plugins\SrTile\Tile;
 
 use ActiveRecord;
 use arConnector;
-use ilLink;
 use ilObject;
 use ilObjectFactory;
 use ilSrTilePlugin;
@@ -52,6 +51,8 @@ class Tile extends ActiveRecord {
 	const SHOW_FALSE = 1;
 	const SHOW_TRUE = 2;
 	const SHOW_PARENT = 3;
+	const MAIL_TEMPLATE_SET = 1;
+	const MAIL_TEMPLATE_PARENT = 2;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
@@ -65,9 +66,11 @@ class Tile extends ActiveRecord {
 	const DEFAULT_MARGIN_TYPE = self::MARGIN_TYPE_SET;
 	const DEFAULT_MARGIN = 10;
 	const DEFAULT_OBJECT_ICON_POSITION = Tile::POSITION_LEFT_BOTTOM;
+	const DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE = Tile::MAIL_TEMPLATE_PARENT;
 	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
+	const DEFAULT_SHOW_RECOMMEND_ICON = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
 	/**
 	 * @var int
@@ -268,6 +271,30 @@ class Tile extends ActiveRecord {
 	 */
 	protected $show_likes_count = self::SHOW_PARENT;
 	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_recommend_icon = self::SHOW_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $recommend_mail_template_type = self::MAIL_TEMPLATE_PARENT;
+	/**
+	 * @var string
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   text
+	 * @con_is_notnull  true
+	 */
+	protected $recommend_mail_template = "";
+	/**
 	 * @var ilObject|null
 	 */
 	protected $il_object = NULL;
@@ -340,9 +367,11 @@ class Tile extends ActiveRecord {
 			case "margin_type":
 			case "object_icon_position":
 			case "obj_ref_id":
+			case "recommend_mail_template_type":
 			case "show_actions":
 			case "show_favorites_icon":
 			case "show_likes_count":
+			case "show_recommend_icon":
 			case "show_title":
 			case "tile_id":
 				return intval($field_value);
@@ -799,6 +828,60 @@ class Tile extends ActiveRecord {
 
 
 	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowRecommendIcon(): int {
+		return $this->show_recommend_icon;
+	}
+
+
+	/**
+	 * @param int $show_recommend_icon
+	 */
+	public function setShowRecommendIcon(int $show_recommend_icon)/*: void*/ {
+		$this->show_recommend_icon = $show_recommend_icon;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getRecommendMailTemplateType(): int {
+		return $this->recommend_mail_template_type;
+	}
+
+
+	/**
+	 * @param int $recommend_mail_template_type
+	 */
+	public function setRecommendMailTemplateType(int $recommend_mail_template_type)/*: void*/ {
+		$this->recommend_mail_template_type = $recommend_mail_template_type;
+	}
+
+
+	/**
+	 * @return string
+	 *
+	 * @internal
+	 */
+	public function getRecommendMailTemplate(): string {
+		return $this->recommend_mail_template;
+	}
+
+
+	/**
+	 * @param string $recommend_mail_template
+	 */
+	public function setRecommendMailTemplate(string $recommend_mail_template)/*: void*/ {
+		$this->recommend_mail_template = $recommend_mail_template;
+	}
+
+
+	/**
 	 * @return TileProperties
 	 */
 	public function getProperties(): TileProperties {
@@ -842,13 +925,5 @@ class Tile extends ActiveRecord {
 		}
 
 		return $this->il_object;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function returnLink(): string {
-		return ilLink::_getStaticLink($this->getObjRefId());
 	}
 }

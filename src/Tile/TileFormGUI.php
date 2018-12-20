@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrTile\TileGUI\TileFormGUI;
+namespace srag\Plugins\SrTile\Tile;
 
 use ilCheckboxInputGUI;
 use ilColorPickerInputGUI;
@@ -9,19 +9,21 @@ use ilFormSectionHeaderGUI;
 use ILIAS\FileUpload\DTO\UploadResult;
 use ILIAS\FileUpload\Location;
 use ilImageFileInputGUI;
+use ilNotifications4PluginsPlugin;
 use ilNumberInputGUI;
 use ilRadioGroupInputGUI;
 use ilRadioOption;
+use ilSelectInputGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
-use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileGUI;
+use Throwable;
 
 /**
  * Class TileFormGUI
  *
- * @package srag\Plugins\srTile\TileGUI\TileFormGUI
+ * @package srag\Plugins\srTile\Tile
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -96,6 +98,12 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initFields()/*: void*/ {
+		try {
+			$Notifications4Plugins = ilNotifications4PluginsPlugin::PLUGIN_NAME;
+		} catch (Throwable $ex) {
+			$Notifications4Plugins = "Notifications4Plugins";
+		}
+
 		$this->fields = [
 			"tile_enabled" => [
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
@@ -470,6 +478,53 @@ class TileFormGUI extends PropertyFormGUI {
 						"setTitle" => $this->txt("show_true")
 					]
 				]
+			],
+
+			"recommendation" => [
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"show_recommend_icon" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SHOW_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::SHOW_FALSE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_false")
+					],
+					Tile::SHOW_TRUE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_true")
+					]
+				]
+			],
+			"recommend_mail_template_type" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::MARGIN_TYPE_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_DISABLED => self::tiles()->isTopTile($this->tile),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::MARGIN_TYPE_SET => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"recommend_mail_template" => [
+								self::PROPERTY_CLASS => ilSelectInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								self::PROPERTY_OPTIONS => [ "" => "" ] + self::tiles()->getMailTemplatesText(),
+								"setInfo" => $Notifications4Plugins
+							]
+						],
+						"setTitle" => $this->txt("set")
+					]
+				],
+				"setTitle" => $this->txt("recommend_mail_template")
 			]
 		];
 	}

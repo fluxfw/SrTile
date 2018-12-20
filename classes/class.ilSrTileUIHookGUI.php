@@ -37,6 +37,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const GET = 'template_get';
 	const TAB_ID = "tile";
+	const OUR_FOOTER = "tpl.adm_content.html";
 	/**
 	 * @var bool[]
 	 */
@@ -109,6 +110,12 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 					"html" => $tile_list_gui->render()
 				];
 			}
+		}
+
+		if ($a_par['tpl_id'] == self::OUR_FOOTER) {
+			$recommend_gui = new SrTileRecommendGUI();
+
+			return array( "mode" => ilUIHookPluginGUI::APPEND, "html" => $recommend_gui->getModal() );
 		}
 
 		return parent::getHTML($a_comp, $a_part, $a_par);

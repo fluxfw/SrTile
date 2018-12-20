@@ -6,6 +6,15 @@ rating_like#:#Like
 rating_liked#:#Liked
 rating_unlike#:#Unlike
 rating_unliked#:#Unliked
+recommendation_cancel#:#Abbrechen
+recommendation_link#:#Link
+recommendation_message#:#Nachricht
+recommendation_recommend#:#Empfehlen
+recommendation_recommendation#:#Empfehlung %s
+recommendation_recommend_to#:#An
+recommendation_sent_failure#:#Ihre Empfehlung konnte leider nicht gesendet werden!
+recommendation_sent_success#:#Ihre Empfehlung wurde gesendet!
+recommendation_submit#:#Senden
 removeplugindataconfirm_cancel#:#Abbrechen
 removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
 removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren
@@ -48,12 +57,15 @@ tile_position_right_bottom#:#Rechts / Unten
 tile_position_right_top#:#Rechts / Oben
 tile_position_top#:#Oben
 tile_rating#:#Bewertung
+tile_recommendation#:#Empfehlung
+tile_recommend_mail_template#:#Mail-Vorlage
 tile_saved#:#Die Kachel wurde gespeichert
 tile_set#:#Setzen
 tile_show_actions#:#Aktionen-Menü anzeigen
 tile_show_false#:#Nicht anzeigen
 tile_show_favorites_icon#:#Favoriten-Icon anzeigen
 tile_show_likes_count#:#Likes-Zähler anzeigen
+tile_show_recommend_icon#:#Empfehlen-Icon anzeigen
 tile_show_title#:#Titel anzeigen
 tile_show_true#:#Anzeigen
 tile_show_true_if_permitted#:#Anzeigen (Wenn Zugang genehmigt)

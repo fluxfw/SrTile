@@ -6,6 +6,15 @@ rating_like#:#Like
 rating_liked#:#Liked
 rating_unlike#:#Unlike
 rating_unliked#:#Unliked
+recommendation_cancel#:#Cancel
+recommendation_link#:#Link
+recommendation_message#:#Message
+recommendation_recommend#:#Recommend
+recommendation_recommendation#:#Recommendation %s
+recommendation_recommend_to#:#To
+recommendation_sent_failure#:#Sorry, your recommendation could not be sent!
+recommendation_sent_success#:#Your recommendation has been sent!
+recommendation_submit#:#Submit
 removeplugindataconfirm_cancel#:#Cancel
 removeplugindataconfirm_confirm_remove_data#:#Do you want to remove the %1$s data as well? At most, you just want to disable the %1$s plugin?
 removeplugindataconfirm_deactivate#:#Just deactivate %1$s plugin
@@ -48,12 +57,15 @@ tile_position_right_bottom#:#Right / Bottom
 tile_position_right_top#:#Right / Top
 tile_position_top#:#Top
 tile_rating#:#Rating
+tile_recommendation#:#Recommendation
+tile_recommend_mail_template#:#Mail template
 tile_saved#:#The tile was saved
 tile_set#:#Set
 tile_show_actions#:#Show actions menu
 tile_show_false#:Not show
 tile_show_favorites_icon#:#Show favorites icon
 tile_show_likes_count#:#Show likes count
+tile_show_recommend_icon#:#Show recommend icon
 tile_show_title#:#Show title
 tile_show_true#:#Show
 tile_show_true_if_permitted#:#Show (If access permitted)

@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
+use ilLink;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -257,6 +258,24 @@ class TileProperties {
 
 
 	/**
+	 * @return string
+	 */
+	public function getRecommendMailTemplate(): string {
+		if ($this->tile->getRecommendMailTemplateType() !== Tile::MAIL_TEMPLATE_PARENT) {
+			if (!empty($this->tile->getRecommendMailTemplate())) {
+				return $this->tile->getRecommendMailTemplate();
+			}
+		} else {
+			if ($this->parent_tile !== NULL) {
+				return $this->parent_tile->getProperties()->getRecommendMailTemplate();
+			}
+		}
+
+		return "";
+	}
+
+
+	/**
 	 * @return int
 	 */
 	public function getShowActions(): int {
@@ -301,6 +320,22 @@ class TileProperties {
 		}
 
 		return Tile::DEFAULT_SHOW_LIKES_COUNT;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getShowRecommendIcon(): int {
+		if ($this->tile->getShowRecommendIcon() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowRecommendIcon();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowRecommendIcon();
+		}
+
+		return Tile::DEFAULT_SHOW_RECOMMEND_ICON;
 	}
 
 
@@ -400,6 +435,14 @@ class TileProperties {
 		$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
 
 		return ($yiq >= 128) ? self::COLOR_BLACK : self::COLOR_WHITE;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLink(): string {
+		return ilLink::_getStaticLink($this->tile->getObjRefId());
 	}
 
 
