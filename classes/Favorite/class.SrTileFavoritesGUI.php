@@ -36,7 +36,7 @@ class SrTileFavoritesGUI {
 	/**
 	 *
 	 */
-	public function executeCommand() {
+	public function executeCommand()/*: void*/ {
 		if (!($this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE
 			&& self::access()->hasReadAccess($this->tile->getObjRefId()))) {
 			return;
@@ -65,7 +65,7 @@ class SrTileFavoritesGUI {
 	/**
 	 *
 	 */
-	protected function addToFavorites() {
+	protected function addToFavorites()/*: void*/ {
 		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
 
 		self::ilias()->favorites(self::dic()->user())->addToFavorites($this->tile->getObjRefId());
@@ -83,7 +83,7 @@ class SrTileFavoritesGUI {
 	/**
 	 *
 	 */
-	protected function removeFromFavorites() {
+	protected function removeFromFavorites()/*: void*/ {
 		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
 
 		self::ilias()->favorites(self::dic()->user())->removeFromFavorites($this->tile->getObjRefId());

@@ -56,6 +56,8 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
 
+		$tpl->setVariable("OBJECT_TYPE", ($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getType() : ""));
+
 		if ($this->tile->getProperties()->getShowTitle() === Tile::SHOW_TRUE) {
 			$tpl->setVariable("TITLE", $this->tile->getProperties()->getTitle());
 		}
