@@ -48,8 +48,6 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 * @inheritdoc
 	 */
 	public function render(): string {
-		$parent_tile = self::tiles()->getParentTile($this->tile);
-
 		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "parent_ref_id", self::tiles()->filterRefId());
 		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "ref_id", $this->tile->getObjRefId());
 		self::dic()->ctrl()->setParameterByClass(SrTileRatingGUI::class, "parent_ref_id", self::tiles()->filterRefId());

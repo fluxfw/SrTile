@@ -90,12 +90,12 @@ final class Tiles {
 
 
 	/**
-	 * @param int  $obj_ref_id
-	 * @param bool $store
+	 * @param int|null $obj_ref_id
+	 * @param bool     $store
 	 *
 	 * @return Tile
 	 */
-	public function getInstanceForObjRefId(int $obj_ref_id, $store = true): Tile {
+	public function getInstanceForObjRefId(int $obj_ref_id = NULL, $store = true): Tile {
 		if (!isset(self::$instances_by_ref_id[$obj_ref_id])) {
 			$tile = Tile::where([ 'obj_ref_id' => $obj_ref_id ])->first();
 
