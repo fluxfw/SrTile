@@ -291,13 +291,13 @@ class TileProperties {
 	/**
 	 * @return int
 	 */
-	public function getShowRatingCount(): int {
-		if ($this->tile->getShowRatingCount() !== Tile::SHOW_PARENT) {
-			return $this->tile->getShowRatingCount();
+	public function getShowLikesCount(): int {
+		if ($this->tile->getShowLikesCount() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowLikesCount();
 		}
 
 		if ($this->parent_tile !== NULL) {
-			return $this->parent_tile->getProperties()->getShowRatingCount();
+			return $this->parent_tile->getProperties()->getShowLikesCount();
 		}
 
 		return Tile::DEFAULT_SHOW_LIKES_COUNT;

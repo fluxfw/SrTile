@@ -785,7 +785,7 @@ class Tile extends ActiveRecord {
 	 *
 	 * @internal
 	 */
-	public function getShowRatingCount(): int {
+	public function getShowLikesCount(): int {
 		return $this->show_likes_count;
 	}
 
@@ -793,7 +793,7 @@ class Tile extends ActiveRecord {
 	/**
 	 * @param int $show_likes_count
 	 */
-	public function setShowRatingCount(int $show_likes_count)/*: void*/ {
+	public function setShowLikesCount(int $show_likes_count)/*: void*/ {
 		$this->show_likes_count = $show_likes_count;
 	}
 

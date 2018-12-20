@@ -115,7 +115,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 					$tpl_rating->setVariable("RATING_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unlike.svg");
 				}
 
-				if ($this->tile->getProperties()->getShowRatingCount() === Tile::SHOW_TRUE) {
+				if ($this->tile->getProperties()->getShowLikesCount() === Tile::SHOW_TRUE) {
 					$likes_count = self::rating(self::dic()->user())->getLikesCount($this->tile->getObjRefId());
 
 					if ($likes_count > 0) {
