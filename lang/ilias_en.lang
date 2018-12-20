@@ -2,6 +2,10 @@ favorites_add_to_favorites#:#Add to favorites
 favorites_added_to_favorites#:#The object has been added to the favorites
 favorites_remove_from_favorites#:#Remove from favorites
 favorites_removed_from_favorites#:#The object has been removed from the favorites
+rating_like#:#Like
+rating_liked#:#Liked
+rating_unlike#:#Unlike
+rating_unliked#:#Unliked
 removeplugindataconfirm_cancel#:#Cancel
 removeplugindataconfirm_confirm_remove_data#:#Do you want to remove the %1$s data as well? At most, you just want to disable the %1$s plugin?
 removeplugindataconfirm_deactivate#:#Just deactivate %1$s plugin
@@ -16,6 +20,10 @@ tile_back#:#Back
 tile_background_color#:#Background color
 tile_cancel#:#Cancel
 tile_color_contrast#:#Calculate automatically based on the contrast of the background color (black or white)
+tile_disabled#:#Disabled
+tile_enable_rating#:#Enable rating
+tile_enabled#:#Enabled
+tile_favorites#:#Favorites
 tile_font_color#:#Font color
 tile_font_size#:#Font size
 tile_horizontal_align#:#Horizontal align
@@ -39,11 +47,13 @@ tile_position_right#:#Right
 tile_position_right_bottom#:#Right / Bottom
 tile_position_right_top#:#Right / Top
 tile_position_top#:#Top
+tile_rating#:#Rating
 tile_saved#:#The tile was saved
 tile_set#:#Set
 tile_show_actions#:#Show actions menu
 tile_show_false#:Not show
 tile_show_favorites_icon#:#Show favorites icon
+tile_show_likes_count#:#Show likes count
 tile_show_title#:#Show title
 tile_show_true#:#Show
 tile_show_true_if_permitted#:#Show (If access permitted)

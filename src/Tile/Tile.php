@@ -55,6 +55,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
+	const DEFAULT_ENABLE_RATING = Tile::SHOW_FALSE;
 	const DEFAULT_FONT_COLOR_TYPE = self::COLOR_TYPE_CONTRAST;
 	const DEFAULT_FONT_SIZE_TYPE = self::FONT_SIZE_TYPE_SET;
 	const DEFAULT_FONT_SIZE = 16;
@@ -66,6 +67,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_OBJECT_ICON_POSITION = Tile::POSITION_LEFT_BOTTOM;
 	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
+	const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
 	/**
 	 * @var int
@@ -250,6 +252,22 @@ class Tile extends ActiveRecord {
 	 */
 	protected $show_title = self::SHOW_PARENT;
 	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $enable_rating = self::SHOW_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_likes_count = self::SHOW_PARENT;
+	/**
 	 * @var ilObject|null
 	 */
 	protected $il_object = NULL;
@@ -311,6 +329,7 @@ class Tile extends ActiveRecord {
 			case "actions_position":
 			case "actions_vertical_align":
 			case "background_color_type":
+			case "enable_rating":
 			case "font_color_type":
 			case "font_size":
 			case "font_size_type":
@@ -321,8 +340,9 @@ class Tile extends ActiveRecord {
 			case "margin_type":
 			case "object_icon_position":
 			case "obj_ref_id":
-			case "show_favorites_icon":
 			case "show_actions":
+			case "show_favorites_icon":
+			case "show_likes_count":
 			case "show_title":
 			case "tile_id":
 				return intval($field_value);
@@ -739,6 +759,42 @@ class Tile extends ActiveRecord {
 	 */
 	public function setShowTitle(int $show_title)/*: void*/ {
 		$this->show_title = $show_title;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getEnableRating(): int {
+		return $this->enable_rating;
+	}
+
+
+	/**
+	 * @param int $enable_rating
+	 */
+	public function setEnableRating(int $enable_rating)/*: void*/ {
+		$this->enable_rating = $enable_rating;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowRatingCount(): int {
+		return $this->show_likes_count;
+	}
+
+
+	/**
+	 * @param int $show_likes_count
+	 */
+	public function setShowRatingCount(int $show_likes_count)/*: void*/ {
+		$this->show_likes_count = $show_likes_count;
 	}
 
 

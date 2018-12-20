@@ -4,8 +4,10 @@
 
 namespace srag\Plugins\SrTile\Utils;
 
+use ilObjUser;
 use srag\Plugins\SrTile\Access\Access;
 use srag\Plugins\SrTile\Access\Ilias;
+use srag\Plugins\SrTile\Rating\Ratings;
 use srag\Plugins\SrTile\Tile\Tiles;
 
 /**
@@ -33,6 +35,16 @@ trait SrTileTrait {
 	 */
 	protected static function ilias(): Ilias {
 		return Ilias::getInstance();
+	}
+
+
+	/**
+	 * @param ilObjUser $user
+	 *
+	 * @return Ratings
+	 */
+	protected static function rating(ilObjUser $user): Ratings {
+		return Ratings::getInstance($user);
 	}
 
 

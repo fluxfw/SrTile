@@ -66,7 +66,7 @@ class TileProperties {
 		}
 
 		if ($this->parent_tile !== NULL) {
-			return $this->parent_tile->getProperties()->getActionsPosition();
+			return $this->parent_tile->getProperties()->getActionsVerticalAlign();
 		}
 
 		return Tile::DEFAULT_ACTIONS_VERTICAL_ALIGN;
@@ -88,6 +88,22 @@ class TileProperties {
 		}
 
 		return "";
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getEnableRating(): int {
+		if ($this->tile->getEnableRating() !== Tile::SHOW_PARENT) {
+			return $this->tile->getEnableRating();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getEnableRating();
+		}
+
+		return Tile::DEFAULT_ENABLE_RATING;
 	}
 
 
@@ -269,6 +285,22 @@ class TileProperties {
 		}
 
 		return Tile::DEFAULT_SHOW_FAVORITES_ICON;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getShowRatingCount(): int {
+		if ($this->tile->getShowRatingCount() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowRatingCount();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowRatingCount();
+		}
+
+		return Tile::DEFAULT_SHOW_LIKES_COUNT;
 	}
 
 

@@ -12,6 +12,7 @@ use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileFavoritesGUI;
+use SrTileRatingGUI;
 
 /**
  * Class TileListContainerGUI
@@ -50,6 +51,8 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "parent_ref_id", self::tiles()->filterRefId());
 		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "ref_id", $this->tile->getObjRefId());
+		self::dic()->ctrl()->setParameterByClass(SrTileRatingGUI::class, "parent_ref_id", self::tiles()->filterRefId());
+		self::dic()->ctrl()->setParameterByClass(SrTileRatingGUI::class, "ref_id", $this->tile->getObjRefId());
 
 		$tpl = self::plugin()->template("Tile/tpl.tile.html");
 		$tpl->setCurrentBlock("tile");
@@ -61,51 +64,87 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		if ($this->tile->getProperties()->getShowTitle() === Tile::SHOW_TRUE) {
 			$tpl->setVariable("TITLE", $this->tile->getProperties()->getTitle());
 		}
+		$tpl->setVariable("TITLE_HORIZONTAL_ALIGN", $this->tile->getProperties()->getLabelHorizontalAlign());
+		$tpl->setVariable("TITLE_VERTICAL_ALIGN", $this->tile->getProperties()->getLabelVerticalAlign());
 
 		if (self::access()->hasOpenAccess($this->tile)) {
 			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->returnLink()) . '\'"');
 
 			if ($this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE
 				&& self::access()->hasReadAccess($this->tile->getObjRefId())) {
+				$tpl_favorite = self::plugin()->template("Tile/tpl.favorite.html");
+
 				if (self::ilias()->favorites(self::dic()->user())->hasFavorite($this->tile->getObjRefId())) {
-					$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+					$tpl_favorite->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
 						ilUIPluginRouterGUI::class,
 						SrTileFavoritesGUI::class
 					], SrTileFavoritesGUI::CMD_REMOVE_FROM_FAVORITES));
-					$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("remove_from_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
-					$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
+					$tpl_favorite->setVariable("FAVORITE_TEXT", self::plugin()
+						->translate("remove_from_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+					$tpl_favorite->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
 				} else {
-					$tpl->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+					$tpl_favorite->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
 						ilUIPluginRouterGUI::class,
 						SrTileFavoritesGUI::class
 					], SrTileFavoritesGUI::CMD_ADD_TO_FAVORITES));
-					$tpl->setVariable("FAVORITE_TEXT", self::plugin()->translate("add_to_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
-					$tpl->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
+					$tpl_favorite->setVariable("FAVORITE_TEXT", self::plugin()
+						->translate("add_to_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+					$tpl_favorite->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
 				}
+
+				$tpl->setVariable("FAVORITE", self::output()->getHTML($tpl_favorite));
+			}
+
+			if ($this->tile->getProperties()->getEnableRating() === Tile::SHOW_TRUE
+				&& self::access()->hasReadAccess($this->tile->getObjRefId())) {
+				$tpl_rating = self::plugin()->template("Tile/tpl.rating.html");
+
+				if (self::rating(self::dic()->user())->hasLike($this->tile->getObjRefId())) {
+					$tpl_rating->setVariable("RATING_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+						ilUIPluginRouterGUI::class,
+						SrTileRatingGUI::class
+					], SrTileRatingGUI::CMD_UNLIKE));
+					$tpl_rating->setVariable("RATING_TEXT", self::plugin()->translate("unlike", SrTileRatingGUI::LANG_MODULE_RATING));
+					$tpl_rating->setVariable("RATING_IMAGE_PATH", self::plugin()->directory() . "/templates/images/like.svg");
+				} else {
+					$tpl_rating->setVariable("RATING_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+						ilUIPluginRouterGUI::class,
+						SrTileRatingGUI::class
+					], SrTileRatingGUI::CMD_LIKE));
+					$tpl_rating->setVariable("RATING_TEXT", self::plugin()->translate("like", SrTileRatingGUI::LANG_MODULE_RATING));
+					$tpl_rating->setVariable("RATING_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unlike.svg");
+				}
+
+				if ($this->tile->getProperties()->getShowRatingCount() === Tile::SHOW_TRUE) {
+					$likes_count = self::rating(self::dic()->user())->getLikesCount($this->tile->getObjRefId());
+
+					if ($likes_count > 0) {
+						$tpl_likes_count = self::plugin()->template("Tile/tpl.likes_count.html");
+						$tpl_likes_count->setVariable("LIKES_COUNT", $likes_count);
+						$tpl_rating->setVariable("LIKES_COUNT", self::output()->getHTML($tpl_likes_count));
+					}
+				}
+
+				$tpl->setVariable("RATING", self::output()->getHTML($tpl_rating));
 			}
 		} else {
 			$tpl->setVariable("DISABLED", " tile_disabled");
 		}
 
 		$tpl->setVariable("IMAGE", $this->tile->getProperties()->getImage());
+		$tpl->setVariable("IMAGE_POSITION", $this->tile->getProperties()->getImagePosition());
 
 		if ($this->tile->getProperties()->getShowActions() === Tile::SHOW_TRUE && self::access()->hasWriteAccess($this->tile->getObjRefId())) {
 			$tpl->setVariable("ACTIONS", $this->getActions());
 		}
+		$tpl->setVariable("ACTIONS_POSITION", $this->tile->getProperties()->getActionsPosition());
+		$tpl->setVariable("ACTIONS_VERTICAL_ALIGN", $this->tile->getProperties()->getActionsVerticalAlign());
 
 		$icon = ilObject::_getIcon(($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getId() : NULL), "small");
 		if (file_exists($icon)) {
 			$tpl->setVariable("OBJECT_ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
 		}
-
-		if ($parent_tile !== NULL) {
-			$tpl->setVariable("IMAGE_POSITION", $parent_tile->getProperties()->getImagePosition());
-			$tpl->setVariable("TITLE_HORIZONTAL_ALIGN", $parent_tile->getProperties()->getLabelHorizontalAlign());
-			$tpl->setVariable("TITLE_VERTICAL_ALIGN", $parent_tile->getProperties()->getLabelVerticalAlign());
-			$tpl->setVariable("ACTIONS_POSITION", $parent_tile->getProperties()->getActionsPosition());
-			$tpl->setVariable("ACTIONS_VERTICAL_ALIGN", $parent_tile->getProperties()->getActionsVerticalAlign());
-			$tpl->setVariable("OBJECT_ICON_POSITION", $parent_tile->getProperties()->getObjectIconPosition());
-		}
+		$tpl->setVariable("OBJECT_ICON_POSITION", $this->tile->getProperties()->getObjectIconPosition());
 
 		$tpl->parseCurrentBlock();
 

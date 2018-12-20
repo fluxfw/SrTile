@@ -2,6 +2,10 @@ favorites_add_to_favorites#:#Zu den Favoriten legen
 favorites_added_to_favorites#:#Das Objekt wurde zu den Favoriten gelegt
 favorites_remove_from_favorites#:#Aus den Favoriten entfernen
 favorites_removed_from_favorites#:#Das Objekt wurde aus den Favoriten entfernt
+rating_like#:#Like
+rating_liked#:#Liked
+rating_unlike#:#Unlike
+rating_unliked#:#Unliked
 removeplugindataconfirm_cancel#:#Abbrechen
 removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
 removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren
@@ -16,6 +20,10 @@ tile_back#:#Zurück
 tile_background_color#:#Hintergrund-Farbe
 tile_cancel#:#Abbrechen
 tile_color_contrast#:#Automatisch anhand des Kontrasts der Hintergrund-Farbe berechnen (schwarz oder weiss)
+tile_disabled#:#Deaktiviert
+tile_enable_rating#:#Bewertung aktivieren
+tile_enabled#:#Aktiviert
+tile_favorites#:#Favoriten
 tile_font_color#:#Schrift-Farbe
 tile_font_size#:#Schriftgrösse
 tile_horizontal_align#:#Horizontale-Ausrichtung
@@ -28,7 +36,7 @@ tile_label#:#Beschriftung
 tile_margin#:#Abstand
 tile_object#:#Objekt: %s
 tile_object_icon_none#:#Nicht anzeigen
-tile_object_icon_position#:#Objekt-Icon
+tile_object_icon_position#:#Objekt-Ico
 tile_parent#:#Vom Eltern-Objekt
 tile_position#:#Position
 tile_position_bottom#:#Unten
@@ -39,11 +47,13 @@ tile_position_right#:#Rechts
 tile_position_right_bottom#:#Rechts / Unten
 tile_position_right_top#:#Rechts / Oben
 tile_position_top#:#Oben
+tile_rating#:#Bewertung
 tile_saved#:#Die Kachel wurde gespeichert
 tile_set#:#Setzen
 tile_show_actions#:#Aktionen-Menü anzeigen
 tile_show_false#:#Nicht anzeigen
 tile_show_favorites_icon#:#Favoriten-Icon anzeigen
+tile_show_likes_count#:#Likes-Zähler anzeigen
 tile_show_title#:#Titel anzeigen
 tile_show_true#:#Anzeigen
 tile_show_true_if_permitted#:#Anzeigen (Wenn Zugang genehmigt)

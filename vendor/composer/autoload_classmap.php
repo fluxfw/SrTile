@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'SrTileFavoritesGUI' => $baseDir . '/classes/Favorite/class.SrTileFavoritesGUI.php',
     'SrTileGUI' => $baseDir . '/classes/GUI/class.SrTileGUI.php',
+    'SrTileRatingGUI' => $baseDir . '/classes/Rating/class.SrTileRatingGUI.php',
     'SrTileRemoveDataConfirm' => $baseDir . '/classes/uninstall/class.SrTileRemoveDataConfirm.php',
     'ilSrTilePlugin' => $baseDir . '/classes/class.ilSrTilePlugin.php',
     'ilSrTileUIHookGUI' => $baseDir . '/classes/class.ilSrTileUIHookGUI.php',
@@ -56,6 +57,8 @@ return array(
     'srag\\Plugins\\SrTile\\Access\\Access' => $baseDir . '/src/Access/Access.php',
     'srag\\Plugins\\SrTile\\Access\\Ilias' => $baseDir . '/src/Access/Ilias.php',
     'srag\\Plugins\\SrTile\\Favorite\\Favorites' => $baseDir . '/src/Favorite/Favorites.php',
+    'srag\\Plugins\\SrTile\\Rating\\Rating' => $baseDir . '/src/Rating/Rating.php',
+    'srag\\Plugins\\SrTile\\Rating\\Ratings' => $baseDir . '/src/Rating/Ratings.php',
     'srag\\Plugins\\SrTile\\TileGUI\\TileContainerGUI\\TileContainerGUI' => $baseDir . '/src/TileGUI/TileContainerGUI/TileContainerGUI.php',
     'srag\\Plugins\\SrTile\\TileGUI\\TileFormGUI\\TileFormGUI' => $baseDir . '/src/TileGUI/TileFormGUI/TileFormGUI.php',
     'srag\\Plugins\\SrTile\\TileGUI\\TileGUIAbstract' => $baseDir . '/src/TileGUI/TileGUIAbstract.php',

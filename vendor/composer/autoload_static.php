@@ -48,6 +48,7 @@ class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
     public static $classMap = array (
         'SrTileFavoritesGUI' => __DIR__ . '/../..' . '/classes/Favorite/class.SrTileFavoritesGUI.php',
         'SrTileGUI' => __DIR__ . '/../..' . '/classes/GUI/class.SrTileGUI.php',
+        'SrTileRatingGUI' => __DIR__ . '/../..' . '/classes/Rating/class.SrTileRatingGUI.php',
         'SrTileRemoveDataConfirm' => __DIR__ . '/../..' . '/classes/uninstall/class.SrTileRemoveDataConfirm.php',
         'ilSrTilePlugin' => __DIR__ . '/../..' . '/classes/class.ilSrTilePlugin.php',
         'ilSrTileUIHookGUI' => __DIR__ . '/../..' . '/classes/class.ilSrTileUIHookGUI.php',
@@ -96,6 +97,8 @@ class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
         'srag\\Plugins\\SrTile\\Access\\Access' => __DIR__ . '/../..' . '/src/Access/Access.php',
         'srag\\Plugins\\SrTile\\Access\\Ilias' => __DIR__ . '/../..' . '/src/Access/Ilias.php',
         'srag\\Plugins\\SrTile\\Favorite\\Favorites' => __DIR__ . '/../..' . '/src/Favorite/Favorites.php',
+        'srag\\Plugins\\SrTile\\Rating\\Rating' => __DIR__ . '/../..' . '/src/Rating/Rating.php',
+        'srag\\Plugins\\SrTile\\Rating\\Ratings' => __DIR__ . '/../..' . '/src/Rating/Ratings.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileContainerGUI\\TileContainerGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileContainerGUI/TileContainerGUI.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileFormGUI\\TileFormGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileFormGUI/TileFormGUI.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileGUIAbstract' => __DIR__ . '/../..' . '/src/TileGUI/TileGUIAbstract.php',
