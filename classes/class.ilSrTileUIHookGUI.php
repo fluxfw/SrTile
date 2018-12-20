@@ -31,20 +31,20 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TEMPLATE_SHOW = "template_show";
 	const TILE_CONFIG_TAB_LOADER = "tile_config_tab";
 	const TILE_CONTAINER_LOADER = "tile_container";
-	const TILE_DESKTOP_LOADER = "tile_desktop_loader";
+	const TILE_FAVORITES_LOADER = "tile_desktop_loader";
 	const TEMPLATE_ID_CONTAINER_PAGE = "Services/Container/tpl.container_page.html";
 	const TEMPLATE_ID_CONTAINER_LIST_ITEM = "Services/Container/tpl.container_list_item.html";
-	const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
+	const TEMPLATE_ID_FAVORITES = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const GET = 'template_get';
 	const TAB_ID = "tile";
-	const OUR_FOOTER = "tpl.adm_content.html";
+	const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
 	/**
 	 * @var bool[]
 	 */
 	protected static $load = [
 		self::TILE_CONFIG_TAB_LOADER => false,
 		self::TILE_CONTAINER_LOADER => false,
-		self::TILE_DESKTOP_LOADER => false
+		self::TILE_FAVORITES_LOADER => false
 	];
 
 
@@ -94,12 +94,12 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 			}
 		}
 
-		//Personal Desktop
-		if (!self::$load[self::TILE_DESKTOP_LOADER]) {
+		//Favorites
+		if (!self::$load[self::TILE_FAVORITES_LOADER]) {
 			if ($baseClass === strtolower(ilPersonalDesktopGUI::class)
-				&& $a_par['tpl_id'] === self::TEMPLATE_ID_PERSONAL_DESKTOP) {
+				&& $a_par['tpl_id'] === self::TEMPLATE_ID_FAVORITES) {
 
-				self::$load[self::TILE_DESKTOP_LOADER] = true;
+				self::$load[self::TILE_FAVORITES_LOADER] = true;
 
 				$this->initJS();
 
@@ -112,7 +112,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 			}
 		}
 
-		if ($a_par['tpl_id'] == self::OUR_FOOTER) {
+		if ($a_par['tpl_id'] == self::ADMIN_FOOTER_TPL_ID) {
 			$recommend_gui = new SrTileRecommendGUI();
 
 			return array( "mode" => ilUIHookPluginGUI::APPEND, "html" => $recommend_gui->getModal() );

@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.14.2]
+- PROPERTY_NOT_ADD
+
+## [0.14.1]
+- Min css changes
+
+## [0.14.0]
+- HiddenInputGUI
+
+## [0.13.21]
+- PropertyFormGUIException::CODE_X
+- TableGUIException::CODE_X
+- Throws DICException in PropertyFormGUI::txt and TableGUI::txt again
+
+## [0.13.20]
+- PropertyForm: getImage, setImage
+
 ## [0.13.19]
 - Fix
 

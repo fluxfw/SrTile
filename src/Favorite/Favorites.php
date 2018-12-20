@@ -57,6 +57,14 @@ class Favorites {
 
 
 	/**
+	 * @return bool
+	 */
+	public function enabled(): bool {
+		return (boolval(self::dic()->settings()->get("disable_my_offers")) === false);
+	}
+
+
+	/**
 	 * @return array
 	 */
 	public function getFavorites(): array {

@@ -1,3 +1,6 @@
+config_configuration#:#Konfiguration
+config_configuration_saved#:#Konfiguration gespeichert
+config_save#:#Speichern
 favorites_add_to_favorites#:#Zu den Favoriten legen
 favorites_added_to_favorites#:#Das Objekt wurde zu den Favoriten gelegt
 favorites_remove_from_favorites#:#Aus den Favoriten entfernen
@@ -42,10 +45,10 @@ tile_horizontal_align_right#:#Rechts
 tile_image#:#Bild
 tile_image_info#:#Wenn kein Bild hochgeladen, wird das Standard-Bild verwendet
 tile_label#:#Beschriftung
+tile_learning_process#:#Lernfortschritt
 tile_margin#:#Abstand
 tile_object#:#Objekt: %s
-tile_object_icon_none#:#Nicht anzeigen
-tile_object_icon_position#:#Objekt-Ico
+tile_object_icon_position#:#Objekt-Icon
 tile_parent#:#Vom Eltern-Objekt
 tile_position#:#Position
 tile_position_bottom#:#Unten
@@ -64,7 +67,11 @@ tile_set#:#Setzen
 tile_show_actions#:#Aktionen-Menü anzeigen
 tile_show_false#:#Nicht anzeigen
 tile_show_favorites_icon#:#Favoriten-Icon anzeigen
+tile_show_learning_process#:#Lernfortschritt anzeigen
+tile_show_learning_process_bar#:#Balken
+tile_show_learning_process_icon#:#Icon
 tile_show_likes_count#:#Likes-Zähler anzeigen
+tile_show_none#:#Nicht anzeigen
 tile_show_recommend_icon#:#Empfehlen-Icon anzeigen
 tile_show_title#:#Titel anzeigen
 tile_show_true#:#Anzeigen

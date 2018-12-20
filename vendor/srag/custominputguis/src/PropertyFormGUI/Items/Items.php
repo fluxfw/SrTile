@@ -4,7 +4,6 @@ namespace srag\CustomInputGUIs\SrTile\PropertyFormGUI\Items;
 
 use ilFormPropertyGUI;
 use ilFormSectionHeaderGUI;
-use ilImageFileInputGUI;
 use ilNumberInputGUI;
 use ilPropertyFormGUI;
 use ilRadioOption;
@@ -33,7 +32,8 @@ final class Items {
 	 */
 	public static final function getItem($key, array $field, $parent_item, $parent) {
 		if (!class_exists($field[PropertyFormGUI::PROPERTY_CLASS])) {
-			throw new PropertyFormGUIException("Class " . $field[PropertyFormGUI::PROPERTY_CLASS] . " not exists!");
+			throw new PropertyFormGUIException("Class " . $field[PropertyFormGUI::PROPERTY_CLASS]
+				. " not exists!", PropertyFormGUIException::CODE_INVALID_PROPERTY_CLASS);
 		}
 
 		/**
@@ -85,6 +85,10 @@ final class Items {
 			return $item->getDate();
 		}
 
+		if (method_exists($item, "getImage")) {
+			return $item->getImage();
+		}
+
 		if (method_exists($item, "getValue") && !($item instanceof ilRadioOption)) {
 			if ($item->getMulti()) {
 				return $item->getMultiValues();
@@ -134,6 +138,7 @@ final class Items {
 					break;
 
 				case PropertyFormGUI::PROPERTY_CLASS:
+				case PropertyFormGUI::PROPERTY_NOT_ADD:
 				case PropertyFormGUI::PROPERTY_SUBITEMS:
 				case PropertyFormGUI::PROPERTY_VALUE:
 					break;
@@ -155,7 +160,7 @@ final class Items {
 
 
 	/**
-	 * @param ilFormPropertyGUI|ilFormSectionHeaderGUI|ilRadioOption|ilImageFileInputGUI $item
+	 * @param ilFormPropertyGUI|ilFormSectionHeaderGUI|ilRadioOption $item
 	 * @param mixed                                                  $value
 	 */
 	public static function setValueToItem($item, $value)/*: void*/ {
@@ -171,12 +176,14 @@ final class Items {
 			return;
 		}
 
-		if (method_exists($item, "setValue") && !($item instanceof ilRadioOption)) {
-			$item->setValue($value);
-		}
-
 		if (method_exists($item, "setImage")) {
 			$item->setImage($value);
+
+			return;
+		}
+
+		if (method_exists($item, "setValue") && !($item instanceof ilRadioOption)) {
+			$item->setValue($value);
 		}
 	}
 

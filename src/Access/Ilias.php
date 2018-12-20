@@ -59,4 +59,14 @@ final class Ilias {
 	public function favorites(ilObjUser $user): Favorites {
 		return Favorites::getInstance($user);
 	}
+
+
+	/**
+	 * @param ilObjUser $user
+	 *
+	 * @return LearningProgress
+	 */
+	public function learningProgress(ilObjUser $user): LearningProgress {
+		return LearningProgress::getInstance($user);
+	}
 }

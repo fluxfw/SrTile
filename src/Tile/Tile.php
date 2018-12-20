@@ -53,6 +53,10 @@ class Tile extends ActiveRecord {
 	const SHOW_PARENT = 3;
 	const MAIL_TEMPLATE_SET = 1;
 	const MAIL_TEMPLATE_PARENT = 2;
+	const LEARNING_PROCCESS_ICON = 1;
+	const LEARNING_PROCCESS_BAR = 2;
+	const LEARNING_PROCCESS_NONE = 3;
+	const LEARNING_PROCCESS_PARENT = 4;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
@@ -69,6 +73,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE = Tile::MAIL_TEMPLATE_PARENT;
 	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
+	const DEFAULT_SHOW_LEARNING_PROCCESS = Tile::LEARNING_PROCCESS_NONE;
 	const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_RECOMMEND_ICON = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
@@ -295,6 +300,14 @@ class Tile extends ActiveRecord {
 	 */
 	protected $recommend_mail_template = "";
 	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_learning_process = self::LEARNING_PROCCESS_PARENT;
+	/**
 	 * @var ilObject|null
 	 */
 	protected $il_object = NULL;
@@ -371,6 +384,7 @@ class Tile extends ActiveRecord {
 			case "show_actions":
 			case "show_favorites_icon":
 			case "show_likes_count":
+			case "show_learning_process":
 			case "show_recommend_icon":
 			case "show_title":
 			case "tile_id":
@@ -878,6 +892,24 @@ class Tile extends ActiveRecord {
 	 */
 	public function setRecommendMailTemplate(string $recommend_mail_template)/*: void*/ {
 		$this->recommend_mail_template = $recommend_mail_template;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowLearningProcess(): int {
+		return $this->show_learning_process;
+	}
+
+
+	/**
+	 * @param int $show_learning_process
+	 */
+	public function setShowLearningProcess(int $show_learning_process)/*: void*/ {
+		$this->show_learning_process = $show_learning_process;
 	}
 
 

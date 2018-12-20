@@ -37,8 +37,7 @@ class SrTileFavoritesGUI {
 	 *
 	 */
 	public function executeCommand()/*: void*/ {
-		if (!($this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE
-			&& self::access()->hasReadAccess($this->tile->getObjRefId()))) {
+		if (!(self::ilias()->favorites(self::dic()->user())->enabled() && $this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE)) {
 			return;
 		}
 

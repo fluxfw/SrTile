@@ -7,6 +7,7 @@ if (file_exists(__DIR__ . "/../../../../UIComponent/UserInterfaceHook/Notificati
 	require_once __DIR__ . "/../../../../UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php";
 }
 
+use srag\Plugins\SrTile\Config\Config;
 use srag\Plugins\SrTile\Rating\Rating;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -67,6 +68,8 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 	 * @inheritdoc
 	 */
 	protected function deleteData()/*: void*/ {
+		self::dic()->database()->dropTable(Config::TABLE_NAME, false);
+
 		self::dic()->database()->dropTable(Tile::TABLE_NAME, false);
 		self::dic()->database()->dropTable(Rating::TABLE_NAME, false);
 

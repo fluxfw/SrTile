@@ -73,8 +73,8 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		if (self::access()->hasOpenAccess($this->tile)) {
 			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->getProperties()->getLink()) . '\'"');
 
-			if ($this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE
-				&& self::access()->hasReadAccess($this->tile->getObjRefId())) {
+			if (self::ilias()->favorites(self::dic()->user())->enabled()
+				&& $this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE) {
 				$tpl_favorite = self::plugin()->template("Tile/tpl.favorite.html");
 
 				if (self::ilias()->favorites(self::dic()->user())->hasFavorite($this->tile->getObjRefId())) {
@@ -144,6 +144,19 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 				$tpl_recommend->setVariable("RECOMMEND_IMAGE_PATH", self::plugin()->directory() . "/templates/images/recommend.svg");
 
 				$tpl->setVariable("RECOMMEND", self::output()->getHTML($tpl_recommend));
+			}
+
+			if (self::ilias()->learningProgress(self::dic()->user())->enabled()) {
+				switch ($this->tile->getProperties()->getShowLearningProcess()) {
+					case Tile::LEARNING_PROCCESS_ICON:
+						break;
+
+					case Tile::LEARNING_PROCCESS_BAR:
+						break;
+
+					default:
+						break;
+				}
 			}
 		} else {
 			$tpl->setVariable("DISABLED", " tile_disabled");
