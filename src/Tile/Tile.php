@@ -4,8 +4,6 @@ namespace srag\Plugins\SrTile\Tile;
 
 use ActiveRecord;
 use arConnector;
-use ilObject;
-use ilObjectFactory;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -59,7 +57,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
-	const DEFAULT_BORDER_SIZE = 4;
+	const DEFAULT_BORDER_SIZE = 0;
 	const DEFAULT_BORDER_SIZE_TYPE = self::SIZE_TYPE_SET;
 	const DEFAULT_BORDER_COLOR_TYPE = self::COLOR_TYPE_BACKGROUND;
 	const DEFAULT_ENABLE_RATING = Tile::SHOW_FALSE;
@@ -75,6 +73,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE = Tile::MAIL_TEMPLATE_SET;
 	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
+	const DEFAULT_SHOW_IMAGE_AS_BACKGROUND = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LEARNING_PROCCESS = Tile::LEARNING_PROCCESS_NONE;
 	const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_RECOMMEND_ICON = Tile::SHOW_FALSE;
@@ -342,9 +341,13 @@ class Tile extends ActiveRecord {
 	 */
 	protected $border_color = "";
 	/**
-	 * @var ilObject|null
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
 	 */
-	protected $il_object = NULL;
+	protected $show_image_as_background = self::SHOW_PARENT;
 	/**
 	 * @var TileProperties|null
 	 */
@@ -420,6 +423,7 @@ class Tile extends ActiveRecord {
 			case "recommend_mail_template_type":
 			case "show_actions":
 			case "show_favorites_icon":
+			case "show_image_as_background":
 			case "show_likes_count":
 			case "show_learning_process":
 			case "show_recommend_icon":
@@ -1023,6 +1027,24 @@ class Tile extends ActiveRecord {
 
 
 	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowImageAsBackground(): int {
+		return $this->show_image_as_background;
+	}
+
+
+	/**
+	 * @param int $show_image_as_background
+	 */
+	public function setShowImageAsBackground(int $show_image_as_background)/*: void*/ {
+		$this->show_image_as_background = $show_image_as_background;
+	}
+
+
+	/**
 	 * @return TileProperties
 	 */
 	public function getProperties(): TileProperties {
@@ -1031,40 +1053,5 @@ class Tile extends ActiveRecord {
 		}
 
 		return $this->properties;
-	}
-
-
-	/**
-	 * Return the path to the icon
-	 *
-	 * @param bool $append_filename If true, append filename of image
-	 *
-	 * @return string
-	 */
-	public function returnRelativeImagePath(bool $append_filename = false): string {
-		$path = ilSrTilePlugin::WEB_DATA_FOLDER . "/" . "tile_" . $this->getTileId() . "/";
-		if ($append_filename) {
-			if (!empty($this->getImage())) {
-				$path .= $this->getImage();
-			}
-		}
-
-		return $path;
-	}
-
-
-	/**
-	 * @return ilObject|null
-	 */
-	public function getIlObject()/*: ?ilObject*/ {
-		if ($this->il_object === NULL) {
-			$this->il_object = ilObjectFactory::getInstanceByRefId($this->getObjRefId(), false);
-
-			if ($this->il_object === false) {
-				$this->il_object = NULL;
-			}
-		}
-
-		return $this->il_object;
 	}
 }

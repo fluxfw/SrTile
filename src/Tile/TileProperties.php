@@ -3,6 +3,8 @@
 namespace srag\Plugins\SrTile\Tile;
 
 use ilLink;
+use ilObject;
+use ilObjectFactory;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -19,8 +21,9 @@ class TileProperties {
 	use DICTrait;
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const COLOR_BLACK = "000000";
-	const COLOR_WHITE = "FFFFFF";
+	const COLOR_BLACK = "0,0,0";
+	const COLOR_WHITE = "255,255,255";
+	const SHOW_IMAGE_AS_BACKGROUND_COLOR_ALPHA = 0.6;
 	/**
 	 * @var Tile
 	 */
@@ -29,6 +32,10 @@ class TileProperties {
 	 * @var Tile|null
 	 */
 	protected $parent_tile;
+	/**
+	 * @var ilObject|null
+	 */
+	protected $il_object = NULL;
 
 
 	/**
@@ -80,7 +87,7 @@ class TileProperties {
 	public function getBackgroundColor(): string {
 		if ($this->tile->getBackgroundColorType() !== Tile::COLOR_TYPE_PARENT) {
 			if (!empty($this->tile->getBackgroundColor())) {
-				return $this->tile->getBackgroundColor();
+				return $this->convertHexToRGB($this->tile->getBackgroundColor());
 			}
 		} else {
 			if ($this->parent_tile !== NULL) {
@@ -107,7 +114,7 @@ class TileProperties {
 				return $this->getBackgroundColor();
 
 			case Tile::COLOR_TYPE_SET:
-				return $this->tile->getBorderColor();
+				return $this->convertHexToRGB($this->tile->getBorderColor());
 
 			default:
 				break;
@@ -169,7 +176,7 @@ class TileProperties {
 				break;
 
 			case Tile::COLOR_TYPE_SET:
-				return $this->tile->getFontColor();
+				return $this->convertHexToRGB($this->tile->getFontColor());
 
 			default:
 				break;
@@ -194,25 +201,6 @@ class TileProperties {
 		}
 
 		return Tile::DEFAULT_FONT_SIZE;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getImage(): string {
-		if (!empty($this->tile->getImage())) {
-			$image_path = ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
-			if (file_exists($image_path)) {
-				return "./" . $image_path;
-			}
-		}
-
-		if ($this->parent_tile !== NULL) {
-			return $this->parent_tile->getProperties()->getImage();
-		}
-
-		return self::plugin()->directory() . "/templates/images/default_image.png";
 	}
 
 
@@ -351,6 +339,22 @@ class TileProperties {
 	/**
 	 * @return int
 	 */
+	public function getShowImageAsBackground(): int {
+		if ($this->tile->getShowImageAsBackground() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowImageAsBackground();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowImageAsBackground();
+		}
+
+		return Tile::DEFAULT_SHOW_IMAGE_AS_BACKGROUND;
+	}
+
+
+	/**
+	 * @return int
+	 */
 	public function getShowLearningProcess(): int {
 		if ($this->tile->getShowLearningProcess() !== Tile::LEARNING_PROCCESS_PARENT) {
 			return $this->tile->getShowLearningProcess();
@@ -423,7 +427,7 @@ class TileProperties {
 		$border_size = $this->getBorderSize();
 
 		if (!empty($border_color)) {
-			$css .= "border-color:#" . $border_color . "!important;";
+			$css .= "border-color:rgb(" . $border_color . ")!important;";
 		}
 
 		if (!empty($border_size)) {
@@ -436,11 +440,11 @@ class TileProperties {
 
 	/**
 	 * @param bool $invert
-	 * @param bool $border
+	 * @param bool $translucent
 	 *
 	 * @return string
 	 */
-	public function getColor(bool $invert = false): string {
+	public function getColor(bool $invert = false, bool $translucent = false): string {
 		$css = "";
 
 		$background_color = $this->getBackgroundColor();
@@ -448,24 +452,99 @@ class TileProperties {
 		$font_color = $this->getFontColor();
 
 		if ($invert) {
-			if (!empty($background_color)) {
-				$css .= "color:#" . $background_color . "!important;";
+			if (!empty($font_color)) {
+				if ($translucent) {
+					$font_color .= "," . self::SHOW_IMAGE_AS_BACKGROUND_COLOR_ALPHA;
+				}
+				$css .= "background-color:rgba(" . $font_color . ")!important;";
 			}
 
-			if (!empty($font_color)) {
-				$css .= "background-color:#" . $font_color . "!important;";
+			if (!empty($background_color)) {
+				$css .= "color:rgb(" . $background_color . ")!important;";
 			}
 		} else {
 			if (!empty($background_color)) {
-				$css .= "background-color:#" . $background_color . "!important;";
+				if ($translucent) {
+					$background_color .= "," . self::SHOW_IMAGE_AS_BACKGROUND_COLOR_ALPHA;
+				}
+				$css .= "background-color:rgba(" . $background_color . ")!important;";
 			}
 
 			if (!empty($font_color)) {
-				$css .= "color:#" . $font_color . "!important;";
+				$css .= "color:rgb(" . $font_color . ")!important;";
 			}
 		}
 
 		return $css;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getImage(): string {
+		if (!empty($this->tile->getImage())) {
+			$image_path = $this->getImageWebRootRelativePath();
+			if (file_exists($image_path)) {
+				return "./" . $image_path;
+			}
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getImage();
+		}
+
+		return self::plugin()->directory() . "/templates/images/default_image.png";
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getImageWebRootRelativePath(): string {
+		return ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->getImageRelativePath();
+	}
+
+
+	/**
+	 * Return the path to the icon
+	 *
+	 * @param bool $append_filename If true, append filename of image
+	 *
+	 * @return string
+	 */
+	public function getImageRelativePath(bool $append_filename = true): string {
+		$path = ilSrTilePlugin::WEB_DATA_FOLDER . "/" . "tile_" . $this->getTileId() . "/";
+
+		if ($append_filename) {
+			$path .= $this->tile->getImage();
+		}
+
+		return $path;
+	}
+
+
+	/**
+	 * @return ilObject|null
+	 */
+	public function getIlObject()/*: ?ilObject*/ {
+		if ($this->il_object === NULL) {
+			$this->il_object = ilObjectFactory::getInstanceByRefId($this->tile->getObjRefId(), false);
+
+			if ($this->il_object === false) {
+				$this->il_object = NULL;
+			}
+		}
+
+		return $this->il_object;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLink(): string {
+		return ilLink::_getStaticLink($this->tile->getObjRefId());
 	}
 
 
@@ -492,39 +571,49 @@ class TileProperties {
 
 
 	/**
-	 * https://24ways.org/2010/calculating-color-contrast/
+	 * @return string
+	 */
+	public function getTitle(): string {
+		if ($this->getIlObject() !== NULL) {
+			return $this->getIlObject()->getTitle();
+		}
+
+		return "";
+	}
+
+
+	/**
+	 * https://stackoverflow.com/questions/15202079/convert-hex-color-to-rgb-values-in-php
 	 *
-	 * @param string $hexcolor
+	 * @param string $hex_color
 	 *
 	 * @return string
 	 */
-	private function getContrastYIQ(string $hexcolor): string {
-		$r = hexdec(substr($hexcolor, 0, 2));
-		$g = hexdec(substr($hexcolor, 2, 2));
-		$b = hexdec(substr($hexcolor, 4, 2));
+	private function convertHexToRGB(string $hex_color): string {
+		$hex_color = str_replace('#', '', $hex_color);
+
+		$length = strlen($hex_color);
+
+		$rgb['r'] = hexdec($length == 6 ? substr($hex_color, 0, 2) : ($length == 3 ? str_repeat(substr($hex_color, 0, 1), 2) : 0));
+		$rgb['g'] = hexdec($length == 6 ? substr($hex_color, 2, 2) : ($length == 3 ? str_repeat(substr($hex_color, 1, 1), 2) : 0));
+		$rgb['b'] = hexdec($length == 6 ? substr($hex_color, 4, 2) : ($length == 3 ? str_repeat(substr($hex_color, 2, 1), 2) : 0));
+
+		return implode(",", $rgb);
+	}
+
+
+	/**
+	 * https://24ways.org/2010/calculating-color-contrast/
+	 *
+	 * @param string $rgb_color
+	 *
+	 * @return string
+	 */
+	private function getContrastYIQ(string $rgb_color): string {
+		list($r, $g, $b) = explode(",", $rgb_color);
 
 		$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
 
 		return ($yiq >= 128) ? self::COLOR_BLACK : self::COLOR_WHITE;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getLink(): string {
-		return ilLink::_getStaticLink($this->tile->getObjRefId());
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getTitle(): string {
-		if ($this->tile->getIlObject() !== NULL) {
-			return $this->tile->getIlObject()->getTitle();
-		}
-
-		return "";
 	}
 }

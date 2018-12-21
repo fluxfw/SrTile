@@ -49,15 +49,15 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		if (count($this->tile_list->getTiles()) > 0) {
 			self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
 
-			$tpl = self::plugin()->template("TileList/tpl.tile_list.html");
+			$tpl = self::plugin()->template("TileList/tile_list.html");
 
-			$tpl->setCurrentBlock('row');
 			$gui_class = static::GUI_CLASS;
 			$tile_html = self::output()->getHTML(array_map(function (Tile $tile) use ($gui_class): TileGUIInterface {
 				return new $gui_class($tile);
 			}, $this->tile_list->getTiles()));
+
 			$tpl->setVariable("TILES", $tile_html);
-			$tpl->parseCurrentBlock();
+
 			$tile_list_html = self::output()->getHTML($tpl);
 		}
 
@@ -76,6 +76,8 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		foreach ($this->tile_list->getTiles() as $tile) {
 			$css .= '#sr-tile-' . $tile->getTileId();
 			$css .= '{' . $tile->getProperties()->getColor() . $tile->getProperties()->getSize() . '}';
+			$css .= '#sr-tile-' . $tile->getTileId() . ' .card-bottom';
+			$css .= '{' . $tile->getProperties()->getColor(false,true) . '}';
 			$css .= '#sr-tile-' . $tile->getTileId() . ' > .card';
 			$css .= '{' . $tile->getProperties()->getBorder() . '}';
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default';

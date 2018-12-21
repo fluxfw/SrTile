@@ -66,7 +66,7 @@ class TileFormGUI extends PropertyFormGUI {
 		switch ($key) {
 			case "image":
 				if (!empty($this->tile->getImage())) {
-					return "./" . ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
+					return "./" . $this->tile->getProperties()->getImageWebRootRelativePath();
 				}
 				break;
 
@@ -194,6 +194,25 @@ class TileFormGUI extends PropertyFormGUI {
 					]
 				],
 				"setTitle" => $this->txt("position")
+			],
+			"show_image_as_background" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SHOW_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::SHOW_FALSE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_false")
+					],
+					Tile::SHOW_TRUE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_true")
+					]
+				]
 			],
 			"object_icon_position" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -474,7 +493,7 @@ class TileFormGUI extends PropertyFormGUI {
 			],
 			"favorites_disabled_hint" => [
 				self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
-				self::PROPERTY_VALUE=>$this->txt("disabled_hint"),
+				self::PROPERTY_VALUE => $this->txt("disabled_hint"),
 				self::PROPERTY_NOT_ADD => self::ilias()->favorites(self::dic()->user())->enabled(),
 				"setTitle" => ""
 			],
@@ -602,7 +621,7 @@ class TileFormGUI extends PropertyFormGUI {
 			],
 			"learning_process_disabled_hint" => [
 				self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
-				self::PROPERTY_VALUE=>$this->txt("disabled_hint"),
+				self::PROPERTY_VALUE => $this->txt("disabled_hint"),
 				self::PROPERTY_NOT_ADD => self::ilias()->learningProgress(self::dic()->user())->enabled(),
 				"setTitle" => ""
 			],
@@ -666,7 +685,7 @@ class TileFormGUI extends PropertyFormGUI {
 
 				if ($this->getInput("image_delete") || $result->getSize() > 0) {
 					if (!empty($this->tile->getImage())) {
-						$image_path = ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->tile->returnRelativeImagePath(true);
+						$image_path = $this->tile->getProperties()->getImageWebRootRelativePath();
 						if (file_exists($image_path)) {
 							unlink($image_path);
 						}
@@ -680,7 +699,8 @@ class TileFormGUI extends PropertyFormGUI {
 
 				$file_name = $this->tile->getTileId() . "." . pathinfo($result->getName(), PATHINFO_EXTENSION);
 
-				self::dic()->upload()->moveOneFileTo($result, $this->tile->returnRelativeImagePath(), Location::WEB, $file_name, true);
+				self::dic()->upload()->moveOneFileTo($result, $this->tile->getProperties()
+					->getImageRelativePath(false), Location::WEB, $file_name, true);
 
 				$this->tile->setImage($file_name);
 				break;

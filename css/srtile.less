@@ -1,3 +1,4 @@
+// Tiles
 .tiles {
   align-items: stretch;
   display: flex;
@@ -9,6 +10,7 @@
   }
 }
 
+// Tile wrapper
 .tile {
   clear: none !important;
   float: none !important;
@@ -23,20 +25,23 @@
 	opacity: 0.5;
   }
 
+  // Card
   .card {
 	border: 0 solid transparent;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	max-width: 100%;
+	position: relative;
 	width: 100%;
 
+	// Card image
 	.card_image {
 	  height: 230px;
 	  margin-bottom: 4px;
 	  overflow: hidden;
 	  position: relative;
+	  width: 100%;
 
 	  .tile_image {
 		height: 100%;
@@ -53,6 +58,7 @@
 		  position: absolute;
 		}
 
+		// Only show object icon if should
 		&[data-object_icon_position]:not([data-object_icon_position=""]):not([data-object_icon_position="5"]) {
 		  display: block;
 		}
@@ -83,12 +89,15 @@
 	  }
 	}
 
+	// Card bottom
 	.card-bottom {
 	  display: flex;
 	  flex-direction: row;
 	  flex-grow: 1;
 	  position: relative;
+	  width: 100%;
 
+	  // Card label
 	  .card-title {
 		color: inherit;
 		display: flex;
@@ -103,6 +112,7 @@
 		word-break: break-word;
 	  }
 
+	  // Card icons
 	  .card-icons {
 		display: flex;
 		flex-direction: row;
@@ -169,6 +179,27 @@
 	  }
 	}
 
+	// Show image as background (Experimental)
+	&[data-image_show_as_background="2"] {
+	  .card_image {
+		height: 100%;
+		left: 0;
+		margin: 0 !important;
+		position: absolute;
+		top: 0;
+	  }
+
+	  .card-bottom {
+		flex-grow: 0;
+		min-height: 54px;
+	  }
+
+	  &[data-image_position="1"] .card-bottom {
+		bottom: 0;
+		position: absolute;
+	  }
+	}
+
 	// Horizontal align left
 	[data-horizontal_align="1"] {
 	  justify-content: flex-start;
@@ -203,6 +234,7 @@
 	}
   }
 
+  // Buttons no border
   .btn-default {
 	border: none !important;
   }

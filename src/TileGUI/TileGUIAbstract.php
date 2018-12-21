@@ -55,12 +55,13 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		self::dic()->ctrl()->setParameterByClass(SrTileRecommendGUI::class, "parent_ref_id", self::tiles()->filterRefId());
 		self::dic()->ctrl()->setParameterByClass(SrTileRecommendGUI::class, "ref_id", $this->tile->getObjRefId());
 
-		$tpl = self::plugin()->template("Tile/tpl.tile.html");
+		$tpl = self::plugin()->template("Tile/tile.html");
 		$tpl->setCurrentBlock("tile");
 
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
 
-		$tpl->setVariable("OBJECT_TYPE", ($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getType() : ""));
+		$tpl->setVariable("OBJECT_TYPE", ($this->tile->getProperties()->getIlObject() !== NULL ? $this->tile->getProperties()->getIlObject()
+			->getType() : ""));
 
 		if ($this->tile->getProperties()->getShowTitle() === Tile::SHOW_TRUE) {
 			$tpl->setVariable("TITLE", $this->tile->getProperties()->getTitle());
@@ -73,7 +74,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 			if (self::ilias()->favorites(self::dic()->user())->enabled()
 				&& $this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE) {
-				$tpl_favorite = self::plugin()->template("Tile/tpl.favorite.html");
+				$tpl_favorite = self::plugin()->template("Favorite/favorite.html");
 
 				if (self::ilias()->favorites(self::dic()->user())->hasFavorite($this->tile->getObjRefId())) {
 					$tpl_favorite->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
@@ -98,7 +99,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 			if ($this->tile->getProperties()->getEnableRating() === Tile::SHOW_TRUE
 				&& self::access()->hasReadAccess($this->tile->getObjRefId())) {
-				$tpl_rating = self::plugin()->template("Tile/tpl.rating.html");
+				$tpl_rating = self::plugin()->template("Rating/rating.html");
 
 				if (self::rating(self::dic()->user())->hasLike($this->tile->getObjRefId())) {
 					$tpl_rating->setVariable("RATING_LINK", self::dic()->ctrl()->getLinkTargetByClass([
@@ -120,7 +121,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 					$likes_count = self::rating(self::dic()->user())->getLikesCount($this->tile->getObjRefId());
 
 					if ($likes_count > 0) {
-						$tpl_likes_count = self::plugin()->template("Tile/tpl.likes_count.html");
+						$tpl_likes_count = self::plugin()->template("Favorite/likes_count.html");
 						$tpl_likes_count->setVariable("LIKES_COUNT", $likes_count);
 						$tpl_rating->setVariable("LIKES_COUNT", self::output()->getHTML($tpl_likes_count));
 					}
@@ -132,7 +133,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			if ($this->tile->getProperties()->getShowRecommendIcon() === Tile::SHOW_TRUE
 				&& !empty($this->tile->getProperties()->getRecommendMailTemplate())
 				&& self::access()->hasReadAccess($this->tile->getObjRefId())) {
-				$tpl_recommend = self::plugin()->template("Tile/tpl.recommend.html");
+				$tpl_recommend = self::plugin()->template("Recommend/recommend.html");
 
 				$tpl_recommend->setVariable("RECOMMEND_LINK", self::dic()->ctrl()->getLinkTargetByClass([
 					ilUIPluginRouterGUI::class,
@@ -162,6 +163,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 		$tpl->setVariable("IMAGE", $this->tile->getProperties()->getImage());
 		$tpl->setVariable("IMAGE_POSITION", $this->tile->getProperties()->getImagePosition());
+		$tpl->setVariable("IMAGE_SHOW_AS_BACKGROUND", $this->tile->getProperties()->getShowImageAsBackground());
 
 		if ($this->tile->getProperties()->getShowActions() === Tile::SHOW_TRUE && self::access()->hasWriteAccess($this->tile->getObjRefId())) {
 			$tpl->setVariable("ACTIONS", $this->getActions());
@@ -169,7 +171,8 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("ACTIONS_POSITION", $this->tile->getProperties()->getActionsPosition());
 		$tpl->setVariable("ACTIONS_VERTICAL_ALIGN", $this->tile->getProperties()->getActionsVerticalAlign());
 
-		$icon = ilObject::_getIcon(($this->tile->getIlObject() !== NULL ? $this->tile->getIlObject()->getId() : NULL), "small");
+		$icon = ilObject::_getIcon(($this->tile->getProperties()->getIlObject() !== NULL ? $this->tile->getProperties()->getIlObject()
+			->getId() : NULL), "small");
 		if (file_exists($icon)) {
 			$tpl->setVariable("OBJECT_ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
 		}

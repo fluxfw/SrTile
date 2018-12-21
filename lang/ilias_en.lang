@@ -73,6 +73,7 @@ tile_set#:#Set
 tile_show_actions#:#Show actions menu
 tile_show_false#:Not show
 tile_show_favorites_icon#:#Show favorites icon
+tile_show_image_as_background#:#Show image as background (Experimental)
 tile_show_likes_count#:#Show likes count
 tile_show_learning_process#:#Show learning process
 tile_show_learning_process_bar#:#Bar

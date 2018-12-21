@@ -112,7 +112,7 @@ class SrTileRecommendGUI {
 	 */
 	protected function show(/*?string*/
 		$message, ilPropertyFormGUI $form)/*: void*/ {
-		$tpl = self::plugin()->template("Recommend/recommend_modal.html");
+		$tpl = self::plugin()->template("Recommend/tpl.recommend_modal.html");
 
 		if ($message !== NULL) {
 			$tpl->setCurrentBlock("recommend_message");

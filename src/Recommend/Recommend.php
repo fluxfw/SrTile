@@ -58,7 +58,7 @@ class Recommend {
 			$placeholders = [
 				"link" => $this->getLink(),
 				"message" => $this->getMessage(),
-				"object" => $this->tile->getIlObject(),
+				"object" => $this->tile->getProperties()->getIlObject(),
 				"user" => self::dic()->user()
 			];
 

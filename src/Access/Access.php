@@ -83,10 +83,10 @@ final class Access {
 			if ($this->hasReadAccess($tile->getObjRefId())) {
 				self::$has_open_access[$tile->getObjRefId()] = true;
 			} else {
-				if ($tile->getIlObject() instanceof ilObjCourse) {
+				if ($tile->getProperties()->getIlObject() instanceof ilObjCourse) {
 					self::$has_open_access[$tile->getObjRefId()] = (new ilObjCourseAccess())->_checkAccess("join", "join", $tile->getObjRefId(), ilObject::_lookupObjectId($tile->getObjRefId()));
 				} else {
-					if ($tile->getIlObject() instanceof ilObjGroup) {
+					if ($tile->getProperties()->getIlObject() instanceof ilObjGroup) {
 						self::$has_open_access[$tile->getObjRefId()] = (new ilObjGroupAccess())->_checkAccess("join", "join", $tile->getObjRefId(), ilObject::_lookupObjectId($tile->getObjRefId()));
 					} else {
 						self::$has_open_access[$tile->getObjRefId()] = false;
