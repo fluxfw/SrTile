@@ -32,6 +32,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TILE_CONFIG_TAB_LOADER = "tile_config_tab";
 	const TILE_CONTAINER_LOADER = "tile_container";
 	const TILE_FAVORITES_LOADER = "tile_desktop_loader";
+	const TILE_RECOMMEND_MODAL = "tile_recommend_modal";
 	const TEMPLATE_ID_CONTAINER_PAGE = "Services/Container/tpl.container_page.html";
 	const TEMPLATE_ID_FAVORITES = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const GET = 'template_get';
@@ -43,7 +44,8 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	protected static $load = [
 		self::TILE_CONFIG_TAB_LOADER => false,
 		self::TILE_CONTAINER_LOADER => false,
-		self::TILE_FAVORITES_LOADER => false
+		self::TILE_FAVORITES_LOADER => false,
+		self::TILE_RECOMMEND_MODAL => false
 	];
 
 
@@ -110,10 +112,15 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 			}
 		}
 
-		if ($a_par['tpl_id'] == self::ADMIN_FOOTER_TPL_ID) {
-			$recommend_gui = new SrTileRecommendGUI();
+		// Recommend modal
+		if (!self::$load[self::TILE_RECOMMEND_MODAL]) {
+			if ($a_par['tpl_id'] === self::ADMIN_FOOTER_TPL_ID) {
+				self::$load[self::TILE_RECOMMEND_MODAL] = true;
 
-			return array( "mode" => ilUIHookPluginGUI::APPEND, "html" => $recommend_gui->getModal() );
+				$recommend_gui = new SrTileRecommendGUI();
+
+				return [ "mode" => ilUIHookPluginGUI::APPEND, "html" => $recommend_gui->getModal() ];
+			}
 		}
 
 		return parent::getHTML($a_comp, $a_part, $a_par);
