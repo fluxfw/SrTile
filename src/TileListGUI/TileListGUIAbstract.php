@@ -52,7 +52,10 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			$tpl = self::plugin()->template("TileList/tpl.tile_list.html");
 
 			$tpl->setCurrentBlock('row');
-			$tile_html = $this->getHtml();
+			$gui_class = static::GUI_CLASS;
+			$tile_html = self::output()->getHTML(array_map(function (Tile $tile) use ($gui_class): TileGUIInterface {
+				return new $gui_class($tile);
+			}, $this->tile_list->getTiles()));
 			$tpl->setVariable("TILES", $tile_html);
 			$tpl->parseCurrentBlock();
 			$tile_list_html = self::output()->getHTML($tpl);
@@ -61,18 +64,6 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$this->hideOriginalRowsOfTiles();
 
 		return $tile_list_html;
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function getHtml(): string {
-		$gui_class = static::GUI_CLASS;
-
-		return self::output()->getHTML(array_map(function (Tile $tile) use ($gui_class): TileGUIInterface {
-			return new $gui_class($tile);
-		}, $this->tile_list->getTiles()));
 	}
 
 

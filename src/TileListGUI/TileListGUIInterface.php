@@ -33,13 +33,6 @@ interface TileListGUIInterface {
 
 
 	/**
-	 *
-	 * @return string
-	 */
-	public function getHtml(): string;
-
-
-	/**
 	 * @param bool $global_layout
 	 */
 	public function hideOriginalRowsOfTiles(bool $global_layout = true) /*:void*/

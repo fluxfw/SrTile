@@ -33,7 +33,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TILE_CONTAINER_LOADER = "tile_container";
 	const TILE_FAVORITES_LOADER = "tile_desktop_loader";
 	const TEMPLATE_ID_CONTAINER_PAGE = "Services/Container/tpl.container_page.html";
-	const TEMPLATE_ID_CONTAINER_LIST_ITEM = "Services/Container/tpl.container_list_item.html";
 	const TEMPLATE_ID_FAVORITES = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const GET = 'template_get';
 	const TAB_ID = "tile";
@@ -73,8 +72,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		if (!self::$load[self::TILE_CONTAINER_LOADER]) {
 			if ($this->matchObjectBaseClass()
 				&& $a_part === self::GET
-				&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE
-					|| $a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_LIST_ITEM)) {
+				&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE)) {
 
 				self::$load[self::TILE_CONTAINER_LOADER] = true;
 
@@ -88,7 +86,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 					return [
 						"mode" => ilUIHookPluginGUI::PREPEND,
-						"html" => '</div>' . $tile_list_gui->render() . '<div class="ilCLI ilObjListRow row">'
+						"html" => self::output()->getHTML($tile_list_gui)
 					];
 				}
 			}
