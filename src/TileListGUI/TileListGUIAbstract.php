@@ -76,11 +76,15 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		foreach ($this->tile_list->getTiles() as $tile) {
 			$css .= '#sr-tile-' . $tile->getTileId();
 			$css .= '{' . $tile->getProperties()->getColor() . $tile->getProperties()->getSize() . '}';
+
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .card-bottom';
 			$css .= '{' . $tile->getProperties()->getColor(false,true) . '}';
+
 			$css .= '#sr-tile-' . $tile->getTileId() . ' > .card';
 			$css .= '{' . $tile->getProperties()->getBorder() . '}';
-			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default';
+
+			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default, ';
+			$css .= '#sr-tile-' . $tile->getTileId() . ' .badge';
 			$css .= '{' . $tile->getProperties()->getColor(true) . '}';
 
 			if ($global_layout) {
@@ -97,13 +101,13 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 					if ($parent_tile !== NULL) {
 						if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
 							$css .= 'a#il_mhead_t_focus';
-							$css .= '{color:#' . $parent_tile->getProperties()->getBackgroundColor() . '!important;}';
+							$css .= '{color:rgb(' . $parent_tile->getProperties()->getBackgroundColor() . ')!important;}';
 						}
 
 						$css .= '.btn-default';
 						$css .= '{' . $tile->getProperties()->getColor();
 						if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
-							$css .= 'border-color:#' . $parent_tile->getProperties()->getBackgroundColor() . '!important;';
+							$css .= 'border-color:rgb(' . $parent_tile->getProperties()->getBackgroundColor() . ')!important;';
 						}
 						$css .= '}';
 					}
