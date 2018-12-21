@@ -50,6 +50,7 @@ tile_horizontal_align_right#:#Rechts
 tile_image#:#Bild
 tile_label#:#Beschriftung
 tile_learning_progress#:#Lernfortschritt
+tile_learning_progress_position#:#Position
 tile_margin#:#Abstand
 tile_object#:#Objekt: %s
 tile_object_icon_position#:#Objekt-Icon

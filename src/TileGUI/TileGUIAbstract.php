@@ -148,10 +148,15 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			if (self::ilias()->learningProgress(self::dic()->user())->enabled()) {
 				switch ($this->tile->getProperties()->getShowLearningProgress()) {
 					case Tile::LEARNING_PROGRESS_ICON:
+						$icon = self::ilias()->learningProgress(self::dic()->user())->getIcon($this->tile->getObjRefId());
+
 						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress_icon.html");
 
-						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_IMAGE_PATH", self::ilias()->learningProgress(self::dic()->user())
-							->getIcon($this->tile->getObjRefId()));
+						$tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::dic()->ui()->factory()->image()
+							->standard($icon, "")));
+
+						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_POSITION", $this->tile->getProperties()
+							->getLearningProgressPosition());
 
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_TEXT", self::ilias()->learningProgress(self::dic()->user())
 							->getText($this->tile->getObjRefId()));
@@ -170,7 +175,10 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			$tpl->setVariable("DISABLED", " tile_disabled");
 		}
 
-		$tpl->setVariable("IMAGE", $this->tile->getProperties()->getImage());
+		$tpl_image = self::plugin()->template("Tile/image.html");
+		$tpl_image->setVariable("IMAGE", $this->tile->getProperties()->getImage());
+		$tpl->setVariable("IMAGE", self::output()->getHTML($tpl_image));
+
 		$tpl->setVariable("IMAGE_POSITION", $this->tile->getProperties()->getImagePosition());
 		$tpl->setVariable("IMAGE_SHOW_AS_BACKGROUND", $this->tile->getProperties()->getShowImageAsBackground());
 
@@ -180,12 +188,19 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("ACTIONS_POSITION", $this->tile->getProperties()->getActionsPosition());
 		$tpl->setVariable("ACTIONS_VERTICAL_ALIGN", $this->tile->getProperties()->getActionsVerticalAlign());
 
-		$icon = ilObject::_getIcon(($this->tile->getProperties()->getIlObject() !== NULL ? $this->tile->getProperties()->getIlObject()
-			->getId() : NULL), "small");
-		if (file_exists($icon)) {
-			$tpl->setVariable("OBJECT_ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
+		if ($this->tile->getProperties()->getObjectIconPosition() !== Tile::POSITION_NONE) {
+			$icon = ilObject::_getIcon(($this->tile->getProperties()->getIlObject() !== NULL ? $this->tile->getProperties()->getIlObject()
+				->getId() : NULL), "small");
+			if (file_exists($icon)) {
+				$tpl_object_icon = self::plugin()->template("Object/object_icon.html");
+
+				$tpl_object_icon->setVariable("OBJECT_ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
+
+				$tpl_object_icon->setVariable("OBJECT_ICON_POSITION", $this->tile->getProperties()->getObjectIconPosition());
+
+				$tpl->setVariable("OBJECT_ICON", self::output()->getHTML($tpl_object_icon));
+			}
 		}
-		$tpl->setVariable("OBJECT_ICON_POSITION", $this->tile->getProperties()->getObjectIconPosition());
 
 		$tpl->parseCurrentBlock();
 

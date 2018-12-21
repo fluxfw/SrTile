@@ -50,6 +50,7 @@ tile_horizontal_align_right#:#Right
 tile_image#:#Image
 tile_label#:#Label
 tile_learning_progress#:#Learning progress
+tile_learning_progress_position#:#Position
 tile_margin#:#Margin
 tile_object#:#Object: %s
 tile_object_icon_position#:#Object icon

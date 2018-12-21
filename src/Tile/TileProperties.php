@@ -255,6 +255,22 @@ class TileProperties {
 	/**
 	 * @return int
 	 */
+	public function getLearningProgressPosition(): int {
+		if ($this->tile->getLearningProgressPosition() !== Tile::POSITION_PARENT) {
+			return $this->tile->getLearningProgressPosition();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getLearningProgressPosition();
+		}
+
+		return Tile::DEFAULT_LEARNING_PROGRESS_POSITION;
+	}
+
+
+	/**
+	 * @return int
+	 */
 	public function getMargin(): int {
 		if ($this->tile->getMarginType() !== Tile::SIZE_TYPE_PARENT) {
 			if (!empty($this->tile->getMargin())) {

@@ -649,6 +649,34 @@ class TileFormGUI extends PropertyFormGUI {
 				],
 				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
 			],
+			"learning_progress_position" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::POSITION_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::POSITION_LEFT_TOP => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_left_top")
+					],
+					Tile::POSITION_LEFT_BOTTOM => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_left_bottom")
+					],
+					Tile::POSITION_RIGHT_TOP => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_right_top")
+					],
+					Tile::POSITION_RIGHT_BOTTOM => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_right_bottom")
+					]
+				],
+				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
+			],
 		];
 	}
 

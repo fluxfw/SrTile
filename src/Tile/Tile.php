@@ -67,6 +67,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_IMAGE_POSITION = self::POSITION_TOP;
 	const DEFAULT_LABEL_HORIZONTAL_ALIGN = self::HORIZONTAL_ALIGN_LEFT;
 	const DEFAULT_LABEL_VERTICAL_ALIGN = self::VERTICAL_ALIGN_TOP;
+	const DEFAULT_LEARNING_PROGRESS_POSITION = Tile::POSITION_LEFT_TOP;
 	const DEFAULT_MARGIN = 10;
 	const DEFAULT_MARGIN_TYPE = self::SIZE_TYPE_SET;
 	const DEFAULT_OBJECT_ICON_POSITION = Tile::POSITION_LEFT_BOTTOM;
@@ -315,6 +316,14 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
+	protected $learning_progress_position = self::POSITION_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
 	protected $border_size_type = self::SIZE_TYPE_PARENT;
 	/**
 	 * @var int
@@ -416,6 +425,7 @@ class Tile extends ActiveRecord {
 			case "image_position":
 			case "label_horizontal_align":
 			case "label_vertical_align":
+			case "learning_progress_position":
 			case "margin":
 			case "margin_type":
 			case "object_icon_position":
@@ -949,6 +959,24 @@ class Tile extends ActiveRecord {
 	 */
 	public function setShowLearningProgress(int $show_learning_progress)/*: void*/ {
 		$this->show_learning_progress = $show_learning_progress;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getLearningProgressPosition(): int {
+		return $this->learning_progress_position;
+	}
+
+
+	/**
+	 * @param int $learning_progress_position
+	 */
+	public function setLearningProgressPosition(int $learning_progress_position)/*: void*/ {
+		$this->learning_progress_position = $learning_progress_position;
 	}
 
 
