@@ -30,7 +30,11 @@ tile#:#Tile
 tile_actions#:#Actions
 tile_back#:#Back
 tile_background_color#:#Background color
+tile_border#:#Border
+tile_border_color#:#Border color
+tile_border_size#:#Border size
 tile_cancel#:#Cancel
+tile_color_background#:#Color of background
 tile_color_contrast#:#Calculate automatically based on the contrast of the background color (black or white)
 tile_disabled#:#Disabled
 tile_disabled_hint#:#Disabled globally in ILIAS

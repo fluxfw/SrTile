@@ -25,11 +25,10 @@ class Tile extends ActiveRecord {
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const COLOR_TYPE_SET = 1;
 	const COLOR_TYPE_CONTRAST = 2;
-	const COLOR_TYPE_PARENT = 3;
-	const FONT_SIZE_TYPE_SET = 1;
-	const FONT_SIZE_TYPE_PARENT = 2;
-	const MARGIN_TYPE_SET = 1;
-	const MARGIN_TYPE_PARENT = 2;
+	const COLOR_TYPE_BACKGROUND = 3;
+	const COLOR_TYPE_PARENT = 4;
+	const SIZE_TYPE_SET = 1;
+	const SIZE_TYPE_PARENT = 2;
 	const POSITION_TOP = 1;
 	const POSITION_BOTTOM = 2;
 	const POSITION_LEFT = 3;
@@ -60,15 +59,18 @@ class Tile extends ActiveRecord {
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
+	const DEFAULT_BORDER_SIZE = 4;
+	const DEFAULT_BORDER_SIZE_TYPE = self::SIZE_TYPE_SET;
+	const DEFAULT_BORDER_COLOR_TYPE = self::COLOR_TYPE_BACKGROUND;
 	const DEFAULT_ENABLE_RATING = Tile::SHOW_FALSE;
 	const DEFAULT_FONT_COLOR_TYPE = self::COLOR_TYPE_CONTRAST;
-	const DEFAULT_FONT_SIZE_TYPE = self::FONT_SIZE_TYPE_SET;
 	const DEFAULT_FONT_SIZE = 16;
+	const DEFAULT_FONT_SIZE_TYPE = self::SIZE_TYPE_SET;
 	const DEFAULT_IMAGE_POSITION = self::POSITION_TOP;
 	const DEFAULT_LABEL_HORIZONTAL_ALIGN = self::HORIZONTAL_ALIGN_LEFT;
 	const DEFAULT_LABEL_VERTICAL_ALIGN = self::VERTICAL_ALIGN_TOP;
-	const DEFAULT_MARGIN_TYPE = self::MARGIN_TYPE_SET;
 	const DEFAULT_MARGIN = 10;
+	const DEFAULT_MARGIN_TYPE = self::SIZE_TYPE_SET;
 	const DEFAULT_OBJECT_ICON_POSITION = Tile::POSITION_LEFT_BOTTOM;
 	const DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE = Tile::MAIL_TEMPLATE_SET;
 	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
@@ -162,7 +164,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $margin_type = self::MARGIN_TYPE_PARENT;
+	protected $margin_type = self::SIZE_TYPE_PARENT;
 	/**
 	 * @var int
 	 *
@@ -178,7 +180,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $font_size_type = self::FONT_SIZE_TYPE_PARENT;
+	protected $font_size_type = self::SIZE_TYPE_PARENT;
 	/**
 	 * @var int
 	 *
@@ -308,6 +310,38 @@ class Tile extends ActiveRecord {
 	 */
 	protected $show_learning_process = self::LEARNING_PROCCESS_PARENT;
 	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $border_size_type = self::SIZE_TYPE_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $border_size = 0;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $border_color_type = self::COLOR_TYPE_PARENT;
+	/**
+	 * @var string
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   text
+	 * @con_is_notnull  true
+	 */
+	protected $border_color = "";
+	/**
 	 * @var ilObject|null
 	 */
 	protected $il_object = NULL;
@@ -369,6 +403,9 @@ class Tile extends ActiveRecord {
 			case "actions_position":
 			case "actions_vertical_align":
 			case "background_color_type":
+			case "border_color_type":
+			case "border_size":
+			case "border_size_type":
 			case "enable_rating":
 			case "font_color_type":
 			case "font_size":
@@ -910,6 +947,78 @@ class Tile extends ActiveRecord {
 	 */
 	public function setShowLearningProcess(int $show_learning_process)/*: void*/ {
 		$this->show_learning_process = $show_learning_process;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getBorderSizeType(): int {
+		return $this->border_size_type;
+	}
+
+
+	/**
+	 * @param int $border_size_type
+	 */
+	public function setBorderSizeType(int $border_size_type)/*: void*/ {
+		$this->border_size_type = $border_size_type;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getBorderSize(): int {
+		return $this->border_size;
+	}
+
+
+	/**
+	 * @param int $border_size
+	 */
+	public function setBorderSize(int $border_size)/*: void*/ {
+		$this->border_size = $border_size;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getBorderColorType(): int {
+		return $this->border_color_type;
+	}
+
+
+	/**
+	 * @param int $border_color_type
+	 */
+	public function setBorderColorType(int $border_color_type)/*: void*/ {
+		$this->border_color_type = $border_color_type;
+	}
+
+
+	/**
+	 * @return string
+	 *
+	 * @internal
+	 */
+	public function getBorderColor(): string {
+		return $this->border_color;
+	}
+
+
+	/**
+	 * @param string $border_color
+	 */
+	public function setBorderColor(string $border_color)/*: void*/ {
+		$this->border_color = $border_color;
 	}
 
 

@@ -30,7 +30,11 @@ tile#:#Kachel
 tile_actions#:#Aktionen
 tile_back#:#Zurück
 tile_background_color#:#Hintergrund-Farbe
+tile_border#:#Rahmen
+tile_border_color#:#Rahmen-Farbe
+tile_border_size#:#Rahmen-Grösse
 tile_cancel#:#Abbrechen
+tile_color_background#:#Farbe vom Hintergrund
 tile_color_contrast#:#Automatisch anhand des Kontrasts der Hintergrund-Farbe berechnen (schwarz oder weiss)
 tile_disabled#:#Deaktiviert
 tile_disabled_hint#:#Global in ILIAS deaktiviert

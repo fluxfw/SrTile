@@ -147,12 +147,12 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [
-					Tile::MARGIN_TYPE_PARENT => [
+					Tile::SIZE_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
-					Tile::MARGIN_TYPE_SET => [
+					Tile::SIZE_TYPE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
 							"margin" => [
@@ -280,12 +280,12 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [
-					Tile::FONT_SIZE_TYPE_PARENT => [
+					Tile::SIZE_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
-					Tile::FONT_SIZE_TYPE_SET => [
+					Tile::SIZE_TYPE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
 							"font_size" => [
@@ -346,6 +346,60 @@ class TileFormGUI extends PropertyFormGUI {
 					]
 				],
 				"setTitle" => $this->txt("vertical_align")
+			],
+
+			"border" => [
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"border_color_type" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::COLOR_TYPE_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::COLOR_TYPE_BACKGROUND => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("color_background")
+					],
+					Tile::COLOR_TYPE_SET => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"border_color" => [
+								self::PROPERTY_CLASS => ilColorPickerInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								"setDefaultColor" => ""
+							]
+						],
+						"setTitle" => $this->txt("set")
+					]
+				],
+				"setTitle" => $this->txt("border_color")
+			],
+			"border_size_type" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SIZE_TYPE_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::SIZE_TYPE_SET => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"border_size" => [
+								self::PROPERTY_CLASS => ilNumberInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								"setSuffix" => "px"
+							]
+						],
+						"setTitle" => $this->txt("set")
+					]
+				],
+				"setTitle" => $this->txt("border_size")
 			],
 
 			"actions" => [

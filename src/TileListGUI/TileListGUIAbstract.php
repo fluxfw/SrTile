@@ -76,6 +76,8 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		foreach ($this->tile_list->getTiles() as $tile) {
 			$css .= '#sr-tile-' . $tile->getTileId();
 			$css .= '{' . $tile->getProperties()->getColor() . $tile->getProperties()->getSize() . '}';
+			$css .= '#sr-tile-' . $tile->getTileId() . ' > .card';
+			$css .= '{' . $tile->getProperties()->getBorder() . '}';
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default';
 			$css .= '{' . $tile->getProperties()->getColor(true) . '}';
 

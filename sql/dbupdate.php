@@ -11,23 +11,26 @@ if (\srag\Plugins\SrTile\Tile\Tiles::getInstance()->getInstanceForObjRefId(ROOT_
 	$tile->setActionsPosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_ACTIONS_POSITION);
 	$tile->setActionsVerticalAlign(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_ACTIONS_VERTICAL_ALIGN);
 	$tile->setBackgroundColorType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_BACKGROUND_COLOR_TYPE);
+	$tile->setBorderColorType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_BORDER_COLOR_TYPE);
+	$tile->setBorderSize(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_BORDER_SIZE);
+	$tile->setBorderSizeType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_BORDER_SIZE_TYPE);
 	$tile->setEnableRating(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_ENABLE_RATING);
 	$tile->setFontColorType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_FONT_COLOR_TYPE);
-	$tile->setFontSizeType(\srag\Plugins\SrTile\Tile\Tile::MARGIN_TYPE_SET);
 	$tile->setFontSize(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_FONT_SIZE);
+	$tile->setFontSizeType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_FONT_SIZE_TYPE);
 	$tile->setImagePosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_IMAGE_POSITION);
 	$tile->setLabelHorizontalAlign(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_LABEL_HORIZONTAL_ALIGN);
 	$tile->setLabelVerticalAlign(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_LABEL_VERTICAL_ALIGN);
-	$tile->setMarginType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_MARGIN_TYPE);
 	$tile->setMargin(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_MARGIN);
+	$tile->setMarginType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_MARGIN_TYPE);
 	$tile->setObjectIconPosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_OBJECT_ICON_POSITION);
 	$tile->setRecommendMailTemplateType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE);
 	$tile->setShowActions(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_ACTIONS);
 	$tile->setShowFavoritesIcon(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_FAVORITES_ICON);
-	$tile->setShowTitle(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_TITLE);
 	$tile->setShowLearningProcess(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LEARNING_PROCCESS);
 	$tile->setShowLikesCount(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LIKES_COUNT);
 	$tile->setShowRecommendIcon(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_RECOMMEND_ICON);
+	$tile->setShowTitle(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_TITLE);
 	$tile->store();
 }
 ?>

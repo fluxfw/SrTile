@@ -93,6 +93,47 @@ class TileProperties {
 
 
 	/**
+	 * @return string
+	 */
+	public function getBorderColor(): string {
+		switch ($this->tile->getBorderColorType()) {
+			case Tile::COLOR_TYPE_PARENT:
+				if ($this->parent_tile !== NULL) {
+					return $this->parent_tile->getProperties()->getBorderColor();
+				}
+				break;
+
+			case Tile::COLOR_TYPE_BACKGROUND:
+				return $this->getBackgroundColor();
+
+			case Tile::COLOR_TYPE_SET:
+				return $this->tile->getBorderColor();
+
+			default:
+				break;
+		}
+
+		return "";
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getBorderSize(): int {
+		if ($this->tile->getBorderSizeType() !== Tile::SIZE_TYPE_PARENT) {
+			return $this->tile->getBorderSize();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getBorderSize();
+		}
+
+		return Tile::DEFAULT_BORDER_SIZE;
+	}
+
+
+	/**
 	 * @return int
 	 */
 	public function getEnableRating(): int {
@@ -142,7 +183,7 @@ class TileProperties {
 	 * @return int
 	 */
 	public function getFontSize(): int {
-		if ($this->tile->getFontSizeType() !== Tile::FONT_SIZE_TYPE_PARENT) {
+		if ($this->tile->getFontSizeType() !== Tile::SIZE_TYPE_PARENT) {
 			if (!empty($this->tile->getFontSize())) {
 				return $this->tile->getFontSize();
 			}
@@ -227,7 +268,7 @@ class TileProperties {
 	 * @return int
 	 */
 	public function getMargin(): int {
-		if ($this->tile->getMarginType() !== Tile::MARGIN_TYPE_PARENT) {
+		if ($this->tile->getMarginType() !== Tile::SIZE_TYPE_PARENT) {
 			if (!empty($this->tile->getMargin())) {
 				return $this->tile->getMargin();
 			}
@@ -372,12 +413,34 @@ class TileProperties {
 
 
 	/**
+	 * @return string
+	 */
+	public function getBorder(): string {
+		$css = "";
+
+		$border_color = $this->getBorderColor();
+
+		$border_size = $this->getBorderSize();
+
+		if (!empty($border_color)) {
+			$css .= "border-color:#" . $border_color . "!important;";
+		}
+
+		if (!empty($border_size)) {
+			$css .= "border-width:" . $border_size . "px!important;";
+		}
+
+		return $css;
+	}
+
+
+	/**
 	 * @param bool $invert
 	 * @param bool $border
 	 *
 	 * @return string
 	 */
-	public function getColor(bool $invert = false, $border = false): string {
+	public function getColor(bool $invert = false): string {
 		$css = "";
 
 		$background_color = $this->getBackgroundColor();
@@ -391,18 +454,10 @@ class TileProperties {
 
 			if (!empty($font_color)) {
 				$css .= "background-color:#" . $font_color . "!important;";
-
-				if ($border) {
-					$css .= "border-color:#" . $font_color . "!important;";
-				}
 			}
 		} else {
 			if (!empty($background_color)) {
 				$css .= "background-color:#" . $background_color . "!important;";
-
-				if ($border) {
-					$css .= "border-color:#" . $background_color . "!important;";
-				}
 			}
 
 			if (!empty($font_color)) {
