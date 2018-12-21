@@ -33,6 +33,7 @@ tile_background_color#:#Hintergrund-Farbe
 tile_cancel#:#Abbrechen
 tile_color_contrast#:#Automatisch anhand des Kontrasts der Hintergrund-Farbe berechnen (schwarz oder weiss)
 tile_disabled#:#Deaktiviert
+tile_disabled_hint#:#Global in ILIAS deaktiviert
 tile_enable_rating#:#Bewertung aktivieren
 tile_enabled#:#Aktiviert
 tile_favorites#:#Favoriten

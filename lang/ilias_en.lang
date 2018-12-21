@@ -33,6 +33,7 @@ tile_background_color#:#Background color
 tile_cancel#:#Cancel
 tile_color_contrast#:#Calculate automatically based on the contrast of the background color (black or white)
 tile_disabled#:#Disabled
+tile_disabled_hint#:#Disabled globally in ILIAS
 tile_enable_rating#:#Enable rating
 tile_enabled#:#Enabled
 tile_favorites#:#Favorites

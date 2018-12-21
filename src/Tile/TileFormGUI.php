@@ -418,8 +418,13 @@ class TileFormGUI extends PropertyFormGUI {
 			],
 
 			"favorites" => [
-				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class,
-				self::PROPERTY_NOT_ADD => (!self::ilias()->favorites(self::dic()->user())->enabled())
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"favorites_disabled_hint" => [
+				self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
+				self::PROPERTY_VALUE=>$this->txt("disabled_hint"),
+				self::PROPERTY_NOT_ADD => self::ilias()->favorites(self::dic()->user())->enabled(),
+				"setTitle" => ""
 			],
 			"show_favorites_icon" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -536,13 +541,18 @@ class TileFormGUI extends PropertyFormGUI {
 						"setTitle" => $this->txt("set")
 					]
 				],
-				"setTitle" => $this->txt("recommend_mail_template"),
-				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins)
+				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins),
+				"setTitle" => $this->txt("recommend_mail_template")
 			],
 
 			"learning_process" => [
-				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class,
-				self::PROPERTY_NOT_ADD => self::ilias()->learningProgress(self::dic()->user())->enabled()
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"learning_process_disabled_hint" => [
+				self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
+				self::PROPERTY_VALUE=>$this->txt("disabled_hint"),
+				self::PROPERTY_NOT_ADD => self::ilias()->learningProgress(self::dic()->user())->enabled(),
+				"setTitle" => ""
 			],
 			"show_learning_process" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -566,7 +576,7 @@ class TileFormGUI extends PropertyFormGUI {
 						"setTitle" => $this->txt("show_learning_process_bar")
 					]
 				],
-				self::PROPERTY_NOT_ADD => self::ilias()->learningProgress(self::dic()->user())->enabled()
+				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
 			],
 		];
 	}
