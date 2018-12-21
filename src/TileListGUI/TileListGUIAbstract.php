@@ -105,7 +105,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 					}
 				}
 			} else {
-				// Personal desktop
+				// Favorites
 				$css .= '#lg_div_';
 				$css .= $tile->getObjRefId();
 				$css .= '_pref_';
