@@ -9,6 +9,7 @@ use ilFormSectionHeaderGUI;
 use ILIAS\FileUpload\DTO\UploadResult;
 use ILIAS\FileUpload\Location;
 use ilImageFileInputGUI;
+use ilNonEditableValueGUI;
 use ilNotifications4PluginsPlugin;
 use ilNumberInputGUI;
 use ilRadioGroupInputGUI;
@@ -98,7 +99,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initFields()/*: void*/ {
-		if (file_exists(__DIR__ . "/../../../../UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php")) {
+		if (file_exists(__DIR__ . "/../../../Notifications4Plugins/vendor/autoload.php")) {
 			$Notifications4Plugins = ilNotifications4PluginsPlugin::PLUGIN_NAME;
 		} else {
 			$Notifications4Plugins = "";
@@ -484,8 +485,14 @@ class TileFormGUI extends PropertyFormGUI {
 			],
 
 			"recommendation" => [
-				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class,
-				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins)
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"recommendation_disabled_hint_" => [
+				self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
+				self::PROPERTY_VALUE => self::plugin()
+					->translate("recommendation_disabled_hint", self::LANG_MODULE, [ (!empty($Notifications4Plugins) ? $Notifications4Plugins : "Notifications4Plugins") ]),
+				self::PROPERTY_NOT_ADD => (!empty($Notifications4Plugins)),
+				"setTitle" => ""
 			],
 			"show_recommend_icon" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,

@@ -3,8 +3,8 @@
 /* Copyright (c) 1998-2009 ILIAS open source, Extended GPL, see https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/docs/LICENSE */
 
 require_once __DIR__ . "/../vendor/autoload.php";
-if (file_exists(__DIR__ . "/../../../../UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php")) {
-	require_once __DIR__ . "/../../../../UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php";
+if (file_exists(__DIR__ . "/../../Notifications4Plugins/vendor/autoload.php")) {
+	require_once __DIR__ . "/../../Notifications4Plugins/vendor/autoload.php";
 }
 
 use srag\Plugins\SrTile\Config\Config;

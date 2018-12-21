@@ -61,6 +61,7 @@ tile_position_right_top#:#Rechts / Oben
 tile_position_top#:#Oben
 tile_rating#:#Bewertung
 tile_recommendation#:#Empfehlung
+tile_recommendation_disabled_hint#:#Bitte das Plugin %s installieren um Empfehlung zu verwenden
 tile_recommend_mail_template#:#Mail-Vorlage
 tile_saved#:#Die Kachel wurde gespeichert
 tile_set#:#Setzen

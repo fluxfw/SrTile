@@ -124,7 +124,7 @@ final class Tiles {
 	 * @return array
 	 */
 	public function getMailTemplatesText(): array {
-		if (file_exists(__DIR__ . "/../../../../UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php")) {
+		if (file_exists(__DIR__ . "/../../../Notifications4Plugins/vendor/autoload.php")) {
 			/**
 			 * @var srNotification[] $notifications
 			 */

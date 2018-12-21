@@ -61,6 +61,7 @@ tile_position_right_top#:#Right / Top
 tile_position_top#:#Top
 tile_rating#:#Rating
 tile_recommendation#:#Recommendation
+tile_recommendation_disabled_hint#:#Please install the plugin %s to use recommendation
 tile_recommend_mail_template#:#Mail template
 tile_saved#:#The tile was saved
 tile_set#:#Set
