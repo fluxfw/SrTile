@@ -443,8 +443,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getTileId(): int {
 		return $this->tile_id;

@@ -514,7 +514,7 @@ class TileProperties {
 	 * @return string
 	 */
 	public function getImageRelativePath(bool $append_filename = true): string {
-		$path = ilSrTilePlugin::WEB_DATA_FOLDER . "/" . "tile_" . $this->getTileId() . "/";
+		$path = ilSrTilePlugin::WEB_DATA_FOLDER . "/" . "tile_" . $this->tile->getTileId() . "/";
 
 		if ($append_filename) {
 			$path .= $this->tile->getImage();

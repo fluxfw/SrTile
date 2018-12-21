@@ -48,7 +48,6 @@ tile_horizontal_align_center#:#Center
 tile_horizontal_align_left#:#Left
 tile_horizontal_align_right#:#Right
 tile_image#:#Image
-tile_image_info#:#If no image uploaded, the default image will be used
 tile_label#:#Label
 tile_learning_process#:#Learning process
 tile_margin#:#Margin

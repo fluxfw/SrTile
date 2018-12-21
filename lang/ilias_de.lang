@@ -48,7 +48,6 @@ tile_horizontal_align_center#:#Mitte
 tile_horizontal_align_left#:#Links
 tile_horizontal_align_right#:#Rechts
 tile_image#:#Bild
-tile_image_info#:#Wenn kein Bild hochgeladen, wird das Standard-Bild verwendet
 tile_label#:#Beschriftung
 tile_learning_process#:#Lernfortschritt
 tile_margin#:#Abstand
