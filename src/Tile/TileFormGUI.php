@@ -90,8 +90,6 @@ class TileFormGUI extends PropertyFormGUI {
 		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, $this->txt("submit"), "tile_submit");
 
 		$this->addCommandButton(SrTileGUI::CMD_CANCEL, $this->txt("cancel"), "tile_cancel");
-
-		$this->setShowTopButtons(false);
 	}
 
 
