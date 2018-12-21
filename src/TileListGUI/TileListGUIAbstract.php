@@ -86,7 +86,9 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 				$css .= $this->tile_list->getBaseId();
 				$css .= '{display:none!important;}';
 
-				if ($is_parent_css_rendered == false) {
+				if (!$is_parent_css_rendered) {
+					$is_parent_css_rendered = true;
+
 					$parent_tile = self::tiles()->getParentTile($tile);
 					if ($parent_tile !== NULL) {
 						if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
@@ -102,7 +104,6 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 						$css .= '}';
 					}
 				}
-				$is_parent_css_rendered = true;
 			} else {
 				// Personal desktop
 				$css .= '#lg_div_';
