@@ -60,7 +60,7 @@ class MultiSelectSearchInputGUI extends ilMultiSelectInputGUI {
 		parent::__construct($title, $post_var);
 
 		$dir = __DIR__;
-		$dir = substr($dir, strpos($dir, "/Customizing/") + 1);
+		$dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
 
 		self::dic()->mainTemplate()->addJavaScript($dir . "/../../node_modules/select2/dist/js/select2.full.min.js");
 		self::dic()->mainTemplate()->addJavaScript($dir . "/../../node_modules/select2/dist/js/i18n/" . self::dic()->user()->getCurrentLanguage()

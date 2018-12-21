@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.14.9]
+- Output getHTML change order check
+
 ## [0.14.8]
 - Remove @deprecated from getPluginObject
 

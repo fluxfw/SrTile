@@ -8,6 +8,7 @@ use ilObjRootFolderGUI;
 use ilRepositoryGUI;
 use ilSrTilePlugin;
 use ilUIPluginRouterGUI;
+use srag\CustomInputGUIs\SrTile\CustomInputGUIsTrait;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -27,6 +28,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 	use DICTrait;
 	use SrTileTrait;
+	use CustomInputGUIsTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	/**
 	 * @var Tile
@@ -150,7 +152,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 					case Tile::LEARNING_PROGRESS_ICON:
 						$icon = self::ilias()->learningProgress(self::dic()->user())->getIcon($this->tile->getObjRefId());
 
-						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress_icon.html");
+						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress.html");
 
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::dic()->ui()->factory()->image()
 							->standard($icon, "")));
@@ -165,6 +167,18 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						break;
 
 					case Tile::LEARNING_PROGRESS_BAR:
+						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress.html");
+
+						$tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::customInputGUIs()->progressMeter()
+							->mini(100, 75)));
+
+						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_POSITION", $this->tile->getProperties()
+							->getLearningProgressPosition());
+
+						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_TEXT", self::ilias()->learningProgress(self::dic()->user())
+							->getText($this->tile->getObjRefId()));
+
+						$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
 						break;
 
 					default:

@@ -148,7 +148,7 @@ abstract class TableGUI extends ilTable2GUI {
 			$this->setRowTemplate(static::ROW_TEMPLATE, self::plugin()->directory());
 		} else {
 			$dir = __DIR__;
-			$dir = substr($dir, strpos($dir, "/Customizing/") + 1);
+			$dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
 			$this->setRowTemplate("table_row.html", $dir);
 		}
 	}

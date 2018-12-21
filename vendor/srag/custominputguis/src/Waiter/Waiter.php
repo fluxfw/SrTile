@@ -30,7 +30,7 @@ final class Waiter {
 	public static final function init(/*string*/
 		$type)/*: void*/ {
 		$dir = __DIR__;
-		$dir = substr($dir, strpos($dir, "/Customizing/") + 1);
+		$dir = "./" . substr($dir, strpos($dir, "/Customizing/") + 1);
 
 		self::dic()->mainTemplate()->addJavaScript($dir . "/js/waiter.min.js");
 		self::dic()->mainTemplate()->addCss($dir . "/css/waiter.css");

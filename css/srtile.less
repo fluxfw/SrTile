@@ -84,29 +84,35 @@
 
 	  // Learning progress
 	  .tile_learning_progress {
-		> img {
+		> img,
+		> .il-chart-progressmeter-box {
 		  position: absolute;
+		  width: 32px;
 		}
 
 		// Learning progress position left top
+		&[data-learning_progress_position="5"] > .il-chart-progressmeter-box,
 		&[data-learning_progress_position="5"] > img {
 		  left: 4px;
 		  top: 4px;
 		}
 
 		// Learning progress position left bottom
+		&[data-learning_progress_position="6"] > .il-chart-progressmeter-box,
 		&[data-learning_progress_position="6"] > img {
 		  bottom: 4px;
 		  left: 4px;
 		}
 
 		// Learning progress position right top
+		&[data-learning_progress_position="7"] > .il-chart-progressmeter-box,
 		&[data-learning_progress_position="7"] > img {
 		  right: 4px;
 		  top: 4px;
 		}
 
 		// Learning progress position right bottom
+		&[data-learning_progress_position="8"] > .il-chart-progressmeter-box,
 		&[data-learning_progress_position="8"] > img {
 		  bottom: 4px;
 		  right: 4px;
