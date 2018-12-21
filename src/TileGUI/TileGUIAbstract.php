@@ -146,11 +146,20 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			}
 
 			if (self::ilias()->learningProgress(self::dic()->user())->enabled()) {
-				switch ($this->tile->getProperties()->getShowLearningProcess()) {
-					case Tile::LEARNING_PROCCESS_ICON:
+				switch ($this->tile->getProperties()->getShowLearningProgress()) {
+					case Tile::LEARNING_PROGRESS_ICON:
+						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress_icon.html");
+
+						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_IMAGE_PATH", self::ilias()->learningProgress(self::dic()->user())
+							->getIcon($this->tile->getObjRefId()));
+
+						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_TEXT", self::ilias()->learningProgress(self::dic()->user())
+							->getText($this->tile->getObjRefId()));
+
+						$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
 						break;
 
-					case Tile::LEARNING_PROCCESS_BAR:
+					case Tile::LEARNING_PROGRESS_BAR:
 						break;
 
 					default:

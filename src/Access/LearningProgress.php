@@ -2,6 +2,9 @@
 
 namespace srag\Plugins\SrTile\Access;
 
+use ilLearningProgressBaseGUI;
+use ilLPStatus;
+use ilObject;
 use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -40,6 +43,10 @@ class LearningProgress {
 
 
 	/**
+	 * @var int[]
+	 */
+	protected static $status_cache = [];
+	/**
 	 * @var ilObjUser
 	 */
 	protected $user;
@@ -60,5 +67,47 @@ class LearningProgress {
 	 */
 	public function enabled(): bool {
 		return (boolval(self::dic()->settings()->get("enable_tracking")) && boolval(self::dic()->settings()->get("lp_list_gui")));
+	}
+
+
+	/**
+	 * @param int $obj_ref_id
+	 *
+	 * @return string
+	 */
+	public function getIcon(int $obj_ref_id): string {
+		$status = $this->getStatus($obj_ref_id);
+
+		return ilLearningProgressBaseGUI::_getImagePathForStatus($status);
+	}
+
+
+	/**
+	 * @param int $obj_ref_id
+	 *
+	 * @return int
+	 */
+	public function getStatus(int $obj_ref_id): int {
+		if (!isset(self::$status_cache[$obj_ref_id])) {
+			$obj_id = intval(ilObject::_lookupObjectId($obj_ref_id));
+
+			$status = intval(ilLPStatus::_lookupStatus($obj_id, $this->user->getId()));
+
+			self::$status_cache[$obj_ref_id] = $status;
+		}
+
+		return self::$status_cache[$obj_ref_id];
+	}
+
+
+	/**
+	 * @param int $obj_ref_id
+	 *
+	 * @return string
+	 */
+	public function getText(int $obj_ref_id): string {
+		$status = $this->getStatus($obj_ref_id);
+
+		return ilLearningProgressBaseGUI::_getStatusText($status);
 	}
 }

@@ -616,35 +616,35 @@ class TileFormGUI extends PropertyFormGUI {
 				"setTitle" => $this->txt("recommend_mail_template")
 			],
 
-			"learning_process" => [
+			"learning_progress" => [
 				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
 			],
-			"learning_process_disabled_hint" => [
+			"learning_progress_disabled_hint" => [
 				self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
 				self::PROPERTY_VALUE => $this->txt("disabled_hint"),
 				self::PROPERTY_NOT_ADD => self::ilias()->learningProgress(self::dic()->user())->enabled(),
 				"setTitle" => ""
 			],
-			"show_learning_process" => [
+			"show_learning_progress" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [
-					Tile::LEARNING_PROCCESS_PARENT => [
+					Tile::LEARNING_PROGRESS_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
 						"setTitle" => $this->txt("parent")
 					],
-					Tile::LEARNING_PROCCESS_NONE => [
+					Tile::LEARNING_PROGRESS_NONE => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("show_none")
 					],
-					Tile::LEARNING_PROCCESS_ICON => [
+					Tile::LEARNING_PROGRESS_ICON => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("show_learning_process_icon")
+						"setTitle" => $this->txt("show_learning_progress_icon")
 					],
-					Tile::LEARNING_PROCCESS_BAR => [
+					Tile::LEARNING_PROGRESS_BAR => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("show_learning_process_bar")
+						"setTitle" => $this->txt("show_learning_progress_bar")
 					]
 				],
 				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())

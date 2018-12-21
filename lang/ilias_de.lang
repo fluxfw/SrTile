@@ -49,7 +49,7 @@ tile_horizontal_align_left#:#Links
 tile_horizontal_align_right#:#Rechts
 tile_image#:#Bild
 tile_label#:#Beschriftung
-tile_learning_process#:#Lernfortschritt
+tile_learning_progress#:#Lernfortschritt
 tile_margin#:#Abstand
 tile_object#:#Objekt: %s
 tile_object_icon_position#:#Objekt-Icon
@@ -73,9 +73,9 @@ tile_show_actions#:#Aktionen-Menü anzeigen
 tile_show_false#:#Nicht anzeigen
 tile_show_favorites_icon#:#Favoriten-Icon anzeigen
 tile_show_image_as_background#:#Bild als Hintergrund anzeigen (Experimental)
-tile_show_learning_process#:#Lernfortschritt anzeigen
-tile_show_learning_process_bar#:#Balken
-tile_show_learning_process_icon#:#Icon
+tile_show_learning_progress#:#Lernfortschritt anzeigen
+tile_show_learning_progress_bar#:#Balken
+tile_show_learning_progress_icon#:#Icon
 tile_show_likes_count#:#Likes-Zähler anzeigen
 tile_show_none#:#Nicht anzeigen
 tile_show_recommend_icon#:#Empfehlen-Icon anzeigen

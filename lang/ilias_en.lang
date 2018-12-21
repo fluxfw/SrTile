@@ -49,7 +49,7 @@ tile_horizontal_align_left#:#Left
 tile_horizontal_align_right#:#Right
 tile_image#:#Image
 tile_label#:#Label
-tile_learning_process#:#Learning process
+tile_learning_progress#:#Learning progress
 tile_margin#:#Margin
 tile_object#:#Object: %s
 tile_object_icon_position#:#Object icon
@@ -74,9 +74,9 @@ tile_show_false#:Not show
 tile_show_favorites_icon#:#Show favorites icon
 tile_show_image_as_background#:#Show image as background (Experimental)
 tile_show_likes_count#:#Show likes count
-tile_show_learning_process#:#Show learning process
-tile_show_learning_process_bar#:#Bar
-tile_show_learning_process_icon#:#Icon
+tile_show_learning_progress#:#Show learning progress
+tile_show_learning_progress_bar#:#Bar
+tile_show_learning_progress_icon#:#Icon
 tile_show_none#:#Not show
 tile_show_recommend_icon#:#Show recommend icon
 tile_show_title#:#Show title

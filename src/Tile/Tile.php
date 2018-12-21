@@ -50,10 +50,10 @@ class Tile extends ActiveRecord {
 	const SHOW_PARENT = 3;
 	const MAIL_TEMPLATE_SET = 1;
 	const MAIL_TEMPLATE_PARENT = 2;
-	const LEARNING_PROCCESS_ICON = 1;
-	const LEARNING_PROCCESS_BAR = 2;
-	const LEARNING_PROCCESS_NONE = 3;
-	const LEARNING_PROCCESS_PARENT = 4;
+	const LEARNING_PROGRESS_ICON = 1;
+	const LEARNING_PROGRESS_BAR = 2;
+	const LEARNING_PROGRESS_NONE = 3;
+	const LEARNING_PROGRESS_PARENT = 4;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
@@ -74,7 +74,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_IMAGE_AS_BACKGROUND = Tile::SHOW_FALSE;
-	const DEFAULT_SHOW_LEARNING_PROCCESS = Tile::LEARNING_PROCCESS_NONE;
+	const DEFAULT_SHOW_LEARNING_PROGRESS = Tile::LEARNING_PROGRESS_NONE;
 	const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_RECOMMEND_ICON = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
@@ -307,7 +307,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_learning_process = self::LEARNING_PROCCESS_PARENT;
+	protected $show_learning_progress = self::LEARNING_PROGRESS_PARENT;
 	/**
 	 * @var int
 	 *
@@ -425,7 +425,7 @@ class Tile extends ActiveRecord {
 			case "show_favorites_icon":
 			case "show_image_as_background":
 			case "show_likes_count":
-			case "show_learning_process":
+			case "show_learning_progress":
 			case "show_recommend_icon":
 			case "show_title":
 			case "tile_id":
@@ -939,16 +939,16 @@ class Tile extends ActiveRecord {
 	 *
 	 * @internal
 	 */
-	public function getShowLearningProcess(): int {
-		return $this->show_learning_process;
+	public function getShowLearningProgress(): int {
+		return $this->show_learning_progress;
 	}
 
 
 	/**
-	 * @param int $show_learning_process
+	 * @param int $show_learning_progress
 	 */
-	public function setShowLearningProcess(int $show_learning_process)/*: void*/ {
-		$this->show_learning_process = $show_learning_process;
+	public function setShowLearningProgress(int $show_learning_progress)/*: void*/ {
+		$this->show_learning_progress = $show_learning_progress;
 	}
 
 

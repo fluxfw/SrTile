@@ -27,7 +27,7 @@ if (\srag\Plugins\SrTile\Tile\Tiles::getInstance()->getInstanceForObjRefId(ROOT_
 	$tile->setRecommendMailTemplateType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE);
 	$tile->setShowActions(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_ACTIONS);
 	$tile->setShowFavoritesIcon(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_FAVORITES_ICON);
-	$tile->setShowLearningProcess(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LEARNING_PROCCESS);
+	$tile->setShowLearningProgress(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LEARNING_PROGRESS);
 	$tile->setShowLikesCount(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LIKES_COUNT);
 	$tile->setShowRecommendIcon(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_RECOMMEND_ICON);
 	$tile->setShowTitle(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_TITLE);

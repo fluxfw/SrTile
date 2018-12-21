@@ -355,16 +355,16 @@ class TileProperties {
 	/**
 	 * @return int
 	 */
-	public function getShowLearningProcess(): int {
-		if ($this->tile->getShowLearningProcess() !== Tile::LEARNING_PROCCESS_PARENT) {
-			return $this->tile->getShowLearningProcess();
+	public function getShowLearningProgress(): int {
+		if ($this->tile->getShowLearningProgress() !== Tile::LEARNING_PROGRESS_PARENT) {
+			return $this->tile->getShowLearningProgress();
 		}
 
 		if ($this->parent_tile !== NULL) {
-			return $this->parent_tile->getProperties()->getShowLearningProcess();
+			return $this->parent_tile->getProperties()->getShowLearningProgress();
 		}
 
-		return Tile::DEFAULT_SHOW_LEARNING_PROCCESS;
+		return Tile::DEFAULT_SHOW_LEARNING_PROGRESS;
 	}
 
 
