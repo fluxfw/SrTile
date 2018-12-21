@@ -102,10 +102,14 @@ final class Tiles {
 			if ($tile === NULL) {
 				$tile = new Tile();
 
-				if ($store && $this->isObject($obj_ref_id)) {
-					$tile->setObjRefId($obj_ref_id);
+				if ($store) {
+					if ($this->isObject($obj_ref_id)) {
+						$tile->setObjRefId($obj_ref_id);
 
-					$tile->store();
+						$tile->store();
+					}
+				} else {
+					return $tile;
 				}
 			}
 

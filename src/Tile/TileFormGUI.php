@@ -19,6 +19,7 @@ use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileGUI;
 use Throwable;
+use TypeError;
 
 /**
  * Class TileFormGUI
@@ -620,12 +621,16 @@ class TileFormGUI extends PropertyFormGUI {
 					$value = true;
 				}
 
-				$this->tile->setTileEnabled($value);
+				$this->tile->setTileEnabled(boolval($value));
 				break;
 
 			default:
 				if (method_exists($this->tile, $method = "set" . $this->strToCamelCase($key))) {
-					$this->tile->{$method}($value);
+					try {
+						$this->tile->{$method}($value);
+					} catch (TypeError $ex) {
+						$this->tile->{$method}(intval($value));
+					}
 				}
 				break;
 		}

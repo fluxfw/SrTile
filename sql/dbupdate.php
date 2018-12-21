@@ -6,8 +6,7 @@
 
 // Create default values for top tile
 if (\srag\Plugins\SrTile\Tile\Tiles::getInstance()->getInstanceForObjRefId(ROOT_FOLDER_ID, false)->getTileId() === 0) {
-	$tile = new \srag\Plugins\SrTile\Tile\Tile();
-	$tile->setObjRefId(ROOT_FOLDER_ID);
+	$tile = \srag\Plugins\SrTile\Tile\Tiles::getInstance()->getInstanceForObjRefId(ROOT_FOLDER_ID);
 	$tile->setTileEnabledChildren(true);
 	$tile->setActionsPosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_ACTIONS_POSITION);
 	$tile->setActionsVerticalAlign(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_ACTIONS_VERTICAL_ALIGN);
