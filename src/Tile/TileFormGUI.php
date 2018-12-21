@@ -18,7 +18,6 @@ use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileGUI;
-use Throwable;
 use TypeError;
 
 /**
@@ -99,10 +98,10 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initFields()/*: void*/ {
-		try {
+		if (file_exists(__DIR__ . "/../../../../UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php")) {
 			$Notifications4Plugins = ilNotifications4PluginsPlugin::PLUGIN_NAME;
-		} catch (Throwable $ex) {
-			$Notifications4Plugins = "Notifications4Plugins";
+		} else {
+			$Notifications4Plugins = "";
 		}
 
 		$this->fields = [
@@ -111,7 +110,8 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_DISABLED => (self::tiles()->isTopTile($this->tile)
 					|| ($parent_tile = self::tiles()->getParentTile($this->tile)) !== NULL
-					&& $parent_tile->isTileEnabledChildren())
+					&& $parent_tile->isTileEnabledChildren()),
+				self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile)
 			],
 			"tile_enabled_children" => [
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
@@ -523,7 +523,7 @@ class TileFormGUI extends PropertyFormGUI {
 								self::PROPERTY_CLASS => ilSelectInputGUI::class,
 								self::PROPERTY_REQUIRED => false,
 								self::PROPERTY_OPTIONS => [ "" => "" ] + self::tiles()->getMailTemplatesText(),
-								"setInfo" => $Notifications4Plugins
+								"setInfo" => (!empty($Notifications4Plugins) ? $Notifications4Plugins : "Notifications4Plugins")
 							]
 						],
 						"setTitle" => $this->txt("set")
