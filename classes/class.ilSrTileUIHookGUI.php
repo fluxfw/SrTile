@@ -78,13 +78,13 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 				self::$load[self::TILE_CONTAINER_LOADER] = true;
 
-				$ref_id = self::tiles()->filterRefId();
+				$obj_ref_id = self::tiles()->filterRefId();
 
-				if (self::tiles()->isObject($ref_id)) {
+				if (self::tiles()->isObject($obj_ref_id)) {
 
 					$this->initJS();
 
-					$tile_list_gui = new TileListContainerGUI($ref_id);
+					$tile_list_gui = new TileListContainerGUI($obj_ref_id);
 
 					return [
 						"mode" => ilUIHookPluginGUI::PREPEND,
@@ -140,15 +140,15 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		$a_par = []): array {
 		if (!self::$load[self::TILE_CONFIG_TAB_LOADER]) {
 
-			$ref_id = self::tiles()->filterRefId();
+			$obj_ref_id = self::tiles()->filterRefId();
 
 			if ($this->matchObjectBaseClass()
 				&& $a_part === self::PAR_TABS
-				&& self::tiles()->isObject($ref_id)) {
+				&& self::tiles()->isObject($obj_ref_id)) {
 
 				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
 
-				if (!self::access()->hasWriteAccess($ref_id)) {
+				if (!self::access()->hasWriteAccess($obj_ref_id)) {
 					return [ "mode" => self::KEEP, "html" => "" ];
 				}
 

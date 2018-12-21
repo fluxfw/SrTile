@@ -100,43 +100,43 @@ final class Access {
 
 
 	/**
-	 * @param int $ref_id
+	 * @param int $obj_ref_id
 	 *
 	 * @return bool
 	 */
-	public function hasReadAccess(int $ref_id): bool {
-		if (!isset(self::$has_read_access[$ref_id])) {
-			self::$has_read_access[$ref_id] = self::dic()->access()->checkAccess("read", "", $ref_id);
+	public function hasReadAccess(int $obj_ref_id): bool {
+		if (!isset(self::$has_read_access[$obj_ref_id])) {
+			self::$has_read_access[$obj_ref_id] = self::dic()->access()->checkAccess("read", "", $obj_ref_id);
 		}
 
-		return self::$has_read_access[$ref_id];
+		return self::$has_read_access[$obj_ref_id];
 	}
 
 
 	/**
-	 * @param int $ref_id
+	 * @param int $obj_ref_id
 	 *
 	 * @return bool
 	 */
-	public function hasVisibleAccess(int $ref_id): bool {
-		if (!isset(self::$has_visible_access[$ref_id])) {
-			self::$has_visible_access[$ref_id] = self::dic()->access()->checkAccess("visible", "", $ref_id);
+	public function hasVisibleAccess(int $obj_ref_id): bool {
+		if (!isset(self::$has_visible_access[$obj_ref_id])) {
+			self::$has_visible_access[$obj_ref_id] = self::dic()->access()->checkAccess("visible", "", $obj_ref_id);
 		}
 
-		return self::$has_visible_access[$ref_id];
+		return self::$has_visible_access[$obj_ref_id];
 	}
 
 
 	/**
-	 * @param int $ref_id
+	 * @param int $obj_ref_id
 	 *
 	 * @return bool
 	 */
-	public function hasWriteAccess(int $ref_id): bool {
-		if (!isset(self::$has_write_access[$ref_id])) {
-			self::$has_write_access[$ref_id] = self::dic()->access()->checkAccess("write", "", $ref_id);
+	public function hasWriteAccess(int $obj_ref_id): bool {
+		if (!isset(self::$has_write_access[$obj_ref_id])) {
+			self::$has_write_access[$obj_ref_id] = self::dic()->access()->checkAccess("write", "", $obj_ref_id);
 		}
 
-		return self::$has_write_access[$ref_id];
+		return self::$has_write_access[$obj_ref_id];
 	}
 }

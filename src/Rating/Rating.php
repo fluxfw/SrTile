@@ -40,7 +40,7 @@ class Rating extends ActiveRecord {
 	 * @con_length      8
 	 * @con_is_notnull  true
 	 */
-	protected $obj_ref_id;
+	protected $obj_id;
 	/**
 	 * @var int
 	 *
@@ -97,7 +97,7 @@ class Rating extends ActiveRecord {
 	public function wakeUp(/*string*/
 		$field_name, $field_value) {
 		switch ($field_name) {
-			case "obj_ref_id":
+			case "obj_id":
 			case "rating_id":
 			case "user_id":
 				return intval($field_value);
@@ -127,16 +127,16 @@ class Rating extends ActiveRecord {
 	/**
 	 * @return int
 	 */
-	public function getObjRefId(): int {
-		return $this->obj_ref_id;
+	public function getObjId(): int {
+		return $this->obj_id;
 	}
 
 
 	/**
-	 * @param int $obj_ref_id
+	 * @param int $obj_id
 	 */
-	public function setObjRefId(int $obj_ref_id)/*: void*/ {
-		$this->obj_ref_id = $obj_ref_id;
+	public function setObjId(int $obj_id)/*: void*/ {
+		$this->obj_id = $obj_id;
 	}
 
 

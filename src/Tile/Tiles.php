@@ -71,18 +71,18 @@ final class Tiles {
 	 * @return int|null
 	 */
 	public function filterRefId()/*: ?int*/ {
-		$ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
+		$obj_ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
 
-		if ($ref_id === NULL) {
+		if ($obj_ref_id === NULL) {
 			$param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);
 
-			$ref_id = explode('_', $param_target)[1];
+			$obj_ref_id = explode('_', $param_target)[1];
 		}
 
-		$ref_id = intval($ref_id);
+		$obj_ref_id = intval($obj_ref_id);
 
-		if ($ref_id > 0) {
-			return $ref_id;
+		if ($obj_ref_id > 0) {
+			return $obj_ref_id;
 		} else {
 			return NULL;
 		}
@@ -164,18 +164,18 @@ final class Tiles {
 
 
 	/**
-	 * @param int|null $ref_id
+	 * @param int|null $obj_ref_id
 	 *
 	 * @return bool
 	 */
 	public function isObject(/*?*/
-		int $ref_id = NULL): bool {
-		if (!isset(self::$is_object_cache[$ref_id])) {
-			self::$is_object_cache[$ref_id] = ($ref_id !== NULL && $ref_id > 0 && $ref_id !== intval(SYSTEM_FOLDER_ID)
-				&& ($ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($ref_id, false) !== false));
+		int $obj_ref_id = NULL): bool {
+		if (!isset(self::$is_object_cache[$obj_ref_id])) {
+			self::$is_object_cache[$obj_ref_id] = ($obj_ref_id !== NULL && $obj_ref_id > 0 && $obj_ref_id !== intval(SYSTEM_FOLDER_ID)
+				&& ($obj_ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($obj_ref_id, false) !== false));
 		}
 
-		return self::$is_object_cache[$ref_id];
+		return self::$is_object_cache[$obj_ref_id];
 	}
 
 

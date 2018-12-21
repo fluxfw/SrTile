@@ -87,27 +87,27 @@ class Favorites {
 
 
 	/**
-	 * @param int $ref_id
+	 * @param int $obj_ref_id
 	 *
 	 * @return bool
 	 */
-	public function hasFavorite(int $ref_id): bool {
-		return boolval($this->user->isDesktopItem($ref_id, ilObject::_lookupType($ref_id, true)));
+	public function hasFavorite(int $obj_ref_id): bool {
+		return boolval($this->user->isDesktopItem($obj_ref_id, ilObject::_lookupType($obj_ref_id, true)));
 	}
 
 
 	/**
-	 * @param int $ref_id
+	 * @param int $obj_ref_id
 	 */
-	public function addToFavorites(int $ref_id)/*: void*/ {
-		$this->user->addDesktopItem($ref_id, ilObject::_lookupType($ref_id, true));
+	public function addToFavorites(int $obj_ref_id)/*: void*/ {
+		$this->user->addDesktopItem($obj_ref_id, ilObject::_lookupType($obj_ref_id, true));
 	}
 
 
 	/**
-	 * @param int $ref_id
+	 * @param int $obj_ref_id
 	 */
-	public function removeFromFavorites(int $ref_id)/*: void*/ {
-		$this->user->dropDesktopItem($ref_id, ilObject::_lookupType($ref_id, true));
+	public function removeFromFavorites(int $obj_ref_id)/*: void*/ {
+		$this->user->dropDesktopItem($obj_ref_id, ilObject::_lookupType($obj_ref_id, true));
 	}
 }
