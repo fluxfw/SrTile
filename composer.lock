@@ -73,7 +73,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\CustomInputGUIs\\": "src/"
+                    "srag\\CustomInputGUIs\\SrTile\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

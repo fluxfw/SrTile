@@ -15,6 +15,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileFavoritesGUI;
 use SrTileRatingGUI;
 use SrTileRecommendGUI;
+use srag\Plugins\SrTile\LearningProgressBar\LearningProgressBar;
 
 /**
  * Class TileListContainerGUI
@@ -167,10 +168,12 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						break;
 
 					case Tile::LEARNING_PROGRESS_BAR:
+						$learning_progress_bar = new LearningProgressBar(self::dic()->user()->getId(),$this->tile->getObjRefId());
+
 						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress.html");
 
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::customInputGUIs()->progressMeter()
-							->mini(100, 75)));
+							->mini($learning_progress_bar->getTotalObjects(), $learning_progress_bar->getCompletedObjects())));
 
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_POSITION", $this->tile->getProperties()
 							->getLearningProgressPosition());
