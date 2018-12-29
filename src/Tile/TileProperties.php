@@ -6,6 +6,9 @@ use ilLink;
 use ilObject;
 use ilObjectFactory;
 use ilSrTilePlugin;
+use ilObjSAHSLearningModule;
+use ilSAHSPresentationGUI;
+use ilObjSCORMLearningModuleGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -561,6 +564,35 @@ class TileProperties {
 	 */
 	public function getLink(): string {
 		return ilLink::_getStaticLink($this->tile->getObjRefId());
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getOnClickLink(): string {
+
+		switch ($this->il_object->getType()) {
+			case "sahs":
+				$slm_gui = new ilObjSCORMLearningModuleGUI("", $this->il_object->getRefId(), true, false);
+
+				$sahs_obj = new ilObjSAHSLearningModule($this->il_object->getRefId());
+				$om = $sahs_obj->getOpenMode();
+				$width = $sahs_obj->getWidth();
+				$height = $sahs_obj->getHeight();
+
+				if (($om == 5 || $om == 1) && $width > 0 && $height > 0) {
+					$om ++;
+				}
+
+				self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, "ref_id", $this->il_object->getRefId());
+
+				return "startSAHS('" . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
+					. $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ");";
+				break;
+			default:
+				return "location.href='" . htmlspecialchars($this->tile->getProperties()->getLink()) . "'";
+		}
 	}
 
 

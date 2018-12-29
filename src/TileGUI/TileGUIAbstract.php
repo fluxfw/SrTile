@@ -73,7 +73,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("TITLE_VERTICAL_ALIGN", $this->tile->getProperties()->getLabelVerticalAlign());
 
 		if (self::access()->hasOpenAccess($this->tile)) {
-			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->getProperties()->getLink()) . '\'"');
+			$tpl->setVariable("LINK", 'onclick="' . $this->tile->getProperties()->getOnClickLink() . '"');
 
 			if (self::ilias()->favorites(self::dic()->user())->enabled()
 				&& $this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE) {
@@ -168,7 +168,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						break;
 
 					case Tile::LEARNING_PROGRESS_BAR:
-						$learning_progress_bar = new LearningProgressBar(self::dic()->user()->getId(),$this->tile->getObjRefId());
+						$learning_progress_bar = new LearningProgressBar(self::dic()->user()->getId(), $this->tile->getObjRefId());
 
 						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress.html");
 
