@@ -73,7 +73,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		//Repository
 		if($this->LoadTileContainerPossible($a_part,$a_par)) {
 			self::$load[self::TILE_CONTAINER_LOADER] = true;
-
 			$obj_ref_id = self::tiles()->filterRefId();
 
 			if (self::tiles()->isObject($obj_ref_id)) {
@@ -182,11 +181,14 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	}
 
 	protected function LoadTileContainerPossible($a_part,$a_par) {
+
 		return (!self::$load[self::TILE_CONTAINER_LOADER]
 			&& $this->matchObjectBaseClass()
 			&& $a_part === self::GET
 			&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE)
 			&& !in_array(self::dic()->ctrl()->getCmd(),["editOrder"])
-			&& !$_SESSION["il_cont_admin_panel"]);
+			&& !in_array(self::dic()->ctrl()->getCallHistory()[0]['cmd'],['editOrder'])
+			&& !$_SESSION["il_cont_admin_panel"]
+		);
 	}
 }

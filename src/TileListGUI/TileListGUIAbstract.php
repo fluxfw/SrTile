@@ -2,8 +2,10 @@
 
 namespace srag\Plugins\SrTile\TileListGUI;
 
+use ilContainerSorting;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\CtrlMainMenu\EntryTypes\Lastvisited\ctrlmmEntryLastvisitedFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileGUI\TileGUIInterface;
 use srag\Plugins\SrTile\TileList\TileListInterface;

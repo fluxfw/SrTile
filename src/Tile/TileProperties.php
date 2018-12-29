@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
+use ilObjectLP;
+use ilLPObjSettings;
 use ilLink;
 use ilObject;
 use ilObjectFactory;
@@ -375,6 +377,14 @@ class TileProperties {
 	 * @return int
 	 */
 	public function getShowLearningProgress(): int {
+
+		//show learning prgress only if the ilias object has one!
+		$olp = ilObjectLP::getInstance(ilObject::_lookupObjectId($this->tile->getObjRefId()));
+		$a_mode = $olp->getCurrentMode();
+		if(in_array($a_mode, [ilLPObjSettings::LP_MODE_UNDEFINED,ilLPObjSettings::LP_MODE_DEACTIVATED])) {
+			return false;
+		}
+
 		if ($this->tile->getShowLearningProgress() !== Tile::LEARNING_PROGRESS_PARENT) {
 			return $this->tile->getShowLearningProgress();
 		}
