@@ -2,6 +2,9 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
+use ilObject;
+use ilLPObjSettings;
+use ilObjectLP;
 use ActiveRecord;
 use arConnector;
 use ilSrTilePlugin;
@@ -1079,5 +1082,20 @@ class Tile extends ActiveRecord {
 		}
 
 		return $this->properties;
+	}
+
+
+
+	/**
+	 * @return bool
+	 */
+	public function hasLearningProgress(): bool {
+		$olp = ilObjectLP::getInstance(ilObject::_lookupObjectId($this->getObjRefId()));
+		$a_mode = $olp->getCurrentMode();
+		if (in_array($a_mode, [ ilLPObjSettings::LP_MODE_UNDEFINED, ilLPObjSettings::LP_MODE_DEACTIVATED ]))    {
+			return false;
+		}
+
+		return true;
 	}
 }
