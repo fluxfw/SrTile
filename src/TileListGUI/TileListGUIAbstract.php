@@ -10,6 +10,7 @@ use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileGUI\TileGUIInterface;
 use srag\Plugins\SrTile\TileList\TileListInterface;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
+use srag\Plugins\SrTile\LearningProgressLegend\LearningProgressLegendGUI;
 
 /**
  * Class TileListContainerGUI
@@ -59,6 +60,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			}, $this->tile_list->getTiles()));
 
 			$tpl->setVariable("TILES", $tile_html);
+			$tpl->setVariable("LP_LEGEND", $this->getLearningProgressLegendHtml());
 
 			$tile_list_html = self::output()->getHTML($tpl);
 		}
@@ -66,6 +68,10 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$this->hideOriginalRowsOfTiles();
 
 		return $tile_list_html;
+	}
+
+	public function getLearningProgressLegendHtml() {
+		return LearningProgressLegendGUI::getInstance()->render();
 	}
 
 

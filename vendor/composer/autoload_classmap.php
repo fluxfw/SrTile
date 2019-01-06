@@ -77,6 +77,7 @@ return array(
     'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => $baseDir . '/src/Config/ConfigFormGUI.php',
     'srag\\Plugins\\SrTile\\Favorite\\Favorites' => $baseDir . '/src/Favorite/Favorites.php',
     'srag\\Plugins\\SrTile\\LearningProgressBar\\LearningProgressBar' => $baseDir . '/src/LearningProgressBar/LearningProgressBar.php',
+    'srag\\Plugins\\SrTile\\LearningProgressLegend\\LearningProgressLegendGUI' => $baseDir . '/src/LearningProgressLegend/LearningProgressLegendGUI.php',
     'srag\\Plugins\\SrTile\\Rating\\Rating' => $baseDir . '/src/Rating/Rating.php',
     'srag\\Plugins\\SrTile\\Rating\\Ratings' => $baseDir . '/src/Rating/Ratings.php',
     'srag\\Plugins\\SrTile\\Recommend\\Recommend' => $baseDir . '/src/Recommend/Recommend.php',

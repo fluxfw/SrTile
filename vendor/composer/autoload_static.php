@@ -117,6 +117,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => __DIR__ . '/../..' . '/src/Config/ConfigFormGUI.php',
         'srag\\Plugins\\SrTile\\Favorite\\Favorites' => __DIR__ . '/../..' . '/src/Favorite/Favorites.php',
         'srag\\Plugins\\SrTile\\LearningProgressBar\\LearningProgressBar' => __DIR__ . '/../..' . '/src/LearningProgressBar/LearningProgressBar.php',
+        'srag\\Plugins\\SrTile\\LearningProgressLegend\\LearningProgressLegendGUI' => __DIR__ . '/../..' . '/src/LearningProgressLegend/LearningProgressLegendGUI.php',
         'srag\\Plugins\\SrTile\\Rating\\Rating' => __DIR__ . '/../..' . '/src/Rating/Rating.php',
         'srag\\Plugins\\SrTile\\Rating\\Ratings' => __DIR__ . '/../..' . '/src/Rating/Ratings.php',
         'srag\\Plugins\\SrTile\\Recommend\\Recommend' => __DIR__ . '/../..' . '/src/Recommend/Recommend.php',
