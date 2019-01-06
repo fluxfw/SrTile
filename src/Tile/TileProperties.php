@@ -4,6 +4,7 @@ namespace srag\Plugins\SrTile\Tile;
 
 use ilLink;
 use ilObject;
+use ilObjectDataCache;
 use ilObjectFactory;
 use ilSrTilePlugin;
 use ilObjSAHSLearningModule;
@@ -573,11 +574,23 @@ class TileProperties {
 	 */
 	public function getOnClickLink(): string {
 
-		switch ($this->il_object->getType()) {
-			case "sahs":
-				$slm_gui = new ilObjSCORMLearningModuleGUI("", $this->il_object->getRefId(), true, false);
+		$ref_id = $this->il_object->getRefId();
+		$type = $this->il_object->getType();
+		$tile = $this->tile;
 
-				$sahs_obj = new ilObjSAHSLearningModule($this->il_object->getRefId());
+		//open directly the one object if it's only one
+		if(count(self::dic()->tree()->getChilds($ref_id)) == 1) {
+			$child_refs = self::dic()->tree()->getChilds($ref_id);
+			$ref_id = $child_refs[0]['child'];
+			$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($ref_id));
+			$tile = self::tiles()->getInstanceForObjRefId($ref_id);
+		}
+
+		switch ($type) {
+			case "sahs":
+				$slm_gui = new ilObjSCORMLearningModuleGUI("", $ref_id, true, false);
+
+				$sahs_obj = new ilObjSAHSLearningModule($ref_id);
 				$om = $sahs_obj->getOpenMode();
 				$width = $sahs_obj->getWidth();
 				$height = $sahs_obj->getHeight();
@@ -586,13 +599,13 @@ class TileProperties {
 					$om ++;
 				}
 
-				self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, "ref_id", $this->il_object->getRefId());
+				self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, "ref_id", $ref_id);
 
 				return "startSAHS('" . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
 					. $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ");";
 				break;
 			default:
-				return "location.href='" . htmlspecialchars($this->tile->getProperties()->getLink()) . "'";
+				return "location.href='" . htmlspecialchars($tile->getProperties()->getLink()) . "'";
 		}
 	}
 

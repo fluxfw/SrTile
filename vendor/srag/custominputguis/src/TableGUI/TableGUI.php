@@ -53,6 +53,7 @@ abstract class TableGUI extends ilTable2GUI {
 
 		parent::__construct($parent, $parent_cmd);
 
+
 		if (!(strpos($parent_cmd, "applyFilter") === 0
 			|| strpos($parent_cmd, "resetFilter") === 0)) {
 			$this->initTable();
