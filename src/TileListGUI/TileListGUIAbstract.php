@@ -4,6 +4,7 @@ namespace srag\Plugins\SrTile\TileListGUI;
 
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\LearningProgressLegend\LearningProgressLegendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileGUI\TileGUIInterface;
 use srag\Plugins\SrTile\TileList\TileListInterface;
@@ -58,12 +59,31 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 
 			$tpl->setVariable("TILES", $tile_html);
 
+			if (self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId())->getProperties()->getShowLearningProgressLegend()
+				=== Tile::SHOW_TRUE) {
+				$tpl_legend = self::plugin()->template("LearningProgress/legend.html");
+
+				$tpl_legend->setVariable("LP_LEGEND", $this->getLearningProgressLegendHtml());
+
+				$tpl->setVariable("LP_LEGEND", self::output()->getHTML($tpl_legend));
+			}
+
 			$tile_list_html = self::output()->getHTML($tpl);
 		}
 
 		$this->hideOriginalRowsOfTiles();
 
 		return $tile_list_html;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getLearningProgressLegendHtml(): string {
+		self::dic()->language()->loadLanguageModule('trac');
+
+		return self::output()->getHTML(LearningProgressLegendGUI::getInstance());
 	}
 
 

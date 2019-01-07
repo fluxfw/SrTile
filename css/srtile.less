@@ -239,6 +239,7 @@
 	// Horizontal align center
 	[data-horizontal_align="2"] {
 	  justify-content: center;
+	  text-align: center;
 	}
 
 	// Horizontal align right
@@ -304,4 +305,16 @@ h3.ilPDBlockSubHeader {
 // Hide object list border
 .ilObjListRow {
   border-bottom: none !important;
+}
+
+.row .tiles {
+  @media (min-width: 992px) {
+	.col-md-3 {
+	  width: 24%;
+	}
+  }
+}
+
+.lp_legend {
+	margin-top: 20px;
 }

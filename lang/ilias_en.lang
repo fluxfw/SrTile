@@ -54,6 +54,9 @@ tile_learning_progress_position#:#Position
 tile_margin#:#Margin
 tile_object#:#Object: %s
 tile_object_icon_position#:#Object icon
+tile_open_false#:#Not open
+tile_open_obj_with_one_child_direct#:#Open object with one child direct
+tile_open_true#:#Open
 tile_parent#:#From parent object
 tile_position#:#Position
 tile_position_bottom#:#Bottom
@@ -78,6 +81,7 @@ tile_show_likes_count#:#Show likes count
 tile_show_learning_progress#:#Show learning progress
 tile_show_learning_progress_bar#:#Bar
 tile_show_learning_progress_icon#:#Icon
+tile_show_learning_progress_legend#:#Show legend
 tile_show_none#:#Not show
 tile_show_recommend_icon#:#Show recommend icon
 tile_show_title#:#Show title

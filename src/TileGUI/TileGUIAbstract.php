@@ -72,7 +72,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("TITLE_VERTICAL_ALIGN", $this->tile->getProperties()->getLabelVerticalAlign());
 
 		if (self::access()->hasOpenAccess($this->tile)) {
-			$tpl->setVariable("LINK", ' onclick="location.href=\'' . htmlspecialchars($this->tile->getProperties()->getLink()) . '\'"');
+			$tpl->setVariable("LINK", $this->tile->getProperties()->getOnClickLink());
 
 			if (self::ilias()->favorites(self::dic()->user())->enabled()
 				&& $this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE) {
@@ -147,7 +147,8 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 				$tpl->setVariable("RECOMMEND", self::output()->getHTML($tpl_recommend));
 			}
 
-			if (self::ilias()->learningProgress(self::dic()->user())->enabled()) {
+			if (self::ilias()->learningProgress(self::dic()->user())->enabled()
+				&& self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())) {
 				switch ($this->tile->getProperties()->getShowLearningProgress()) {
 					case Tile::LEARNING_PROGRESS_ICON:
 						$icon = self::ilias()->learningProgress(self::dic()->user())->getIcon($this->tile->getObjRefId());
@@ -167,10 +168,12 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						break;
 
 					case Tile::LEARNING_PROGRESS_BAR:
+						$learning_progress_bar = self::ilias()->learningProgressBar(self::dic()->user(), $this->tile->getObjRefId());
+
 						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress.html");
 
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::customInputGUIs()->progressMeter()
-							->mini(100, 75)));
+							->mini($learning_progress_bar->getTotalObjects(), $learning_progress_bar->getCompletedObjects())));
 
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_POSITION", $this->tile->getProperties()
 							->getLearningProgressPosition());

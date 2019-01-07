@@ -166,6 +166,25 @@ class TileFormGUI extends PropertyFormGUI {
 				],
 				"setTitle" => $this->txt("margin")
 			],
+			"open_obj_with_one_child_direct" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::OPEN_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::OPEN_FALSE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("open_false")
+					],
+					Tile::OPEN_TRUE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("open_true")
+					]
+				]
+			],
 
 			"image_header" => [
 				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class,
@@ -249,25 +268,7 @@ class TileFormGUI extends PropertyFormGUI {
 			"label" => [
 				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
 			],
-			"show_title" => [
-				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
-				self::PROPERTY_REQUIRED => false,
-				self::PROPERTY_SUBITEMS => [
-					Tile::SHOW_PARENT => [
-						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
-						"setTitle" => $this->txt("parent")
-					],
-					Tile::SHOW_FALSE => [
-						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("show_false")
-					],
-					Tile::SHOW_TRUE => [
-						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("show_true")
-					]
-				]
-			],
+
 			"font_color_type" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
@@ -677,6 +678,26 @@ class TileFormGUI extends PropertyFormGUI {
 				],
 				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
 			],
+			"show_learning_progress_legend" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SHOW_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::SHOW_FALSE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_false")
+					],
+					Tile::SHOW_TRUE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_true")
+					]
+				],
+				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
+			]
 		];
 	}
 

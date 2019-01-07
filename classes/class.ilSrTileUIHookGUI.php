@@ -71,26 +71,20 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
 
 		//Repository
-		if (!self::$load[self::TILE_CONTAINER_LOADER]) {
-			if ($this->matchObjectBaseClass()
-				&& $a_part === self::GET
-				&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE)) {
+		if ($this->loadTileContainerPossible($a_part, $a_par)) {
+			self::$load[self::TILE_CONTAINER_LOADER] = true;
+			$obj_ref_id = self::tiles()->filterRefId();
 
-				self::$load[self::TILE_CONTAINER_LOADER] = true;
+			if (self::tiles()->isObject($obj_ref_id)) {
 
-				$obj_ref_id = self::tiles()->filterRefId();
+				$this->initJS();
 
-				if (self::tiles()->isObject($obj_ref_id)) {
+				$tile_list_gui = new TileListContainerGUI($obj_ref_id);
 
-					$this->initJS();
-
-					$tile_list_gui = new TileListContainerGUI($obj_ref_id);
-
-					return [
-						"mode" => ilUIHookPluginGUI::PREPEND,
-						"html" => self::output()->getHTML($tile_list_gui)
-					];
-				}
+				return [
+					"mode" => ilUIHookPluginGUI::PREPEND,
+					"html" => self::output()->getHTML($tile_list_gui)
+				];
 			}
 		}
 
@@ -184,5 +178,22 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		return ($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class)
 			|| $baseClass === strtolower(ilSAHSEditGUI::class)
 			|| empty($baseClass));
+	}
+
+
+	/**
+	 * @param string $a_part
+	 * @param array  $a_par
+	 *
+	 * @return bool
+	 */
+	protected function loadTileContainerPossible(string $a_part, array $a_par): bool {
+		return (!self::$load[self::TILE_CONTAINER_LOADER]
+			&& $this->matchObjectBaseClass()
+			&& $a_part === self::GET
+			&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE)
+			&& !in_array(self::dic()->ctrl()->getCmd(), [ "editOrder" ])
+			&& !in_array(self::dic()->ctrl()->getCallHistory()[0]['cmd'], [ 'editOrder' ])
+			&& !$_SESSION["il_cont_admin_panel"]);
 	}
 }

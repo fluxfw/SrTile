@@ -5,6 +5,9 @@ namespace srag\Plugins\SrTile\Tile;
 use ilLink;
 use ilObject;
 use ilObjectFactory;
+use ilObjSAHSLearningModule;
+use ilObjSCORMLearningModuleGUI;
+use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -303,6 +306,22 @@ class TileProperties {
 
 
 	/**
+	 * @return int
+	 */
+	public function getOpenObjWithOneChildDirect(): int {
+		if ($this->tile->getOpenObjWithOneChildDirect() !== Tile::OPEN_PARENT) {
+			return $this->tile->getOpenObjWithOneChildDirect();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getOpenObjWithOneChildDirect();
+		}
+
+		return Tile::DEFAULT_OPEN_OBJ_WITH_ONE_CHILD_DIRECT;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public function getRecommendMailTemplate(): string {
@@ -381,6 +400,22 @@ class TileProperties {
 		}
 
 		return Tile::DEFAULT_SHOW_LEARNING_PROGRESS;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getShowLearningProgressLegend(): int {
+		if ($this->tile->getShowLearningProgressLegend() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowLearningProgressLegend();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowLearningProgressLegend();
+		}
+
+		return Tile::DEFAULT_SHOW_LEARNING_PROGRESS_LEGEND;
 	}
 
 
@@ -561,6 +596,54 @@ class TileProperties {
 	 */
 	public function getLink(): string {
 		return ilLink::_getStaticLink($this->tile->getObjRefId());
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getOnClickLink(): string {
+		$ref_id = $this->il_object->getRefId();
+		$type = $this->il_object->getType();
+		$tile = $this->tile;
+
+		//write access - open normally!
+		if (self::access()->hasWriteAccess($ref_id)) {
+			return ' href="' . htmlspecialchars($tile->getProperties()->getLink()) . '""';
+		}
+
+		//open directly the one object if it's only one
+		if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE) {
+			if (count(self::dic()->tree()->getChilds($ref_id)) === 1) {
+				$child_refs = self::dic()->tree()->getChilds($ref_id);
+				$ref_id = $child_refs[0]['child'];
+				$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($ref_id));
+				$tile = self::tiles()->getInstanceForObjRefId($ref_id);
+			}
+		}
+
+		switch ($type) {
+			case "sahs":
+				$slm_gui = new ilObjSCORMLearningModuleGUI("", $ref_id, true, false);
+
+				$sahs_obj = new ilObjSAHSLearningModule($ref_id);
+				$om = $sahs_obj->getOpenMode();
+				$width = $sahs_obj->getWidth();
+				$height = $sahs_obj->getHeight();
+
+				if (($om == 5 || $om == 1) && $width > 0 && $height > 0) {
+					$om ++;
+				}
+
+				self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, "ref_id", $ref_id);
+
+				return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
+					. $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
+				break;
+
+			default:
+				return ' href="' . htmlspecialchars($tile->getProperties()->getLink()) . '""';
+		}
 	}
 
 

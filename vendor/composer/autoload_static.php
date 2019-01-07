@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
+class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
 {
     public static $prefixLengthsPsr4 = array (
         's' => 
@@ -13,7 +13,7 @@ class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
             'srag\\Plugins\\SrTile\\' => 20,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\SrTile\\' => 16,
-            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
             'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
     );
@@ -35,7 +35,7 @@ class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
@@ -113,9 +113,11 @@ class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
         'srag\\Plugins\\SrTile\\Access\\Access' => __DIR__ . '/../..' . '/src/Access/Access.php',
         'srag\\Plugins\\SrTile\\Access\\Ilias' => __DIR__ . '/../..' . '/src/Access/Ilias.php',
         'srag\\Plugins\\SrTile\\Access\\LearningProgress' => __DIR__ . '/../..' . '/src/Access/LearningProgress.php',
+        'srag\\Plugins\\SrTile\\Access\\LearningProgressBar' => __DIR__ . '/../..' . '/src/Access/LearningProgressBar.php',
         'srag\\Plugins\\SrTile\\Config\\Config' => __DIR__ . '/../..' . '/src/Config/Config.php',
         'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => __DIR__ . '/../..' . '/src/Config/ConfigFormGUI.php',
         'srag\\Plugins\\SrTile\\Favorite\\Favorites' => __DIR__ . '/../..' . '/src/Favorite/Favorites.php',
+        'srag\\Plugins\\SrTile\\LearningProgressLegend\\LearningProgressLegendGUI' => __DIR__ . '/../..' . '/src/LearningProgressLegend/LearningProgressLegendGUI.php',
         'srag\\Plugins\\SrTile\\Rating\\Rating' => __DIR__ . '/../..' . '/src/Rating/Rating.php',
         'srag\\Plugins\\SrTile\\Rating\\Ratings' => __DIR__ . '/../..' . '/src/Rating/Ratings.php',
         'srag\\Plugins\\SrTile\\Recommend\\Recommend' => __DIR__ . '/../..' . '/src/Recommend/Recommend.php',
@@ -148,9 +150,9 @@ class ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitacc6e23ec13a1863c94bd06b33b79c27::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05::$classMap;
 
         }, null, ClassLoader::class);
     }

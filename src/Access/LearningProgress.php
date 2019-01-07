@@ -3,8 +3,10 @@
 namespace srag\Plugins\SrTile\Access;
 
 use ilLearningProgressBaseGUI;
+use ilLPObjSettings;
 use ilLPStatus;
 use ilObject;
+use ilObjectLP;
 use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -46,6 +48,10 @@ class LearningProgress {
 	 * @var int[]
 	 */
 	protected static $status_cache = [];
+	/**
+	 * @var bool[]
+	 */
+	protected static $has_learning_progress = [];
 	/**
 	 * @var ilObjUser
 	 */
@@ -109,5 +115,27 @@ class LearningProgress {
 		$status = $this->getStatus($obj_ref_id);
 
 		return ilLearningProgressBaseGUI::_getStatusText($status);
+	}
+
+
+	/**
+	 * @param int $obj_ref_id
+	 *
+	 * @return bool
+	 */
+	public function hasLearningProgress(int $obj_ref_id): bool {
+		if (!isset(self::$has_learning_progress[$obj_ref_id])) {
+			$olp = ilObjectLP::getInstance(ilObject::_lookupObjectId($obj_ref_id));
+
+			$a_mode = $olp->getCurrentMode();
+
+			if (in_array($a_mode, [ ilLPObjSettings::LP_MODE_UNDEFINED, ilLPObjSettings::LP_MODE_DEACTIVATED ])) {
+				self::$has_learning_progress[$obj_ref_id] = false;
+			}
+
+			self::$has_learning_progress[$obj_ref_id] = true;
+		}
+
+		return self::$has_learning_progress[$obj_ref_id];
 	}
 }
