@@ -593,7 +593,7 @@ class TileProperties {
 
 		//write access - open normally!
 		if (self::access()->hasWriteAccess($ref_id)) {
-			return "location.href='" . htmlspecialchars($tile->getProperties()->getLink()) . "'";
+			return ' href="' . htmlspecialchars($tile->getProperties()->getLink()) . '""';
 		}
 
 		//open directly the one object if it's only one
@@ -619,11 +619,12 @@ class TileProperties {
 
 				self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, "ref_id", $ref_id);
 
-				return "startSAHS('" . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
-					. $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ");";
+				return '  onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
+					. $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
 				break;
+
 			default:
-				return "location.href='" . htmlspecialchars($tile->getProperties()->getLink()) . "'";
+				return ' href="' . htmlspecialchars($tile->getProperties()->getLink()) . '""';
 		}
 	}
 
