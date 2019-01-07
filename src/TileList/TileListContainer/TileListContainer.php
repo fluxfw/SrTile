@@ -59,6 +59,6 @@ class TileListContainer extends TileListAbstract {
 		$container_sorting = ilContainerSorting::_getInstance($this->getBaseId());
 		$sorted_items = $container_sorting->sortItems($arr_prepared_items);
 
-		return $sorted_items['_all'];
+		return (array)$sorted_items['_all'];
 	}
 }
