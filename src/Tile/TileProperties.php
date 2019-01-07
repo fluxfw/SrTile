@@ -744,13 +744,17 @@ final class TileProperties {
 	private function convertHexToRGB(string $hex_color): string {
 		$hex_color = str_replace('#', '', $hex_color);
 
-		$length = strlen($hex_color);
+		if (!empty($hex_color)) {
+			$length = strlen($hex_color);
 
-		$rgb['r'] = hexdec($length == 6 ? substr($hex_color, 0, 2) : ($length == 3 ? str_repeat(substr($hex_color, 0, 1), 2) : 0));
-		$rgb['g'] = hexdec($length == 6 ? substr($hex_color, 2, 2) : ($length == 3 ? str_repeat(substr($hex_color, 1, 1), 2) : 0));
-		$rgb['b'] = hexdec($length == 6 ? substr($hex_color, 4, 2) : ($length == 3 ? str_repeat(substr($hex_color, 2, 1), 2) : 0));
+			$rgb['r'] = hexdec($length == 6 ? substr($hex_color, 0, 2) : ($length == 3 ? str_repeat(substr($hex_color, 0, 1), 2) : 0));
+			$rgb['g'] = hexdec($length == 6 ? substr($hex_color, 2, 2) : ($length == 3 ? str_repeat(substr($hex_color, 1, 1), 2) : 0));
+			$rgb['b'] = hexdec($length == 6 ? substr($hex_color, 4, 2) : ($length == 3 ? str_repeat(substr($hex_color, 2, 1), 2) : 0));
 
-		return implode(",", $rgb);
+			return implode(",", $rgb);
+		} else {
+			return "";
+		}
 	}
 
 
