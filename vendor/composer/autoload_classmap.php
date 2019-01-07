@@ -86,6 +86,8 @@ return array(
     'srag\\Plugins\\SrTile\\Access\\Ilias' => $baseDir . '/src/Access/Ilias.php',
     'srag\\Plugins\\SrTile\\Access\\LearningProgress' => $baseDir . '/src/Access/LearningProgress.php',
     'srag\\Plugins\\SrTile\\Access\\LearningProgressBar' => $baseDir . '/src/Access/LearningProgressBar.php',
+    'srag\\Plugins\\SrTile\\ColorThiefCache\\ColorThiefCache' => $baseDir . '/src/ColorThiefCache/ColorThiefCache.php',
+    'srag\\Plugins\\SrTile\\ColorThiefCache\\ColorThiefCaches' => $baseDir . '/src/ColorThiefCache/ColorThiefCaches.php',
     'srag\\Plugins\\SrTile\\Config\\Config' => $baseDir . '/src/Config/Config.php',
     'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => $baseDir . '/src/Config/ConfigFormGUI.php',
     'srag\\Plugins\\SrTile\\Favorite\\Favorites' => $baseDir . '/src/Favorite/Favorites.php',

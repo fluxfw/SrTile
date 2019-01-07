@@ -11,6 +11,7 @@ use ilObjSCORMLearningModuleGUI;
 use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\ColorThiefCache\ColorThiefCache;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -40,10 +41,6 @@ final class TileProperties {
 	 * @var ilObject|null
 	 */
 	protected $il_object = NULL;
-	/**
-	 * @var string[]
-	 */
-	protected static $image_dominant_color_cache = [];
 
 
 	/**
@@ -96,7 +93,11 @@ final class TileProperties {
 		switch ($this->tile->getBackgroundColorType()) {
 			case Tile::COLOR_TYPE_PARENT:
 				if ($this->parent_tile !== NULL) {
-					return $this->parent_tile->getProperties()->getBackgroundColor();
+					if ($this->parent_tile->getBackgroundColorType() === Tile::COLOR_TYPE_AUTO_FROM_IMAGE) {
+						return $this->getImageDominantColor();
+					} else {
+						return $this->parent_tile->getProperties()->getBackgroundColor();
+					}
 				}
 				break;
 
@@ -121,7 +122,11 @@ final class TileProperties {
 		switch ($this->tile->getBorderColorType()) {
 			case Tile::COLOR_TYPE_PARENT:
 				if ($this->parent_tile !== NULL) {
-					return $this->parent_tile->getProperties()->getBorderColor();
+					if ($this->parent_tile->getBorderColorType() === Tile::COLOR_TYPE_AUTO_FROM_IMAGE) {
+						return $this->getImageDominantColor();
+					} else {
+						return $this->parent_tile->getProperties()->getBorderColor();
+					}
 				}
 				break;
 
@@ -181,7 +186,11 @@ final class TileProperties {
 		switch ($this->tile->getFontColorType()) {
 			case Tile::COLOR_TYPE_PARENT:
 				if ($this->parent_tile !== NULL) {
-					return $this->parent_tile->getProperties()->getFontColor();
+					if ($this->parent_tile->getFontColorType() === Tile::COLOR_TYPE_AUTO_FROM_IMAGE) {
+						return $this->getImageDominantColor();
+					} else {
+						return $this->parent_tile->getProperties()->getFontColor();
+					}
 				}
 				break;
 
@@ -573,22 +582,19 @@ final class TileProperties {
 	public function getImageDominantColor(): string {
 		$image = $this->getImage();
 
-		if (!isset(self::$image_dominant_color_cache[$image])) {
+		$colorThiefCache = self::colorThiefCaches()->getColorThiefCache($image);
 
-			if (file_exists($image)) {
-				$dominantColor = ColorThief::getColor($image);
+		if (empty($colorThiefCache->getColor())) {
+			$dominantColor = ColorThief::getColor($image);
 
-				if (is_array($dominantColor)) {
-					self::$image_dominant_color_cache[$image] = implode(",", $dominantColor);
-				} else {
-					self::$image_dominant_color_cache[$image] = "";
-				}
-			} else {
-				self::$image_dominant_color_cache[$image] = "";
+			if (is_array($dominantColor)) {
+				$colorThiefCache->setColor(implode(",", $dominantColor));
 			}
+
+			$colorThiefCache->store();
 		}
 
-		return self::$image_dominant_color_cache[$image];
+		return $colorThiefCache->getColor();
 	}
 
 

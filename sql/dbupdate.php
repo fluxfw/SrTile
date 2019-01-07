@@ -3,6 +3,7 @@
 \srag\Plugins\SrTile\Config\Config::updateDB();
 \srag\Plugins\SrTile\Tile\Tile::updateDB();
 \srag\Plugins\SrTile\Rating\Rating::updateDB();
+\srag\Plugins\SrTile\ColorThiefCache\ColorThiefCache::updateDB();
 
 // Create default values for top tile
 if (\srag\Plugins\SrTile\Tile\Tiles::getInstance()->getInstanceForObjRefId(ROOT_FOLDER_ID, false)->getTileId() === 0) {

@@ -134,6 +134,8 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\Access\\Ilias' => __DIR__ . '/../..' . '/src/Access/Ilias.php',
         'srag\\Plugins\\SrTile\\Access\\LearningProgress' => __DIR__ . '/../..' . '/src/Access/LearningProgress.php',
         'srag\\Plugins\\SrTile\\Access\\LearningProgressBar' => __DIR__ . '/../..' . '/src/Access/LearningProgressBar.php',
+        'srag\\Plugins\\SrTile\\ColorThiefCache\\ColorThiefCache' => __DIR__ . '/../..' . '/src/ColorThiefCache/ColorThiefCache.php',
+        'srag\\Plugins\\SrTile\\ColorThiefCache\\ColorThiefCaches' => __DIR__ . '/../..' . '/src/ColorThiefCache/ColorThiefCaches.php',
         'srag\\Plugins\\SrTile\\Config\\Config' => __DIR__ . '/../..' . '/src/Config/Config.php',
         'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => __DIR__ . '/../..' . '/src/Config/ConfigFormGUI.php',
         'srag\\Plugins\\SrTile\\Favorite\\Favorites' => __DIR__ . '/../..' . '/src/Favorite/Favorites.php',
