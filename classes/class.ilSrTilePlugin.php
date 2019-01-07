@@ -69,10 +69,10 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 	 * @inheritdoc
 	 */
 	protected function deleteData()/*: void*/ {
-		self::dic()->database()->dropTable(ColorThiefCache::TABLE_NAME, false);
 		self::dic()->database()->dropTable(Config::TABLE_NAME, false);
-		self::dic()->database()->dropTable(Rating::TABLE_NAME, false);
 		self::dic()->database()->dropTable(Tile::TABLE_NAME, false);
+		self::dic()->database()->dropTable(Rating::TABLE_NAME, false);
+		self::dic()->database()->dropTable(ColorThiefCache::TABLE_NAME, false);
 
 		ilUtil::delDir(ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . self::WEB_DATA_FOLDER);
 	}
