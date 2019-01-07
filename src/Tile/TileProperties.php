@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
+use ColorThief\ColorThief;
 use ilLink;
 use ilObject;
 use ilObjectFactory;
@@ -19,7 +20,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class TileProperties {
+final class TileProperties {
 
 	use DICTrait;
 	use SrTileTrait;
@@ -39,6 +40,10 @@ class TileProperties {
 	 * @var ilObject|null
 	 */
 	protected $il_object = NULL;
+	/**
+	 * @var string[]
+	 */
+	protected static $image_dominant_color_cache = [];
 
 
 	/**
@@ -88,14 +93,21 @@ class TileProperties {
 	 * @return string
 	 */
 	public function getBackgroundColor(): string {
-		if ($this->tile->getBackgroundColorType() !== Tile::COLOR_TYPE_PARENT) {
-			if (!empty($this->tile->getBackgroundColor())) {
+		switch ($this->tile->getBackgroundColorType()) {
+			case Tile::COLOR_TYPE_PARENT:
+				if ($this->parent_tile !== NULL) {
+					return $this->parent_tile->getProperties()->getBackgroundColor();
+				}
+				break;
+
+			case Tile::COLOR_TYPE_AUTO_FROM_IMAGE:
+				return $this->getImageDominantColor();
+
+			case Tile::COLOR_TYPE_SET:
 				return $this->convertHexToRGB($this->tile->getBackgroundColor());
-			}
-		} else {
-			if ($this->parent_tile !== NULL) {
-				return $this->parent_tile->getProperties()->getBackgroundColor();
-			}
+
+			default:
+				break;
 		}
 
 		return "";
@@ -115,6 +127,9 @@ class TileProperties {
 
 			case Tile::COLOR_TYPE_BACKGROUND:
 				return $this->getBackgroundColor();
+
+			case Tile::COLOR_TYPE_AUTO_FROM_IMAGE:
+				return $this->getImageDominantColor();
 
 			case Tile::COLOR_TYPE_SET:
 				return $this->convertHexToRGB($this->tile->getBorderColor());
@@ -177,6 +192,9 @@ class TileProperties {
 					return $this->getContrastYIQ($background_color);
 				}
 				break;
+
+			case Tile::COLOR_TYPE_AUTO_FROM_IMAGE:
+				return $this->getImageDominantColor();
 
 			case Tile::COLOR_TYPE_SET:
 				return $this->convertHexToRGB($this->tile->getFontColor());
@@ -546,6 +564,31 @@ class TileProperties {
 		}
 
 		return self::plugin()->directory() . "/templates/images/default_image.png";
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getImageDominantColor(): string {
+		$image = $this->getImage();
+
+		if (!isset(self::$image_dominant_color_cache[$image])) {
+
+			if (file_exists($image)) {
+				$dominantColor = ColorThief::getColor($image);
+
+				if (is_array($dominantColor)) {
+					self::$image_dominant_color_cache[$image] = implode(",", $dominantColor);
+				} else {
+					self::$image_dominant_color_cache[$image] = "";
+				}
+			} else {
+				self::$image_dominant_color_cache[$image] = "";
+			}
+		}
+
+		return self::$image_dominant_color_cache[$image];
 	}
 
 

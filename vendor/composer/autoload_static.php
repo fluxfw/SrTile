@@ -13,8 +13,12 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
             'srag\\Plugins\\SrTile\\' => 20,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\SrTile\\' => 16,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
+            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
+        ),
+        'C' => 
+        array (
+            'ColorThief\\' => 11,
         ),
     );
 
@@ -35,17 +39,31 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
+        ),
+        'ColorThief\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief',
         ),
     );
 
     public static $classMap = array (
+        'ColorThief\\CMap' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/CMap.php',
+        'ColorThief\\ColorThief' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/ColorThief.php',
+        'ColorThief\\Image\\Adapter\\GDImageAdapter' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/GDImageAdapter.php',
+        'ColorThief\\Image\\Adapter\\GmagickImageAdapter' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/GmagickImageAdapter.php',
+        'ColorThief\\Image\\Adapter\\IImageAdapter' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/IImageAdapter.php',
+        'ColorThief\\Image\\Adapter\\ImageAdapter' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/ImageAdapter.php',
+        'ColorThief\\Image\\Adapter\\ImagickImageAdapter' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/ImagickImageAdapter.php',
+        'ColorThief\\Image\\ImageLoader' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/Image/ImageLoader.php',
+        'ColorThief\\PQueue' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/PQueue.php',
+        'ColorThief\\VBox' => __DIR__ . '/..' . '/ksubileau/color-thief-php/lib/ColorThief/VBox.php',
         'SrTileFavoritesGUI' => __DIR__ . '/../..' . '/classes/Favorite/class.SrTileFavoritesGUI.php',
         'SrTileGUI' => __DIR__ . '/../..' . '/classes/GUI/class.SrTileGUI.php',
         'SrTileRatingGUI' => __DIR__ . '/../..' . '/classes/Rating/class.SrTileRatingGUI.php',

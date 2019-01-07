@@ -6,6 +6,16 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ColorThief\\CMap' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/CMap.php',
+    'ColorThief\\ColorThief' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/ColorThief.php',
+    'ColorThief\\Image\\Adapter\\GDImageAdapter' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/GDImageAdapter.php',
+    'ColorThief\\Image\\Adapter\\GmagickImageAdapter' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/GmagickImageAdapter.php',
+    'ColorThief\\Image\\Adapter\\IImageAdapter' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/IImageAdapter.php',
+    'ColorThief\\Image\\Adapter\\ImageAdapter' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/ImageAdapter.php',
+    'ColorThief\\Image\\Adapter\\ImagickImageAdapter' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/Image/Adapter/ImagickImageAdapter.php',
+    'ColorThief\\Image\\ImageLoader' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/Image/ImageLoader.php',
+    'ColorThief\\PQueue' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/PQueue.php',
+    'ColorThief\\VBox' => $vendorDir . '/ksubileau/color-thief-php/lib/ColorThief/VBox.php',
     'SrTileFavoritesGUI' => $baseDir . '/classes/Favorite/class.SrTileFavoritesGUI.php',
     'SrTileGUI' => $baseDir . '/classes/GUI/class.SrTileGUI.php',
     'SrTileRatingGUI' => $baseDir . '/classes/Rating/class.SrTileRatingGUI.php',

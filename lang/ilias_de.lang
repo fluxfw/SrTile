@@ -28,6 +28,7 @@ removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt
 removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
 tile#:#Kachel
 tile_actions#:#Aktionen
+tile_auto_from_image#:#Automatisch anhand des Bildes
 tile_back#:#Zurück
 tile_background_color#:#Hintergrund-Farbe
 tile_border#:#Rahmen

@@ -117,6 +117,10 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
+					Tile::COLOR_TYPE_AUTO_FROM_IMAGE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("auto_from_image")
+					],
 					Tile::COLOR_TYPE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
@@ -270,6 +274,10 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("color_contrast")
 					],
+					Tile::COLOR_TYPE_AUTO_FROM_IMAGE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("auto_from_image")
+					],
 					Tile::COLOR_TYPE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
@@ -371,6 +379,10 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					Tile::COLOR_TYPE_BACKGROUND => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("color_background")
+					],
+					Tile::COLOR_TYPE_AUTO_FROM_IMAGE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("auto_from_image")
 					],
 					Tile::COLOR_TYPE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,

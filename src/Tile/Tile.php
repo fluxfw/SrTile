@@ -24,7 +24,8 @@ class Tile extends ActiveRecord {
 	const COLOR_TYPE_SET = 1;
 	const COLOR_TYPE_CONTRAST = 2;
 	const COLOR_TYPE_BACKGROUND = 3;
-	const COLOR_TYPE_PARENT = 4;
+	const COLOR_TYPE_AUTO_FROM_IMAGE = 4;
+	const COLOR_TYPE_PARENT = 5;
 	const SIZE_TYPE_SET = 1;
 	const SIZE_TYPE_PARENT = 2;
 	const POSITION_TOP = 1;

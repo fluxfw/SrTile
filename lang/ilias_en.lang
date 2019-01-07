@@ -28,6 +28,7 @@ removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
 removeplugindataconfirm_remove_data#:#Remove %1$s data
 tile#:#Tile
 tile_actions#:#Actions
+tile_auto_from_image#:#Automatic from image
 tile_back#:#Back
 tile_background_color#:#Background color
 tile_border#:#Border
