@@ -20,36 +20,29 @@ class LearningProgressBar {
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	/**
 	 * @var int
-	 *
 	 */
 	protected $user_id;
 	/**
 	 * @var int
-	 *
 	 */
 	protected $ref_id;
 	/**
 	 * @var int
-	 *
 	 */
 	protected $total_objects = 1;
 	/**
 	 * @var int
-	 *
 	 */
 	protected $completed_objects = 0;
 
 
 	/**
-	 * Rating constructor
+	 * LearningProgressBar constructor
 	 *
 	 * @param int $user_id
 	 * @param int $obj_id
 	 */
-	public function __construct(/*int*/
-		$user_id = 0, /*int*/
-		$ref_id = 0) {
-
+	public function __construct(int $user_id = 0, int $ref_id = 0) {
 		$this->user_id = $user_id;
 		$this->ref_id = $ref_id;
 
@@ -57,27 +50,21 @@ class LearningProgressBar {
 	}
 
 
+	/**
+	 *
+	 */
 	private function read() {
-		/**
-		 * @var $database \ilDBInterface
-		 */
-		$database = self::dic()->database();
-
 		$query = "SELECT count(mark.status) as total, SUM(if(mark.status = 2, 1, 0)) as completed, usr_id, collection.obj_id FROM ut_lp_collections as collection
 				inner join object_reference as obj_ref on obj_ref.obj_id = collection.obj_id
 				inner join object_reference as sub_obj on sub_obj.ref_id = collection.item_id
 				inner join ut_lp_marks as mark on mark.obj_id = sub_obj.obj_id 
-                where obj_ref.ref_id = " . $database->quote($this->ref_id, "integer") . " and mark.usr_id = "
-			. $database->quote($this->user_id, "integer");
+                where obj_ref.ref_id = " . self::dic()->database()->quote($this->ref_id, "integer") . " and mark.usr_id = " . self::dic()->database()
+				->quote($this->user_id, "integer");
 
-		$result = $database->query($query);
+		$result = self::dic()->database()->query($query);
 
-		$crs_data = array();
-
-
-
-		while ($row = $database->fetchAssoc($result)) {
-			if($row['total'] > 0) {
+		while ($row = self::dic()->database()->fetchAssoc($result)) {
+			if ($row['total'] > 0) {
 				$this->setTotalObjects(intval($row['total']));
 			}
 			$this->setCompletedObjects(intval($row['completed']));

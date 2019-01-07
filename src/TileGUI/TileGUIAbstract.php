@@ -10,12 +10,12 @@ use ilSrTilePlugin;
 use ilUIPluginRouterGUI;
 use srag\CustomInputGUIs\SrTile\CustomInputGUIsTrait;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\LearningProgressBar\LearningProgressBar;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileFavoritesGUI;
 use SrTileRatingGUI;
 use SrTileRecommendGUI;
-use srag\Plugins\SrTile\LearningProgressBar\LearningProgressBar;
 
 /**
  * Class TileListContainerGUI
@@ -150,8 +150,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 			if (self::ilias()->learningProgress(self::dic()->user())->enabled()
 				&& $this->tile->hasLearningProgress()) {
-				switch ($this->tile->getProperties()->getShowLearningProgress()
-				) {
+				switch ($this->tile->getProperties()->getShowLearningProgress()) {
 					case Tile::LEARNING_PROGRESS_ICON:
 						$icon = self::ilias()->learningProgress(self::dic()->user())->getIcon($this->tile->getObjRefId());
 
