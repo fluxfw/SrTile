@@ -619,7 +619,7 @@ class TileProperties {
 
 				self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, "ref_id", $ref_id);
 
-				return '  onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
+				return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
 					. $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
 				break;
 
