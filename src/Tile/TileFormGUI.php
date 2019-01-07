@@ -738,6 +738,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						if (file_exists($image_path)) {
 							unlink($image_path);
 						}
+
 						$this->object->setImage("");
 					}
 				}
@@ -752,6 +753,8 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					->getImageRelativePath(false), Location::WEB, $file_name, true);
 
 				parent::storeValue($key, $file_name);
+
+				$this->object->getProperties()->getImageDominantColor();
 				break;
 
 			case "tile_enabled":

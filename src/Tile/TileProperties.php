@@ -11,7 +11,6 @@ use ilObjSCORMLearningModuleGUI;
 use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\ColorThiefCache\ColorThiefCache;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -584,13 +583,18 @@ final class TileProperties {
 
 		$colorThiefCache = self::colorThiefCaches()->getColorThiefCache($image);
 
-		if (empty($colorThiefCache->getColor())) {
-			$dominantColor = ColorThief::getColor($image);
+		if (file_exists($image)) {
+			if (empty($colorThiefCache->getColor())) {
+				$dominantColor = ColorThief::getColor($image);
 
-			if (is_array($dominantColor)) {
-				$colorThiefCache->setColor(implode(",", $dominantColor));
+				if (is_array($dominantColor)) {
+					$colorThiefCache->setColor(implode(",", $dominantColor));
+				}
+
+				$colorThiefCache->store();
 			}
-
+		} else {
+			$colorThiefCache->setColor("");
 			$colorThiefCache->store();
 		}
 
