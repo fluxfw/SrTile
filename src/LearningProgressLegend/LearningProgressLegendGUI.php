@@ -42,7 +42,7 @@ class LearningProgressLegendGUI {
 	 * @return string
 	 */
 	public function render(): string {
-		$tpl = self::plugin()->template("Services/Tracking/tpl.lp_legend.html", true, true, false);
+		$tpl = self::plugin()->template("Services/Tracking/templates/default/tpl.lp_legend.html", true, true, false);
 
 		$tpl->setVariable("IMG_NOT_ATTEMPTED", ilUtil::getImagePath("scorm/not_attempted.svg"));
 		$tpl->setVariable("IMG_IN_PROGRESS", ilUtil::getImagePath("scorm/incomplete.svg"));
