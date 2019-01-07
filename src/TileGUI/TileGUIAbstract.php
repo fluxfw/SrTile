@@ -10,7 +10,6 @@ use ilSrTilePlugin;
 use ilUIPluginRouterGUI;
 use srag\CustomInputGUIs\SrTile\CustomInputGUIsTrait;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\LearningProgressBar\LearningProgressBar;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileFavoritesGUI;
@@ -169,7 +168,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						break;
 
 					case Tile::LEARNING_PROGRESS_BAR:
-						$learning_progress_bar = new LearningProgressBar(self::dic()->user()->getId(), $this->tile->getObjRefId());
+						$learning_progress_bar = self::ilias()->learningProgressBar(self::dic()->user(), $this->tile->getObjRefId());
 
 						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress.html");
 

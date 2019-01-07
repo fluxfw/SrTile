@@ -69,4 +69,14 @@ final class Ilias {
 	public function learningProgress(ilObjUser $user): LearningProgress {
 		return LearningProgress::getInstance($user);
 	}
+
+
+	/**
+	 * @param ilObjUser $user
+	 *
+	 * @return LearningProgressBar
+	 */
+	public function learningProgressBar(ilObjUser $user, int $ref_id): LearningProgressBar {
+		return LearningProgressBar::getInstance($user, $ref_id);
+	}
 }
