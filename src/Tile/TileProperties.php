@@ -578,6 +578,11 @@ class TileProperties {
 		$type = $this->il_object->getType();
 		$tile = $this->tile;
 
+		//write access - open normally!
+		if(self::dic()->access()->checkAccess("write","",$ref_id,$type)) {
+			return "location.href='" . htmlspecialchars($tile->getProperties()->getLink()) . "'";
+		}
+
 		//open directly the one object if it's only one
 		if(count(self::dic()->tree()->getChilds($ref_id)) == 1) {
 			$child_refs = self::dic()->tree()->getChilds($ref_id);
