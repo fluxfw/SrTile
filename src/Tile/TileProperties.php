@@ -375,7 +375,6 @@ class TileProperties {
 	 * @return int
 	 */
 	public function getShowLearningProgress(): int {
-
 		if ($this->tile->getShowLearningProgress() !== Tile::LEARNING_PROGRESS_PARENT) {
 			return $this->tile->getShowLearningProgress();
 		}

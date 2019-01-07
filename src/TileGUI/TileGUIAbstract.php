@@ -148,7 +148,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			}
 
 			if (self::ilias()->learningProgress(self::dic()->user())->enabled()
-				&& $this->tile->hasLearningProgress()) {
+				&& self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())) {
 				switch ($this->tile->getProperties()->getShowLearningProgress()) {
 					case Tile::LEARNING_PROGRESS_ICON:
 						$icon = self::ilias()->learningProgress(self::dic()->user())->getIcon($this->tile->getObjRefId());

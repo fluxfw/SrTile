@@ -31,10 +31,10 @@ class TileListContainer extends TileListAbstract {
 	 * @param array $items
 	 *
 	 * @see \ilContainer::getSubItems
+	 *
 	 * @return array
 	 */
 	private function sortItems(array $items = []) {
-
 		$arr_prepared_items = [];
 		foreach ($items as $key => $item) {
 
