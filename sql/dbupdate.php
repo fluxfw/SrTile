@@ -29,6 +29,7 @@ if (\srag\Plugins\SrTile\Tile\Tiles::getInstance()->getInstanceForObjRefId(ROOT_
 	$tile->setRecommendMailTemplateType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE);
 	$tile->setShowActions(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_ACTIONS);
 	$tile->setShowFavoritesIcon(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_FAVORITES_ICON);
+	$tile->setShowImageAsBackground(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_IMAGE_AS_BACKGROUND);
 	$tile->setShowLearningProgress(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LEARNING_PROGRESS);
 	$tile->setShowLearningProgressLegend(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LEARNING_PROGRESS_LEGEND);
 	$tile->setShowLikesCount(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LIKES_COUNT);
