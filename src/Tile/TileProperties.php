@@ -306,6 +306,22 @@ class TileProperties {
 
 
 	/**
+	 * @return int
+	 */
+	public function getOpenObjWithOneChildDirect(): int {
+		if ($this->tile->getOpenObjWithOneChildDirect() !== Tile::OPEN_PARENT) {
+			return $this->tile->getOpenObjWithOneChildDirect();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getOpenObjWithOneChildDirect();
+		}
+
+		return Tile::DEFAULT_OPEN_OBJ_WITH_ONE_CHILD_DIRECT;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public function getRecommendMailTemplate(): string {
@@ -597,11 +613,13 @@ class TileProperties {
 		}
 
 		//open directly the one object if it's only one
-		if (count(self::dic()->tree()->getChilds($ref_id)) === 1) {
-			$child_refs = self::dic()->tree()->getChilds($ref_id);
-			$ref_id = $child_refs[0]['child'];
-			$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($ref_id));
-			$tile = self::tiles()->getInstanceForObjRefId($ref_id);
+		if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE) {
+			if (count(self::dic()->tree()->getChilds($ref_id)) === 1) {
+				$child_refs = self::dic()->tree()->getChilds($ref_id);
+				$ref_id = $child_refs[0]['child'];
+				$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($ref_id));
+				$tile = self::tiles()->getInstanceForObjRefId($ref_id);
+			}
 		}
 
 		switch ($type) {

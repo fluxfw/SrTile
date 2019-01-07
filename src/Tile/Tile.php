@@ -54,6 +54,9 @@ class Tile extends ActiveRecord {
 	const LEARNING_PROGRESS_BAR = 2;
 	const LEARNING_PROGRESS_NONE = 3;
 	const LEARNING_PROGRESS_PARENT = 4;
+	const OPEN_FALSE = 1;
+	const OPEN_TRUE = 2;
+	const OPEN_PARENT = 3;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
@@ -71,6 +74,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_MARGIN = 10;
 	const DEFAULT_MARGIN_TYPE = self::SIZE_TYPE_SET;
 	const DEFAULT_OBJECT_ICON_POSITION = Tile::POSITION_LEFT_BOTTOM;
+	const DEFAULT_OPEN_OBJ_WITH_ONE_CHILD_DIRECT = Tile::OPEN_FALSE;
 	const DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE = Tile::MAIL_TEMPLATE_SET;
 	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
@@ -365,6 +369,14 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
+	protected $open_obj_with_one_child_direct = self::OPEN_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
 	protected $show_image_as_background = self::SHOW_PARENT;
 	/**
 	 * @var TileProperties|null
@@ -439,6 +451,7 @@ class Tile extends ActiveRecord {
 			case "margin_type":
 			case "object_icon_position":
 			case "obj_ref_id":
+			case "open_obj_with_one_child_direct":
 			case "recommend_mail_template_type":
 			case "show_actions":
 			case "show_favorites_icon":
@@ -1077,6 +1090,24 @@ class Tile extends ActiveRecord {
 	 */
 	public function setBorderColor(string $border_color)/*: void*/ {
 		$this->border_color = $border_color;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getOpenObjWithOneChildDirect(): int {
+		return $this->open_obj_with_one_child_direct;
+	}
+
+
+	/**
+	 * @param int $open_obj_with_one_child_direct
+	 */
+	public function setOpenObjWithOneChildDirect(int $open_obj_with_one_child_direct)/*: void*/ {
+		$this->open_obj_with_one_child_direct = $open_obj_with_one_child_direct;
 	}
 
 

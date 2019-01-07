@@ -54,6 +54,9 @@ tile_learning_progress_position#:#Position
 tile_margin#:#Abstand
 tile_object#:#Objekt: %s
 tile_object_icon_position#:#Objekt-Icon
+tile_open_false#:#Nicht öffnen
+tile_open_obj_with_one_child_direct#:#Öffne Objekt mit nur einem Kind direkt
+tile_open_true#:#Öffnen
 tile_parent#:#Vom Eltern-Objekt
 tile_position#:#Position
 tile_position_bottom#:#Unten
