@@ -72,7 +72,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("TITLE_VERTICAL_ALIGN", $this->tile->getProperties()->getLabelVerticalAlign());
 
 		if (self::access()->hasOpenAccess($this->tile)) {
-			$tpl->setVariable("LINK", 'onclick="' . $this->tile->getProperties()->getOnClickLink() . '"');
+			$tpl->setVariable("LINK", ' onclick="' . $this->tile->getProperties()->getOnClickLink() . '"');
 
 			if (self::ilias()->favorites(self::dic()->user())->enabled()
 				&& $this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE) {
