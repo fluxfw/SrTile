@@ -5,8 +5,6 @@ namespace srag\Plugins\SrTile\TileList\TileListContainer;
 use ilContainerSorting;
 use srag\Plugins\SrTile\TileList\TileListAbstract;
 
-
-
 /**
  * Class TileListContainer
  *
@@ -17,7 +15,8 @@ use srag\Plugins\SrTile\TileList\TileListAbstract;
  */
 class TileListContainer extends TileListAbstract {
 
-	protected static $ignored_obj_types = ['itgr'];
+	protected static $ignored_obj_types = [ 'itgr' ];
+
 
 	/**
 	 * @inheritdoc
@@ -39,7 +38,7 @@ class TileListContainer extends TileListAbstract {
 		$arr_prepared_items = [];
 		foreach ($items as $key => $item) {
 
-			if(in_array($item["type"],self::$ignored_obj_types)) {
+			if (in_array($item["type"], self::$ignored_obj_types)) {
 				continue;
 			}
 

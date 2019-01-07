@@ -4,12 +4,11 @@ namespace srag\Plugins\SrTile\Tile;
 
 use ilLink;
 use ilObject;
-use ilObjectDataCache;
 use ilObjectFactory;
-use ilSrTilePlugin;
 use ilObjSAHSLearningModule;
-use ilSAHSPresentationGUI;
 use ilObjSCORMLearningModuleGUI;
+use ilSAHSPresentationGUI;
+use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -579,12 +578,12 @@ class TileProperties {
 		$tile = $this->tile;
 
 		//write access - open normally!
-		if(self::dic()->access()->checkAccess("write","",$ref_id,$type)) {
+		if (self::dic()->access()->checkAccess("write", "", $ref_id, $type)) {
 			return "location.href='" . htmlspecialchars($tile->getProperties()->getLink()) . "'";
 		}
 
 		//open directly the one object if it's only one
-		if(count(self::dic()->tree()->getChilds($ref_id)) == 1) {
+		if (count(self::dic()->tree()->getChilds($ref_id)) == 1) {
 			$child_refs = self::dic()->tree()->getChilds($ref_id);
 			$ref_id = $child_refs[0]['child'];
 			$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($ref_id));
