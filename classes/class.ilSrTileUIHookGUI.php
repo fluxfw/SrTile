@@ -71,7 +71,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
 
 		//Repository
-		if ($this->LoadTileContainerPossible($a_part, $a_par)) {
+		if ($this->loadTileContainerPossible($a_part, $a_par)) {
 			self::$load[self::TILE_CONTAINER_LOADER] = true;
 			$obj_ref_id = self::tiles()->filterRefId();
 
@@ -181,8 +181,13 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	}
 
 
-	protected function LoadTileContainerPossible($a_part, $a_par) {
-
+	/**
+	 * @param string $a_part
+	 * @param array  $a_par
+	 *
+	 * @return bool
+	 */
+	protected function loadTileContainerPossible(string $a_part, array $a_par): bool {
 		return (!self::$load[self::TILE_CONTAINER_LOADER]
 			&& $this->matchObjectBaseClass()
 			&& $a_part === self::GET
