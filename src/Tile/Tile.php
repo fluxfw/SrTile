@@ -317,7 +317,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_learning_progress_legend = self::SHOW_PARENT;
+	protected $learning_progress_position = self::POSITION_PARENT;
 	/**
 	 * @var int
 	 *
@@ -325,7 +325,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $learning_progress_position = self::POSITION_PARENT;
+	protected $show_learning_progress_legend = self::SHOW_PARENT;
 	/**
 	 * @var int
 	 *
@@ -977,24 +977,6 @@ class Tile extends ActiveRecord {
 	 *
 	 * @internal
 	 */
-	public function getShowLearningProgressLegend(): int {
-		return $this->show_learning_progress_legend;
-	}
-
-
-	/**
-	 * @param int $show_learning_progress_legend
-	 */
-	public function setShowLearningProgressLegend(int $show_learning_progress_legend)/*: void*/ {
-		$this->show_learning_progress_legend = $show_learning_progress_legend;
-	}
-
-
-	/**
-	 * @return int
-	 *
-	 * @internal
-	 */
 	public function getLearningProgressPosition(): int {
 		return $this->learning_progress_position;
 	}
@@ -1005,6 +987,24 @@ class Tile extends ActiveRecord {
 	 */
 	public function setLearningProgressPosition(int $learning_progress_position)/*: void*/ {
 		$this->learning_progress_position = $learning_progress_position;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowLearningProgressLegend(): int {
+		return $this->show_learning_progress_legend;
+	}
+
+
+	/**
+	 * @param int $show_learning_progress_legend
+	 */
+	public function setShowLearningProgressLegend(int $show_learning_progress_legend)/*: void*/ {
+		$this->show_learning_progress_legend = $show_learning_progress_legend;
 	}
 
 
