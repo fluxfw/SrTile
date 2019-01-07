@@ -76,6 +76,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_IMAGE_AS_BACKGROUND = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LEARNING_PROGRESS = Tile::LEARNING_PROGRESS_NONE;
+	const DEFAULT_SHOW_LEARNING_PROGRESS_LEGEND = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_RECOMMEND_ICON = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
@@ -316,6 +317,14 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
+	protected $show_learning_progress_legend = self::SHOW_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
 	protected $learning_progress_position = self::POSITION_PARENT;
 	/**
 	 * @var int
@@ -436,6 +445,7 @@ class Tile extends ActiveRecord {
 			case "show_image_as_background":
 			case "show_likes_count":
 			case "show_learning_progress":
+			case "show_learning_progress_legend":
 			case "show_recommend_icon":
 			case "show_title":
 			case "tile_id":
@@ -959,6 +969,24 @@ class Tile extends ActiveRecord {
 	 */
 	public function setShowLearningProgress(int $show_learning_progress)/*: void*/ {
 		$this->show_learning_progress = $show_learning_progress;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowLearningProgressLegend(): int {
+		return $this->show_learning_progress_legend;
+	}
+
+
+	/**
+	 * @param int $show_learning_progress_legend
+	 */
+	public function setShowLearningProgressLegend(int $show_learning_progress_legend)/*: void*/ {
+		$this->show_learning_progress_legend = $show_learning_progress_legend;
 	}
 
 

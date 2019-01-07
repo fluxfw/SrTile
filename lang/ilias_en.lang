@@ -78,6 +78,7 @@ tile_show_likes_count#:#Show likes count
 tile_show_learning_progress#:#Show learning progress
 tile_show_learning_progress_bar#:#Bar
 tile_show_learning_progress_icon#:#Icon
+tile_show_learning_progress_legend#:#Show legend
 tile_show_none#:#Not show
 tile_show_recommend_icon#:#Show recommend icon
 tile_show_title#:#Show title

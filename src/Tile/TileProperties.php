@@ -390,6 +390,22 @@ class TileProperties {
 	/**
 	 * @return int
 	 */
+	public function getShowLearningProgressLegend(): int {
+		if ($this->tile->getShowLearningProgressLegend() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowLearningProgressLegend();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowLearningProgressLegend();
+		}
+
+		return Tile::DEFAULT_SHOW_LEARNING_PROGRESS_LEGEND;
+	}
+
+
+	/**
+	 * @return int
+	 */
 	public function getShowLikesCount(): int {
 		if ($this->tile->getShowLikesCount() !== Tile::SHOW_PARENT) {
 			return $this->tile->getShowLikesCount();

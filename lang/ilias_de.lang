@@ -77,6 +77,7 @@ tile_show_image_as_background#:#Bild als Hintergrund anzeigen (Experimental)
 tile_show_learning_progress#:#Lernfortschritt anzeigen
 tile_show_learning_progress_bar#:#Balken
 tile_show_learning_progress_icon#:#Icon
+tile_show_learning_progress_legend#:#Legende anzeigen
 tile_show_likes_count#:#Likes-Zähler anzeigen
 tile_show_none#:#Nicht anzeigen
 tile_show_recommend_icon#:#Empfehlen-Icon anzeigen

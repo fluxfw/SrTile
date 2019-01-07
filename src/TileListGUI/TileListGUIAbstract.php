@@ -58,7 +58,15 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			}, $this->tile_list->getTiles()));
 
 			$tpl->setVariable("TILES", $tile_html);
-			$tpl->setVariable("LP_LEGEND", $this->getLearningProgressLegendHtml());
+
+			if (self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId())->getProperties()->getShowLearningProgressLegend()
+				=== Tile::SHOW_TRUE) {
+				$tpl_legend = self::plugin()->template("LearningProgress/legend.html");
+
+				$tpl_legend->setVariable("LP_LEGEND", $this->getLearningProgressLegendHtml());
+
+				$tpl->setVariable("LP_LEGEND", self::output()->getHTML($tpl_legend));
+			}
 
 			$tile_list_html = self::output()->getHTML($tpl);
 		}
