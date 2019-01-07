@@ -69,10 +69,13 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 	}
 
 
-	public function getLearningProgressLegendHtml() {
+	/**
+	 * @return string
+	 */
+	public function getLearningProgressLegendHtml(): string {
 		self::dic()->language()->loadLanguageModule('trac');
 
-		return LearningProgressLegendGUI::getInstance()->render();
+		return self::output()->getHTML(LearningProgressLegendGUI::getInstance());
 	}
 
 

@@ -4,7 +4,6 @@ namespace srag\Plugins\SrTile\LearningProgressLegend;
 
 use ilPanelGUI;
 use ilSrTilePlugin;
-use ilTemplate;
 use ilUtil;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -12,7 +11,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
 /**
  * Class LearningProgressLegendGUI
  *
- * @package srag\Plugins\SrTile\LearningProgress
+ * @package srag\Plugins\SrTile\LearningProgressLegend
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -39,8 +38,12 @@ class LearningProgressLegendGUI {
 	}
 
 
-	public function render() {
-		$tpl = new ilTemplate("tpl.lp_legend.html", true, true, "Services/Tracking");
+	/**
+	 * @return string
+	 */
+	public function render(): string {
+		$tpl = self::plugin()->template("Services/Tracking/tpl.lp_legend.html", true, true, false);
+
 		$tpl->setVariable("IMG_NOT_ATTEMPTED", ilUtil::getImagePath("scorm/not_attempted.svg"));
 		$tpl->setVariable("IMG_IN_PROGRESS", ilUtil::getImagePath("scorm/incomplete.svg"));
 		$tpl->setVariable("IMG_COMPLETED", ilUtil::getImagePath("scorm/completed.svg"));
@@ -52,8 +55,8 @@ class LearningProgressLegendGUI {
 
 		$panel = ilPanelGUI::getInstance();
 		$panel->setPanelStyle(ilPanelGUI::PANEL_STYLE_SECONDARY);
-		$panel->setBody($tpl->get());
+		$panel->setBody(self::output()->getHTML($tpl));
 
-		return $panel->getHTML();
+		return self::output()->getHTML($panel);
 	}
 }
