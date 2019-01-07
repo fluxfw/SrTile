@@ -152,7 +152,7 @@ class SrTileRecommendGUI {
 			return;
 		}
 
-		$recommend = $form->getRecommend();
+		$recommend = $form->getObject();
 
 		if ($recommend->send()) {
 			$message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()

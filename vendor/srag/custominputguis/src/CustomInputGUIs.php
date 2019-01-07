@@ -2,6 +2,7 @@
 
 namespace srag\CustomInputGUIs\SrTile;
 
+use ILIAS\UI\Implementation\Component\Glyph\Factory as ProgressMeterFactoryCore;
 use srag\CustomInputGUIs\SrTile\ProgressMeter\Implementation\Factory as ProgressMeterFactory;
 use srag\DIC\SrTile\DICTrait;
 
@@ -36,9 +37,15 @@ final class CustomInputGUIs {
 
 
 	/**
-	 * @return ProgressMeterFactory
+	 * @return ProgressMeterFactoryCore|ProgressMeterFactory
+	 *
+	 * @since ILIAS 5.4
 	 */
 	public function progressMeter() {
-		return new ProgressMeterFactory();
+		if (self::version()->is54()) {
+			return new ProgressMeterFactoryCore();
+		} else {
+			return new ProgressMeterFactory();
+		}
 	}
 }

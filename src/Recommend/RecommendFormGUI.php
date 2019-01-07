@@ -6,7 +6,7 @@ use ilEMailInputGUI;
 use ilNonEditableValueGUI;
 use ilSrTilePlugin;
 use ilTextAreaInputGUI;
-use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileRecommendGUI;
@@ -18,7 +18,7 @@ use SrTileRecommendGUI;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class RecommendFormGUI extends PropertyFormGUI {
+class RecommendFormGUI extends ObjectPropertyFormGUI {
 
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
@@ -41,26 +41,8 @@ class RecommendFormGUI extends PropertyFormGUI {
 	 */
 	public function __construct(SrTileRecommendGUI $parent, Tile $tile) {
 		$this->tile = $tile;
-		$this->recommend = new Recommend($this->tile);
 
-		parent::__construct($parent);
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	protected function getValue(/*string*/
-		$key) {
-		switch ($key) {
-			default:
-				if (method_exists($this->recommend, $method = "get" . $this->strToCamelCase($key))) {
-					return $this->recommend->{$method}($key);
-				}
-				break;
-		}
-
-		return NULL;
+		parent::__construct($parent, new Recommend($this->tile), false);
 	}
 
 
@@ -122,50 +104,5 @@ class RecommendFormGUI extends PropertyFormGUI {
 		$this->setTitle(self::plugin()->translate("recommendation", self::LANG_MODULE, [
 			$this->tile->getProperties()->getTitle()
 		]));
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	protected function storeValue(/*string*/
-		$key, $value)/*: void*/ {
-		switch ($key) {
-			default:
-				if (method_exists($this->recommend, $method = "set" . $this->strToCamelCase($key))) {
-					$this->recommend->{$method}($value);
-				}
-				break;
-		}
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function storeForm()/*: void*/ {
-		if (!parent::storeForm()) {
-			return false;
-		}
-
-		return true;
-	}
-
-
-	/**
-	 * @return Recommend
-	 */
-	public function getRecommend(): Recommend {
-		return $this->recommend;
-	}
-
-
-	/**
-	 * @param string $string
-	 *
-	 * @return string
-	 */
-	protected function strToCamelCase($string): string {
-		return str_replace("_", "", ucwords($string, "_"));
 	}
 }

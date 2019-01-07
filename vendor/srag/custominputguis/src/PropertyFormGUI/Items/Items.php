@@ -42,20 +42,28 @@ final class Items {
 		$item = new $field[PropertyFormGUI::PROPERTY_CLASS]();
 
 		if ($item instanceof ilFormSectionHeaderGUI) {
-			$item->setTitle($parent->txt($key));
+			if (!$field["setTitle"]) {
+				$item->setTitle($parent->txt($key));
+			}
 		} else {
 			if ($item instanceof ilRadioOption) {
-				$item->setTitle($parent->txt($parent_item->getPostVar() . "_" . $key));
+				if (!$field["setTitle"]) {
+					$item->setTitle($parent->txt($parent_item->getPostVar() . "_" . $key));
+				}
 
 				$item->setValue($key);
 			} else {
-				$item->setTitle($parent->txt($key));
+				if (!$field["setTitle"]) {
+					$item->setTitle($parent->txt($key));
+				}
 
 				$item->setPostVar($key);
 			}
 		}
 
-		$item->setInfo($parent->txt($key . "_info", ""));
+		if (!$field["setInfo"]) {
+			$item->setInfo($parent->txt($key . "_info", ""));
+		}
 
 		self::setPropertiesToItem($item, $field);
 

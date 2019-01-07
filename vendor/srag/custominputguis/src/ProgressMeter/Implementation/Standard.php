@@ -9,10 +9,14 @@ use srag\CustomInputGUIs\SrTile\ProgressMeter\Component\Standard as StandardComp
 /**
  * Class Standard
  *
+ * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Implementation/Component/Card/Standard.php
+ *
  * @package srag\CustomInputGUIs\SrTile\ProgressMeter\Implementation
  *
  * @author  Ralph Dittrich <dittrich@qualitus.de>
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ *
+ * @since ILIAS 5.4
  */
 class Standard extends ProgressMeter implements StandardComponent {
 

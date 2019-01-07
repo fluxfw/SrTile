@@ -16,10 +16,9 @@ use ilRadioGroupInputGUI;
 use ilRadioOption;
 use ilSelectInputGUI;
 use ilSrTilePlugin;
-use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileGUI;
-use TypeError;
 
 /**
  * Class TileFormGUI
@@ -28,15 +27,11 @@ use TypeError;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class TileFormGUI extends PropertyFormGUI {
+class TileFormGUI extends ObjectPropertyFormGUI {
 
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const LANG_MODULE = SrTileGUI::LANG_MODULE_TILE;
-	/**
-	 * @var Tile
-	 */
-	protected $tile;
 
 
 	/**
@@ -48,9 +43,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @throws ilException
 	 */
 	public function __construct(SrTileGUI $parent, Tile $tile) {
-		$this->tile = $tile;
-
-		parent::__construct($parent);
+		parent::__construct($parent, $tile);
 
 		if (!self::access()->hasWriteAccess(self::tiles()->filterRefId())) {
 			throw new ilException("You have no permission to access this page");
@@ -65,18 +58,13 @@ class TileFormGUI extends PropertyFormGUI {
 		$key) {
 		switch ($key) {
 			case "image":
-				if (!empty($this->tile->getImage())) {
-					return "./" . $this->tile->getProperties()->getImageWebRootRelativePath();
+				if (!empty($this->object->getImage())) {
+					return "./" . $this->object->getProperties()->getImageWebRootRelativePath();
 				}
 				break;
 
 			default:
-				if (method_exists($this->tile, $method = "get" . $this->strToCamelCase($key))) {
-					return $this->tile->{$method}($key);
-				}
-				if (method_exists($this->tile, $method = "is" . $this->strToCamelCase($key))) {
-					return $this->tile->{$method}($key);
-				}
+				return parent::getValue($key);
 		}
 
 		return NULL;
@@ -107,10 +95,10 @@ class TileFormGUI extends PropertyFormGUI {
 			"tile_enabled" => [
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
-				self::PROPERTY_DISABLED => (self::tiles()->isTopTile($this->tile)
-					|| ($parent_tile = self::tiles()->getParentTile($this->tile)) !== NULL
+				self::PROPERTY_DISABLED => (self::tiles()->isTopTile($this->object)
+					|| ($parent_tile = self::tiles()->getParentTile($this->object)) !== NULL
 					&& $parent_tile->isTileEnabledChildren()),
-				self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile)
+				self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object)
 			],
 			"tile_enabled_children" => [
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
@@ -126,7 +114,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::COLOR_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::COLOR_TYPE_SET => [
@@ -149,7 +137,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SIZE_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SIZE_TYPE_SET => [
@@ -172,7 +160,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::OPEN_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::OPEN_FALSE => [
@@ -200,7 +188,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::POSITION_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::POSITION_TOP => [
@@ -220,7 +208,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SHOW_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SHOW_FALSE => [
@@ -239,7 +227,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::POSITION_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::POSITION_NONE => [
@@ -275,7 +263,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::COLOR_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::COLOR_TYPE_CONTRAST => [
@@ -302,7 +290,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SIZE_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SIZE_TYPE_SET => [
@@ -325,7 +313,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::HORIZONTAL_ALIGN_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::HORIZONTAL_ALIGN_LEFT => [
@@ -349,7 +337,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::VERTICAL_ALIGN_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::VERTICAL_ALIGN_TOP => [
@@ -377,7 +365,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::COLOR_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::COLOR_TYPE_BACKGROUND => [
@@ -404,7 +392,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SIZE_TYPE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SIZE_TYPE_SET => [
@@ -431,7 +419,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::POSITION_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::POSITION_LEFT => [
@@ -451,7 +439,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::VERTICAL_ALIGN_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::VERTICAL_ALIGN_TOP => [
@@ -475,7 +463,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SHOW_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SHOW_FALSE => [
@@ -504,7 +492,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SHOW_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SHOW_FALSE => [
@@ -528,7 +516,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SHOW_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SHOW_FALSE => [
@@ -547,7 +535,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SHOW_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SHOW_FALSE => [
@@ -577,7 +565,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SHOW_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SHOW_FALSE => [
@@ -597,7 +585,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::MAIL_TEMPLATE_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::MAIL_TEMPLATE_SET => [
@@ -632,7 +620,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::LEARNING_PROGRESS_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::LEARNING_PROGRESS_NONE => [
@@ -656,7 +644,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::POSITION_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::POSITION_LEFT_TOP => [
@@ -684,7 +672,7 @@ class TileFormGUI extends PropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::SHOW_PARENT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->tile),
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
 						"setTitle" => $this->txt("parent")
 					],
 					Tile::SHOW_FALSE => [
@@ -714,7 +702,7 @@ class TileFormGUI extends PropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initTitle()/*: void*/ {
-		$this->setTitle(self::plugin()->translate("object", self::LANG_MODULE, [ $this->tile->getProperties()->getTitle() ]));
+		$this->setTitle(self::plugin()->translate("object", self::LANG_MODULE, [ $this->object->getProperties()->getTitle() ]));
 	}
 
 
@@ -733,12 +721,12 @@ class TileFormGUI extends PropertyFormGUI {
 				$result = array_pop(self::dic()->upload()->getResults());
 
 				if ($this->getInput("image_delete") || $result->getSize() > 0) {
-					if (!empty($this->tile->getImage())) {
-						$image_path = $this->tile->getProperties()->getImageWebRootRelativePath();
+					if (!empty($this->object->getImage())) {
+						$image_path = $this->object->getProperties()->getImageWebRootRelativePath();
 						if (file_exists($image_path)) {
 							unlink($image_path);
 						}
-						$this->tile->setImage("");
+						$this->object->setImage("");
 					}
 				}
 
@@ -746,12 +734,12 @@ class TileFormGUI extends PropertyFormGUI {
 					break;
 				}
 
-				$file_name = $this->tile->getTileId() . "." . pathinfo($result->getName(), PATHINFO_EXTENSION);
+				$file_name = $this->object->getTileId() . "." . pathinfo($result->getName(), PATHINFO_EXTENSION);
 
-				self::dic()->upload()->moveOneFileTo($result, $this->tile->getProperties()
+				self::dic()->upload()->moveOneFileTo($result, $this->object->getProperties()
 					->getImageRelativePath(false), Location::WEB, $file_name, true);
 
-				$this->tile->setImage($file_name);
+				parent::storeValue($key, $file_name);
 				break;
 
 			case "tile_enabled":
@@ -759,42 +747,12 @@ class TileFormGUI extends PropertyFormGUI {
 					$value = true;
 				}
 
-				$this->tile->setTileEnabled(boolval($value));
+				parent::storeValue($key, $value);
 				break;
 
 			default:
-				if (method_exists($this->tile, $method = "set" . $this->strToCamelCase($key))) {
-					try {
-						$this->tile->{$method}($value);
-					} catch (TypeError $ex) {
-						$this->tile->{$method}(intval($value));
-					}
-				}
+				parent::storeValue($key, $value);
 				break;
 		}
-	}
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function storeForm()/*: bool*/ {
-		if (!parent::storeForm()) {
-			return false;
-		}
-
-		$this->tile->store();
-
-		return true;
-	}
-
-
-	/**
-	 * @param string $string
-	 *
-	 * @return string
-	 */
-	protected function strToCamelCase($string): string {
-		return str_replace("_", "", ucwords($string, "_"));
 	}
 }
