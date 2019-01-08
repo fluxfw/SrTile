@@ -33,8 +33,8 @@ interface TileListGUIInterface {
 
 
 	/**
-	 * @param bool $global_layout
+	 *
 	 */
-	public function hideOriginalRowsOfTiles(bool $global_layout = true) /*:void*/
+	public function hideOriginalRowsOfTiles() /*:void*/
 	;
 }

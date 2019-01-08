@@ -90,7 +90,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public function hideOriginalRowsOfTiles(bool $global_layout = true) /*:void*/ {
+	public function hideOriginalRowsOfTiles() /*:void*/ {
 		$css = '';
 		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {
@@ -107,38 +107,37 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .badge';
 			$css .= '{' . $tile->getProperties()->getColor(true) . '}';
 
-			if ($global_layout) {
-				$css .= '#lg_div_';
-				$css .= $tile->getObjRefId();
-				$css .= '_pref_';
-				$css .= $this->tile_list->getBaseId();
-				$css .= '{display:none!important;}';
+			// TODO: Remove html, not hide per CSS
+			// Repisitory
+			$css .= '#lg_div_';
+			$css .= $tile->getObjRefId();
+			$css .= '_pref_';
+			$css .= $this->tile_list->getBaseId();
+			$css .= '{display:none!important;}';
+			// Favorites
+			$css .= '#lg_div_';
+			$css .= $tile->getObjRefId();
+			$css .= '_pref_';
+			$css .= '0';
+			$css .= '{display:none!important;}';
 
-				if (!$is_parent_css_rendered) {
-					$is_parent_css_rendered = true;
+			if (!$is_parent_css_rendered) {
+				$is_parent_css_rendered = true;
 
-					$parent_tile = self::tiles()->getParentTile($tile);
-					if ($parent_tile !== NULL) {
-						if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
-							$css .= 'a#il_mhead_t_focus';
-							$css .= '{color:rgb(' . $parent_tile->getProperties()->getBackgroundColor() . ')!important;}';
-						}
-
-						$css .= '.btn-default';
-						$css .= '{' . $tile->getProperties()->getColor();
-						if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
-							$css .= 'border-color:rgb(' . $parent_tile->getProperties()->getBackgroundColor() . ')!important;';
-						}
-						$css .= '}';
+				$parent_tile = self::tiles()->getParentTile($tile);
+				if ($parent_tile !== NULL) {
+					if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
+						$css .= 'a#il_mhead_t_focus';
+						$css .= '{color:rgb(' . $parent_tile->getProperties()->getBackgroundColor() . ')!important;}';
 					}
+
+					$css .= '.btn-default';
+					$css .= '{' . $tile->getProperties()->getColor();
+					if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
+						$css .= 'border-color:rgb(' . $parent_tile->getProperties()->getBackgroundColor() . ')!important;';
+					}
+					$css .= '}';
 				}
-			} else {
-				// Favorites
-				$css .= '#lg_div_';
-				$css .= $tile->getObjRefId();
-				$css .= '_pref_';
-				$css .= '0';
-				$css .= '{display:none!important;}';
 			}
 		}
 

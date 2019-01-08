@@ -18,12 +18,4 @@ class TileListDesktopGUI extends TileListGUIAbstract {
 
 	const GUI_CLASS = TileDesktopGUI::class;
 	const LIST_CLASS = TileListDesktop::class;
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function hideOriginalRowsOfTiles(bool $global_layout = false) /*:void*/ {
-		parent::hideOriginalRowsOfTiles($global_layout);
-	}
 }

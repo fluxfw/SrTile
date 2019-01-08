@@ -210,6 +210,8 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 * @return bool
 	 */
 	protected function loadTileFavoritesPossible(string $a_part, array $a_par): bool {
+		$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
+
 		return (!self::$load[self::TILE_FAVORITES_LOADER] && $baseClass === strtolower(ilPersonalDesktopGUI::class)
 			&& $a_par['tpl_id'] === self::TEMPLATE_ID_FAVORITES);
 	}
