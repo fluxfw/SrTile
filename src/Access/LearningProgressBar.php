@@ -36,7 +36,7 @@ class LearningProgressBar {
 			self::$instances[$user->getId() . "_" . $ref_id] = new self($user, $ref_id);
 		}
 
-		return self::$instances[$user->getId()];
+		return self::$instances[$user->getId() . "_" . $ref_id];
 	}
 
 
