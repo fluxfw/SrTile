@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\TileList\TileListDesktop;
 
-use ilException;
 use ilObjUser;
 use srag\Plugins\SrTile\TileList\TileListAbstract;
 
@@ -17,29 +16,28 @@ use srag\Plugins\SrTile\TileList\TileListAbstract;
 class TileListDesktop extends TileListAbstract {
 
 	/**
+	 * @var ilObjUser
+	 */
+	protected $user;
+
+
+	/**
 	 * TileListDesktop constructor
 	 *
-	 * @param int $id
-	 *
-	 * @throws ilException
+	 * @param ilObjUser $user
 	 */
-	protected function __construct(int $id) /*:void*/ {
-		if (!ilObjUser::_exists($id)) {
-			throw new ilException("User does not exist.");
-		}
+	protected function __construct(ilObjUser $user) /*:void*/ {
+		$this->user = $user;
 
-		parent::__construct($id);
+		parent::__construct();
 	}
 
 
 	/**
 	 * @inheritdoc
 	 */
-	public function read(array $items = []) /*:void*/ {
-		$usr_obj = new ilObjUser($this->getBaseId());
-
-		$items = self::ilias()->favorites($usr_obj)->getFavorites();
-
-		parent::read($items);
+	protected function initObjRefIds() /*:void*/ {
+		$this->obj_ref_ids = array_map(function (array $item): int { return intval($item["child"]); }, self::ilias()->favorites($this->user)
+			->getFavorites());
 	}
 }

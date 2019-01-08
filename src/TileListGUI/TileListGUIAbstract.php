@@ -32,12 +32,12 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 	/**
 	 * TileListGUIAbstract constructor
 	 *
-	 * @param int $id
+	 * @param mixed $param
 	 */
-	public function __construct(int $id) {
+	public function __construct($param) {
 		$list_class = static::LIST_CLASS;
 
-		$this->tile_list = $list_class::getInstance($id);
+		$this->tile_list = $list_class::getInstance($param);
 	}
 
 

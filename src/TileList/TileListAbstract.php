@@ -27,19 +27,19 @@ abstract class TileListAbstract implements TileListInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public static function getInstance(int $id = NULL): TileListInterface {
-		if (self::$instances[static::class . "_" . $id] == NULL) {
-			return self::$instances[static::class . "_" . $id] = new static($id);
+	public static function getInstance($param): TileListInterface {
+		if (self::$instances[static::class] === NULL) {
+			self::$instances[static::class] = new static($param);
 		}
 
-		return self::$instances[static::class . "_" . $id];
+		return self::$instances[static::class];
 	}
 
 
 	/**
-	 * @var int
+	 * @var array
 	 */
-	private $base_id;
+	protected $obj_ref_ids = [];
 	/**
 	 * @var tile[]
 	 */
@@ -48,12 +48,8 @@ abstract class TileListAbstract implements TileListInterface {
 
 	/**
 	 * TileListAbstract constructor
-	 *
-	 * @param int $id
 	 */
-	protected function __construct(int $id) {
-		$this->base_id = $id;
-
+	protected function __construct() {
 		$this->read();
 	}
 
@@ -85,12 +81,16 @@ abstract class TileListAbstract implements TileListInterface {
 
 
 	/**
-	 * @inheritdoc
+	 *
 	 */
-	public function read(array $items = []) /*:void*/ {
-		foreach ($items as $item) {
-			if (self::tiles()->isObject($item['child'])) {
-				$tile = self::tiles()->getInstanceForObjRefId($item['child']);
+	protected function read() /*:void*/ {
+		$this->initObjRefIds();
+
+		foreach ($this->obj_ref_ids as $obj_ref_id) {
+
+			if (self::tiles()->isObject($obj_ref_id)) {
+
+				$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
 
 				if ($tile->isTileEnabled() && self::access()->hasVisibleAccess($tile->getObjRefId())) {
 					$this->addTile($tile);
@@ -101,9 +101,7 @@ abstract class TileListAbstract implements TileListInterface {
 
 
 	/**
-	 * @inheritdoc
+	 *
 	 */
-	public function getBaseId(): int {
-		return $this->base_id;
-	}
+	protected abstract function initObjRefIds();
 }

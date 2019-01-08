@@ -84,7 +84,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 					$this->initJS();
 
-					$tile_list_gui = new TileListContainerGUI($obj_ref_id);
+					$tile_list_gui = new TileListContainerGUI($html);
 
 					$html = substr($html, 0, ($pos - 1)) . self::output()->getHTML($tile_list_gui) . substr($html, $pos);
 
@@ -103,7 +103,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			$this->initJS();
 
-			$tile_list_gui = new TileListDesktopGUI(self::dic()->user()->getId());
+			$tile_list_gui = new TileListDesktopGUI(self::dic()->user());
 
 			return [
 				"mode" => ilUIHookPluginGUI::PREPEND,
