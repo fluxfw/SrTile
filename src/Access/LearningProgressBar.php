@@ -61,7 +61,7 @@ class LearningProgressBar {
 	/**
 	 * LearningProgressBar constructor
 	 *
-	 * @param int $user_id
+	 * @param ilObjUser $user
 	 * @param int $obj_id
 	 */
 	public function __construct(ilObjUser $user, int $ref_id) {
