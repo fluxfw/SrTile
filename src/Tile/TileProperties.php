@@ -532,6 +532,8 @@ final class TileProperties {
 			if (!empty($font_color)) {
 				if ($translucent) {
 					$font_color .= "," . self::SHOW_IMAGE_AS_BACKGROUND_COLOR_ALPHA;
+				} else {
+					$font_color .= ",1";
 				}
 				$css .= "background-color:rgba(" . $font_color . ")!important;";
 			}
@@ -543,6 +545,8 @@ final class TileProperties {
 			if (!empty($background_color)) {
 				if ($translucent) {
 					$background_color .= "," . self::SHOW_IMAGE_AS_BACKGROUND_COLOR_ALPHA;
+				} else {
+					$background_color .= ",1";
 				}
 				$css .= "background-color:rgba(" . $background_color . ")!important;";
 			}
