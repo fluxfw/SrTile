@@ -3,6 +3,7 @@
 namespace srag\Plugins\SrTile\TileGUI;
 
 use ilAdvancedSelectionListGUI;
+use ilConditionHandler;
 use ilObject;
 use ilObjRootFolderGUI;
 use ilRepositoryGUI;
@@ -13,6 +14,7 @@ use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileFavoritesGUI;
+use SrTileGUI;
 use SrTileRatingGUI;
 use SrTileRecommendGUI;
 
@@ -33,7 +35,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	/**
 	 * @var Tile
 	 */
-	private $tile;
+	protected $tile;
 
 
 	/**
@@ -123,7 +125,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 					$likes_count = self::rating(self::dic()->user())->getLikesCount($this->tile->getObjRefId());
 
 					if ($likes_count > 0) {
-						$tpl_likes_count = self::plugin()->template("Favorite/likes_count.html");
+						$tpl_likes_count = self::plugin()->template("Rating/likes_count.html");
 						$tpl_likes_count->setVariable("LIKES_COUNT", $likes_count);
 						$tpl_rating->setVariable("LIKES_COUNT", self::output()->getHTML($tpl_likes_count));
 					}
@@ -190,6 +192,30 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			}
 		} else {
 			$tpl->setVariable("DISABLED", " tile_disabled");
+
+			$preconditions = ilConditionHandler::_getConditionsOfTarget($this->tile->getObjRefId(), ilObject::_lookupObjectId($this->tile->getObjRefId()));
+
+			if (count($preconditions) > 0) {
+				$tpl_preconditions = self::plugin()->template("Preconditions/preconditions.html");
+
+				$tpl_preconditions->setVariable("PRECONDITIONS_TEXT", self::plugin()
+					->translate("preconditions", SrTileGUI::LANG_MODULE_PRECONDITIONS));
+				$tpl_preconditions->setVariable("PRECONDITIONS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/preconditions.svg");
+
+				$popover = self::dic()->ui()->factory()->popover()->standard(self::dic()->ui()->factory()->legacy("TODO"));
+
+				// Use a fake button to use clickable open popover. Set the button id on the info image
+				$button = self::dic()->ui()->factory()->button()->standard("", "")->withOnClick($popover->getShowSignal());
+				$button_html = self::output()->getHTML($button);
+				$button_id = [];
+				preg_match('/id="([a-z0-9_]+)"/', $button_html, $button_id);
+				if (is_array($button_id) && count($button_id) > 1) {
+					$button_id = $button_id[1];
+					$tpl_preconditions->setVariable("BUTTON_ID", $button_id);
+				}
+
+				$tpl->setVariable("PRECONDITIONS", self::output()->getHTML([ $tpl_preconditions, $popover ]));
+			}
 		}
 
 		$tpl_image = self::plugin()->template("Tile/image.html");
