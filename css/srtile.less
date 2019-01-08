@@ -17,12 +17,14 @@
   margin: 0 !important;
   padding: 0 !important;
 
-  &:not(.tile_disabled) .card_image {
-	cursor: pointer;
-  }
-
   &.tile_disabled {
 	opacity: 0.5;
+
+	.card {
+	  .card_image {
+		cursor: default;
+	  }
+	}
   }
 
   // Card
@@ -37,6 +39,7 @@
 
 	// Card image
 	.card_image {
+	  cursor: pointer;
 	  height: 230px;
 	  overflow: hidden;
 	  position: relative;

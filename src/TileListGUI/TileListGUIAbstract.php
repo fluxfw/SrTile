@@ -112,7 +112,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			$css .= $tile->getObjRefId();
 			$css .= '_pref_';
 			$css .= '"]';
-			$css .= '{display:none!important;}';
+			$css .= '{display:block!important;}';
 
 			if (!$is_parent_css_rendered) {
 				$is_parent_css_rendered = true;
