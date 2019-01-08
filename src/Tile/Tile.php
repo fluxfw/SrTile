@@ -128,6 +128,7 @@ class Tile extends ActiveRecord {
 	 *
 	 * @con_has_field   true
 	 * @con_fieldtype   text
+	 * @con_length      256
 	 * @con_is_notnull  true
 	 */
 	protected $image = "";
