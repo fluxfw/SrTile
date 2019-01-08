@@ -107,7 +107,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			return [
 				"mode" => ilUIHookPluginGUI::PREPEND,
-				"html" => $tile_list_gui->render()
+				"html" => self::output()->getHTML($tile_list_gui)
 			];
 		}
 
