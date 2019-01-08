@@ -77,12 +77,12 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			if (self::tiles()->isObject($obj_ref_id)) {
 
-				$this->initJS();
-
 				$html = $a_par["html"];
 
 				$pos = stripos($html, '<div  id="bl_cntr_1" class="ilContainerBlock container-fluid form-inline"');
 				if ($pos !== false) {
+
+					$this->initJS();
 
 					$tile_list_gui = new TileListContainerGUI($obj_ref_id);
 
