@@ -68,42 +68,47 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		$a_comp, /*string*/
 		$a_part, $a_par = []): array {
 
-		$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
-
 		//Repository
 		if ($this->loadTileContainerPossible($a_part, $a_par)) {
+
 			self::$load[self::TILE_CONTAINER_LOADER] = true;
+
 			$obj_ref_id = self::tiles()->filterRefId();
 
 			if (self::tiles()->isObject($obj_ref_id)) {
 
 				$this->initJS();
 
-				$tile_list_gui = new TileListContainerGUI($obj_ref_id);
+				$html = $a_par["html"];
 
-				return [
-					"mode" => ilUIHookPluginGUI::PREPEND,
-					"html" => self::output()->getHTML($tile_list_gui)
-				];
+				$pos = stripos($html, '<div  id="bl_cntr_1" class="ilContainerBlock container-fluid form-inline"');
+				if ($pos !== false) {
+
+					$tile_list_gui = new TileListContainerGUI($obj_ref_id);
+
+					$html = substr($html, 0, ($pos - 1)) . self::output()->getHTML($tile_list_gui) . substr($html, $pos);
+
+					return [
+						"mode" => ilUIHookPluginGUI::REPLACE,
+						"html" => $html
+					];
+				}
 			}
 		}
 
 		//Favorites
-		if (!self::$load[self::TILE_FAVORITES_LOADER]) {
-			if ($baseClass === strtolower(ilPersonalDesktopGUI::class)
-				&& $a_par['tpl_id'] === self::TEMPLATE_ID_FAVORITES) {
+		if ($this->loadTileFavoritesPossible($a_part, $a_par)) {
 
-				self::$load[self::TILE_FAVORITES_LOADER] = true;
+			self::$load[self::TILE_FAVORITES_LOADER] = true;
 
-				$this->initJS();
+			$this->initJS();
 
-				$tile_list_gui = new TileListDesktopGUI(self::dic()->user()->getId());
+			$tile_list_gui = new TileListDesktopGUI(self::dic()->user()->getId());
 
-				return [
-					"mode" => ilUIHookPluginGUI::PREPEND,
-					"html" => $tile_list_gui->render()
-				];
-			}
+			return [
+				"mode" => ilUIHookPluginGUI::PREPEND,
+				"html" => $tile_list_gui->render()
+			];
 		}
 
 		// Recommend modal
@@ -195,5 +200,17 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 			&& !in_array(self::dic()->ctrl()->getCmd(), [ "editOrder" ])
 			&& !in_array(self::dic()->ctrl()->getCallHistory()[0]['cmd'], [ 'editOrder' ])
 			&& !$_SESSION["il_cont_admin_panel"]);
+	}
+
+
+	/**
+	 * @param string $a_part
+	 * @param array  $a_par
+	 *
+	 * @return bool
+	 */
+	protected function loadTileFavoritesPossible(string $a_part, array $a_par): bool {
+		return (!self::$load[self::TILE_FAVORITES_LOADER] && $baseClass === strtolower(ilPersonalDesktopGUI::class)
+			&& $a_par['tpl_id'] === self::TEMPLATE_ID_FAVORITES);
 	}
 }
