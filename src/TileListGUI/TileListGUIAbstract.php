@@ -108,17 +108,10 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			$css .= '{' . $tile->getProperties()->getColor(true) . '}';
 
 			// TODO: Remove html, not hide per CSS
-			// Repisitory
-			$css .= '#lg_div_';
+			$css .= '.ilContainerListItemOuter[id^="lg_div_';
 			$css .= $tile->getObjRefId();
 			$css .= '_pref_';
-			$css .= $this->tile_list->getBaseId();
-			$css .= '{display:none!important;}';
-			// Favorites
-			$css .= '#lg_div_';
-			$css .= $tile->getObjRefId();
-			$css .= '_pref_';
-			$css .= '0';
+			$css .= '"]';
 			$css .= '{display:none!important;}';
 
 			if (!$is_parent_css_rendered) {
