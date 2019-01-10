@@ -171,6 +171,13 @@ final class Tiles {
 	public function isObject(/*?*/
 		int $obj_ref_id = NULL): bool {
 		if (!isset(self::$is_object_cache[$obj_ref_id])) {
+			$a = ($obj_ref_id !== NULL);
+			$b = ($obj_ref_id > 0);
+			$c = ($obj_ref_id !== intval(SYSTEM_FOLDER_ID));
+			$d = ($obj_ref_id === intval(ROOT_FOLDER_ID));
+			$e = (ilObjectFactory::getInstanceByRefId($obj_ref_id, false) !== false);
+			$f = ($obj_ref_id === intval(ROOT_FOLDER_ID));
+			$g = (ilObjectFactory::getInstanceByRefId($obj_ref_id, false) !== false);
 			self::$is_object_cache[$obj_ref_id] = ($obj_ref_id !== NULL && $obj_ref_id > 0 && $obj_ref_id !== intval(SYSTEM_FOLDER_ID)
 				&& ($obj_ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($obj_ref_id, false) !== false));
 		}

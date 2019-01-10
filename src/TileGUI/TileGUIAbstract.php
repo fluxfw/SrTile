@@ -193,9 +193,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		} else {
 			$tpl->setVariable("DISABLED", " tile_disabled");
 
-			$preconditions = ilConditionHandler::_getConditionsOfTarget($this->tile->getObjRefId(), ilObject::_lookupObjectId($this->tile->getObjRefId()));
-
-			if (count($preconditions) > 0) {
+			if (count(self::ilias()->courses()->getPreconditions($this->tile->getObjRefId())) > 0) {
 				$tpl_preconditions = self::plugin()->template("Preconditions/preconditions.html");
 
 				$tpl_preconditions->setVariable("PRECONDITIONS_TEXT", self::plugin()

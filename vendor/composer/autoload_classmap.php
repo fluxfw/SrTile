@@ -84,6 +84,7 @@ return array(
     'srag\\DIC\\SrTile\\Version\\VersionInterface' => $vendorDir . '/srag/dic/src/Version/VersionInterface.php',
     'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => $vendorDir . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
     'srag\\Plugins\\SrTile\\Access\\Access' => $baseDir . '/src/Access/Access.php',
+    'srag\\Plugins\\SrTile\\Access\\Courses' => $baseDir . '/src/Access/Courses.php',
     'srag\\Plugins\\SrTile\\Access\\Ilias' => $baseDir . '/src/Access/Ilias.php',
     'srag\\Plugins\\SrTile\\Access\\LearningProgress' => $baseDir . '/src/Access/LearningProgress.php',
     'srag\\Plugins\\SrTile\\Access\\LearningProgressBar' => $baseDir . '/src/Access/LearningProgressBar.php',

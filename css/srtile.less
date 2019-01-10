@@ -325,7 +325,18 @@ h3.ilPDBlockSubHeader {
   margin-top: 20px;
 }
 
-// Fix bad popover scrollbar
-.il-popover .il-popover-inner {
-  overflow: auto !important;
+.il-popover {
+  .il-popover-inner {
+	// Fix bad popover scrollbar
+	overflow: auto !important;
+  }
+
+  .tiles {
+	flex-direction: column;
+	margin: 0px;
+
+	.tile {
+	  width: 250px;
+	}
+  }
 }

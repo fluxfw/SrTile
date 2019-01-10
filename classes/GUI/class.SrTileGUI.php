@@ -151,9 +151,7 @@ class SrTileGUI {
 	protected function getPreconditions()/*: void*/ {
 		$obj_ref_id = self::tiles()->filterRefId();
 
-		$preconditions = ilConditionHandler::_getConditionsOfTarget($obj_ref_id, ilObject::_lookupObjectId($obj_ref_id));
-
-		$preconditions = array_map(function (array $precondition): int { return intval($precondition["trigger_obj_id"]); }, $preconditions);
+		$preconditions = self::ilias()->courses()->getPreconditions($obj_ref_id);
 
 		self::output()->output(new TileListStaticGUI($preconditions));
 	}

@@ -52,6 +52,14 @@ final class Ilias {
 
 
 	/**
+	 * @return Courses
+	 */
+	public function courses(): Courses {
+		return Courses::getInstance();
+	}
+
+
+	/**
 	 * @param ilObjUser $user
 	 *
 	 * @return Favorites

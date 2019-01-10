@@ -12,9 +12,9 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
             'srag\\RemovePluginDataConfirm\\SrTile\\' => 36,
             'srag\\Plugins\\SrTile\\' => 20,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\DIC\\SrTile\\' => 16,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
+            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
         array (
@@ -35,15 +35,15 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -132,6 +132,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\DIC\\SrTile\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
         'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
         'srag\\Plugins\\SrTile\\Access\\Access' => __DIR__ . '/../..' . '/src/Access/Access.php',
+        'srag\\Plugins\\SrTile\\Access\\Courses' => __DIR__ . '/../..' . '/src/Access/Courses.php',
         'srag\\Plugins\\SrTile\\Access\\Ilias' => __DIR__ . '/../..' . '/src/Access/Ilias.php',
         'srag\\Plugins\\SrTile\\Access\\LearningProgress' => __DIR__ . '/../..' . '/src/Access/LearningProgress.php',
         'srag\\Plugins\\SrTile\\Access\\LearningProgressBar' => __DIR__ . '/../..' . '/src/Access/LearningProgressBar.php',
