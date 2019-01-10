@@ -69,9 +69,9 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			}
 
 			$tile_list_html = self::output()->getHTML($tpl);
-		}
 
-		$this->hideOriginalRowsOfTiles();
+			$this->hideOriginalRowsOfTiles();
+		}
 
 		return $tile_list_html;
 	}
