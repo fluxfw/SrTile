@@ -5,7 +5,7 @@ namespace srag\Plugins\SrTile\TileGUI\TileContainerGUI;
 use srag\Plugins\SrTile\TileGUI\TileGUIAbstract;
 
 /**
- * Class TileListContainerGUI
+ * Class TileContainerGUI
  *
  * @package srag\Plugins\SrTile\TileGUI\TileContainerGUI
  *

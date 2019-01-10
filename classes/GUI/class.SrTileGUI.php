@@ -7,6 +7,7 @@ require_once __DIR__ . "/../../vendor/autoload.php";
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Tile\TileFormGUI;
+use srag\Plugins\SrTile\TileListGUI\TileListStaticGUI\TileListStaticGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -27,6 +28,7 @@ class SrTileGUI {
 	const CMD_EDIT_TILE = "editTile";
 	const CMD_UPDATE_TILE = "updateTile";
 	const CMD_CANCEL = "cancel";
+	const GET_PRECONDITIONS = "getPreconditions";
 	const LANG_MODULE_TILE = "tile";
 	const GET_PARAM_OBJ_REF_ID = 'ref_id';
 	const LANG_MODULE_PRECONDITIONS = "preconditions";
@@ -56,6 +58,7 @@ class SrTileGUI {
 					case self::CMD_EDIT_TILE:
 					case self::CMD_UPDATE_TILE:
 					case self::CMD_CANCEL:
+					case self::GET_PRECONDITIONS;
 						$this->{$cmd}();
 						break;
 
@@ -139,5 +142,19 @@ class SrTileGUI {
 
 		self::dic()->tabs()->setBackTarget(self::plugin()->translate("back", self::LANG_MODULE_TILE), self::dic()->ctrl()
 			->getLinkTarget($this, self::CMD_CANCEL));
+	}
+
+
+	/**
+	 *
+	 */
+	protected function getPreconditions()/*: void*/ {
+		$obj_ref_id = self::tiles()->filterRefId();
+
+		$preconditions = ilConditionHandler::_getConditionsOfTarget($obj_ref_id, ilObject::_lookupObjectId($obj_ref_id));
+
+		$preconditions = array_map(function (array $precondition): int { return intval($precondition["trigger_obj_id"]); }, $preconditions);
+
+		self::output()->output(new TileListStaticGUI($preconditions));
 	}
 }

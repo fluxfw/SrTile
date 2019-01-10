@@ -202,7 +202,12 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 					->translate("preconditions", SrTileGUI::LANG_MODULE_PRECONDITIONS));
 				$tpl_preconditions->setVariable("PRECONDITIONS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/preconditions.svg");
 
-				$popover = self::dic()->ui()->factory()->popover()->standard(self::dic()->ui()->factory()->legacy("TODO"));
+				self::dic()->ctrl()->setParameterByClass(SrTileGUI::class, "ref_id", $this->tile->getObjRefId());
+				$popover = self::dic()->ui()->factory()->popover()->standard(self::dic()->ui()->factory()->legacy(""))
+					->withAsyncContentUrl(self::dic()->ctrl()->getLinkTargetByClass([
+						ilUIPluginRouterGUI::class,
+						SrTileGUI::class
+					], SrTileGUI::GET_PRECONDITIONS, "", true));
 
 				// Use a fake button to use clickable open popover. Set the button id on the info image
 				$button = self::dic()->ui()->factory()->button()->standard("", "")->withOnClick($popover->getShowSignal());
