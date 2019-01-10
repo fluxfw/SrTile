@@ -97,7 +97,12 @@ class LearningProgress {
 		if (!isset(self::$status_cache[$obj_ref_id])) {
 			$obj_id = intval(ilObject::_lookupObjectId($obj_ref_id));
 
-			$status = intval(ilLPStatus::_lookupStatus($obj_id, $this->user->getId()));
+			// Avoid exit
+			if (ilObjectLP::getInstance($obj_id)->getCurrentMode() != ilLPObjSettings::LP_MODE_UNDEFINED) {
+				$status = intval(ilLPStatus::_lookupStatus($obj_id, $this->user->getId()));
+			} else {
+				$status = ilLPStatus::LP_STATUS_NOT_ATTEMPTED_NUM;
+			}
 
 			self::$status_cache[$obj_ref_id] = $status;
 		}
