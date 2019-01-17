@@ -76,7 +76,7 @@ tile_recommend_mail_template#:#Mail template
 tile_saved#:#The tile was saved
 tile_set#:#Set
 tile_show_actions#:#Show actions menu
-tile_show_false#:Not show
+tile_show_false#:#Not show
 tile_show_favorites_icon#:#Show favorites icon
 tile_show_image_as_background#:#Show image as background (Experimental)
 tile_show_likes_count#:#Show likes count
