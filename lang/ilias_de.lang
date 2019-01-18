@@ -1,0 +1,103 @@
+config_configuration#:#Konfiguration
+config_configuration_saved#:#Konfiguration gespeichert
+config_save#:#Speichern
+favorites_add_to_favorites#:#Zu den Favoriten legen
+favorites_added_to_favorites#:#Das Objekt wurde zu den Favoriten gelegt
+favorites_remove_from_favorites#:#Aus den Favoriten entfernen
+favorites_removed_from_favorites#:#Das Objekt wurde aus den Favoriten entfernt
+rating_like#:#Like
+rating_liked#:#Liked
+rating_unlike#:#Unlike
+rating_unliked#:#Unliked
+recommendation_cancel#:#Abbrechen
+recommendation_link#:#Link
+recommendation_message#:#Nachricht
+recommendation_recommend#:#Empfehlen
+recommendation_recommendation#:#Empfehlung %s
+recommendation_recommend_to#:#An
+recommendation_sent_failure#:#Ihre Empfehlung konnte leider nicht gesendet werden!
+recommendation_sent_success#:#Ihre Empfehlung wurde gesendet!
+recommendation_submit#:#Senden
+removeplugindataconfirm_cancel#:#Abbrechen
+removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
+removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren
+removeplugindataconfirm_data#:#%1$s-Daten
+removeplugindataconfirm_keep_data#:#%1$s-Daten behalten
+removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten
+removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt
+removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
+tile#:#Kachel
+tile_actions#:#Aktionen
+tile_auto_from_image#:#Automatisch anhand des Bildes
+tile_back#:#Zurück
+tile_background_color#:#Hintergrund-Farbe
+tile_border#:#Rahmen
+tile_border_color#:#Rahmen-Farbe
+tile_border_size#:#Rahmen-Grösse
+tile_cancel#:#Abbrechen
+tile_certificate#:#Zertifikat
+tile_color_background#:#Farbe vom Hintergrund
+tile_color_contrast#:#Automatisch anhand des Kontrasts der Hintergrund-Farbe berechnen (schwarz oder weiss)
+tile_disabled#:#Deaktiviert
+tile_disabled_hint#:#Global in ILIAS deaktiviert
+tile_enable_rating#:#Bewertung aktivieren
+tile_enabled#:#Aktiviert
+tile_favorites#:#Favoriten
+tile_font_color#:#Schrift-Farbe
+tile_font_size#:#Schriftgrösse
+tile_horizontal_align#:#Horizontale-Ausrichtung
+tile_horizontal_align_center#:#Mitte
+tile_horizontal_align_left#:#Links
+tile_horizontal_align_right#:#Rechts
+tile_image#:#Bild
+tile_label#:#Beschriftung
+tile_learning_progress#:#Lernfortschritt
+tile_learning_progress_position#:#Position
+tile_margin#:#Abstand
+tile_object#:#Objekt: %s
+tile_object_icon_position#:#Objekt-Icon
+tile_open_false#:#Nicht öffnen
+tile_open_obj_with_one_child_direct#:#Öffne Objekt mit nur einem Kind direkt
+tile_open_true#:#Öffnen
+tile_parent#:#Vom Eltern-Objekt
+tile_position#:#Position
+tile_position_bottom#:#Unten
+tile_position_left#:#Links
+tile_position_left_bottom#:#Links / Unten
+tile_position_left_top#:#Links / Oben
+tile_position_right#:#Rechts
+tile_position_right_bottom#:#Rechts / Unten
+tile_position_right_top#:#Rechts / Oben
+tile_position_top#:#Oben
+tile_preconditions#:#Vorbedingungen
+tile_rating#:#Bewertung
+tile_recommendation#:#Empfehlung
+tile_recommendation_disabled_hint#:#Bitte das Plugin %s installieren um Empfehlung zu verwenden
+tile_recommend_mail_template#:#Mail-Vorlage
+tile_saved#:#Die Kachel wurde gespeichert
+tile_set#:#Setzen
+tile_show_actions#:#Aktionen-Menü anzeigen
+tile_show_download_certificate#:#Zertifikat herunterladen anzeigen
+tile_show_false#:#Nicht anzeigen
+tile_show_favorites_icon#:#Favoriten-Icon anzeigen
+tile_show_image_as_background#:#Bild als Hintergrund anzeigen (Experimental)
+tile_show_learning_progress#:#Lernfortschritt anzeigen
+tile_show_learning_progress_bar#:#Balken
+tile_show_learning_progress_icon#:#Icon
+tile_show_learning_progress_legend#:#Legende anzeigen
+tile_show_likes_count#:#Likes-Zähler anzeigen
+tile_show_none#:#Nicht anzeigen
+tile_show_object_tabs#:#Objekt-Tabs anzeigen (Leserechte)
+tile_show_preconditions#:#Vorbedingungen anzeigen
+tile_show_recommend_icon#:#Empfehlen-Icon anzeigen
+tile_show_title#:#Titel anzeigen
+tile_show_true#:#Anzeigen
+tile_show_true_if_permitted#:#Anzeigen (Wenn Zugang genehmigt)
+tile_submit#:#Speichern
+tile_tile#:#Kachel
+tile_tile_enabled#:#Als Kachel anzeigen
+tile_tile_enabled_children#:#Alle Kinder-Objekte als Kachel anzeigen
+tile_vertical_align#:#Vertikale-Ausrichtung
+tile_vertical_align_bottom#:#Unten
+tile_vertical_align_center#:#Mitte
+tile_vertical_align_top#:#Oben

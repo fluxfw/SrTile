@@ -1,0 +1,103 @@
+config_configuration#:#Configuration
+config_configuration_saved#:#Configuration saved
+config_save#:#Save
+favorites_add_to_favorites#:#Add to favorites
+favorites_added_to_favorites#:#The object has been added to the favorites
+favorites_remove_from_favorites#:#Remove from favorites
+favorites_removed_from_favorites#:#The object has been removed from the favorites
+rating_like#:#Like
+rating_liked#:#Liked
+rating_unlike#:#Unlike
+rating_unliked#:#Unliked
+recommendation_cancel#:#Cancel
+recommendation_link#:#Link
+recommendation_message#:#Message
+recommendation_recommend#:#Recommend
+recommendation_recommendation#:#Recommendation %s
+recommendation_recommend_to#:#To
+recommendation_sent_failure#:#Sorry, your recommendation could not be sent!
+recommendation_sent_success#:#Your recommendation has been sent!
+recommendation_submit#:#Submit
+removeplugindataconfirm_cancel#:#Cancel
+removeplugindataconfirm_confirm_remove_data#:#Do you want to remove the %1$s data as well? At most, you just want to disable the %1$s plugin?
+removeplugindataconfirm_deactivate#:#Just deactivate %1$s plugin
+removeplugindataconfirm_data#:#%1$s data
+removeplugindataconfirm_keep_data#:#Keep %1$s data
+removeplugindataconfirm_msg_kept_data#:#The %1$s data was kept
+removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
+removeplugindataconfirm_remove_data#:#Remove %1$s data
+tile#:#Tile
+tile_actions#:#Actions
+tile_auto_from_image#:#Automatic from image
+tile_back#:#Back
+tile_background_color#:#Background color
+tile_border#:#Border
+tile_border_color#:#Border color
+tile_border_size#:#Border size
+tile_cancel#:#Cancel
+tile_certificate#:#Certificate
+tile_color_background#:#Color of background
+tile_color_contrast#:#Calculate automatically based on the contrast of the background color (black or white)
+tile_disabled#:#Disabled
+tile_disabled_hint#:#Disabled globally in ILIAS
+tile_enable_rating#:#Enable rating
+tile_enabled#:#Enabled
+tile_favorites#:#Favorites
+tile_font_color#:#Font color
+tile_font_size#:#Font size
+tile_horizontal_align#:#Horizontal align
+tile_horizontal_align_center#:#Center
+tile_horizontal_align_left#:#Left
+tile_horizontal_align_right#:#Right
+tile_image#:#Image
+tile_label#:#Label
+tile_learning_progress#:#Learning progress
+tile_learning_progress_position#:#Position
+tile_margin#:#Margin
+tile_object#:#Object: %s
+tile_object_icon_position#:#Object icon
+tile_open_false#:#Not open
+tile_open_obj_with_one_child_direct#:#Open object with one child direct
+tile_open_true#:#Open
+tile_parent#:#From parent object
+tile_position#:#Position
+tile_position_bottom#:#Bottom
+tile_position_left#:#Left
+tile_position_left_bottom#:#Left / Bottom
+tile_position_left_top#:#Left / Top
+tile_position_right#:#Right
+tile_position_right_bottom#:#Right / Bottom
+tile_position_right_top#:#Right / Top
+tile_position_top#:#Top
+tile_preconditions#:#Preconditions
+tile_rating#:#Rating
+tile_recommendation#:#Recommendation
+tile_recommendation_disabled_hint#:#Please install the plugin %s to use recommendation
+tile_recommend_mail_template#:#Mail template
+tile_saved#:#The tile was saved
+tile_set#:#Set
+tile_show_actions#:#Show actions menu
+tile_show_download_certificate#:#Show download certificate
+tile_show_false#:#Not show
+tile_show_favorites_icon#:#Show favorites icon
+tile_show_image_as_background#:#Show image as background (Experimental)
+tile_show_likes_count#:#Show likes count
+tile_show_learning_progress#:#Show learning progress
+tile_show_learning_progress_bar#:#Bar
+tile_show_learning_progress_icon#:#Icon
+tile_show_learning_progress_legend#:#Show legend
+tile_show_none#:#Not show
+tile_show_object_tabs#:#Show object tabs (Read permissions)
+tile_show_preconditions#:#Show preconditions
+tile_show_recommend_icon#:#Show recommend icon
+tile_show_title#:#Show title
+tile_show_true#:#Show
+tile_show_true_if_permitted#:#Show (If access permitted)
+tile_submit#:#Save
+tile_tile#:#Tile
+tile_tile_enabled#:#Display as tile
+tile_tile_enabled_children#:#Display all child objects as tile
+tile_vertical_align#:#Vertical align
+tile_vertical_align_bottom#:#Bottom
+tile_vertical_align_center#:#Center
+tile_vertical_align_top#:#Top

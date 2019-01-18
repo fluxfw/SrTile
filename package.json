@@ -1,0 +1,16 @@
+{
+  "name": "srag.srtitle",
+  "description": "",
+  "keywords": [
+    "ILIAS",
+    "Plugin"
+  ],
+  "license": "GPL-3.0-only",
+  "contributors": [
+    "srag <support-custom1@studer-raimann.ch> (https://studer-raimann.ch)"
+  ],
+  "dependencies": {
+    "@iconfu/svg-inject": "^1.2.1"
+  },
+  "private": true
+}
