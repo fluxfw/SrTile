@@ -384,6 +384,22 @@ final class TileProperties {
 	/**
 	 * @return int
 	 */
+	public function getShowDownloadCertificate(): int {
+		if ($this->tile->getShowDownloadCertificate() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowDownloadCertificate();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowDownloadCertificate();
+		}
+
+		return Tile::DEFAULT_SHOW_DOWNLOAD_CERTIFICATE;
+	}
+
+
+	/**
+	 * @return int
+	 */
 	public function getShowFavoritesIcon(): int {
 		if ($this->tile->getShowFavoritesIcon() !== Tile::SHOW_PARENT) {
 			return $this->tile->getShowFavoritesIcon();
@@ -458,6 +474,22 @@ final class TileProperties {
 		}
 
 		return Tile::DEFAULT_SHOW_LIKES_COUNT;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getShowPreconditions(): int {
+		if ($this->tile->getShowPreconditions() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowPreconditions();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowPreconditions();
+		}
+
+		return Tile::DEFAULT_SHOW_PRECONDITIONS;
 	}
 
 
@@ -660,30 +692,30 @@ final class TileProperties {
 	 * @return string
 	 */
 	public function getOnClickLink(): string {
-		$ref_id = $this->il_object->getRefId();
+		$obj_ref_id = $this->il_object->getRefId();
 		$type = $this->il_object->getType();
 		$tile = $this->tile;
 
 		//write access - open normally!
-		if (self::access()->hasWriteAccess($ref_id)) {
+		if (self::access()->hasWriteAccess($obj_ref_id)) {
 			return ' href="' . htmlspecialchars($tile->getProperties()->getLink()) . '""';
 		}
 
 		//open directly the one object if it's only one
 		if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE) {
-			if (count(self::dic()->tree()->getChilds($ref_id)) === 1) {
-				$child_refs = self::dic()->tree()->getChilds($ref_id);
-				$ref_id = $child_refs[0]['child'];
-				$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($ref_id));
-				$tile = self::tiles()->getInstanceForObjRefId($ref_id);
+			if (count(self::dic()->tree()->getChilds($obj_ref_id)) === 1) {
+				$child_refs = self::dic()->tree()->getChilds($obj_ref_id);
+				$obj_ref_id = $child_refs[0]['child'];
+				$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
+				$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
 			}
 		}
 
 		switch ($type) {
 			case "sahs":
-				$slm_gui = new ilObjSCORMLearningModuleGUI("", $ref_id, true, false);
+				$slm_gui = new ilObjSCORMLearningModuleGUI("", $obj_ref_id, true, false);
 
-				$sahs_obj = new ilObjSAHSLearningModule($ref_id);
+				$sahs_obj = new ilObjSAHSLearningModule($obj_ref_id);
 				$om = $sahs_obj->getOpenMode();
 				$width = $sahs_obj->getWidth();
 				$height = $sahs_obj->getHeight();
@@ -692,7 +724,7 @@ final class TileProperties {
 					$om ++;
 				}
 
-				self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, "ref_id", $ref_id);
+				self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, "ref_id", $obj_ref_id);
 
 				return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
 					. $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';

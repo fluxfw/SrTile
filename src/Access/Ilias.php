@@ -7,7 +7,10 @@ namespace srag\Plugins\SrTile\Access;
 use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Certificate\Certificates;
 use srag\Plugins\SrTile\Favorite\Favorites;
+use srag\Plugins\SrTile\LearningProgress\LearningProgress;
+use srag\Plugins\SrTile\LearningProgress\LearningProgressBar;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -52,6 +55,17 @@ final class Ilias {
 
 
 	/**
+	 * @param ilObjUser $user
+	 * @param int       $obj_ref_id
+	 *
+	 * @return Certificates
+	 */
+	public function certificates(ilObjUser $user, int $obj_ref_id): Certificates {
+		return Certificates::getInstance($user, $obj_ref_id);
+	}
+
+
+	/**
 	 * @return Courses
 	 */
 	public function courses(): Courses {
@@ -84,7 +98,7 @@ final class Ilias {
 	 *
 	 * @return LearningProgressBar
 	 */
-	public function learningProgressBar(ilObjUser $user, int $ref_id): LearningProgressBar {
-		return LearningProgressBar::getInstance($user, $ref_id);
+	public function learningProgressBar(ilObjUser $user, int $obj_ref_id): LearningProgressBar {
+		return LearningProgressBar::getInstance($user, $obj_ref_id);
 	}
 }

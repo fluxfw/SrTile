@@ -78,11 +78,13 @@ class Tile extends ActiveRecord {
 	const DEFAULT_OPEN_OBJ_WITH_ONE_CHILD_DIRECT = Tile::OPEN_FALSE;
 	const DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE = Tile::MAIL_TEMPLATE_SET;
 	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
+	const DEFAULT_SHOW_DOWNLOAD_CERTIFICATE = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_IMAGE_AS_BACKGROUND = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LEARNING_PROGRESS = Tile::LEARNING_PROGRESS_NONE;
 	const DEFAULT_SHOW_LEARNING_PROGRESS_LEGEND = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
+	const DEFAULT_SHOW_PRECONDITIONS = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_RECOMMEND_ICON = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
 	/**
@@ -381,6 +383,22 @@ class Tile extends ActiveRecord {
 	 */
 	protected $show_image_as_background = self::SHOW_PARENT;
 	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_preconditions = self::SHOW_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_download_certificate = self::SHOW_PARENT;
+	/**
 	 * @var TileProperties|null
 	 */
 	protected $properties = NULL;
@@ -456,11 +474,13 @@ class Tile extends ActiveRecord {
 			case "open_obj_with_one_child_direct":
 			case "recommend_mail_template_type":
 			case "show_actions":
+			case "show_download_certificate":
 			case "show_favorites_icon":
 			case "show_image_as_background":
 			case "show_likes_count":
 			case "show_learning_progress":
 			case "show_learning_progress_legend":
+			case "show_preconditions":
 			case "show_recommend_icon":
 			case "show_title":
 			case "tile_id":
@@ -1128,6 +1148,42 @@ class Tile extends ActiveRecord {
 	 */
 	public function setShowImageAsBackground(int $show_image_as_background)/*: void*/ {
 		$this->show_image_as_background = $show_image_as_background;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowPreconditions(): int {
+		return $this->show_preconditions;
+	}
+
+
+	/**
+	 * @param int $show_preconditions
+	 */
+	public function setShowPreconditions(int $show_preconditions)/*: void*/ {
+		$this->show_preconditions = $show_preconditions;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowDownloadCertificate(): int {
+		return $this->show_download_certificate;
+	}
+
+
+	/**
+	 * @param int $show_download_certificate
+	 */
+	public function setShowDownloadCertificate(int $show_download_certificate)/*: void*/ {
+		$this->show_download_certificate = $show_download_certificate;
 	}
 
 

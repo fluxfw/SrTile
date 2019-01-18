@@ -44,7 +44,7 @@ class ColorThiefCache extends ActiveRecord {
 	/**
 	 * ColorThiefCache constructor
 	 *
-	 * @param int           $primary_key_value
+	 * @param int              $primary_key_value
 	 * @param arConnector|null $connector
 	 */
 	public function __construct(/*int*/

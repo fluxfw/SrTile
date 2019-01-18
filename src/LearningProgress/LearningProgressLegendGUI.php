@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrTile\LearningProgressLegend;
+namespace srag\Plugins\SrTile\LearningProgress;
 
 use ilPanelGUI;
 use ilSrTilePlugin;
@@ -11,7 +11,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
 /**
  * Class LearningProgressLegendGUI
  *
- * @package srag\Plugins\SrTile\LearningProgressLegend
+ * @package srag\Plugins\SrTile\LearningProgress
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -20,21 +20,13 @@ class LearningProgressLegendGUI {
 	use DICTrait;
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	/**
-	 * @var self
-	 */
-	protected static $instance = NULL;
 
 
 	/**
-	 * @return self
+	 * LearningProgressLegendGUI constructor
 	 */
-	public static function getInstance(): self {
-		if (self::$instance === NULL) {
-			self::$instance = new self();
-		}
+	public function __construct() {
 
-		return self::$instance;
 	}
 
 

@@ -31,7 +31,6 @@ class SrTileGUI {
 	const GET_PRECONDITIONS = "getPreconditions";
 	const LANG_MODULE_TILE = "tile";
 	const GET_PARAM_OBJ_REF_ID = 'ref_id';
-	const LANG_MODULE_PRECONDITIONS = "preconditions";
 
 
 	/**

@@ -32,6 +32,10 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const LANG_MODULE = SrTileGUI::LANG_MODULE_TILE;
+	/**
+	 * @var Tile
+	 */
+	protected $object;
 
 
 	/**
@@ -697,6 +701,54 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					]
 				],
 				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
+			],
+
+			"preconditions" => [
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"show_preconditions" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SHOW_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::SHOW_FALSE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_false")
+					],
+					Tile::SHOW_TRUE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_true")
+					]
+				]
+			],
+
+			"certificate" => [
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class,
+				self::PROPERTY_NOT_ADD => (!self::ilias()->certificates(self::dic()->user(), 0)->enabled())
+			],
+			"show_download_certificate" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SHOW_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::SHOW_FALSE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_false")
+					],
+					Tile::SHOW_TRUE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_true")
+					]
+				],
+				self::PROPERTY_NOT_ADD => (!self::ilias()->certificates(self::dic()->user(), 0)->enabled())
 			]
 		];
 	}

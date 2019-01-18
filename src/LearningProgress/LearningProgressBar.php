@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrTile\Access;
+namespace srag\Plugins\SrTile\LearningProgress;
 
 use ilObjUser;
 use ilSrTilePlugin;
@@ -10,7 +10,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
 /**
  * Class LearningProgressBar
  *
- * @package srag\Plugins\SrTile\Access
+ * @package srag\Plugins\SrTile\LearningProgress
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -27,16 +27,16 @@ class LearningProgressBar {
 
 	/**
 	 * @param ilObjUser $user
-	 * @param int       $ref_id
+	 * @param int       $obj_ref_id
 	 *
 	 * @return self
 	 */
-	public static function getInstance(ilObjUser $user, int $ref_id): self {
-		if (!isset(self::$instances[$user->getId() . "_" . $ref_id])) {
-			self::$instances[$user->getId() . "_" . $ref_id] = new self($user, $ref_id);
+	public static function getInstance(ilObjUser $user, int $obj_ref_id): self {
+		if (!isset(self::$instances[$user->getId() . "_" . $obj_ref_id])) {
+			self::$instances[$user->getId() . "_" . $obj_ref_id] = new self($user, $obj_ref_id);
 		}
 
-		return self::$instances[$user->getId() . "_" . $ref_id];
+		return self::$instances[$user->getId() . "_" . $obj_ref_id];
 	}
 
 
@@ -47,7 +47,7 @@ class LearningProgressBar {
 	/**
 	 * @var int
 	 */
-	protected $ref_id;
+	protected $obj_ref_id;
 	/**
 	 * @var int
 	 */
@@ -62,11 +62,11 @@ class LearningProgressBar {
 	 * LearningProgressBar constructor
 	 *
 	 * @param ilObjUser $user
-	 * @param int       $ref_id
+	 * @param int       $obj_ref_id
 	 */
-	private function __construct(ilObjUser $user, int $ref_id) {
+	private function __construct(ilObjUser $user, int $obj_ref_id) {
 		$this->user = $user;
-		$this->ref_id = $ref_id;
+		$this->obj_ref_id = $obj_ref_id;
 
 		$this->read();
 	}
@@ -80,8 +80,8 @@ class LearningProgressBar {
 				inner join object_reference as obj_ref on obj_ref.obj_id = collection.obj_id
 				inner join object_reference as sub_obj on sub_obj.ref_id = collection.item_id
 				inner join ut_lp_marks as mark on mark.obj_id = sub_obj.obj_id 
-                where obj_ref.ref_id = " . self::dic()->database()->quote($this->ref_id, "integer") . " and mark.usr_id = " . self::dic()->database()
-				->quote($this->user->getId(), "integer");
+                where obj_ref.ref_id = " . self::dic()->database()->quote($this->obj_ref_id, "integer") . " and mark.usr_id = " . self::dic()
+				->database()->quote($this->user->getId(), "integer");
 
 		$result = self::dic()->database()->query($query);
 

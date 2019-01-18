@@ -3,7 +3,6 @@
 namespace srag\Plugins\SrTile\TileGUI;
 
 use ilAdvancedSelectionListGUI;
-use ilConditionHandler;
 use ilObject;
 use ilObjRootFolderGUI;
 use ilRepositoryGUI;
@@ -11,6 +10,7 @@ use ilSrTilePlugin;
 use ilUIPluginRouterGUI;
 use srag\CustomInputGUIs\SrTile\CustomInputGUIsTrait;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Certificate\CertificateGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use SrTileFavoritesGUI;
@@ -192,33 +192,6 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			}
 		} else {
 			$tpl->setVariable("DISABLED", " tile_disabled");
-
-			if (count(self::ilias()->courses()->getPreconditions($this->tile->getObjRefId())) > 0) {
-				$tpl_preconditions = self::plugin()->template("Preconditions/preconditions.html");
-
-				$tpl_preconditions->setVariable("PRECONDITIONS_TEXT", self::plugin()
-					->translate("preconditions", SrTileGUI::LANG_MODULE_PRECONDITIONS));
-				$tpl_preconditions->setVariable("PRECONDITIONS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/preconditions.svg");
-
-				self::dic()->ctrl()->setParameterByClass(SrTileGUI::class, "ref_id", $this->tile->getObjRefId());
-				$popover = self::dic()->ui()->factory()->popover()->standard(self::dic()->ui()->factory()->legacy(""))
-					->withAsyncContentUrl(self::dic()->ctrl()->getLinkTargetByClass([
-						ilUIPluginRouterGUI::class,
-						SrTileGUI::class
-					], SrTileGUI::GET_PRECONDITIONS, "", true));
-
-				// Use a fake button to use clickable open popover. Set the button id on the info image
-				$button = self::dic()->ui()->factory()->button()->standard("", "")->withOnClick($popover->getShowSignal());
-				$button_html = self::output()->getHTML($button);
-				$button_id = [];
-				preg_match('/id="([a-z0-9_]+)"/', $button_html, $button_id);
-				if (is_array($button_id) && count($button_id) > 1) {
-					$button_id = $button_id[1];
-					$tpl_preconditions->setVariable("BUTTON_ID", $button_id);
-				}
-
-				$tpl->setVariable("PRECONDITIONS", self::output()->getHTML([ $tpl_preconditions, $popover ]));
-			}
 		}
 
 		$tpl_image = self::plugin()->template("Tile/image.html");
@@ -246,6 +219,40 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 				$tpl->setVariable("OBJECT_ICON", self::output()->getHTML($tpl_object_icon));
 			}
+		}
+
+		if ($this->tile->getProperties()->getShowPreconditions() === Tile::SHOW_TRUE) {
+			if (count(self::ilias()->courses()->getPreconditions($this->tile->getObjRefId())) > 0) {
+				$tpl_preconditions = self::plugin()->template("Preconditions/preconditions.html");
+
+				$tpl_preconditions->setVariable("PRECONDITIONS_TEXT", self::plugin()->translate("preconditions", SrTileGUI::LANG_MODULE_TILE));
+				$tpl_preconditions->setVariable("PRECONDITIONS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/preconditions.svg");
+
+				self::dic()->ctrl()->setParameterByClass(SrTileGUI::class, "ref_id", $this->tile->getObjRefId());
+				$popover = self::dic()->ui()->factory()->popover()->standard(self::dic()->ui()->factory()->legacy(""))
+					->withAsyncContentUrl(self::dic()->ctrl()->getLinkTargetByClass([
+						ilUIPluginRouterGUI::class,
+						SrTileGUI::class
+					], SrTileGUI::GET_PRECONDITIONS, "", true));
+
+				// Use a fake button to use clickable open popover. Set the button id on the info image
+				$button = self::dic()->ui()->factory()->button()->standard("", "")->withOnClick($popover->getShowSignal());
+				$button_html = self::output()->getHTML($button);
+				$button_id = [];
+				preg_match('/id="([a-z0-9_]+)"/', $button_html, $button_id);
+				if (is_array($button_id) && count($button_id) > 1) {
+					$button_id = $button_id[1];
+					$tpl_preconditions->setVariable("BUTTON_ID", $button_id);
+				}
+
+				$tpl->setVariable("PRECONDITIONS", self::output()->getHTML([ $tpl_preconditions, $popover ]));
+			}
+		}
+
+		if (self::ilias()->certificates(self::dic()->user(), 0)->enabled()
+			&& self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId())->getProperties()->getShowDownloadCertificate()
+			=== Tile::SHOW_TRUE) {
+			$tpl->setVariable("CERTIFICATE", self::output()->getHTML(new CertificateGUI(self::dic()->user(), $this->tile->getObjRefId())));
 		}
 
 		$tpl->parseCurrentBlock();

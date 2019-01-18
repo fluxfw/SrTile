@@ -15,6 +15,7 @@ Update, activate and config the plugin in the ILIAS Plugin Administration
 * [composer](https://getcomposer.org)
 * [npm](https://nodejs.org)
 * [Notifications4Plugins](https://github.com/studer-raimann/Notifications4Plugins)
+* [color-thief-php](https://packagist.org/packages/ksubileau/color-thief-php)
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
 * [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
 * [srag/dic](https://packagist.org/packages/srag/dic)

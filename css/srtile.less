@@ -331,6 +331,11 @@ h3.ilPDBlockSubHeader {
 	overflow: auto !important;
   }
 
+  // Fix actions in dropdown (Always shows loading spinner)
+  .btn-group:not(.open) .dropdown-menu {
+	display: none !important;
+  }
+
   .tiles {
 	flex-direction: column;
 	margin: 0px;

@@ -24,10 +24,6 @@ class RecommendFormGUI extends ObjectPropertyFormGUI {
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const LANG_MODULE = SrTileRecommendGUI::LANG_MODULE_RECOMMENDATION;
 	/**
-	 * @var Recommend
-	 */
-	protected $recommend;
-	/**
 	 * @var Tile
 	 */
 	protected $tile;

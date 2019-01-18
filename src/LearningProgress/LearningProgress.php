@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\SrTile\Access;
+namespace srag\Plugins\SrTile\LearningProgress;
 
 use ilLearningProgressBaseGUI;
 use ilLPObjSettings;
@@ -15,7 +15,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
 /**
  * Class LearningProgress
  *
- * @package srag\Plugins\SrTile\Access
+ * @package srag\Plugins\SrTile\LearningProgress
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
