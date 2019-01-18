@@ -13,6 +13,12 @@ Update, activate and config the plugin in the ILIAS Plugin Administration
 Tiles:
 ![Tiles](./doc/screenshots/tiles.png)
 
+Tab:
+![Tiles](./doc/screenshots/tab.png)
+
+Tile config:
+![Tiles](./doc/screenshots/tile_config.png)
+
 ### Dependencies
 * ILIAS 5.3
 * PHP >=7.0
