@@ -84,7 +84,27 @@ class LearningProgress {
 	public function getIcon(int $obj_ref_id): string {
 		$status = $this->getStatus($obj_ref_id);
 
-		return ilLearningProgressBaseGUI::_getImagePathForStatus($status);
+		switch ($status) {
+			case ilLPStatus::LP_STATUS_IN_PROGRESS_NUM:
+			case ilLPStatus::LP_STATUS_IN_PROGRESS:
+			case ilLPStatus::LP_STATUS_REGISTERED:
+				return self::plugin()->directory() . "/templates/images/LearningProgress/incomplete.svg";
+
+			case ilLPStatus::LP_STATUS_COMPLETED_NUM:
+			case ilLPStatus::LP_STATUS_COMPLETED:
+			case ilLPStatus::LP_STATUS_PARTICIPATED:
+				return self::plugin()->directory() . "/templates/images/LearningProgress/complete.svg";
+
+			case ilLPStatus::LP_STATUS_FAILED_NUM:
+			case ilLPStatus::LP_STATUS_FAILED:
+				return self::plugin()->directory() . "/templates/images/LearningProgress/failed.svg";
+
+			case ilLPStatus::LP_STATUS_NOT_ATTEMPTED:
+			case ilLPStatus::LP_STATUS_NOT_PARTICIPATED:
+			case ilLPStatus::LP_STATUS_NOT_REGISTERED:
+			default:
+				return self::plugin()->directory() . "/templates/images/LearningProgress/not_attempted.svg";
+		}
 	}
 
 

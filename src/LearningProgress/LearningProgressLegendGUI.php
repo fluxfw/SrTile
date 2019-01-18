@@ -4,7 +4,6 @@ namespace srag\Plugins\SrTile\LearningProgress;
 
 use ilPanelGUI;
 use ilSrTilePlugin;
-use ilUtil;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -39,13 +38,13 @@ class LearningProgressLegendGUI {
 		$tpl_legend->setCurrentBlock("status");
 
 		foreach ([
-			         ilUtil::getImagePath("scorm/not_attempted.svg") => self::dic()->language()->txt("trac_not_attempted"),
-			         ilUtil::getImagePath("scorm/incomplete.svg") => self::dic()->language()->txt("trac_in_progress"),
-			         ilUtil::getImagePath("scorm/completed.svg") => self::dic()->language()->txt("trac_completed")
-			         //ilUtil::getImagePath("scorm/failed.svg") => self::dic()->language()->txt("trac_failed")
+			         "not_attempted" => "not_attempted",
+			         "incomplete" => "in_progress",
+			         "completed" => "completed"
+			         //"failed" => "failed"
 		         ] as $img => $txt) {
-			$tpl_legend->setVariable("IMG_STATUS", $img);
-			$tpl_legend->setVariable("TXT_STATUS", $txt);
+			$tpl_legend->setVariable("IMG_STATUS", self::plugin()->directory() . "/templates/images/LearningProgress/" . $img . ".svg");
+			$tpl_legend->setVariable("TXT_STATUS", self::dic()->language()->txt("trac_" . $txt));
 			$tpl_legend->parseCurrentBlock();
 		}
 
