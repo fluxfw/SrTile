@@ -9,6 +9,10 @@ git clone git@git.studer-raimann.ch:ILIAS/Plugins/SrTile.git SrTile
 ```
 Update, activate and config the plugin in the ILIAS Plugin Administration
 
+### Some screenshots
+Tiles:
+![Tiles](./doc/screenshots/tiles.png)
+
 ### Dependencies
 * ILIAS 5.3
 * PHP >=7.0
