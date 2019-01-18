@@ -87,6 +87,7 @@ tile_show_learning_progress_icon#:#Icon
 tile_show_learning_progress_legend#:#Legende anzeigen
 tile_show_likes_count#:#Likes-Zähler anzeigen
 tile_show_none#:#Nicht anzeigen
+tile_show_object_tabs#:#Objekt-Tabs anzeigen (Leserechte)
 tile_show_preconditions#:#Vorbedingungen anzeigen
 tile_show_recommend_icon#:#Empfehlen-Icon anzeigen
 tile_show_title#:#Titel anzeigen

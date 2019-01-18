@@ -480,6 +480,22 @@ final class TileProperties {
 	/**
 	 * @return int
 	 */
+	public function getShowObjectTabs(): int {
+		if ($this->tile->getShowObjectTabs() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowObjectTabs();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowObjectTabs();
+		}
+
+		return Tile::DEFAULT_SHOW_OBJECT_TABS;
+	}
+
+
+	/**
+	 * @return int
+	 */
 	public function getShowPreconditions(): int {
 		if ($this->tile->getShowPreconditions() !== Tile::SHOW_PARENT) {
 			return $this->tile->getShowPreconditions();

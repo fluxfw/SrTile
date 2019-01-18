@@ -5,6 +5,7 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileListGUI\TileListContainerGUI\TileListContainerGUI;
 use srag\Plugins\SrTile\TileListGUI\TileListDesktopGUI\TileListDesktopGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -148,6 +149,12 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
 
 				if (!self::access()->hasWriteAccess($obj_ref_id)) {
+
+					if (self::tiles()->getInstanceForObjRefId($obj_ref_id)->getProperties()->getShowObjectTabs() === Tile::SHOW_FALSE) {
+						self::dic()->tabs()->clearTargets();
+						self::dic()->tabs()->clearSubTabs();
+					}
+
 					return [ "mode" => self::KEEP, "html" => "" ];
 				}
 

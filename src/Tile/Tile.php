@@ -86,6 +86,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_PRECONDITIONS = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_RECOMMEND_ICON = Tile::SHOW_FALSE;
+	const DEFAULT_SHOW_OBJECT_TABS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
 	/**
 	 * @var int
@@ -399,6 +400,14 @@ class Tile extends ActiveRecord {
 	 */
 	protected $show_download_certificate = self::SHOW_PARENT;
 	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_object_tabs = self::SHOW_PARENT;
+	/**
 	 * @var TileProperties|null
 	 */
 	protected $properties = NULL;
@@ -480,6 +489,7 @@ class Tile extends ActiveRecord {
 			case "show_likes_count":
 			case "show_learning_progress":
 			case "show_learning_progress_legend":
+			case "show_object_tabs":
 			case "show_preconditions":
 			case "show_recommend_icon":
 			case "show_title":
@@ -1184,6 +1194,24 @@ class Tile extends ActiveRecord {
 	 */
 	public function setShowDownloadCertificate(int $show_download_certificate)/*: void*/ {
 		$this->show_download_certificate = $show_download_certificate;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowObjectTabs(): int {
+		return $this->show_object_tabs;
+	}
+
+
+	/**
+	 * @param int $show_object_tabs
+	 */
+	public function setShowObjectTabs(int $show_object_tabs)/*: void*/ {
+		$this->show_object_tabs = $show_object_tabs;
 	}
 
 

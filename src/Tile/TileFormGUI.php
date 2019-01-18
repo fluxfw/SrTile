@@ -108,6 +108,25 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
 				self::PROPERTY_REQUIRED => false
 			],
+			"show_object_tabs" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SHOW_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::SHOW_FALSE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_false")
+					],
+					Tile::SHOW_TRUE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_true")
+					]
+				]
+			],
 
 			"tile" => [
 				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
