@@ -59,7 +59,8 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 
 			$tpl->setVariable("TILES", $tile_html);
 
-			if (self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId())->getProperties()->getShowLearningProgressLegend()
+			if (!self::dic()->ctrl()->isAsynch()
+				&& self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId())->getProperties()->getShowLearningProgressLegend()
 				=== Tile::SHOW_TRUE
 				&& self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId())->getProperties()->getShowLearningProgress()
 				=== Tile::LEARNING_PROGRESS_ICON) {
