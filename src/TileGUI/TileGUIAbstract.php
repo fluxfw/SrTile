@@ -265,6 +265,11 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 * @inheritdoc
 	 */
 	public function getActions(): string {
+		if (self::dic()->ctrl()->isAsynch()) {
+			// Hide because not work for asynch asynch load (Preconditions) - Some missing javascript int call on asynch
+			return "";
+		}
+
 		$advanced_selection_list = new ilAdvancedSelectionListGUI();
 		$advanced_selection_list->setAsynch(true);
 		$advanced_selection_list->setId('act_' . $this->tile->getObjRefId() . '_tile_' . $this->tile->getTileId());
