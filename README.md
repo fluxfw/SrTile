@@ -37,8 +37,8 @@ Please use it for further development!
 
 ### Adjustment suggestions
 * Adjustment suggestions by pull requests on https://git.studer-raimann.ch/ILIAS/Plugins/SrTile/tree/develop
-* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/PL__PLUGIN_NAME
-* Bug reports under https://jira.studer-raimann.ch/projects/PLSrTile
+* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/PLSRTILE
+* Bug reports under https://jira.studer-raimann.ch/projects/PLSRTILE
 * For external users please send an email to support-custom1@studer-raimann.ch
 
 ### Development
