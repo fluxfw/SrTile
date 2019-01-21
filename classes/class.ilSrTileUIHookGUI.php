@@ -131,13 +131,11 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 * @param string $a_comp
 	 * @param string $a_part
 	 * @param array  $a_par
-	 *
-	 * @return array
 	 */
 	public function modifyGUI(/*string*/
 		$a_comp, /*string*/
 		$a_part, /*array*/
-		$a_par = []): array {
+		$a_par = [])/*: void*/ {
 		if (!self::$load[self::TILE_CONFIG_TAB_LOADER]) {
 
 			$obj_ref_id = self::tiles()->filterRefId();
@@ -155,7 +153,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 						self::dic()->tabs()->clearSubTabs();
 					}
 
-					return [ "mode" => self::KEEP, "html" => "" ];
+					return;
 				}
 
 				self::dic()->ctrl()->saveParameterByClass(SrTileGUI::class, SrTileGUI::GET_PARAM_OBJ_REF_ID);
@@ -168,8 +166,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 				self::dic()->tabs()->target[count(self::dic()->tabs()->target) - 1]['cmd'] = [];
 			}
 		}
-
-		return [ "mode" => self::KEEP, "html" => "" ];
 	}
 
 
