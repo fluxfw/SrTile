@@ -76,11 +76,11 @@ class LearningProgressBar {
 	 *
 	 */
 	private function read() {
-		$query = "SELECT count(mark.status) as total, SUM(if(mark.status = 2, 1, 0)) as completed, usr_id, collection.obj_id FROM ut_lp_collections as collection
-				inner join object_reference as obj_ref on obj_ref.obj_id = collection.obj_id
-				inner join object_reference as sub_obj on sub_obj.ref_id = collection.item_id
-				inner join ut_lp_marks as mark on mark.obj_id = sub_obj.obj_id 
-                where obj_ref.ref_id = " . self::dic()->database()->quote($this->obj_ref_id, "integer") . " and mark.usr_id = " . self::dic()
+		$query = "SELECT COUNT(mark.status) AS total, SUM(if(mark.status = 2, 1, 0)) AS completed, usr_id, collection.obj_id FROM ut_lp_collections AS collection
+				INNER JOIN object_reference AS obj_ref ON obj_ref.obj_id = collection.obj_id
+				INNER JOIN object_reference AS sub_obj ON sub_obj.ref_id = collection.item_id
+				INNER JOIN ut_lp_marks AS mark ON mark.obj_id = sub_obj.obj_id 
+                WHERE obj_ref.ref_id = " . self::dic()->database()->quote($this->obj_ref_id, "integer") . " AND mark.usr_id = " . self::dic()
 				->database()->quote($this->user->getId(), "integer");
 
 		$result = self::dic()->database()->query($query);
