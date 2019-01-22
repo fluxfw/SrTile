@@ -47,7 +47,7 @@ class Recommend {
 	/**
 	 * @return bool
 	 */
-	public function send() {
+	public function send(): bool {
 		try {
 			$mail_template = $this->tile->getProperties()->getRecommendMailTemplate();
 
