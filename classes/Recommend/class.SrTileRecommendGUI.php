@@ -85,7 +85,7 @@ class SrTileRecommendGUI {
 	/**
 	 * @return RecommendFormGUI
 	 */
-	protected function getRecommendForm() {
+	protected function getRecommendForm(): RecommendFormGUI {
 		$tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
 
 		$form = new RecommendFormGUI($this, $tile);
@@ -97,7 +97,7 @@ class SrTileRecommendGUI {
 	/**
 	 * @return SuccessFormGUI
 	 */
-	protected function getSuccessForm() {
+	protected function getSuccessForm(): SuccessFormGUI {
 		$tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
 
 		$form = new SuccessFormGUI($this, $tile);
