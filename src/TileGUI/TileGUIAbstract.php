@@ -249,7 +249,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			}
 		}
 
-		if (self::ilias()->certificates(self::dic()->user(), 0)->enabled()
+		if (self::ilias()->certificates(self::dic()->user(), $this->tile->getObjRefId())->enabled()
 			&& self::tiles()->getInstanceForObjRefId($this->tile->getObjRefId())->getProperties()->getShowDownloadCertificate() === Tile::SHOW_TRUE) {
 
 

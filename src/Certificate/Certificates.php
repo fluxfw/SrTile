@@ -3,12 +3,12 @@
 namespace srag\Plugins\SrTile\Certificate;
 
 use ilCertificate;
-use ilCourseParticipant;
-use ilLPStatus;
-use ilObject;
-use ilObjectDataCache;
-use ilObjUser;
 use ilCourseParticipants;
+use ilLPStatus;
+use ilObjCourseGUI;
+use ilObject;
+use ilObjUser;
+use ilRepositoryGUI;
 use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -78,42 +78,41 @@ class Certificates {
 	 * @return bool
 	 */
 	public function enabled(): bool {
-		return ilCertificate::isActive();
+		return ilCertificate::isActive() && ilCertificate::isObjectActive($this->obj_id);
 	}
 
 
-
 	/**
-	 * @param string $obj_type
-	 * @param int $obj_ref_id
-	 *
 	 * @return string|null
 	 */
 	public function getCertificateDownloadLink()/*: ?string*/ {
+		switch (self::dic()->objDataCache()->lookupType($this->obj_id)) {
+			case "crs":
+				//@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
+				if (ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
+					self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, "ref_id", $this->obj_ref_id);
 
-		//@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
-		if (ilCertificate::isActive() &&
-			ilCertificate::isObjectActive($this->obj_id)) {
+					return self::dic()->ctrl()->getLinkTargetByClass([ ilRepositoryGUI::class, ilObjCourseGUI::class ], 'deliverCertificate');
+				}
+				break;
 
-			//TODO Certificates for ILIAS Test
-			switch (self::dic()->objDataCache()->lookupType($this->obj_id)) {
-				case "crs":
-					//@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
-					if (ilCourseParticipants::getDateTimeOfPassed($this->obj_id, self::dic()->user()->getId())) {
-						self::dic()->ctrl()->setParameterByClass("ilObjCourseGUI", "ref_id", $this->obj_ref_id);
+			case "sahs":
+				if (self::ilias()->learningProgress($this->user)->getStatus($this->obj_ref_id) === ilLPStatus::LP_STATUS_COMPLETED_NUM) {
+					//the following way of link generation does not work! the above way is the standard(!:-( ILIAS way of link generation for certificate
+					//$this->ctrl->setParameterByClass(ilSAHSPresentationGUI::class, 'ref_id', $obj_ref_id);
+					//return $this->ctrl->getLinkTargetByClass(ilSAHSPresentationGUI::class,'downloadCertificate');
+					return 'ilias.php?baseClass=' . ilSAHSPresentationGUI::class . '&ref_id=' . $this->obj_ref_id . '&cmd=downloadCertificate';
+				}
+				break;
 
-						return self::dic()->ctrl()->getLinkTargetByClass([ "ilRepositoryGUI", "ilObjCourseGUI" ], 'deliverCertificate');
-					}
-				case "sahs":
-					if (self::ilias()->learningProgress($this->user)->getStatus($this->obj_ref_id) == ilLPStatus::LP_STATUS_COMPLETED_NUM) {
-						//the following way of link generation does not work! the above way is the standard(!:-( ILIAS way of link generation for certificate
-						//$this->ctrl->setParameterByClass(ilSAHSPresentationGUI::class, 'ref_id', $obj_ref_id);
-						//return $this->ctrl->getLinkTargetByClass(ilSAHSPresentationGUI::class,'downloadCertificate');
-						return 'ilias.php?baseClass=' . ilSAHSPresentationGUI::class . '&ref_id=' . $this->obj_ref_id . '&cmd=downloadCertificate';
-					}
-			}
+			case "tst":
+				// TODO Certificates for ILIAS Test
+				break;
 
-			return NULL;
+			default:
+				break;
 		}
+
+		return NULL;
 	}
 }
