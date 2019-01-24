@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.3]
+- Fix certificate download
+- Show learning progress independently to icon or bar setting
+
 ## [1.0.2]
 - Object icon height (Some plugin icons may be bigger)
 

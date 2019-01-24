@@ -48,7 +48,7 @@ class CertificateGUI {
 	public function render(): string {
 		$certificates = self::ilias()->certificates($this->user, $this->obj_ref_id);
 
-		$link = $certificates->getCertificateBatchForUserOnCourseOrCourseSubModule();
+		$link = $certificates->getCertificateDownloadLink();
 
 		if (empty($link)) {
 			return '';
