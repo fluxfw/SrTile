@@ -250,8 +250,9 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		}
 
 		if (self::ilias()->certificates(self::dic()->user(), 0)->enabled()
-			&& self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId())->getProperties()->getShowDownloadCertificate()
-			=== Tile::SHOW_TRUE) {
+			&& self::tiles()->getInstanceForObjRefId($this->tile->getObjRefId())->getProperties()->getShowDownloadCertificate() === Tile::SHOW_TRUE) {
+
+
 			$tpl->setVariable("CERTIFICATE", self::output()->getHTML(new CertificateGUI(self::dic()->user(), $this->tile->getObjRefId())));
 		}
 
