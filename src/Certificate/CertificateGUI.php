@@ -5,8 +5,8 @@ namespace srag\Plugins\SrTile\Certificate;
 use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Tile\TileGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
-use SrTileGUI;
 
 /**
  * Class CertificateGUI
@@ -57,7 +57,7 @@ class CertificateGUI {
 		$tpl = self::plugin()->template("Certificate/certificate.html");
 
 		$tpl->setVariable("CERTIFICATE_LINK", $link);
-		$tpl->setVariable("CERTIFICATE_TEXT", self::plugin()->translate("download_certificate", SrTileGUI::LANG_MODULE_TILE));
+		$tpl->setVariable("CERTIFICATE_TEXT", self::plugin()->translate("download_certificate", TileGUI::LANG_MODULE_TILE));
 		$tpl->setVariable("CERTIFICATE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/certificate.svg");
 
 		return self::output()->getHTML($tpl);

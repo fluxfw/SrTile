@@ -18,7 +18,6 @@ use ilSelectInputGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
-use SrTileGUI;
 
 /**
  * Class TileFormGUI
@@ -31,7 +30,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const LANG_MODULE = SrTileGUI::LANG_MODULE_TILE;
+	const LANG_MODULE = TileGUI::LANG_MODULE_TILE;
 	/**
 	 * @var Tile
 	 */
@@ -41,12 +40,12 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	/**
 	 * TileFormGUI constructor
 	 *
-	 * @param SrTileGUI $parent
-	 * @param Tile      $tile
+	 * @param TileGUI $parent
+	 * @param Tile    $tile
 	 *
 	 * @throws ilException
 	 */
-	public function __construct(SrTileGUI $parent, Tile $tile) {
+	public function __construct(TileGUI $parent, Tile $tile) {
 		parent::__construct($parent, $tile);
 
 		if (!self::access()->hasWriteAccess(self::tiles()->filterRefId())) {
@@ -79,9 +78,9 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initCommands()/*: void*/ {
-		$this->addCommandButton(SrTileGUI::CMD_UPDATE_TILE, $this->txt("submit"), "tile_submit");
+		$this->addCommandButton(TileGUI::CMD_UPDATE_TILE, $this->txt("submit"), "tile_submit");
 
-		$this->addCommandButton(SrTileGUI::CMD_CANCEL, $this->txt("cancel"), "tile_cancel");
+		$this->addCommandButton(TileGUI::CMD_CANCEL, $this->txt("cancel"), "tile_cancel");
 	}
 
 
