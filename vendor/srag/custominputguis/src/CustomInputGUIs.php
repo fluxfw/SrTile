@@ -2,8 +2,9 @@
 
 namespace srag\CustomInputGUIs\SrTile;
 
-use ILIAS\UI\Implementation\Component\Glyph\Factory as ProgressMeterFactoryCore;
+use ILIAS\UI\Implementation\Component\Chart\ProgressMeter\Factory as ProgressMeterFactoryCore;
 use srag\CustomInputGUIs\SrTile\ProgressMeter\Implementation\Factory as ProgressMeterFactory;
+use srag\CustomInputGUIs\SrTile\ViewControlModeGUI\ViewControlModeGUI;
 use srag\DIC\SrTile\DICTrait;
 
 /**
@@ -47,5 +48,13 @@ final class CustomInputGUIs {
 		} else {
 			return new ProgressMeterFactory();
 		}
+	}
+
+
+	/**
+	 * @return ViewControlModeGUI
+	 */
+	public function viewControlModeGUI() {
+		return new ViewControlModeGUI();
 	}
 }

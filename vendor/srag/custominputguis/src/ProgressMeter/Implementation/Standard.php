@@ -9,7 +9,7 @@ use srag\CustomInputGUIs\SrTile\ProgressMeter\Component\Standard as StandardComp
 /**
  * Class Standard
  *
- * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Implementation/Component/Card/Standard.php
+ * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Implementation/Component/Chart/ProgressMeter/Standard.php
  *
  * @package srag\CustomInputGUIs\SrTile\ProgressMeter\Implementation
  *

@@ -28,7 +28,6 @@ removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
 removeplugindataconfirm_remove_data#:#Remove %1$s data
 tile#:#Tile
 tile_actions#:#Actions
-tile_auto_from_image#:#Automatic from image
 tile_back#:#Back
 tile_background_color#:#Background color
 tile_border#:#Border
@@ -36,6 +35,7 @@ tile_border_color#:#Border color
 tile_border_size#:#Border size
 tile_cancel#:#Cancel
 tile_certificate#:#Certificate
+tile_color_auto_from_image#:#Automatic from image
 tile_color_background#:#Color of background
 tile_color_contrast#:#Calculate automatically based on the contrast of the background color (black or white)
 tile_disabled#:#Disabled
@@ -65,6 +65,7 @@ tile_position_bottom#:#Bottom
 tile_position_left#:#Left
 tile_position_left_bottom#:#Left / Bottom
 tile_position_left_top#:#Left / Top
+tile_position_on_the_icons#:#On the icons
 tile_position_right#:#Right
 tile_position_right_bottom#:#Right / Bottom
 tile_position_right_top#:#Right / Top
@@ -76,6 +77,7 @@ tile_recommendation_disabled_hint#:#Please install the plugin %s to use recommen
 tile_recommend_mail_template#:#Mail template
 tile_saved#:#The tile was saved
 tile_set#:#Set
+tile_shadow#:#Shadow
 tile_show_actions#:#Show actions menu
 tile_show_download_certificate#:#Show download certificate
 tile_show_false#:#Not show
@@ -84,6 +86,7 @@ tile_show_image_as_background#:#Show image as background (Experimental)
 tile_show_likes_count#:#Show likes count
 tile_show_learning_progress#:#Show learning progress
 tile_show_learning_progress_bar#:#Bar
+tile_show_learning_progress_filter#:#Show filter
 tile_show_learning_progress_icon#:#Icon
 tile_show_learning_progress_legend#:#Show legend
 tile_show_none#:#Not show
@@ -101,3 +104,6 @@ tile_vertical_align#:#Vertical align
 tile_vertical_align_bottom#:#Bottom
 tile_vertical_align_center#:#Center
 tile_vertical_align_top#:#Top
+tile_view#:#View
+tile_view_list#:#List
+tile_view_tile#:#Tile

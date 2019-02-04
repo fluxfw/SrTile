@@ -36,6 +36,7 @@ class Tile extends ActiveRecord {
 	const POSITION_LEFT_BOTTOM = 6;
 	const POSITION_RIGHT_TOP = 7;
 	const POSITION_RIGHT_BOTTOM = 8;
+	const POSITION_ON_THE_ICONS = 11;
 	const POSITION_NONE = 9;
 	const POSITION_PARENT = 10;
 	const HORIZONTAL_ALIGN_LEFT = 1;
@@ -58,6 +59,9 @@ class Tile extends ActiveRecord {
 	const OPEN_FALSE = 1;
 	const OPEN_TRUE = 2;
 	const OPEN_PARENT = 3;
+	const VIEW_TILE = 1;
+	const VIEW_LIST = 2;
+	const VIEW_PARENT = 3;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
@@ -77,17 +81,20 @@ class Tile extends ActiveRecord {
 	const DEFAULT_OBJECT_ICON_POSITION = Tile::POSITION_LEFT_BOTTOM;
 	const DEFAULT_OPEN_OBJ_WITH_ONE_CHILD_DIRECT = Tile::OPEN_FALSE;
 	const DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE = Tile::MAIL_TEMPLATE_SET;
+	const DEFAULT_SHADOW = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_ACTIONS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_DOWNLOAD_CERTIFICATE = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_IMAGE_AS_BACKGROUND = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LEARNING_PROGRESS = Tile::LEARNING_PROGRESS_NONE;
+	const DEFAULT_SHOW_LEARNING_PROGRESS_FILTER = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LEARNING_PROGRESS_LEGEND = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_PRECONDITIONS = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_RECOMMEND_ICON = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_OBJECT_TABS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
+	const DEFAULT_VIEW = Tile::VIEW_TILE;
 	/**
 	 * @var int
 	 *
@@ -408,6 +415,30 @@ class Tile extends ActiveRecord {
 	 */
 	protected $show_object_tabs = self::SHOW_PARENT;
 	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $view = self::VIEW_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $shadow = self::SHOW_PARENT;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_learning_progress_filter = self::SHOW_PARENT;
+	/**
 	 * @var TileProperties|null
 	 */
 	protected $properties = NULL;
@@ -482,18 +513,21 @@ class Tile extends ActiveRecord {
 			case "obj_ref_id":
 			case "open_obj_with_one_child_direct":
 			case "recommend_mail_template_type":
+			case "shadow":
 			case "show_actions":
 			case "show_download_certificate":
 			case "show_favorites_icon":
 			case "show_image_as_background":
 			case "show_likes_count":
 			case "show_learning_progress":
+			case "show_learning_progress_filter":
 			case "show_learning_progress_legend":
 			case "show_object_tabs":
 			case "show_preconditions":
 			case "show_recommend_icon":
 			case "show_title":
 			case "tile_id":
+			case "view":
 				return intval($field_value);
 
 			case "tile_enabled":
@@ -1212,6 +1246,60 @@ class Tile extends ActiveRecord {
 	 */
 	public function setShowObjectTabs(int $show_object_tabs)/*: void*/ {
 		$this->show_object_tabs = $show_object_tabs;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getView(): int {
+		return $this->view;
+	}
+
+
+	/**
+	 * @param int $view
+	 */
+	public function setView(int $view)/*: void*/ {
+		$this->view = $view;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShadow(): int {
+		return $this->shadow;
+	}
+
+
+	/**
+	 * @param int $shadow
+	 */
+	public function setShadow(int $shadow)/*: void*/ {
+		$this->shadow = $shadow;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getShowLearningProgressFilter(): int {
+		return $this->show_learning_progress_filter;
+	}
+
+
+	/**
+	 * @param int $show_learning_progress_filter
+	 */
+	public function setShowLearningProgressFilter(int $show_learning_progress_filter)/*: void*/ {
+		$this->show_learning_progress_filter = $show_learning_progress_filter;
 	}
 
 

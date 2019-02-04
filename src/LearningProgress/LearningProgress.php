@@ -83,6 +83,10 @@ class LearningProgress {
 	 */
 	public function getIcon(int $obj_ref_id): string {
 		$status = $this->getStatus($obj_ref_id);
+		if ($status === 0) {
+			// Why this fix is needed? 0 == 1 ?!
+			$status = ilLPStatus::LP_STATUS_NOT_ATTEMPTED;
+		}
 
 		switch ($status) {
 			case ilLPStatus::LP_STATUS_IN_PROGRESS_NUM:
@@ -100,6 +104,7 @@ class LearningProgress {
 				return self::plugin()->directory() . "/templates/images/LearningProgress/failed.svg";
 
 			case ilLPStatus::LP_STATUS_NOT_ATTEMPTED:
+			case ilLPStatus::LP_STATUS_NOT_ATTEMPTED_NUM:
 			case ilLPStatus::LP_STATUS_NOT_PARTICIPATED:
 			case ilLPStatus::LP_STATUS_NOT_REGISTERED:
 			default:
@@ -154,6 +159,7 @@ class LearningProgress {
 
 			$a_mode = $olp->getCurrentMode();
 
+			// TODO: ???
 			if (in_array($a_mode, [ ilLPObjSettings::LP_MODE_UNDEFINED, ilLPObjSettings::LP_MODE_DEACTIVATED ])) {
 				self::$has_learning_progress[$obj_ref_id] = false;
 			}

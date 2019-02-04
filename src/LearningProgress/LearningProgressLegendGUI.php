@@ -33,6 +33,8 @@ class LearningProgressLegendGUI {
 	 * @return string
 	 */
 	public function render(): string {
+		self::dic()->language()->loadLanguageModule("trac");
+
 		$tpl_legend = self::plugin()->template("LearningProgress/legend.html");
 
 		$tpl_legend->setCurrentBlock("status");

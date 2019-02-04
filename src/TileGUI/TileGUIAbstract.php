@@ -12,6 +12,7 @@ use srag\CustomInputGUIs\SrTile\CustomInputGUIsTrait;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Certificate\CertificateGUI;
 use srag\Plugins\SrTile\Favorite\FavoritesGUI;
+use srag\Plugins\SrTile\LearningProgress\LearningProgressFilterGUI;
 use srag\Plugins\SrTile\Rating\RatingGUI;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
@@ -52,6 +53,18 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 * @inheritdoc
 	 */
 	public function render(): string {
+		$parent_tile = self::tiles()->getParentTile($this->tile);
+		if ($parent_tile->getProperties()->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
+			$lp_status_id = intval((new LearningProgressFilterGUI())->generateGUI()->getActiveId());
+
+			if (self::ilias()->learningProgress(self::dic()->user())->enabled()
+				&& self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())) {
+				if (self::ilias()->learningProgress(self::dic()->user())->getStatus($this->tile->getObjRefId()) !== $lp_status_id) {
+					return "";
+				}
+			}
+		}
+
 		self::dic()->ctrl()->setParameterByClass(FavoritesGUI::class, "parent_ref_id", self::tiles()->filterRefId());
 		self::dic()->ctrl()->setParameterByClass(FavoritesGUI::class, "ref_id", $this->tile->getObjRefId());
 		self::dic()->ctrl()->setParameterByClass(RatingGUI::class, "parent_ref_id", self::tiles()->filterRefId());
@@ -165,7 +178,11 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_TEXT", self::ilias()->learningProgress(self::dic()->user())
 							->getText($this->tile->getObjRefId()));
 
-						$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
+						if ($this->tile->getProperties()->getLearningProgressPosition() === Tile::POSITION_ON_THE_ICONS) {
+							$tpl->setVariable("LEARNING_PROGRESS_ON_THE_ICONS", self::output()->getHTML($tpl_learning_progress));
+						} else {
+							$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
+						}
 						break;
 
 					case Tile::LEARNING_PROGRESS_BAR:
@@ -182,7 +199,11 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_TEXT", self::ilias()->learningProgress(self::dic()->user())
 							->getText($this->tile->getObjRefId()));
 
-						$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
+						if ($this->tile->getProperties()->getLearningProgressPosition() === Tile::POSITION_ON_THE_ICONS) {
+							$tpl->setVariable("LEARNING_PROGRESS_ON_THE_ICONS", self::output()->getHTML($tpl_learning_progress));
+						} else {
+							$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
+						}
 						break;
 
 					default:
@@ -229,10 +250,10 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 				self::dic()->ctrl()->setParameterByClass(TileGUI::class, "ref_id", $this->tile->getObjRefId());
 				$popover = self::dic()->ui()->factory()->popover()->standard(self::dic()->ui()->factory()->legacy(""))
-					->withAsyncContentUrl(self::dic()->ctrl()->getLinkTargetByClass([
+					->withAsyncContentUrl(str_replace("\\", "\\\\", self::dic()->ctrl()->getLinkTargetByClass([
 						ilUIPluginRouterGUI::class,
 						TileGUI::class
-					], TileGUI::GET_PRECONDITIONS, "", true));
+					], TileGUI::GET_PRECONDITIONS, "", true)));
 
 				// Use a fake button to use clickable open popover. Set the button id on the info image
 				$button = self::dic()->ui()->factory()->button()->standard("", "")->withOnClick($popover->getShowSignal());
@@ -254,6 +275,8 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 			$tpl->setVariable("CERTIFICATE", self::output()->getHTML(new CertificateGUI(self::dic()->user(), $this->tile->getObjRefId())));
 		}
+
+		$tpl->setVariable("SHADOW", $this->tile->getProperties()->getShadow());
 
 		$tpl->parseCurrentBlock();
 

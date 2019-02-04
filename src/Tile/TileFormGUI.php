@@ -107,6 +107,25 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
 				self::PROPERTY_REQUIRED => false
 			],
+			"view" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::VIEW_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::VIEW_TILE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("view_tile")
+					],
+					Tile::VIEW_LIST => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("view_list")
+					]
+				]
+			],
 			"show_object_tabs" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
@@ -141,7 +160,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					],
 					Tile::COLOR_TYPE_AUTO_FROM_IMAGE => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("auto_from_image")
+						"setTitle" => $this->txt("color_auto_from_image")
 					],
 					Tile::COLOR_TYPE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
@@ -156,6 +175,25 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					]
 				],
 				"setTitle" => $this->txt("background_color")
+			],
+			"shadow" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SHOW_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::SHOW_FALSE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_false")
+					],
+					Tile::SHOW_TRUE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_true")
+					]
+				]
 			],
 			"margin_type" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -298,7 +336,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					],
 					Tile::COLOR_TYPE_AUTO_FROM_IMAGE => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("auto_from_image")
+						"setTitle" => $this->txt("color_auto_from_image")
 					],
 					Tile::COLOR_TYPE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
@@ -404,7 +442,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					],
 					Tile::COLOR_TYPE_AUTO_FROM_IMAGE => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("auto_from_image")
+						"setTitle" => $this->txt("color_auto_from_image")
 					],
 					Tile::COLOR_TYPE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
@@ -696,11 +734,35 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					Tile::POSITION_RIGHT_BOTTOM => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("position_right_bottom")
+					],
+					Tile::POSITION_ON_THE_ICONS => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_on_the_icons")
 					]
 				],
 				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
 			],
 			"show_learning_progress_legend" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SHOW_PARENT => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_NOT_ADD => self::tiles()->isTopTile($this->object),
+						"setTitle" => $this->txt("parent")
+					],
+					Tile::SHOW_FALSE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_false")
+					],
+					Tile::SHOW_TRUE => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("show_true")
+					]
+				],
+				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
+			],
+			"show_learning_progress_filter" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [

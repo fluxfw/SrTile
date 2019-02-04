@@ -2,11 +2,41 @@
 .tiles {
   align-items: stretch;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  width: 100%;
 
   :after {
 	clear: none !important;
+  }
+
+  // Tile
+  &[data-view="1"] {
+	flex-direction: row;
+	flex-wrap: wrap;
+  }
+
+  // List
+  &[data-view="2"] {
+	flex-direction: column;
+
+	.tile {
+	  width: 100% !important;
+
+	  .card {
+		border-left: none !important;
+		border-right: none !important;
+		border-top: none !important;
+		flex-direction: row;
+
+		.card_image {
+		  height: 36px;
+		  width: 36px;
+		}
+
+		.card-title {
+		  min-height: unset;
+		}
+	  }
+	}
   }
 }
 
@@ -21,8 +51,8 @@
 	opacity: 0.5;
 
 	.card {
-	  .card_image {
-		cursor: default;
+	  .card_image, .card-title {
+		cursor: default !important;
 	  }
 	}
   }
@@ -30,12 +60,15 @@
   // Card
   .card {
 	border: 0 solid transparent;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	display: flex;
 	flex-direction: column;
 	height: 100%;
 	position: relative;
 	width: 100%;
+
+	[data-shadow="1"] {
+	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	}
 
 	// Card image
 	.card_image {
@@ -136,6 +169,7 @@
 	  // Card label
 	  .card-title {
 		color: inherit;
+		cursor: pointer;
 		display: flex;
 		flex-direction: row;
 		flex-grow: 1;
@@ -144,6 +178,7 @@
 		min-height: 50px;
 		overflow: hidden;
 		padding: 4px;
+		text-decoration: none;
 		text-overflow: ellipsis;
 		word-break: break-word;
 	  }
@@ -296,6 +331,7 @@ div[id^="bl_cntr_"] > .ilContainerListFooter {
   display: none !important;
 }
 
+
 // Hide some elements on personal desktop
 #block_pditems_0 {
   div.il_Block {
@@ -309,11 +345,14 @@ h3.ilPDBlockSubHeader {
   display: none !important;
 }
 
+
 // Hide object list border
 .ilObjListRow {
   border-bottom: none !important;
 }
 
+
+// ???
 .row .tiles {
   @media (min-width: 992px) {
 	.col-md-3 {
@@ -322,10 +361,14 @@ h3.ilPDBlockSubHeader {
   }
 }
 
+
+// LP legend
 .lp_legend {
   margin-top: 20px;
 }
 
+
+// preconditions
 .il-popover {
   .il-popover-inner {
 	// Fix bad popover scrollbar
@@ -338,11 +381,11 @@ h3.ilPDBlockSubHeader {
   }
 
   .tiles {
-	flex-direction: column;
-	margin: 0px;
+	flex-direction: column !important;
+	margin: 0px !important;
 
 	.tile {
-	  width: 250px;
+	  width: 250px !important;
 	}
   }
 }

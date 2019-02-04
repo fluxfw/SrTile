@@ -7,7 +7,7 @@ namespace srag\CustomInputGUIs\SrTile\ProgressMeter\Component;
 /**
  * Interface FixedSize
  *
- * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Component/Card/FixedSize.php
+ * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Component/Chart/ProgressMeter/FixedSize.php
  *
  * @package srag\CustomInputGUIs\SrTile\ProgressMeter\Component
  *

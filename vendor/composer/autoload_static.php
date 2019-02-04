@@ -13,7 +13,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
             'srag\\Plugins\\SrTile\\' => 20,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\SrTile\\' => 16,
-            'srag\\CustomInputGUIs\\SrTile\\' => 28,
+            'srag\\CustomInputGUIs\\' => 21,
             'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
@@ -39,7 +39,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\SrTile\\' => 
+        'srag\\CustomInputGUIs\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
@@ -107,6 +107,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\CustomInputGUIs\\SrTile\\Template\\Template' => __DIR__ . '/..' . '/srag/custominputguis/src/Template/Template.php',
         'srag\\CustomInputGUIs\\SrTile\\TextAreaInputGUI\\TextAreaInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/TextAreaInputGUI/TextAreaInputGUI.php',
         'srag\\CustomInputGUIs\\SrTile\\TextInputGUI\\TextInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/TextInputGUI/TextInputGUI.php',
+        'srag\\CustomInputGUIs\\SrTile\\ViewControlModeGUI\\ViewControlModeGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/ViewControlModeGUI/ViewControlModeGUI.php',
         'srag\\CustomInputGUIs\\SrTile\\Waiter\\Waiter' => __DIR__ . '/..' . '/srag/custominputguis/src/Waiter/Waiter.php',
         'srag\\DIC\\SrTile\\DICStatic' => __DIR__ . '/..' . '/srag/dic/src/DICStatic.php',
         'srag\\DIC\\SrTile\\DICStaticInterface' => __DIR__ . '/..' . '/srag/dic/src/DICStaticInterface.php',
@@ -140,6 +141,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\Favorite\\FavoritesGUI' => __DIR__ . '/../..' . '/src/Favorite/class.FavoritesGUI.php',
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgress' => __DIR__ . '/../..' . '/src/LearningProgress/LearningProgress.php',
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressBar' => __DIR__ . '/../..' . '/src/LearningProgress/LearningProgressBar.php',
+        'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressFilterGUI' => __DIR__ . '/../..' . '/src/LearningProgress/LearningProgressFilterGUI.php',
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressLegendGUI' => __DIR__ . '/../..' . '/src/LearningProgress/LearningProgressLegendGUI.php',
         'srag\\Plugins\\SrTile\\Rating\\Rating' => __DIR__ . '/../..' . '/src/Rating/Rating.php',
         'srag\\Plugins\\SrTile\\Rating\\RatingGUI' => __DIR__ . '/../..' . '/src/Rating/class.RatingGUI.php',

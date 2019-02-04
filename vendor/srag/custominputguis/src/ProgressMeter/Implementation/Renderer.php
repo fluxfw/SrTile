@@ -15,7 +15,7 @@ use srag\DIC\SrTile\DICTrait;
 /**
  * Class Renderer
  *
- * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Implementation/Component/Card/Renderer.php
+ * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Implementation/Component/Chart/ProgressMeter/Renderer.php
  *
  * @package srag\CustomInputGUIs\SrTile\ProgressMeter\Implementation
  *

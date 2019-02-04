@@ -9,7 +9,7 @@ use srag\CustomInputGUIs\SrTile\ProgressMeter\Component\Factory as FactoryCompon
 /**
  * Class Factory
  *
- * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Implementation/Component/Card/Factory.php
+ * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Implementation/Component/Chart/ProgressMeter/Factory.php
  *
  * @package srag\CustomInputGUIs\SrTile\ProgressMeter\Implementation
  *

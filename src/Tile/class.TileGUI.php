@@ -7,7 +7,9 @@ use ilSrTilePlugin;
 use ilSrTileUIHookGUI;
 use ilUIPluginRouterGUI;
 use ilUtil;
+use srag\CustomInputGUIs\SrTile\ViewControlModeGUI\ViewControlModeGUI;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\LearningProgress\LearningProgressFilterGUI;
 use srag\Plugins\SrTile\TileListGUI\TileListStaticGUI\TileListStaticGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -61,6 +63,10 @@ class TileGUI {
 						$this->{$cmd}();
 						break;
 
+					case ViewControlModeGUI::CMD_HANDLE_BUTTONS:
+						(new LearningProgressFilterGUI())->generateGUI()->handleButtons();
+						break;
+
 					default:
 						break;
 				}
@@ -95,7 +101,7 @@ class TileGUI {
 	protected function editTile()/*: void*/ {
 		$tile = self::tiles()->getInstanceForObjRefId(filter_input(INPUT_GET, "ref_id"));
 
-		self::dic()->ctrl()->saveParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID);
+		self::dic()->ctrl()->setParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID, $tile->getObjRefId());
 
 		$form = $this->getTileFormGUI($tile);
 
@@ -109,7 +115,7 @@ class TileGUI {
 	protected function updateTile()/*: void*/ {
 		$tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
 
-		self::dic()->ctrl()->saveParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID);
+		self::dic()->ctrl()->setParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID, $tile->getObjRefId());
 
 		$form = $this->getTileFormGUI($tile);
 
@@ -131,13 +137,13 @@ class TileGUI {
 	protected function setTabs()/*: void*/ {
 		self::dic()->tabs()->clearTargets();
 
+		self::dic()->ctrl()->setParameter($this, "ref_id", self::tiles()->filterRefId());
+
 		self::dic()->tabs()->addTab(ilSrTileUIHookGUI::TAB_ID, self::plugin()->translate(ilSrTileUIHookGUI::TAB_ID), self::dic()->ctrl()
 			->getLinkTargetByClass([
 				ilUIPluginRouterGUI::class,
 				self::class
 			], self::CMD_EDIT_TILE));
-
-		self::dic()->ctrl()->setParameter($this, "ref_id", self::tiles()->filterRefId());
 
 		self::dic()->tabs()->setBackTarget(self::plugin()->translate("back", self::LANG_MODULE_TILE), self::dic()->ctrl()
 			->getLinkTarget($this, self::CMD_CANCEL));
