@@ -9,7 +9,6 @@ use ilTextAreaInputGUI;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
-use SrTileRecommendGUI;
 
 /**
  * Class RecommendFormGUI
@@ -22,7 +21,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI {
 
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const LANG_MODULE = SrTileRecommendGUI::LANG_MODULE_RECOMMENDATION;
+	const LANG_MODULE = RecommendGUI::LANG_MODULE_RECOMMENDATION;
 	/**
 	 * @var Tile
 	 */
@@ -32,10 +31,10 @@ class RecommendFormGUI extends ObjectPropertyFormGUI {
 	/**
 	 * RecommendFormGUI constructor
 	 *
-	 * @param SrTileRecommendGUI $parent
-	 * @param Tile               $tile
+	 * @param RecommendGUI $parent
+	 * @param Tile         $tile
 	 */
-	public function __construct(SrTileRecommendGUI $parent, Tile $tile) {
+	public function __construct(RecommendGUI $parent, Tile $tile) {
 		$this->tile = $tile;
 
 		parent::__construct($parent, new Recommend($this->tile), false);
@@ -56,7 +55,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initCommands()/*: void*/ {
-		$this->addCommandButton(SrTileRecommendGUI::CMD_NEW_RECOMMEND, $this->txt("submit"), "tile_recommend_modal_submit");
+		$this->addCommandButton(RecommendGUI::CMD_NEW_RECOMMEND, $this->txt("submit"), "tile_recommend_modal_submit");
 
 		$this->addCommandButton("", $this->txt("cancel"), "tile_recommend_modal_cancel");
 

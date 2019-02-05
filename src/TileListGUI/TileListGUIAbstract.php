@@ -4,6 +4,7 @@ namespace srag\Plugins\SrTile\TileListGUI;
 
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\LearningProgress\LearningProgressFilterGUI;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressLegendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\TileGUI\TileGUIInterface;
@@ -48,9 +49,13 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$tile_list_html = "";
 
 		if (count($this->tile_list->getTiles()) > 0) {
+			$parent_tile = self::tiles()->getParentTile(current($this->tile_list->getTiles()));
+
 			self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
 
 			$tpl = self::plugin()->template("TileList/tile_list.html");
+
+			$tpl->setVariable("VIEW", $parent_tile->getProperties()->getView());
 
 			$gui_class = static::GUI_CLASS;
 			$tile_html = self::output()->getHTML(array_map(function (Tile $tile) use ($gui_class): TileGUIInterface {
@@ -59,10 +64,12 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 
 			$tpl->setVariable("TILES", $tile_html);
 
-			if (!self::dic()->ctrl()->isAsynch()
-				&& self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId())->getProperties()->getShowLearningProgressLegend()
-				=== Tile::SHOW_TRUE) {
-				$tpl->setVariable("LP_LEGEND", $this->getLearningProgressLegendHtml());
+			if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getProperties()->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
+				$tpl->setVariable("LP_FILTER", self::output()->getHTML(new LearningProgressFilterGUI()));
+			}
+
+			if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getProperties()->getShowLearningProgressLegend() === Tile::SHOW_TRUE) {
+				$tpl->setVariable("LP_LEGEND", self::output()->getHTML(new LearningProgressLegendGUI()));
 			}
 
 			$tile_list_html = self::output()->getHTML($tpl);
@@ -71,16 +78,6 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		}
 
 		return $tile_list_html;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getLearningProgressLegendHtml(): string {
-		self::dic()->language()->loadLanguageModule('trac');
-
-		return self::output()->getHTML(new LearningProgressLegendGUI());
 	}
 
 

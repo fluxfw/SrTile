@@ -1,24 +1,30 @@
 <?php
 
-require_once __DIR__ . "/../../vendor/autoload.php";
+namespace srag\Plugins\SrTile\Rating;
 
+use ilLink;
+use ilPersonalDesktopGUI;
+use ilSrTilePlugin;
+use ilUtil;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
- * Class SrTileFavoritesGUI
+ * Class RatingGUI
  *
- * @ilCtrl_isCalledBy SrTileFavoritesGUI: ilUIPluginRouterGUI
+ * @package           srag\Plugins\SrTile\Rating
+ *
+ * @ilCtrl_isCalledBy srag\Plugins\SrTile\Rating\RatingGUI: ilUIPluginRouterGUI
  */
-class SrTileFavoritesGUI {
+class RatingGUI {
 
 	use DICTrait;
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const CMD_ADD_TO_FAVORITES = "addToFavorites";
-	const CMD_REMOVE_FROM_FAVORITES = "removeFromFavorites";
-	const LANG_MODULE_FAVORITES = "favorites";
+	const CMD_LIKE = "like";
+	const CMD_UNLIKE = "unlike";
+	const LANG_MODULE_RATING = "rating";
 	/**
 	 * @var Tile
 	 */
@@ -26,7 +32,7 @@ class SrTileFavoritesGUI {
 
 
 	/**
-	 * SrTileFavoritesGUI constructor
+	 * RatingGUI constructor
 	 */
 	public function __construct() {
 		$this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
@@ -37,7 +43,8 @@ class SrTileFavoritesGUI {
 	 *
 	 */
 	public function executeCommand()/*: void*/ {
-		if (!(self::ilias()->favorites(self::dic()->user())->enabled() && $this->tile->getProperties()->getShowFavoritesIcon() === Tile::SHOW_TRUE)) {
+		if (!($this->tile->getProperties()->getEnableRating() === Tile::SHOW_TRUE
+			&& self::access()->hasReadAccess($this->tile->getObjRefId()))) {
 			return;
 		}
 
@@ -48,8 +55,8 @@ class SrTileFavoritesGUI {
 				$cmd = self::dic()->ctrl()->getCmd();
 
 				switch ($cmd) {
-					case self::CMD_ADD_TO_FAVORITES:
-					case self::CMD_REMOVE_FROM_FAVORITES:
+					case self::CMD_LIKE:
+					case self::CMD_UNLIKE:
 						$this->{$cmd}();
 						break;
 
@@ -64,12 +71,12 @@ class SrTileFavoritesGUI {
 	/**
 	 *
 	 */
-	protected function addToFavorites()/*: void*/ {
+	protected function like()/*: void*/ {
 		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
 
-		self::ilias()->favorites(self::dic()->user())->addToFavorites($this->tile->getObjRefId());
+		self::rating(self::dic()->user())->like($this->tile->getObjRefId());
 
-		ilUtil::sendSuccess(self::plugin()->translate("added_to_favorites", self::LANG_MODULE_FAVORITES), true);
+		ilUtil::sendSuccess(self::plugin()->translate("liked", self::LANG_MODULE_RATING), true);
 
 		if ($parent_ref_id !== NULL) {
 			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
@@ -82,12 +89,12 @@ class SrTileFavoritesGUI {
 	/**
 	 *
 	 */
-	protected function removeFromFavorites()/*: void*/ {
+	protected function unlike()/*: void*/ {
 		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
 
-		self::ilias()->favorites(self::dic()->user())->removeFromFavorites($this->tile->getObjRefId());
+		self::rating(self::dic()->user())->unlike($this->tile->getObjRefId());
 
-		ilUtil::sendSuccess(self::plugin()->translate("removed_from_favorites", self::LANG_MODULE_FAVORITES), true);
+		ilUtil::sendSuccess(self::plugin()->translate("unliked", self::LANG_MODULE_RATING), true);
 
 		if ($parent_ref_id !== NULL) {
 			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));

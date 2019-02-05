@@ -368,6 +368,22 @@ final class TileProperties {
 	/**
 	 * @return int
 	 */
+	public function getShadow(): int {
+		if ($this->tile->getShadow() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShadow();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShadow();
+		}
+
+		return Tile::DEFAULT_SHADOW;
+	}
+
+
+	/**
+	 * @return int
+	 */
 	public function getShowActions(): int {
 		if ($this->tile->getShowActions() !== Tile::SHOW_PARENT) {
 			return $this->tile->getShowActions();
@@ -442,6 +458,22 @@ final class TileProperties {
 		}
 
 		return Tile::DEFAULT_SHOW_LEARNING_PROGRESS;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getShowLearningProgressFilter(): int {
+		if ($this->tile->getShowLearningProgressFilter() !== Tile::SHOW_PARENT) {
+			return $this->tile->getShowLearningProgressFilter();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getShowLearningProgressFilter();
+		}
+
+		return Tile::DEFAULT_SHOW_LEARNING_PROGRESS_FILTER;
 	}
 
 
@@ -542,6 +574,22 @@ final class TileProperties {
 
 
 	/**
+	 * @return int
+	 */
+	public function getView(): int {
+		if ($this->tile->getView() !== Tile::VIEW_PARENT) {
+			return $this->tile->getView();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getView();
+		}
+
+		return Tile::DEFAULT_VIEW;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public function getBorder(): string {
@@ -623,7 +671,7 @@ final class TileProperties {
 			return $this->parent_tile->getProperties()->getImage();
 		}
 
-		return self::plugin()->directory() . "/templates/images/default_image.png";
+		return "";
 	}
 
 

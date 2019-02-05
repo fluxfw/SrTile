@@ -11,12 +11,13 @@ use ilUIPluginRouterGUI;
 use srag\CustomInputGUIs\SrTile\CustomInputGUIsTrait;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Certificate\CertificateGUI;
+use srag\Plugins\SrTile\Favorite\FavoritesGUI;
+use srag\Plugins\SrTile\LearningProgress\LearningProgressFilterGUI;
+use srag\Plugins\SrTile\Rating\RatingGUI;
+use srag\Plugins\SrTile\Recommend\RecommendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
+use srag\Plugins\SrTile\Tile\TileGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
-use SrTileFavoritesGUI;
-use SrTileGUI;
-use SrTileRatingGUI;
-use SrTileRecommendGUI;
 
 /**
  * Class TileListContainerGUI
@@ -52,12 +53,24 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 * @inheritdoc
 	 */
 	public function render(): string {
-		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "parent_ref_id", self::tiles()->filterRefId());
-		self::dic()->ctrl()->setParameterByClass(SrTileFavoritesGUI::class, "ref_id", $this->tile->getObjRefId());
-		self::dic()->ctrl()->setParameterByClass(SrTileRatingGUI::class, "parent_ref_id", self::tiles()->filterRefId());
-		self::dic()->ctrl()->setParameterByClass(SrTileRatingGUI::class, "ref_id", $this->tile->getObjRefId());
-		self::dic()->ctrl()->setParameterByClass(SrTileRecommendGUI::class, "parent_ref_id", self::tiles()->filterRefId());
-		self::dic()->ctrl()->setParameterByClass(SrTileRecommendGUI::class, "ref_id", $this->tile->getObjRefId());
+		$parent_tile = self::tiles()->getParentTile($this->tile);
+		if ($parent_tile->getProperties()->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
+			$lp_status_id = (new LearningProgressFilterGUI())->generateGUI()->getActiveId();
+
+			if ($lp_status_id !== "all") {
+				if (!self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())
+					|| self::ilias()->learningProgress(self::dic()->user())->getStatus($this->tile->getObjRefId()) !== intval($lp_status_id)) {
+					return "";
+				}
+			}
+		}
+
+		self::dic()->ctrl()->setParameterByClass(FavoritesGUI::class, "parent_ref_id", self::tiles()->filterRefId());
+		self::dic()->ctrl()->setParameterByClass(FavoritesGUI::class, "ref_id", $this->tile->getObjRefId());
+		self::dic()->ctrl()->setParameterByClass(RatingGUI::class, "parent_ref_id", self::tiles()->filterRefId());
+		self::dic()->ctrl()->setParameterByClass(RatingGUI::class, "ref_id", $this->tile->getObjRefId());
+		self::dic()->ctrl()->setParameterByClass(RecommendGUI::class, "parent_ref_id", self::tiles()->filterRefId());
+		self::dic()->ctrl()->setParameterByClass(RecommendGUI::class, "ref_id", $this->tile->getObjRefId());
 
 		$tpl = self::plugin()->template("Tile/tile.html");
 		$tpl->setCurrentBlock("tile");
@@ -83,18 +96,17 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 				if (self::ilias()->favorites(self::dic()->user())->hasFavorite($this->tile->getObjRefId())) {
 					$tpl_favorite->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
 						ilUIPluginRouterGUI::class,
-						SrTileFavoritesGUI::class
-					], SrTileFavoritesGUI::CMD_REMOVE_FROM_FAVORITES));
+						FavoritesGUI::class
+					], FavoritesGUI::CMD_REMOVE_FROM_FAVORITES));
 					$tpl_favorite->setVariable("FAVORITE_TEXT", self::plugin()
-						->translate("remove_from_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+						->translate("remove_from_favorites", FavoritesGUI::LANG_MODULE_FAVORITES));
 					$tpl_favorite->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
 				} else {
 					$tpl_favorite->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
 						ilUIPluginRouterGUI::class,
-						SrTileFavoritesGUI::class
-					], SrTileFavoritesGUI::CMD_ADD_TO_FAVORITES));
-					$tpl_favorite->setVariable("FAVORITE_TEXT", self::plugin()
-						->translate("add_to_favorites", SrTileFavoritesGUI::LANG_MODULE_FAVORITES));
+						FavoritesGUI::class
+					], FavoritesGUI::CMD_ADD_TO_FAVORITES));
+					$tpl_favorite->setVariable("FAVORITE_TEXT", self::plugin()->translate("add_to_favorites", FavoritesGUI::LANG_MODULE_FAVORITES));
 					$tpl_favorite->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
 				}
 
@@ -108,16 +120,16 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 				if (self::rating(self::dic()->user())->hasLike($this->tile->getObjRefId())) {
 					$tpl_rating->setVariable("RATING_LINK", self::dic()->ctrl()->getLinkTargetByClass([
 						ilUIPluginRouterGUI::class,
-						SrTileRatingGUI::class
-					], SrTileRatingGUI::CMD_UNLIKE));
-					$tpl_rating->setVariable("RATING_TEXT", self::plugin()->translate("unlike", SrTileRatingGUI::LANG_MODULE_RATING));
+						RatingGUI::class
+					], RatingGUI::CMD_UNLIKE));
+					$tpl_rating->setVariable("RATING_TEXT", self::plugin()->translate("unlike", RatingGUI::LANG_MODULE_RATING));
 					$tpl_rating->setVariable("RATING_IMAGE_PATH", self::plugin()->directory() . "/templates/images/like.svg");
 				} else {
 					$tpl_rating->setVariable("RATING_LINK", self::dic()->ctrl()->getLinkTargetByClass([
 						ilUIPluginRouterGUI::class,
-						SrTileRatingGUI::class
-					], SrTileRatingGUI::CMD_LIKE));
-					$tpl_rating->setVariable("RATING_TEXT", self::plugin()->translate("like", SrTileRatingGUI::LANG_MODULE_RATING));
+						RatingGUI::class
+					], RatingGUI::CMD_LIKE));
+					$tpl_rating->setVariable("RATING_TEXT", self::plugin()->translate("like", RatingGUI::LANG_MODULE_RATING));
 					$tpl_rating->setVariable("RATING_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unlike.svg");
 				}
 
@@ -141,16 +153,15 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 				$tpl_recommend->setVariable("RECOMMEND_LINK", self::dic()->ctrl()->getLinkTargetByClass([
 					ilUIPluginRouterGUI::class,
-					SrTileRecommendGUI::class
-				], SrTileRecommendGUI::CMD_ADD_RECOMMEND, "", true));
-				$tpl_recommend->setVariable("RECOMMEND_TEXT", self::plugin()->translate("recommend", SrTileRecommendGUI::LANG_MODULE_RECOMMENDATION));
+					RecommendGUI::class
+				], RecommendGUI::CMD_ADD_RECOMMEND, "", true));
+				$tpl_recommend->setVariable("RECOMMEND_TEXT", self::plugin()->translate("recommend", RecommendGUI::LANG_MODULE_RECOMMENDATION));
 				$tpl_recommend->setVariable("RECOMMEND_IMAGE_PATH", self::plugin()->directory() . "/templates/images/recommend.svg");
 
 				$tpl->setVariable("RECOMMEND", self::output()->getHTML($tpl_recommend));
 			}
 
-			if (self::ilias()->learningProgress(self::dic()->user())->enabled()
-				&& self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())) {
+			if (self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())) {
 				switch ($this->tile->getProperties()->getShowLearningProgress()) {
 					case Tile::LEARNING_PROGRESS_ICON:
 						$icon = self::ilias()->learningProgress(self::dic()->user())->getIcon($this->tile->getObjRefId());
@@ -166,7 +177,11 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_TEXT", self::ilias()->learningProgress(self::dic()->user())
 							->getText($this->tile->getObjRefId()));
 
-						$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
+						if ($this->tile->getProperties()->getLearningProgressPosition() === Tile::POSITION_ON_THE_ICONS) {
+							$tpl->setVariable("LEARNING_PROGRESS_ON_THE_ICONS", self::output()->getHTML($tpl_learning_progress));
+						} else {
+							$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
+						}
 						break;
 
 					case Tile::LEARNING_PROGRESS_BAR:
@@ -183,7 +198,11 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						$tpl_learning_progress->setVariable("LEARNING_PROGRESS_TEXT", self::ilias()->learningProgress(self::dic()->user())
 							->getText($this->tile->getObjRefId()));
 
-						$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
+						if ($this->tile->getProperties()->getLearningProgressPosition() === Tile::POSITION_ON_THE_ICONS) {
+							$tpl->setVariable("LEARNING_PROGRESS_ON_THE_ICONS", self::output()->getHTML($tpl_learning_progress));
+						} else {
+							$tpl->setVariable("LEARNING_PROGRESS", self::output()->getHTML($tpl_learning_progress));
+						}
 						break;
 
 					default:
@@ -225,15 +244,15 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 			if (count(self::ilias()->courses()->getPreconditions($this->tile->getObjRefId())) > 0) {
 				$tpl_preconditions = self::plugin()->template("Preconditions/preconditions.html");
 
-				$tpl_preconditions->setVariable("PRECONDITIONS_TEXT", self::plugin()->translate("preconditions", SrTileGUI::LANG_MODULE_TILE));
+				$tpl_preconditions->setVariable("PRECONDITIONS_TEXT", self::plugin()->translate("preconditions", TileGUI::LANG_MODULE_TILE));
 				$tpl_preconditions->setVariable("PRECONDITIONS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/preconditions.svg");
 
-				self::dic()->ctrl()->setParameterByClass(SrTileGUI::class, "ref_id", $this->tile->getObjRefId());
+				self::dic()->ctrl()->setParameterByClass(TileGUI::class, "ref_id", $this->tile->getObjRefId());
 				$popover = self::dic()->ui()->factory()->popover()->standard(self::dic()->ui()->factory()->legacy(""))
-					->withAsyncContentUrl(self::dic()->ctrl()->getLinkTargetByClass([
+					->withAsyncContentUrl(str_replace("\\", "\\\\", self::dic()->ctrl()->getLinkTargetByClass([
 						ilUIPluginRouterGUI::class,
-						SrTileGUI::class
-					], SrTileGUI::GET_PRECONDITIONS, "", true));
+						TileGUI::class
+					], TileGUI::GET_PRECONDITIONS, "", true)));
 
 				// Use a fake button to use clickable open popover. Set the button id on the info image
 				$button = self::dic()->ui()->factory()->button()->standard("", "")->withOnClick($popover->getShowSignal());
@@ -255,6 +274,8 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 			$tpl->setVariable("CERTIFICATE", self::output()->getHTML(new CertificateGUI(self::dic()->user(), $this->tile->getObjRefId())));
 		}
+
+		$tpl->setVariable("SHADOW", $this->tile->getProperties()->getShadow());
 
 		$tpl->parseCurrentBlock();
 

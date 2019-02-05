@@ -7,7 +7,7 @@ namespace srag\CustomInputGUIs\SrTile\ProgressMeter\Component;
 /**
  * Interface Standard
  *
- * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Component/Card/Standard.php
+ * https://github.com/ILIAS-eLearning/ILIAS/tree/trunk/src/UI/Component/Chart/ProgressMeter/Standard.php
  *
  * @package srag\CustomInputGUIs\SrTile\ProgressMeter\Component
  *

@@ -1,19 +1,22 @@
 <?php
 
-require_once __DIR__ . "/../../vendor/autoload.php";
+namespace srag\Plugins\SrTile\Recommend;
 
+use ilModalGUI;
+use ilPropertyFormGUI;
+use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Recommend\RecommendFormGUI;
-use srag\Plugins\SrTile\Recommend\SuccessFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
- * Class SrTileRecommendGUI
+ * Class RecommendGUI
  *
- * @ilCtrl_isCalledBy SrTileRecommendGUI: ilUIPluginRouterGUI
+ * @package           srag\Plugins\SrTile\Recommend
+ *
+ * @ilCtrl_isCalledBy srag\Plugins\SrTile\Recommend\RecommendGUI: ilUIPluginRouterGUI
  */
-class SrTileRecommendGUI {
+class RecommendGUI {
 
 	use DICTrait;
 	use SrTileTrait;
@@ -28,7 +31,7 @@ class SrTileRecommendGUI {
 
 
 	/**
-	 * SrTileRecommendGUI constructor
+	 * RecommendGUI constructor
 	 */
 	public function __construct() {
 		$this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
