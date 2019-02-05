@@ -55,11 +55,11 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	public function render(): string {
 		$parent_tile = self::tiles()->getParentTile($this->tile);
 		if ($parent_tile->getProperties()->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
-			$lp_status_id = intval((new LearningProgressFilterGUI())->generateGUI()->getActiveId());
+			$lp_status_id = (new LearningProgressFilterGUI())->generateGUI()->getActiveId();
 
-			if (self::ilias()->learningProgress(self::dic()->user())->enabled()
-				&& self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())) {
-				if (self::ilias()->learningProgress(self::dic()->user())->getStatus($this->tile->getObjRefId()) !== $lp_status_id) {
+			if ($lp_status_id !== "all") {
+				if (!self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())
+					|| self::ilias()->learningProgress(self::dic()->user())->getStatus($this->tile->getObjRefId()) !== intval($lp_status_id)) {
 					return "";
 				}
 			}
@@ -161,8 +161,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 				$tpl->setVariable("RECOMMEND", self::output()->getHTML($tpl_recommend));
 			}
 
-			if (self::ilias()->learningProgress(self::dic()->user())->enabled()
-				&& self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())) {
+			if (self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())) {
 				switch ($this->tile->getProperties()->getShowLearningProgress()) {
 					case Tile::LEARNING_PROGRESS_ICON:
 						$icon = self::ilias()->learningProgress(self::dic()->user())->getIcon($this->tile->getObjRefId());

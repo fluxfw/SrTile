@@ -6,7 +6,7 @@
 - Config for disable shadow
 - Remove default gray image. If no image upload, it's shows the background color on this area
 - Link also the title
-- Show lp filter
+- LP filter
 
 ## [1.0.3]
 - Fix certificate download

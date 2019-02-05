@@ -82,6 +82,10 @@ class LearningProgress {
 	 * @return string
 	 */
 	public function getIcon(int $obj_ref_id): string {
+		if (!$this->enabled()) {
+			return "";
+		}
+
 		$status = $this->getStatus($obj_ref_id);
 		if ($status === 0) {
 			// Why this fix is needed? 0 == 1 ?!
@@ -119,6 +123,13 @@ class LearningProgress {
 	 * @return int
 	 */
 	public function getStatus(int $obj_ref_id): int {
+		if (!$this->enabled()) {
+			return 0;
+		}
+		if (!$this->hasLearningProgress($obj_ref_id)) {
+			return false;
+		}
+
 		if (!isset(self::$status_cache[$obj_ref_id])) {
 			$obj_id = intval(ilObject::_lookupObjectId($obj_ref_id));
 
@@ -142,6 +153,10 @@ class LearningProgress {
 	 * @return string
 	 */
 	public function getText(int $obj_ref_id): string {
+		if (!$this->enabled()) {
+			return "";
+		}
+
 		$status = $this->getStatus($obj_ref_id);
 
 		return ilLearningProgressBaseGUI::_getStatusText($status);
@@ -154,17 +169,20 @@ class LearningProgress {
 	 * @return bool
 	 */
 	public function hasLearningProgress(int $obj_ref_id): bool {
+		if (!$this->enabled()) {
+			return false;
+		}
+
 		if (!isset(self::$has_learning_progress[$obj_ref_id])) {
 			$olp = ilObjectLP::getInstance(ilObject::_lookupObjectId($obj_ref_id));
 
 			$a_mode = $olp->getCurrentMode();
 
-			// TODO: ???
-			if (in_array($a_mode, [ ilLPObjSettings::LP_MODE_UNDEFINED, ilLPObjSettings::LP_MODE_DEACTIVATED ])) {
+			if (!in_array($a_mode, [ ilLPObjSettings::LP_MODE_UNDEFINED, ilLPObjSettings::LP_MODE_DEACTIVATED ])) {
+				self::$has_learning_progress[$obj_ref_id] = true;
+			} else {
 				self::$has_learning_progress[$obj_ref_id] = false;
 			}
-
-			self::$has_learning_progress[$obj_ref_id] = true;
 		}
 
 		return self::$has_learning_progress[$obj_ref_id];

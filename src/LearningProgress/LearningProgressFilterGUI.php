@@ -46,9 +46,10 @@ class LearningProgressFilterGUI {
 			->withDefaultActiveId(ilLPStatus::LP_STATUS_IN_PROGRESS_NUM)->withButtons(array_map(function (string $txt): string {
 				return self::dic()->language()->txt("trac_" . $txt);
 			}, [
+				"all" => "all",
 				ilLPStatus::LP_STATUS_NOT_ATTEMPTED_NUM => "not_attempted",
 				ilLPStatus::LP_STATUS_IN_PROGRESS_NUM => "in_progress",
-				ilLPStatus::LP_STATUS_COMPLETED_NUM => "completed"
+				ilLPStatus::LP_STATUS_COMPLETED_NUM => "completed",
 				//ilLPStatus::LP_STATUS_FAILED_NUM => "failed"
 			]));
 	}
