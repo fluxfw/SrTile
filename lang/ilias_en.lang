@@ -35,7 +35,7 @@ tile_border#:#Border
 tile_border_color#:#Border color
 tile_border_size#:#Border size
 tile_cancel#:#Cancel
-tile_certificate#:#Certificate
+tile_certificate#:#Certificate (Experimental)
 tile_color_auto_from_image#:#Automatic from image
 tile_color_background#:#Color of background
 tile_color_contrast#:#Calculate automatically based on the contrast of the background color (black or white)
@@ -92,7 +92,7 @@ tile_show_learning_progress_icon#:#Icon
 tile_show_learning_progress_legend#:#Show legend
 tile_show_none#:#Not show
 tile_show_object_tabs#:#Show object tabs (Read permissions)
-tile_show_preconditions#:#Show preconditions
+tile_show_preconditions#:#Show preconditions (Experimental)
 tile_show_recommend_icon#:#Show recommend icon
 tile_show_title#:#Show title
 tile_show_true#:#Show

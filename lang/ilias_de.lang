@@ -35,7 +35,7 @@ tile_border#:#Rahmen
 tile_border_color#:#Rahmen-Farbe
 tile_border_size#:#Rahmen-Grösse
 tile_cancel#:#Abbrechen
-tile_certificate#:#Zertifikat
+tile_certificate#:#Zertifikat (Experimental)
 tile_color_auto_from_image#:#Automatisch anhand des Bildes
 tile_color_background#:#Farbe vom Hintergrund
 tile_color_contrast#:#Automatisch anhand des Kontrasts der Hintergrund-Farbe berechnen (schwarz oder weiss)
@@ -71,7 +71,7 @@ tile_position_right#:#Rechts
 tile_position_right_bottom#:#Rechts / Unten
 tile_position_right_top#:#Rechts / Oben
 tile_position_top#:#Oben
-tile_preconditions#:#Vorbedingungen
+tile_preconditions#:#Vorbedingungen (Experimental)
 tile_rating#:#Bewertung
 tile_recommendation#:#Empfehlung (Experimental)
 tile_recommendation_disabled_hint#:#Bitte das Plugin %s installieren um Empfehlung zu verwenden
