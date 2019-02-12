@@ -28,6 +28,7 @@ removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt
 removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
 tile#:#Kachel
 tile_actions#:#Aktionen
+tile_apply_colors_to_global_skin#:#Farben auf Globals-Skin anwenden (Experimental)
 tile_back#:#Zurück
 tile_background_color#:#Hintergrund-Farbe
 tile_border#:#Rahmen
@@ -72,7 +73,7 @@ tile_position_right_top#:#Rechts / Oben
 tile_position_top#:#Oben
 tile_preconditions#:#Vorbedingungen
 tile_rating#:#Bewertung
-tile_recommendation#:#Empfehlung
+tile_recommendation#:#Empfehlung (Experimental)
 tile_recommendation_disabled_hint#:#Bitte das Plugin %s installieren um Empfehlung zu verwenden
 tile_recommend_mail_template#:#Mail-Vorlage
 tile_saved#:#Die Kachel wurde gespeichert

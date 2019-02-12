@@ -86,6 +86,22 @@ final class TileProperties {
 
 
 	/**
+	 * @return int
+	 */
+	public function getApplyColorsToGlobalSkin(): int {
+		if ($this->tile->getApplyColorsToGlobalSkin() !== Tile::SHOW_PARENT) {
+			return $this->tile->getApplyColorsToGlobalSkin();
+		}
+
+		if ($this->parent_tile !== NULL) {
+			return $this->parent_tile->getProperties()->getApplyColorsToGlobalSkin();
+		}
+
+		return Tile::DEFAULT_APPLY_COLORS_TO_GLOBAL_SKIN;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public function getBackgroundColor(): string {

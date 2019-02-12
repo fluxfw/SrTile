@@ -1,5 +1,10 @@
 # Changelog
 
+
+## [x]
+- LP Filter margin bottom
+- Disable the experimental feature 'Apply colors to global skin' by default
+
 ## [1.1.0]
 - View: Tile or list
 - Config for show lp on the icons

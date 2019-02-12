@@ -11,6 +11,7 @@ if (\srag\Plugins\SrTile\Tile\Tiles::getInstance()->getInstanceForObjRefId(ROOT_
 	$tile->setTileEnabledChildren(true);
 	$tile->setActionsPosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_ACTIONS_POSITION);
 	$tile->setActionsVerticalAlign(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_ACTIONS_VERTICAL_ALIGN);
+	$tile->setApplyColorsToGlobalSkin(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_APPLY_COLORS_TO_GLOBAL_SKIN);
 	$tile->setBackgroundColorType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_BACKGROUND_COLOR_TYPE);
 	$tile->setBorderColorType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_BORDER_COLOR_TYPE);
 	$tile->setBorderSize(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_BORDER_SIZE);
@@ -89,6 +90,22 @@ foreach (\srag\Plugins\SrTile\Tile\Tile::where([ "show_learning_progress_filter"
 	 * @var \srag\Plugins\SrTile\Tile\Tile $tile
 	 */
 	$tile->setShowLearningProgressFilter(\srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT);
+	$tile->store();
+}
+?>
+<#5>
+<?php
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
+
+$tile = \srag\Plugins\SrTile\Tile\Tiles::getInstance()->getInstanceForObjRefId(ROOT_FOLDER_ID);
+$tile->setApplyColorsToGlobalSkin(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_APPLY_COLORS_TO_GLOBAL_SKIN);
+$tile->store();
+
+foreach (\srag\Plugins\SrTile\Tile\Tile::where([ "apply_colors_to_global_skin" => 0 ])->get() as $tile) {
+	/**
+	 * @var \srag\Plugins\SrTile\Tile\Tile $tile
+	 */
+	$tile->setApplyColorsToGlobalSkin(\srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT);
 	$tile->store();
 }
 ?>

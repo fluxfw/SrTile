@@ -28,6 +28,7 @@ removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
 removeplugindataconfirm_remove_data#:#Remove %1$s data
 tile#:#Tile
 tile_actions#:#Actions
+tile_apply_colors_to_global_skin#:#Apply colors to global skin (Experimental)
 tile_back#:#Back
 tile_background_color#:#Background color
 tile_border#:#Border
@@ -72,7 +73,7 @@ tile_position_right_top#:#Right / Top
 tile_position_top#:#Top
 tile_preconditions#:#Preconditions
 tile_rating#:#Rating
-tile_recommendation#:#Recommendation
+tile_recommendation#:#Recommendation (Experimental)
 tile_recommendation_disabled_hint#:#Please install the plugin %s to use recommendation
 tile_recommend_mail_template#:#Mail template
 tile_saved#:#The tile was saved

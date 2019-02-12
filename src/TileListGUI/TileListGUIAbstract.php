@@ -112,7 +112,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 				$is_parent_css_rendered = true;
 
 				$parent_tile = self::tiles()->getParentTile($tile);
-				if ($parent_tile !== NULL) {
+				if ($parent_tile !== NULL && $parent_tile->getProperties()->getApplyColorsToGlobalSkin() === Tile::SHOW_TRUE) {
 					if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
 						$css .= 'a#il_mhead_t_focus';
 						$css .= '{color:rgb(' . $parent_tile->getProperties()->getBackgroundColor() . ')!important;}';

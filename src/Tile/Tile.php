@@ -64,6 +64,7 @@ class Tile extends ActiveRecord {
 	const VIEW_PARENT = 3;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
+	const DEFAULT_APPLY_COLORS_TO_GLOBAL_SKIN = Tile::SHOW_FALSE;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
 	const DEFAULT_BORDER_SIZE = 0;
 	const DEFAULT_BORDER_SIZE_TYPE = self::SIZE_TYPE_SET;
@@ -439,6 +440,14 @@ class Tile extends ActiveRecord {
 	 */
 	protected $show_learning_progress_filter = self::SHOW_PARENT;
 	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $apply_colors_to_global_skin = self::SHOW_PARENT;
+	/**
 	 * @var TileProperties|null
 	 */
 	protected $properties = NULL;
@@ -495,6 +504,7 @@ class Tile extends ActiveRecord {
 		switch ($field_name) {
 			case "actions_position":
 			case "actions_vertical_align":
+			case "apply_colors_to_global_skin":
 			case "background_color_type":
 			case "border_color_type":
 			case "border_size":
@@ -1282,6 +1292,24 @@ class Tile extends ActiveRecord {
 	 */
 	public function setShadow(int $shadow)/*: void*/ {
 		$this->shadow = $shadow;
+	}
+
+
+	/**
+	 * @return int
+	 *
+	 * @internal
+	 */
+	public function getApplyColorsToGlobalSkin(): int {
+		return $this->apply_colors_to_global_skin;
+	}
+
+
+	/**
+	 * @param int $apply_colors_to_global_skin
+	 */
+	public function setApplyColorsToGlobalSkin(int $apply_colors_to_global_skin)/*: void*/ {
+		$this->apply_colors_to_global_skin = $apply_colors_to_global_skin;
 	}
 
 
