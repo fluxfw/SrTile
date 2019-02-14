@@ -101,7 +101,7 @@ class Certificates {
 	public function getCertificateDownloadLink()/*: ?string*/ {
 		switch (self::dic()->objDataCache()->lookupType($this->obj_id)) {
 			case "crs":
-				// Check first Certificate plugin
+				// First check Certificate plugin
 				if (file_exists(__DIR__ . "/../../../Certificate/vendor/autoload.php")) {
 					/**
 					 * @var srCertificateDefinition|null $cert_def
@@ -113,33 +113,40 @@ class Certificates {
 
 					if ($cert_def !== NULL) {
 
-						// A certificate definition links to the certificate of the user
-						$cert = srCertificate::where([
-							"user_id" => $this->user->getId(),
-							"definition_id" => $cert_def->getId()
-						])->first();
+						// Check allow to download certificate
+						if (boolval($cert_def->getDownloadable())) {
 
-						if ($cert !== NULL) {
+							// A certificate definition links to the certificate of the user
+							$cert = srCertificate::where([
+								"user_id" => $this->user->getId(),
+								"definition_id" => $cert_def->getId()
+							])->first();
 
-							// The certificate must be generated
-							if (intval($cert->getStatus()) === srCertificate::STATUS_PROCESSED) {
+							if ($cert !== NULL) {
 
-								self::dic()->ctrl()->setParameterByClass(srCertificateUserGUI::class, "cert_id", $cert->getId());
+								// The certificate must be active and be generated
+								if ($cert->getActive() && intval($cert->getStatus()) === srCertificate::STATUS_PROCESSED) {
 
-								return self::dic()->ctrl()->getLinkTargetByClass([
-									ilUIPluginRouterGUI::class,
-									srCertificateUserGUI::class
-								], srCertificateUserGUI::CMD_DOWNLOAD_CERTIFICATE);
+									self::dic()->ctrl()->setParameterByClass(srCertificateUserGUI::class, "cert_id", $cert->getId());
+
+									return self::dic()->ctrl()->getLinkTargetByClass([
+										ilUIPluginRouterGUI::class,
+										srCertificateUserGUI::class
+									], srCertificateUserGUI::CMD_DOWNLOAD_CERTIFICATE);
+								} else {
+									// The current user has no activated and generated certificate
+									return "";
+								}
 							} else {
-								// The current user has no generated certificate
+								// The current user has no certificate
 								return "";
 							}
 						} else {
-							// The current user has no certificate
+							// Download of certificate disabled for this object
 							return "";
 						}
 					} else {
-						// The Certificate Plugin is not enabled for this object - Use ILIAS core certificate as fallback
+						// The Certificate Plugin is not enabled for this object - Use ILIAS core certificate as possible fallback
 						//return "";
 					}
 				}
