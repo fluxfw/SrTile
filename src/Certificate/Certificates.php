@@ -11,8 +11,12 @@ use ilObjUser;
 use ilRepositoryGUI;
 use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
+use ilUIPluginRouterGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
+use srCertificate;
+use srCertificateDefinition;
+use srCertificateUserGUI;
 
 /**
  * Class Certificates
@@ -78,7 +82,16 @@ class Certificates {
 	 * @return bool
 	 */
 	public function enabled(): bool {
-		return ilCertificate::isActive() && ilCertificate::isObjectActive($this->obj_id);
+		if (ilCertificate::isActive() && ilCertificate::isObjectActive($this->obj_id)) {
+			return true;
+		}
+
+		if (file_exists(__DIR__ . "/../../../Certificate/vendor/autoload.php")) {
+			// Certificate is enabled because Certificate plugin is available
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -88,6 +101,49 @@ class Certificates {
 	public function getCertificateDownloadLink()/*: ?string*/ {
 		switch (self::dic()->objDataCache()->lookupType($this->obj_id)) {
 			case "crs":
+				// Check first Certificate plugin
+				if (file_exists(__DIR__ . "/../../../Certificate/vendor/autoload.php")) {
+					/**
+					 * @var srCertificateDefinition|null $cert_def
+					 * @var srCertificate|null           $cert
+					 */
+
+					// An object links to a certificate definition
+					$cert_def = srCertificateDefinition::where([ "ref_id" => $this->obj_ref_id ])->first();
+
+					if ($cert_def !== NULL) {
+
+						// A certificate definition links to the certificate of the user
+						$cert = srCertificate::where([
+							"user_id" => $this->user->getId(),
+							"definition_id" => $cert_def->getId()
+						])->first();
+
+						if ($cert !== NULL) {
+
+							// The certificate must be generated
+							if (intval($cert->getStatus()) === srCertificate::STATUS_PROCESSED) {
+
+								self::dic()->ctrl()->setParameterByClass(srCertificateUserGUI::class, "cert_id", $cert->getId());
+
+								return self::dic()->ctrl()->getLinkTargetByClass([
+									ilUIPluginRouterGUI::class,
+									srCertificateUserGUI::class
+								], srCertificateUserGUI::CMD_DOWNLOAD_CERTIFICATE);
+							} else {
+								// The current user has no generated certificate
+								return "";
+							}
+						} else {
+							// The current user has no certificate
+							return "";
+						}
+					} else {
+						// The Certificate Plugin is not enabled for this object - Use ILIAS core certificate as fallback
+						//return "";
+					}
+				}
+
 				//@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
 				if (ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
 					self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, "ref_id", $this->obj_ref_id);

@@ -24,6 +24,7 @@ Tile config:
 * PHP >=7.0
 * [composer](https://getcomposer.org)
 * [npm](https://nodejs.org)
+* [Certificate](https://github.com/studer-raimann/Certificate)
 * [Notifications4Plugins](https://github.com/studer-raimann/Notifications4Plugins)
 * [color-thief-php](https://packagist.org/packages/ksubileau/color-thief-php)
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)

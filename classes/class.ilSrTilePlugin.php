@@ -4,6 +4,9 @@ require_once __DIR__ . "/../vendor/autoload.php";
 if (file_exists(__DIR__ . "/../../Notifications4Plugins/vendor/autoload.php")) {
 	require_once __DIR__ . "/../../Notifications4Plugins/vendor/autoload.php";
 }
+if (file_exists(__DIR__ . "/../../Certificate/vendor/autoload.php")) {
+	require_once __DIR__ . "/../../Certificate/vendor/autoload.php";
+}
 
 use srag\Plugins\SrTile\ColorThiefCache\ColorThiefCache;
 use srag\Plugins\SrTile\Config\Config;
