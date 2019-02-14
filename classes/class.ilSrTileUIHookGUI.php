@@ -35,6 +35,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TEMPLATE_ID_FAVORITES = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const GET = 'template_get';
 	const TAB_ID = "tile";
+	const TAB_PERMISSIONS_ID = "perm_settings";
 	const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
 	/**
 	 * @var bool[]
@@ -153,14 +154,19 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 					return;
 				}
 
-				self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_OBJ_REF_ID, $obj_ref_id);
+				if (count(array_filter(self::dic()->tabs()->target, function (array $tab): bool {
+						return ($tab["id"] === self::TAB_PERMISSIONS_ID);
+					})) > 0) {
 
-				self::dic()->tabs()->addTab(self::TAB_ID, self::plugin()->translate(self::TAB_ID), self::dic()->ctrl()->getLinkTargetByClass([
-					ilUIPluginRouterGUI::class,
-					TileGUI::class
-				], TileGUI::CMD_EDIT_TILE));
+					self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_OBJ_REF_ID, $obj_ref_id);
 
-				self::dic()->tabs()->target[count(self::dic()->tabs()->target) - 1]['cmd'] = [];
+					self::dic()->tabs()->addTab(self::TAB_ID, self::plugin()->translate(self::TAB_ID), self::dic()->ctrl()->getLinkTargetByClass([
+						ilUIPluginRouterGUI::class,
+						TileGUI::class
+					], TileGUI::CMD_EDIT_TILE));
+
+					self::dic()->tabs()->target[count(self::dic()->tabs()->target) - 1]["cmd"] = [];
+				}
 			}
 		}
 	}

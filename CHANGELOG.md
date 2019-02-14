@@ -4,6 +4,7 @@
 ## [x]
 - LP Filter margin bottom
 - Disable the experimental feature 'Apply colors to global skin' by default
+- Only show title tab on object's root (If the permissions tab is available)
 
 ## [1.1.0]
 - View: Tile or list
