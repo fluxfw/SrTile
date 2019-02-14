@@ -1,5 +1,7 @@
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
+config_enabled_on_favorites#:#In Favoriten aktivieren
+config_enabled_on_repository#:#Im Magazin aktivieren
 config_save#:#Speichern
 favorites_add_to_favorites#:#Zu den Favoriten legen
 favorites_added_to_favorites#:#Das Objekt wurde zu den Favoriten gelegt

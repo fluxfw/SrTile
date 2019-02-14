@@ -3,6 +3,7 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Config\Config;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Tile\TileGUI;
@@ -200,6 +201,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 */
 	protected function loadTileContainerPossible(string $a_part, array $a_par): bool {
 		return (!self::$load[self::TILE_CONTAINER_LOADER]
+			&& Config::getField(Config::KEY_ENABLED_ON_REPOSITORY)
 			&& $this->matchObjectBaseClass()
 			&& $a_part === self::GET
 			&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE)
@@ -218,7 +220,9 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	protected function loadTileFavoritesPossible(string $a_part, array $a_par): bool {
 		$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
 
-		return (!self::$load[self::TILE_FAVORITES_LOADER] && $baseClass === strtolower(ilPersonalDesktopGUI::class)
+		return (!self::$load[self::TILE_FAVORITES_LOADER]
+			&& Config::getField(Config::KEY_ENABLED_ON_FAVORITES)
+			&& $baseClass === strtolower(ilPersonalDesktopGUI::class)
 			&& $a_par['tpl_id'] === self::TEMPLATE_ID_FAVORITES);
 	}
 }

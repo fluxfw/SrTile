@@ -1,5 +1,7 @@
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
+config_enabled_on_favorites#:#Enabled ton favorites
+config_enabled_on_repository#:#Enabled on repository
 config_save#:#Save
 favorites_add_to_favorites#:#Add to favorites
 favorites_added_to_favorites#:#The object has been added to the favorites
