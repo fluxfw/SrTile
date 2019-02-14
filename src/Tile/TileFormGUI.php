@@ -826,8 +826,13 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 			],
 
 			"certificate" => [
-				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class,
-				self::PROPERTY_NOT_ADD => (!self::ilias()->certificates(self::dic()->user(), $this->object->getObjRefId())->enabled())
+				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+			],
+			"certificate_hint" => [
+				self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
+				self::PROPERTY_VALUE => $this->txt("disabled_hint"),
+				self::PROPERTY_NOT_ADD => self::ilias()->certificates(self::dic()->user(), $this->object->getObjRefId())->enabled(),
+				"setTitle" => ""
 			],
 			"show_download_certificate" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,

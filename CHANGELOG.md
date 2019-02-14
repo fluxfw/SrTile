@@ -1,6 +1,5 @@
 # Changelog
 
-
 ## [x]
 - LP Filter margin bottom
 - Disable the experimental feature 'Apply colors to global skin' by default
