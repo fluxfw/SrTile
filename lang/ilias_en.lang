@@ -1,8 +1,17 @@
+config_actions#:#Actions
+config_cancel#:#Cancel
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
-config_enabled_on_favorites#:#Enabled ton favorites
+config_edit_template#:#Edit template
+config_enabled_on_favorites#:#Enabled on favorites
 config_enabled_on_repository#:#Enabled on repository
+config_not_override#:#Not override
+config_object_type#:#Object type
+config_override#:#Override
+config_override_confirm#:#Would you like to override all objects of this type?
+config_overrided#:#Overrided
 config_save#:#Save
+config_templates#:#Templates
 favorites_add_to_favorites#:#Add to favorites
 favorites_added_to_favorites#:#The object has been added to the favorites
 favorites_remove_from_favorites#:#Remove from favorites
@@ -62,7 +71,6 @@ tile_object_icon_position#:#Object icon
 tile_open_false#:#Not open
 tile_open_obj_with_one_child_direct#:#Open object with one child direct
 tile_open_true#:#Open
-tile_parent#:#From parent object
 tile_position#:#Position
 tile_position_bottom#:#Bottom
 tile_position_left#:#Left
@@ -101,7 +109,6 @@ tile_show_true#:#Show
 tile_show_true_if_permitted#:#Show (If access permitted)
 tile_submit#:#Save
 tile_tile#:#Tile
-tile_tile_enabled#:#Display as tile
 tile_tile_enabled_children#:#Display all child objects as tile
 tile_vertical_align#:#Vertical align
 tile_vertical_align_bottom#:#Bottom

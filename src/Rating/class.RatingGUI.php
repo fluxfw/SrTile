@@ -43,7 +43,7 @@ class RatingGUI {
 	 *
 	 */
 	public function executeCommand()/*: void*/ {
-		if (!($this->tile->getProperties()->getEnableRating() === Tile::SHOW_TRUE
+		if (!($this->tile->getEnableRating() === Tile::SHOW_TRUE
 			&& self::access()->hasReadAccess($this->tile->getObjRefId()))) {
 			return;
 		}

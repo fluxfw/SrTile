@@ -75,7 +75,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			$obj_ref_id = self::tiles()->filterRefId();
 
-			if (self::tiles()->isObject($obj_ref_id)) {
+			if (self::tiles()->isObject($obj_ref_id) && self::tiles()->getInstanceForObjRefId($obj_ref_id)->isTileEnabledChildren()) {
 
 				$html = $a_par["html"];
 
@@ -147,7 +147,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 				if (!self::access()->hasWriteAccess($obj_ref_id)) {
 
-					if (self::tiles()->getInstanceForObjRefId($obj_ref_id)->getProperties()->getShowObjectTabs() === Tile::SHOW_FALSE) {
+					if (self::tiles()->getInstanceForObjRefId($obj_ref_id)->getShowObjectTabs() === Tile::SHOW_FALSE) {
 						self::dic()->tabs()->clearTargets();
 						self::dic()->tabs()->clearSubTabs();
 					}

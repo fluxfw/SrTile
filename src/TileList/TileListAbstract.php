@@ -57,15 +57,15 @@ abstract class TileListAbstract implements TileListInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public function addTile(Tile $tile)/*:void*/ {
-		$this->tiles[$tile->getTileId()] = $tile;
+	public function addTile(Tile $tile)/*: void*/ {
+		$this->tiles[$tile->getObjRefId()] = $tile;
 	}
 
 
 	/**
 	 * @inheritdoc
 	 */
-	public function removeTile(int $tile_id)/*:void*/ {
+	public function removeTile(int $tile_id)/*: void*/ {
 		if (isset($this->tiles[$tile_id])) {
 			unset($this->tiles[$tile_id]);
 		}
@@ -83,7 +83,7 @@ abstract class TileListAbstract implements TileListInterface {
 	/**
 	 *
 	 */
-	protected function read() /*:void*/ {
+	protected function read() /*: void*/ {
 		$this->initObjRefIds();
 
 		foreach ($this->obj_ref_ids as $obj_ref_id) {
@@ -92,7 +92,7 @@ abstract class TileListAbstract implements TileListInterface {
 
 				$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
 
-				if ($tile->isTileEnabled() && self::access()->hasVisibleAccess($tile->getObjRefId())) {
+				if (self::access()->hasVisibleAccess($tile->getObjRefId())) {
 					$this->addTile($tile);
 				}
 			}
@@ -103,5 +103,6 @@ abstract class TileListAbstract implements TileListInterface {
 	/**
 	 *
 	 */
-	protected abstract function initObjRefIds();
+	protected abstract function initObjRefIds() /*: void*/
+	;
 }

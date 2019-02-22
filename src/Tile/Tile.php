@@ -4,6 +4,13 @@ namespace srag\Plugins\SrTile\Tile;
 
 use ActiveRecord;
 use arConnector;
+use ColorThief\ColorThief;
+use ilLink;
+use ilObject;
+use ilObjectFactory;
+use ilObjSAHSLearningModule;
+use ilObjSCORMLearningModuleGUI;
+use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -21,12 +28,25 @@ class Tile extends ActiveRecord {
 	use SrTileTrait;
 	const TABLE_NAME = "ui_uihk_srtile_tile";
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+	const COLOR_BLACK = "0,0,0";
+	const COLOR_WHITE = "255,255,255";
+	const SHOW_IMAGE_AS_BACKGROUND_COLOR_ALPHA = 0.6;
 	const COLOR_TYPE_SET = 1;
 	const COLOR_TYPE_CONTRAST = 2;
 	const COLOR_TYPE_BACKGROUND = 3;
 	const COLOR_TYPE_AUTO_FROM_IMAGE = 4;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const COLOR_TYPE_PARENT = 5;
 	const SIZE_TYPE_SET = 1;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const SIZE_TYPE_PARENT = 2;
 	const POSITION_TOP = 1;
 	const POSITION_BOTTOM = 2;
@@ -38,29 +58,69 @@ class Tile extends ActiveRecord {
 	const POSITION_RIGHT_BOTTOM = 8;
 	const POSITION_ON_THE_ICONS = 11;
 	const POSITION_NONE = 9;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const POSITION_PARENT = 10;
 	const HORIZONTAL_ALIGN_LEFT = 1;
 	const HORIZONTAL_ALIGN_CENTER = 2;
 	const HORIZONTAL_ALIGN_RIGHT = 3;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const HORIZONTAL_ALIGN_PARENT = 4;
 	const VERTICAL_ALIGN_TOP = 1;
 	const VERTICAL_ALIGN_CENTER = 2;
 	const VERTICAL_ALIGN_BOTTOM = 3;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const VERTICAL_ALIGN_PARENT = 4;
 	const SHOW_FALSE = 1;
 	const SHOW_TRUE = 2;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const SHOW_PARENT = 3;
 	const MAIL_TEMPLATE_SET = 1;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const MAIL_TEMPLATE_PARENT = 2;
 	const LEARNING_PROGRESS_ICON = 1;
 	const LEARNING_PROGRESS_BAR = 2;
 	const LEARNING_PROGRESS_NONE = 3;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const LEARNING_PROGRESS_PARENT = 4;
 	const OPEN_FALSE = 1;
 	const OPEN_TRUE = 2;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const OPEN_PARENT = 3;
 	const VIEW_TILE = 1;
 	const VIEW_LIST = 2;
+	/**
+	 * @var int
+	 *
+	 * @deprecated
+	 */
 	const VIEW_PARENT = 3;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
@@ -97,6 +157,10 @@ class Tile extends ActiveRecord {
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
 	const DEFAULT_VIEW = Tile::VIEW_TILE;
 	/**
+	 * @var ilObject|null
+	 */
+	protected $il_object = NULL;
+	/**
 	 * @var int
 	 *
 	 * @con_has_field    true
@@ -124,16 +188,7 @@ class Tile extends ActiveRecord {
 	 * @con_length      1
 	 * @con_is_notnull  true
 	 */
-	protected $tile_enabled = false;
-	/**
-	 * @var bool
-	 *
-	 * @con_has_field   true
-	 * @con_fieldtype   integer
-	 * @con_length      1
-	 * @con_is_notnull  true
-	 */
-	protected $tile_enabled_children = false;
+	protected $tile_enabled_children = true;
 	/**
 	 * @var string
 	 *
@@ -150,7 +205,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $background_color_type = self::COLOR_TYPE_PARENT;
+	protected $background_color_type = self::DEFAULT_BACKGROUND_COLOR_TYPE;
 	/**
 	 * @var string
 	 *
@@ -166,7 +221,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $font_color_type = self::COLOR_TYPE_PARENT;
+	protected $font_color_type = self::DEFAULT_FONT_COLOR_TYPE;
 	/**
 	 * @var string
 	 *
@@ -182,7 +237,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $margin_type = self::SIZE_TYPE_PARENT;
+	protected $margin_type = self::DEFAULT_MARGIN_TYPE;
 	/**
 	 * @var int
 	 *
@@ -190,7 +245,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $margin = 0;
+	protected $margin = self::DEFAULT_MARGIN;
 	/**
 	 * @var int
 	 *
@@ -198,7 +253,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $font_size_type = self::SIZE_TYPE_PARENT;
+	protected $font_size_type = self::DEFAULT_FONT_SIZE_TYPE;
 	/**
 	 * @var int
 	 *
@@ -206,7 +261,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $font_size = 0;
+	protected $font_size = self::DEFAULT_FONT_SIZE;
 	/**
 	 * @var int
 	 *
@@ -214,7 +269,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $image_position = self::POSITION_PARENT;
+	protected $image_position = self::DEFAULT_IMAGE_POSITION;
 	/**
 	 * @var int
 	 *
@@ -222,7 +277,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $label_horizontal_align = self::HORIZONTAL_ALIGN_PARENT;
+	protected $label_horizontal_align = self::DEFAULT_LABEL_HORIZONTAL_ALIGN;
 	/**
 	 * @var int
 	 *
@@ -230,7 +285,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $label_vertical_align = self::VERTICAL_ALIGN_PARENT;
+	protected $label_vertical_align = self::DEFAULT_LABEL_VERTICAL_ALIGN;
 	/**
 	 * @var int
 	 *
@@ -238,7 +293,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $actions_position = self::POSITION_PARENT;
+	protected $actions_position = self::DEFAULT_ACTIONS_POSITION;
 	/**
 	 * @var int
 	 *
@@ -246,7 +301,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $actions_vertical_align = self::VERTICAL_ALIGN_PARENT;
+	protected $actions_vertical_align = self::DEFAULT_ACTIONS_VERTICAL_ALIGN;
 	/**
 	 * @var int
 	 *
@@ -254,7 +309,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $object_icon_position = self::POSITION_PARENT;
+	protected $object_icon_position = self::DEFAULT_OBJECT_ICON_POSITION;
 	/**
 	 * @var int
 	 *
@@ -262,7 +317,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_favorites_icon = self::SHOW_PARENT;
+	protected $show_favorites_icon = self::DEFAULT_SHOW_FAVORITES_ICON;
 	/**
 	 * @var int
 	 *
@@ -270,7 +325,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_actions = self::SHOW_PARENT;
+	protected $show_actions = self::DEFAULT_SHOW_ACTIONS;
 	/**
 	 * @var int
 	 *
@@ -278,7 +333,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_title = self::SHOW_PARENT;
+	protected $show_title = self::DEFAULT_SHOW_TITLE;
 	/**
 	 * @var int
 	 *
@@ -286,7 +341,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $enable_rating = self::SHOW_PARENT;
+	protected $enable_rating = self::DEFAULT_ENABLE_RATING;
 	/**
 	 * @var int
 	 *
@@ -294,7 +349,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_likes_count = self::SHOW_PARENT;
+	protected $show_likes_count = self::DEFAULT_SHOW_LIKES_COUNT;
 	/**
 	 * @var int
 	 *
@@ -302,7 +357,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_recommend_icon = self::SHOW_PARENT;
+	protected $show_recommend_icon = self::DEFAULT_SHOW_RECOMMEND_ICON;
 	/**
 	 * @var int
 	 *
@@ -310,7 +365,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $recommend_mail_template_type = self::MAIL_TEMPLATE_PARENT;
+	protected $recommend_mail_template_type = self::DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE;
 	/**
 	 * @var string
 	 *
@@ -326,7 +381,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_learning_progress = self::LEARNING_PROGRESS_PARENT;
+	protected $show_learning_progress = self::DEFAULT_SHOW_LEARNING_PROGRESS;
 	/**
 	 * @var int
 	 *
@@ -334,7 +389,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $learning_progress_position = self::POSITION_PARENT;
+	protected $learning_progress_position = self::DEFAULT_LEARNING_PROGRESS_POSITION;
 	/**
 	 * @var int
 	 *
@@ -342,7 +397,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_learning_progress_legend = self::SHOW_PARENT;
+	protected $show_learning_progress_legend = self::DEFAULT_SHOW_LEARNING_PROGRESS_LEGEND;
 	/**
 	 * @var int
 	 *
@@ -350,7 +405,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $border_size_type = self::SIZE_TYPE_PARENT;
+	protected $border_size_type = self::DEFAULT_BORDER_SIZE_TYPE;
 	/**
 	 * @var int
 	 *
@@ -358,7 +413,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $border_size = 0;
+	protected $border_size = self::DEFAULT_BORDER_SIZE;
 	/**
 	 * @var int
 	 *
@@ -366,7 +421,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $border_color_type = self::COLOR_TYPE_PARENT;
+	protected $border_color_type = self::DEFAULT_BORDER_COLOR_TYPE;
 	/**
 	 * @var string
 	 *
@@ -382,7 +437,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $open_obj_with_one_child_direct = self::OPEN_PARENT;
+	protected $open_obj_with_one_child_direct = self::DEFAULT_OPEN_OBJ_WITH_ONE_CHILD_DIRECT;
 	/**
 	 * @var int
 	 *
@@ -390,7 +445,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_image_as_background = self::SHOW_PARENT;
+	protected $show_image_as_background = self::DEFAULT_SHOW_IMAGE_AS_BACKGROUND;
 	/**
 	 * @var int
 	 *
@@ -398,7 +453,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_preconditions = self::SHOW_PARENT;
+	protected $show_preconditions = self::DEFAULT_SHOW_PRECONDITIONS;
 	/**
 	 * @var int
 	 *
@@ -406,7 +461,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_download_certificate = self::SHOW_PARENT;
+	protected $show_download_certificate = self::DEFAULT_SHOW_DOWNLOAD_CERTIFICATE;
 	/**
 	 * @var int
 	 *
@@ -414,7 +469,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_object_tabs = self::SHOW_PARENT;
+	protected $show_object_tabs = self::DEFAULT_SHOW_OBJECT_TABS;
 	/**
 	 * @var int
 	 *
@@ -422,7 +477,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $view = self::VIEW_PARENT;
+	protected $view = self::DEFAULT_VIEW;
 	/**
 	 * @var int
 	 *
@@ -430,7 +485,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $shadow = self::SHOW_PARENT;
+	protected $shadow = self::DEFAULT_SHADOW;
 	/**
 	 * @var int
 	 *
@@ -438,7 +493,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $show_learning_progress_filter = self::SHOW_PARENT;
+	protected $show_learning_progress_filter = self::DEFAULT_SHOW_LEARNING_PROGRESS_FILTER;
 	/**
 	 * @var int
 	 *
@@ -446,11 +501,7 @@ class Tile extends ActiveRecord {
 	 * @con_fieldtype   integer
 	 * @con_is_notnull  true
 	 */
-	protected $apply_colors_to_global_skin = self::SHOW_PARENT;
-	/**
-	 * @var TileProperties|null
-	 */
-	protected $properties = NULL;
+	protected $apply_colors_to_global_skin = self::DEFAULT_APPLY_COLORS_TO_GLOBAL_SKIN;
 
 
 	/**
@@ -469,7 +520,7 @@ class Tile extends ActiveRecord {
 	 * @return string
 	 */
 	public function getConnectorContainerName(): string {
-		return self::TABLE_NAME;
+		return static::TABLE_NAME;
 	}
 
 
@@ -483,7 +534,6 @@ class Tile extends ActiveRecord {
 		$field_value = $this->{$field_name};
 
 		switch ($field_name) {
-			case "tile_enabled":
 			case "tile_enabled_children":
 				return ($field_value ? 1 : 0);
 
@@ -540,7 +590,6 @@ class Tile extends ActiveRecord {
 			case "view":
 				return intval($field_value);
 
-			case "tile_enabled":
 			case "tile_enabled_children":
 				return boolval($field_value);
 
@@ -585,36 +634,6 @@ class Tile extends ActiveRecord {
 	/**
 	 * @return bool
 	 */
-	public function isTileEnabled(): bool {
-		if (self::tiles()->isTopTile($this)) {
-			return false;
-		}
-
-		if ($this->tile_enabled) {
-			return true;
-		}
-
-		$parent_tile = self::tiles()->getParentTile($this);
-
-		if ($parent_tile !== NULL) {
-			return $parent_tile->isTileEnabledChildren();
-		} else {
-			return false;
-		}
-	}
-
-
-	/**
-	 * @param bool $tile_enabled
-	 */
-	public function setTileEnabled(bool $tile_enabled)/*: void*/ {
-		$this->tile_enabled = $tile_enabled;
-	}
-
-
-	/**
-	 * @return bool
-	 */
 	public function isTileEnabledChildren(): bool {
 		return $this->tile_enabled_children;
 	}
@@ -630,8 +649,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return string
-	 *
-	 * @internal
 	 *
 	 */
 	public function getImage(): string {
@@ -649,8 +666,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getBackgroundColorType(): int {
 		return $this->background_color_type;
@@ -667,8 +682,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return string
-	 *
-	 * @internal
 	 */
 	public function getBackgroundColor(): string {
 		return $this->background_color;
@@ -685,8 +698,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getFontColorType(): int {
 		return $this->font_color_type;
@@ -703,8 +714,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return string
-	 *
-	 * @internal
 	 */
 	public function getFontColor(): string {
 		return $this->font_color;
@@ -721,8 +730,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getMarginType(): int {
 		return $this->margin_type;
@@ -739,8 +746,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getMargin(): int {
 		return $this->margin;
@@ -757,8 +762,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getFontSizeType(): int {
 		return $this->font_size_type;
@@ -775,8 +778,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getFontSize(): int {
 		return $this->font_size;
@@ -793,8 +794,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getImagePosition(): int {
 		return $this->image_position;
@@ -811,8 +810,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getLabelHorizontalAlign(): int {
 		return $this->label_horizontal_align;
@@ -829,8 +826,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getLabelVerticalAlign(): int {
 		return $this->label_vertical_align;
@@ -847,8 +842,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getActionsPosition(): int {
 		return $this->actions_position;
@@ -865,8 +858,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getActionsVerticalAlign(): int {
 		return $this->actions_vertical_align;
@@ -883,8 +874,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getObjectIconPosition(): int {
 		return $this->object_icon_position;
@@ -901,8 +890,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowFavoritesIcon(): int {
 		return $this->show_favorites_icon;
@@ -919,8 +906,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowActions(): int {
 		return $this->show_actions;
@@ -937,8 +922,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowTitle(): int {
 		return $this->show_title;
@@ -955,8 +938,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getEnableRating(): int {
 		return $this->enable_rating;
@@ -973,8 +954,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowLikesCount(): int {
 		return $this->show_likes_count;
@@ -991,8 +970,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowRecommendIcon(): int {
 		return $this->show_recommend_icon;
@@ -1009,8 +986,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getRecommendMailTemplateType(): int {
 		return $this->recommend_mail_template_type;
@@ -1027,8 +1002,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return string
-	 *
-	 * @internal
 	 */
 	public function getRecommendMailTemplate(): string {
 		return $this->recommend_mail_template;
@@ -1045,8 +1018,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowLearningProgress(): int {
 		return $this->show_learning_progress;
@@ -1063,8 +1034,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getLearningProgressPosition(): int {
 		return $this->learning_progress_position;
@@ -1081,8 +1050,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowLearningProgressLegend(): int {
 		return $this->show_learning_progress_legend;
@@ -1099,8 +1066,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getBorderSizeType(): int {
 		return $this->border_size_type;
@@ -1117,8 +1082,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getBorderSize(): int {
 		return $this->border_size;
@@ -1135,8 +1098,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getBorderColorType(): int {
 		return $this->border_color_type;
@@ -1153,8 +1114,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return string
-	 *
-	 * @internal
 	 */
 	public function getBorderColor(): string {
 		return $this->border_color;
@@ -1171,8 +1130,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getOpenObjWithOneChildDirect(): int {
 		return $this->open_obj_with_one_child_direct;
@@ -1189,8 +1146,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowImageAsBackground(): int {
 		return $this->show_image_as_background;
@@ -1207,8 +1162,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowPreconditions(): int {
 		return $this->show_preconditions;
@@ -1225,8 +1178,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowDownloadCertificate(): int {
 		return $this->show_download_certificate;
@@ -1243,8 +1194,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowObjectTabs(): int {
 		return $this->show_object_tabs;
@@ -1261,8 +1210,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getView(): int {
 		return $this->view;
@@ -1279,8 +1226,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShadow(): int {
 		return $this->shadow;
@@ -1297,8 +1242,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getApplyColorsToGlobalSkin(): int {
 		return $this->apply_colors_to_global_skin;
@@ -1315,8 +1258,6 @@ class Tile extends ActiveRecord {
 
 	/**
 	 * @return int
-	 *
-	 * @internal
 	 */
 	public function getShowLearningProgressFilter(): int {
 		return $this->show_learning_progress_filter;
@@ -1332,13 +1273,350 @@ class Tile extends ActiveRecord {
 
 
 	/**
-	 * @return TileProperties
+	 * @return string
 	 */
-	public function getProperties(): TileProperties {
-		if ($this->properties === NULL) {
-			$this->properties = new TileProperties($this);
+	public function _getBackgroundColor(): string {
+		switch ($this->getBackgroundColorType()) {
+			case Tile::COLOR_TYPE_AUTO_FROM_IMAGE:
+				return $this->_getImageDominantColor();
+
+			case Tile::COLOR_TYPE_SET:
+				return $this->convertHexToRGB($this->getBackgroundColor());
+
+			default:
+				break;
 		}
 
-		return $this->properties;
+		return "";
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getBorderColor(): string {
+		switch ($this->getBorderColorType()) {
+			case Tile::COLOR_TYPE_BACKGROUND:
+				return $this->_getBackgroundColor();
+
+			case Tile::COLOR_TYPE_AUTO_FROM_IMAGE:
+				return $this->_getImageDominantColor();
+
+			case Tile::COLOR_TYPE_SET:
+				return $this->convertHexToRGB($this->getBorderColor());
+
+			default:
+				break;
+		}
+
+		return "";
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getFontColor(): string {
+		switch ($this->getFontColorType()) {
+			case Tile::COLOR_TYPE_CONTRAST:
+				$background_color = $this->_getBackgroundColor();
+
+				if (!empty($background_color)) {
+					return $this->getContrastYIQ($background_color);
+				}
+				break;
+
+			case Tile::COLOR_TYPE_AUTO_FROM_IMAGE:
+				return $this->_getImageDominantColor();
+
+			case Tile::COLOR_TYPE_SET:
+				return $this->convertHexToRGB($this->getFontColor());
+
+			default:
+				break;
+		}
+
+		return "";
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getBorder(): string {
+		$css = "";
+
+		$border_color = $this->_getBorderColor();
+
+		$border_size = $this->getBorderSize();
+
+		if (!empty($border_color)) {
+			$css .= "border-color:rgb(" . $border_color . ")!important;";
+		}
+
+		if (!empty($border_size)) {
+			$css .= "border-width:" . $border_size . "px!important;";
+		}
+
+		return $css;
+	}
+
+
+	/**
+	 * @param bool $invert
+	 * @param bool $translucent
+	 *
+	 * @return string
+	 */
+	public function _getColor(bool $invert = false, bool $translucent = false): string {
+		$css = "";
+
+		$background_color = $this->_getBackgroundColor();
+
+		$font_color = $this->_getFontColor();
+
+		if ($invert) {
+			if (!empty($font_color)) {
+				if ($translucent) {
+					$font_color .= "," . self::SHOW_IMAGE_AS_BACKGROUND_COLOR_ALPHA;
+				} else {
+					$font_color .= ",1";
+				}
+				$css .= "background-color:rgba(" . $font_color . ")!important;";
+			}
+
+			if (!empty($background_color)) {
+				$css .= "color:rgb(" . $background_color . ")!important;";
+			}
+		} else {
+			if (!empty($background_color)) {
+				if ($translucent) {
+					$background_color .= "," . self::SHOW_IMAGE_AS_BACKGROUND_COLOR_ALPHA;
+				} else {
+					$background_color .= ",1";
+				}
+				$css .= "background-color:rgba(" . $background_color . ")!important;";
+			}
+
+			if (!empty($font_color)) {
+				$css .= "color:rgb(" . $font_color . ")!important;";
+			}
+		}
+
+		return $css;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getImage(): string {
+		if (!empty($this->getImage())) {
+			$image_path = $this->_getImageWebRootRelativePath();
+			if (file_exists($image_path)) {
+				return "./" . $image_path;
+			}
+		}
+
+		return "";
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getImageWebRootRelativePath(): string {
+		return ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->_getImageRelativePath();
+	}
+
+
+	/**
+	 * Return the path to the icon
+	 *
+	 * @param bool $append_filename If true, append filename of image
+	 *
+	 * @return string
+	 */
+	public function _getImageRelativePath(bool $append_filename = true): string {
+		$path = ilSrTilePlugin::WEB_DATA_FOLDER . "/" . "tile_" . $this->getTileId() . "/";
+
+		if ($append_filename) {
+			$path .= $this->getImage();
+		}
+
+		return $path;
+	}
+
+
+	/**
+	 * @return ilObject|null
+	 */
+	public function _getIlObject()/*: ?ilObject*/ {
+		if ($this->il_object === NULL) {
+			$this->il_object = ilObjectFactory::getInstanceByRefId($this->getObjRefId(), false);
+
+			if ($this->il_object === false) {
+				$this->il_object = NULL;
+			}
+		}
+
+		return $this->il_object;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getLink(): string {
+		return ilLink::_getStaticLink($this->getObjRefId());
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getOnClickLink(): string {
+		$obj_ref_id = $this->il_object->getRefId();
+		$type = $this->il_object->getType();
+		$tile = $this;
+
+		//write access - open normally!
+		if (self::access()->hasWriteAccess($obj_ref_id)) {
+			return ' href="' . htmlspecialchars($tile->_getLink()) . '""';
+		}
+
+		//open directly the one object if it's only one
+		if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE) {
+			if (count(self::dic()->tree()->getChilds($obj_ref_id)) === 1) {
+				$child_refs = self::dic()->tree()->getChilds($obj_ref_id);
+				$obj_ref_id = $child_refs[0]['child'];
+				$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
+				$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
+			}
+		}
+
+		switch ($type) {
+			case "sahs":
+				$slm_gui = new ilObjSCORMLearningModuleGUI("", $obj_ref_id, true, false);
+
+				$sahs_obj = new ilObjSAHSLearningModule($obj_ref_id);
+				$om = $sahs_obj->getOpenMode();
+				$width = $sahs_obj->getWidth();
+				$height = $sahs_obj->getHeight();
+
+				if (($om == 5 || $om == 1) && $width > 0 && $height > 0) {
+					$om ++;
+				}
+
+				self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $obj_ref_id);
+
+				return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
+					. $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
+				break;
+
+			default:
+				return ' href="' . htmlspecialchars($tile->_getLink()) . '""';
+		}
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getSize(): string {
+		$size = "";
+
+		$margin = $this->getMargin();
+
+		$font_size = $this->getFontSize();
+
+		if (!empty($margin)) {
+			$size .= "margin:" . $margin . "px!important;";
+		}
+
+		if (!empty($font_size)) {
+			$size .= "font-size:" . $font_size . "px!important;";
+		}
+
+		return $size;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getTitle(): string {
+		if ($this->_getIlObject() !== NULL) {
+			return $this->_getIlObject()->getTitle();
+		}
+
+		return "";
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getImageDominantColor(): string {
+		$image = $this->_getImage();
+
+		$colorThiefCache = self::colorThiefCaches()->getColorThiefCache($image);
+
+		if (file_exists($image)) {
+			if (empty($colorThiefCache->getColor())) {
+				$dominantColor = ColorThief::getColor($image);
+
+				if (is_array($dominantColor)) {
+					$colorThiefCache->setColor(implode(",", $dominantColor));
+				}
+
+				$colorThiefCache->store();
+			}
+		} else {
+			$colorThiefCache->setColor("");
+			$colorThiefCache->store();
+		}
+
+		return $colorThiefCache->getColor();
+	}
+
+
+	/**
+	 * https://stackoverflow.com/questions/15202079/convert-hex-color-to-rgb-values-in-php
+	 *
+	 * @param string $hex_color
+	 *
+	 * @return string
+	 */
+	private function convertHexToRGB(string $hex_color): string {
+		$hex_color = str_replace('#', '', $hex_color);
+
+		if (!empty($hex_color)) {
+			$length = strlen($hex_color);
+
+			$rgb['r'] = hexdec($length == 6 ? substr($hex_color, 0, 2) : ($length == 3 ? str_repeat(substr($hex_color, 0, 1), 2) : 0));
+			$rgb['g'] = hexdec($length == 6 ? substr($hex_color, 2, 2) : ($length == 3 ? str_repeat(substr($hex_color, 1, 1), 2) : 0));
+			$rgb['b'] = hexdec($length == 6 ? substr($hex_color, 4, 2) : ($length == 3 ? str_repeat(substr($hex_color, 2, 1), 2) : 0));
+
+			return implode(",", $rgb);
+		} else {
+			return "";
+		}
+	}
+
+
+	/**
+	 * https://24ways.org/2010/calculating-color-contrast/
+	 *
+	 * @param string $rgb_color
+	 *
+	 * @return string
+	 */
+	private function getContrastYIQ(string $rgb_color): string {
+		list($r, $g, $b) = explode(",", $rgb_color);
+
+		$yiq = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+		return ($yiq >= 128) ? self::COLOR_BLACK : self::COLOR_WHITE;
 	}
 }

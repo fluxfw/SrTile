@@ -11,6 +11,7 @@ if (file_exists(__DIR__ . "/../../Certificate/vendor/autoload.php")) {
 use srag\Plugins\SrTile\ColorThiefCache\ColorThiefCache;
 use srag\Plugins\SrTile\Config\Config;
 use srag\Plugins\SrTile\Rating\Rating;
+use srag\Plugins\SrTile\Template\Template;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\RemovePluginDataConfirm\SrTile\PluginUninstallTrait;
@@ -71,6 +72,7 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 		self::dic()->database()->dropTable(Tile::TABLE_NAME, false);
 		self::dic()->database()->dropTable(Rating::TABLE_NAME, false);
 		self::dic()->database()->dropTable(ColorThiefCache::TABLE_NAME, false);
+		self::dic()->database()->dropTable(Template::TABLE_NAME, false);
 
 		ilUtil::delDir(ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . self::WEB_DATA_FOLDER);
 	}

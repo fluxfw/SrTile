@@ -7,6 +7,7 @@ use srag\Plugins\SrTile\Access\Access;
 use srag\Plugins\SrTile\Access\Ilias;
 use srag\Plugins\SrTile\ColorThiefCache\ColorThiefCaches;
 use srag\Plugins\SrTile\Rating\Ratings;
+use srag\Plugins\SrTile\Template\Templates;
 use srag\Plugins\SrTile\Tile\Tiles;
 
 /**
@@ -57,5 +58,13 @@ trait SrTileTrait {
 	 */
 	protected static function tiles(): Tiles {
 		return Tiles::getInstance();
+	}
+
+
+	/**
+	 * @return Templates
+	 */
+	protected static function templates(): Templates {
+		return Templates::getInstance();
 	}
 }

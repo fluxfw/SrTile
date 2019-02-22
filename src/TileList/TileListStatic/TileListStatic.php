@@ -19,7 +19,7 @@ class TileListStatic extends TileListAbstract {
 	 *
 	 * @param array $obj_ref_ids
 	 */
-	protected function __construct(array $obj_ref_ids) /*:void*/ {
+	protected function __construct(array $obj_ref_ids) /*: void*/ {
 		$this->obj_ref_ids = $obj_ref_ids;
 
 		parent::__construct();
@@ -29,7 +29,7 @@ class TileListStatic extends TileListAbstract {
 	/**
 	 * @inheritdoc
 	 */
-	protected function initObjRefIds() /*:void*/ {
+	protected function initObjRefIds() /*: void*/ {
 
 	}
 }

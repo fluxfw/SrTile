@@ -6,13 +6,13 @@ use ilCertificate;
 use ilCourseParticipants;
 use ilLPStatus;
 use ilObjCourseGUI;
-use ilObject;
 use ilObjUser;
 use ilRepositoryGUI;
 use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
 use ilUIPluginRouterGUI;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Tile\Tiles;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srCertificate;
 use srCertificateDefinition;
@@ -74,7 +74,7 @@ class Certificates {
 	private function __construct(ilObjUser $user, int $obj_ref_id) {
 		$this->user = $user;
 		$this->obj_ref_id = $obj_ref_id;
-		$this->obj_id = ilObject::_lookupObjectId($obj_ref_id);
+		$this->obj_id = self::dic()->objDataCache()->lookupObjId($obj_ref_id);
 	}
 
 
@@ -153,7 +153,7 @@ class Certificates {
 
 				//@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
 				if (ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
-					self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, "ref_id", $this->obj_ref_id);
+					self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, Tiles::GET_PARAM_REF_ID, $this->obj_ref_id);
 
 					return self::dic()->ctrl()->getLinkTargetByClass([ ilRepositoryGUI::class, ilObjCourseGUI::class ], 'deliverCertificate');
 				}
@@ -162,7 +162,7 @@ class Certificates {
 			case "sahs":
 				if (self::ilias()->learningProgress($this->user)->getStatus($this->obj_ref_id) === ilLPStatus::LP_STATUS_COMPLETED_NUM) {
 					//the following way of link generation does not work! the above way is the standard(!:-( ILIAS way of link generation for certificate
-					//$this->ctrl->setParameterByClass(ilSAHSPresentationGUI::class, 'ref_id', $obj_ref_id);
+					//$this->ctrl->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $obj_ref_id);
 					//return $this->ctrl->getLinkTargetByClass(ilSAHSPresentationGUI::class,'downloadCertificate');
 					return 'ilias.php?baseClass=' . ilSAHSPresentationGUI::class . '&ref_id=' . $this->obj_ref_id . '&cmd=downloadCertificate';
 				}

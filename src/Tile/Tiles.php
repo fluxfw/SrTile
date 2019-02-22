@@ -43,20 +43,22 @@ final class Tiles {
 
 	/**
 	 * @var Tile[]
+	 *
+	 * @deprecated
 	 */
 	protected static $instances_by_ref_id = [];
 	/**
 	 * @var Tile[]
+	 *
+	 * @deprecated
 	 */
 	protected static $parent_tile_cache = [];
 	/**
 	 * @var bool[]
+	 *
+	 * @deprecated
 	 */
 	protected static $is_object_cache = [];
-	/**
-	 * @var bool[]
-	 */
-	protected static $is_top_tile_cache = [];
 
 
 	/**
@@ -91,25 +93,22 @@ final class Tiles {
 
 	/**
 	 * @param int|null $obj_ref_id
-	 * @param bool     $store
 	 *
 	 * @return Tile
+	 *
+	 * @deprecated
 	 */
-	public function getInstanceForObjRefId(int $obj_ref_id = NULL, $store = true): Tile {
+	public function getInstanceForObjRefId(int $obj_ref_id = NULL): Tile {
 		if (!isset(self::$instances_by_ref_id[$obj_ref_id])) {
 			$tile = Tile::where([ 'obj_ref_id' => $obj_ref_id ])->first();
 
 			if ($tile === NULL) {
 				$tile = new Tile();
 
-				if ($store) {
-					if ($this->isObject($obj_ref_id)) {
-						$tile->setObjRefId($obj_ref_id);
+				if ($obj_ref_id !== NULL) {
+					$tile->setObjRefId($obj_ref_id);
 
-						$tile->store();
-					}
-				} else {
-					return $tile;
+					self::templates()->applyToTile($tile);
 				}
 			}
 
@@ -147,6 +146,8 @@ final class Tiles {
 	 * @param Tile $tile
 	 *
 	 * @return Tile|null
+	 *
+	 * @deprecated
 	 */
 	public function getParentTile(Tile $tile)/*:?Tile*/ {
 		if (!isset(self::$parent_tile_cache[$tile->getObjRefId()])) {
@@ -167,6 +168,8 @@ final class Tiles {
 	 * @param int|null $obj_ref_id
 	 *
 	 * @return bool
+	 *
+	 * @deprecated
 	 */
 	public function isObject(/*?*/
 		int $obj_ref_id = NULL): bool {
@@ -176,25 +179,5 @@ final class Tiles {
 		}
 
 		return self::$is_object_cache[$obj_ref_id];
-	}
-
-
-	/**
-	 * @param Tile $tile
-	 *
-	 * @return bool
-	 */
-	public function isTopTile(Tile $tile): bool {
-		if (!isset(self::$is_top_tile_cache[$tile->getTileId()])) {
-			$parent_tile = $this->getParentTile($tile);
-
-			if ($parent_tile !== NULL) {
-				self::$is_top_tile_cache[$tile->getTileId()] = (!$this->isObject($parent_tile->getObjRefId()));
-			} else {
-				self::$is_top_tile_cache[$tile->getTileId()] = true;
-			}
-		}
-
-		return self::$is_top_tile_cache[$tile->getTileId()];
 	}
 }

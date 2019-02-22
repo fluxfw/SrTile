@@ -3,7 +3,6 @@
 namespace srag\Plugins\SrTile\Access;
 
 use ilConditionHandler;
-use ilObject;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -54,6 +53,6 @@ final class Courses {
 	public function getPreconditions(int $obj_ref_id): array {
 		return array_map(function (array $precondition): int {
 			return intval($precondition["trigger_ref_id"]);
-		}, ilConditionHandler::_getConditionsOfTarget($obj_ref_id, ilObject::_lookupObjectId($obj_ref_id)));
+		}, ilConditionHandler::_getConditionsOfTarget($obj_ref_id, self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
 	}
 }

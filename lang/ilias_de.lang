@@ -1,8 +1,17 @@
+config_actions#:#Aktionen
+config_cancel#:#Abbrechen
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
+config_edit_template#:#Vorlage bearbeiten
 config_enabled_on_favorites#:#In Favoriten aktivieren
 config_enabled_on_repository#:#Im Magazin aktivieren
+config_not_override#:#Nicht überschreiben
+config_object_type#:#Objekt-Typ
+config_override#:#Überschreiben
+config_override_confirm#:#Möchten Sie alle Objekte dieses Types überschreiben?
+config_overrided#:#Überschrieben
 config_save#:#Speichern
+config_templates#:#Vorlagen
 favorites_add_to_favorites#:#Zu den Favoriten legen
 favorites_added_to_favorites#:#Das Objekt wurde zu den Favoriten gelegt
 favorites_remove_from_favorites#:#Aus den Favoriten entfernen
@@ -62,7 +71,6 @@ tile_object_icon_position#:#Objekt-Icon
 tile_open_false#:#Nicht öffnen
 tile_open_obj_with_one_child_direct#:#Öffne Objekt mit nur einem Kind direkt
 tile_open_true#:#Öffnen
-tile_parent#:#Vom Eltern-Objekt
 tile_position#:#Position
 tile_position_bottom#:#Unten
 tile_position_left#:#Links
@@ -101,7 +109,6 @@ tile_show_true#:#Anzeigen
 tile_show_true_if_permitted#:#Anzeigen (Wenn Zugang genehmigt)
 tile_submit#:#Speichern
 tile_tile#:#Kachel
-tile_tile_enabled#:#Als Kachel anzeigen
 tile_tile_enabled_children#:#Alle Kinder-Objekte als Kachel anzeigen
 tile_vertical_align#:#Vertikale-Ausrichtung
 tile_vertical_align_bottom#:#Unten
