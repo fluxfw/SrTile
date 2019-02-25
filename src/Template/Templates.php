@@ -74,7 +74,7 @@ final class Templates {
 		])->first();
 
 		if ($template === NULL) {
-			if ($object_type === self::TYPE_OTHER) {
+			if ($object_type !== self::TYPE_OTHER) {
 				$template = $this->getByObjectType(self::TYPE_OTHER)->copy();
 			} else {
 				$template = new Template();
