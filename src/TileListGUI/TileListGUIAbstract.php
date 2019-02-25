@@ -59,7 +59,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$tile_list_html = "";
 
 		if (count($this->tile_list->getTiles()) > 0) {
-			$parent_tile = self::tiles()->getParentTile(self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId()));
+			$parent_tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
 			if ($parent_tile === NULL) {
 				$parent_tile = self::tiles()->getInstanceForObjRefId(ROOT_FOLDER_ID);
 			}
