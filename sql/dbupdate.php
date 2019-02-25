@@ -28,7 +28,7 @@
 ?>
 <#7>
 <?php
-foreach (\srag\Plugins\SrTile\Tile\Tile::get() as $tile) {
+foreach (\srag\Plugins\SrTile\Tile\Tile::orderBy("obj_ref_id", "asc")->get() as $tile) {
 	/**
 	 * @var \srag\Plugins\SrTile\Tile\Tile $tile
 	 */
