@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
-use ilCheckboxInputGUI;
 use ilColorPickerInputGUI;
 use ilException;
 use ilFormSectionHeaderGUI;
@@ -96,14 +95,14 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 		}
 
 		$this->fields = [
-			"tile_enabled_children" => [
-				self::PROPERTY_CLASS => ilCheckboxInputGUI::class,
-				self::PROPERTY_REQUIRED => false
-			],
 			"view" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [
+					Tile::VIEW_DISABLED => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("disabled")
+					],
 					Tile::VIEW_TILE => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("view_tile")

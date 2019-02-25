@@ -153,6 +153,10 @@ foreach (\srag\Plugins\SrTile\Tile\Tile::orderBy("obj_ref_id", "asc")->get() as 
 		$tile->setView(\srag\Plugins\SrTile\Tile\Tiles::getInstance()->getParentTile($tile)->getView());
 	}
 
+	if (!boolval($tile->tile_enabled_children)) {
+		$tile->setView(\srag\Plugins\SrTile\Tile\Tile::VIEW_DISABLED);
+	}
+
 	$tile->store();
 }
 ?>

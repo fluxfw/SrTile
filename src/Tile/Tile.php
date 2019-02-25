@@ -123,6 +123,7 @@ class Tile extends ActiveRecord {
 	 * @deprecated
 	 */
 	const VIEW_PARENT = 3;
+	const VIEW_DISABLED = 4;
 	const DEFAULT_ACTIONS_POSITION = self::POSITION_RIGHT;
 	const DEFAULT_ACTIONS_VERTICAL_ALIGN = self::VERTICAL_ALIGN_BOTTOM;
 	const DEFAULT_APPLY_COLORS_TO_GLOBAL_SKIN = Tile::SHOW_FALSE;
@@ -181,15 +182,6 @@ class Tile extends ActiveRecord {
 	 * @con_is_notnull  true
 	 */
 	protected $obj_ref_id;
-	/**
-	 * @var bool
-	 *
-	 * @con_has_field   true
-	 * @con_fieldtype   integer
-	 * @con_length      1
-	 * @con_is_notnull  true
-	 */
-	protected $tile_enabled_children = true;
 	/**
 	 * @var string
 	 *
@@ -535,9 +527,6 @@ class Tile extends ActiveRecord {
 		$field_value = $this->{$field_name};
 
 		switch ($field_name) {
-			case "tile_enabled_children":
-				return ($field_value ? 1 : 0);
-
 			default:
 				return NULL;
 		}
@@ -591,9 +580,6 @@ class Tile extends ActiveRecord {
 			case "view":
 				return intval($field_value);
 
-			case "tile_enabled_children":
-				return boolval($field_value);
-
 			default:
 				return NULL;
 		}
@@ -629,22 +615,6 @@ class Tile extends ActiveRecord {
 	 */
 	public function setObjRefId(int $obj_ref_id)/*: void*/ {
 		$this->obj_ref_id = $obj_ref_id;
-	}
-
-
-	/**
-	 * @return bool
-	 */
-	public function isTileEnabledChildren(): bool {
-		return $this->tile_enabled_children;
-	}
-
-
-	/**
-	 * @param bool $tile_enabled_children
-	 */
-	public function setTileEnabledChildren(bool $tile_enabled_children)/*: void*/ {
-		$this->tile_enabled_children = $tile_enabled_children;
 	}
 
 

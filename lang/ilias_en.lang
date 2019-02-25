@@ -111,7 +111,6 @@ tile_show_title#:#Show title
 tile_show_true#:#Show
 tile_show_true_if_permitted#:#Show (If access permitted)
 tile_tile#:#Tile
-tile_tile_enabled_children#:#Display all child objects as tile
 tile_vertical_align#:#Vertical align
 tile_vertical_align_bottom#:#Bottom
 tile_vertical_align_center#:#Center

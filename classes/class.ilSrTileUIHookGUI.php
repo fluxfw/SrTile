@@ -69,7 +69,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			$obj_ref_id = self::tiles()->filterRefId();
 
-			if (self::tiles()->isObject($obj_ref_id) && self::tiles()->getInstanceForObjRefId($obj_ref_id)->isTileEnabledChildren()) {
+			if (self::tiles()->isObject($obj_ref_id) && self::tiles()->getInstanceForObjRefId($obj_ref_id)->getView() !== Tile::VIEW_DISABLED) {
 
 				return [
 					"mode" => ilUIHookPluginGUI::REPLACE,

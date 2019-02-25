@@ -111,7 +111,6 @@ tile_show_title#:#Titel anzeigen
 tile_show_true#:#Anzeigen
 tile_show_true_if_permitted#:#Anzeigen (Wenn Zugang genehmigt)
 tile_tile#:#Kachel
-tile_tile_enabled_children#:#Alle Kinder-Objekte als Kachel anzeigen
 tile_vertical_align#:#Vertikale-Ausrichtung
 tile_vertical_align_bottom#:#Unten
 tile_vertical_align_center#:#Mitte
