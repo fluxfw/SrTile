@@ -71,6 +71,8 @@ final class Tiles {
 
 	/**
 	 * @return int|null
+	 *
+	 * @deprecated
 	 */
 	public function filterRefId()/*: ?int*/ {
 		$obj_ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
