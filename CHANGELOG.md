@@ -2,9 +2,9 @@
 
 ## [2.0.0]
 - Simplify config
- - Removed inherit feature
- - Global default config for some object types
- - Confirm to override all objects of this type with the defaults
+ - Removed "From parent object" feature
+ - Global template tiles for some object types
+ - Confirm to override all objects of this type with the template
  - Remove to enable tile for an object self, only can be enabled for object's children
 - LP Filter margin bottom
 - Disable the experimental feature 'Apply colors to global skin' by default
