@@ -115,6 +115,7 @@ tile_vertical_align#:#Vertikale-Ausrichtung
 tile_vertical_align_bottom#:#Unten
 tile_vertical_align_center#:#Mitte
 tile_vertical_align_top#:#Oben
-tile_view#:#Ansicht
+tile_view#:#Ansicht Kinder-Objekte
+tile_view_disabled#:#Standard ILIAS-Layout
 tile_view_list#:#Liste
 tile_view_tile#:#Kachel

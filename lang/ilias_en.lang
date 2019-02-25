@@ -115,6 +115,7 @@ tile_vertical_align#:#Vertical align
 tile_vertical_align_bottom#:#Bottom
 tile_vertical_align_center#:#Center
 tile_vertical_align_top#:#Top
-tile_view#:#View
+tile_view#:#View child objects
+tile_view_disabled#:#Default ILIAS layout
 tile_view_list#:#List
 tile_view_tile#:#Tile
