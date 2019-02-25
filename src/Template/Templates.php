@@ -111,7 +111,7 @@ final class Templates {
 	 * @param Tile $tile
 	 */
 	public function applyToTile(Tile $tile)/*:void*/ {
-		$object_type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($tile->getObjRefId()));
+		$object_type = strval(self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($tile->getObjRefId())));
 
 		$template = $this->getByObjectType($object_type);
 

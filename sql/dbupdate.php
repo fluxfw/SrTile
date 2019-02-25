@@ -132,6 +132,10 @@ foreach (\srag\Plugins\SrTile\Tile\Tile::orderBy("obj_ref_id", "asc")->get() as 
 			}
 		}
 
+		if ($tile->getShadow() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+			$tile->setShadow($parent->getShadow());
+		}
+
 		if ($tile->getShowActions() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
 			$tile->setShowActions($parent->getShowActions());
 		}
