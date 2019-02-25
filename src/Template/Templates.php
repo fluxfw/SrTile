@@ -20,7 +20,7 @@ final class Templates {
 	use DICTrait;
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const TYPE_OTHER = "other";
+	const TYPE_OTHER = "_other";
 	/**
 	 * @var self
 	 */
@@ -74,7 +74,11 @@ final class Templates {
 		])->first();
 
 		if ($template === NULL) {
-			$template = new Template();
+			if ($object_type === self::TYPE_OTHER) {
+				$template = $this->getByObjectType(self::TYPE_OTHER)->copy();
+			} else {
+				$template = new Template();
+			}
 
 			$template->setObjectType($object_type);
 		}
