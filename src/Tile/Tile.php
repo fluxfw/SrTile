@@ -1449,7 +1449,7 @@ class Tile extends ActiveRecord {
 	/**
 	 * @param string $path_of_new_image
 	 */
-	public function appendNewImage(string $path_of_new_image)/*: void*/ {
+	public function applyNewImage(string $path_of_new_image)/*: void*/ {
 		if (!empty($this->getImage())) {
 			if (file_exists($image_old_path = $this->getImagePathForDisplay())) {
 				unlink($image_old_path);

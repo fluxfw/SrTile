@@ -127,7 +127,7 @@ final class Templates {
 		}, ARRAY_FILTER_USE_KEY);
 
 		// Delete old image
-		$tile->appendNewImage("");
+		$tile->applyNewImage("");
 
 		foreach ($properties as $key => $value) {
 			Closure::bind(function ($key, $value) {
@@ -136,6 +136,6 @@ final class Templates {
 		}
 
 		// Copy template image
-		$tile->appendNewImage($template->getImagePathForDisplay());
+		$tile->applyNewImage($template->getImagePathForDisplay());
 	}
 }

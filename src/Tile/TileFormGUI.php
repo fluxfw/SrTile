@@ -744,7 +744,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				$result = array_pop(self::dic()->upload()->getResults());
 
 				if ($this->getInput("image_delete") || $result->getSize() > 0) {
-					$this->object->appendNewImage("");
+					$this->object->applyNewImage("");
 				}
 
 				if (intval($result->getSize()) === 0) {
