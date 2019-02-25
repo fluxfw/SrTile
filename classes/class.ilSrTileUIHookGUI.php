@@ -22,19 +22,13 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const PAR_TABS = "tabs";
-	const MAIN_TEMPLATE_ID = "tpl.main.html";
-	const MAIN_MENU_TEMPLATE_ID = "Services/MainMenu/tpl.main_menu.html";
-	const STARTUP_SCREEN_TEMPLATE_ID = "Services/Init/tpl.startup_screen.html";
-	const TEMPLATE_ADD = "template_add";
 	const TEMPLATE_GET = "template_get";
-	const TEMPLATE_SHOW = "template_show";
 	const TILE_CONFIG_TAB_LOADER = "tile_config_tab";
 	const TILE_CONTAINER_LOADER = "tile_container";
 	const TILE_FAVORITES_LOADER = "tile_desktop_loader";
 	const TILE_RECOMMEND_MODAL = "tile_recommend_modal";
-	const TEMPLATE_ID_CONTAINER_PAGE = "Services/Container/tpl.container_page.html";
+	const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
 	const TEMPLATE_ID_FAVORITES = "Services/PersonalDesktop/tpl.pd_list_block.html";
-	const GET = 'template_get';
 	const TAB_ID = "tile";
 	const TAB_PERMISSIONS_ID = "perm_settings";
 	const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
@@ -77,22 +71,10 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			if (self::tiles()->isObject($obj_ref_id) && self::tiles()->getInstanceForObjRefId($obj_ref_id)->isTileEnabledChildren()) {
 
-				$html = $a_par["html"];
-
-				$pos = stripos($html, '<div  id="bl_cntr_1" class="ilContainerBlock container-fluid form-inline"');
-				if ($pos !== false) {
-
-					$this->initJS();
-
-					$tile_list_gui = new TileListContainerGUI($html);
-
-					$html = substr($html, 0, ($pos - 1)) . self::output()->getHTML($tile_list_gui) . substr($html, $pos);
-
-					return [
-						"mode" => ilUIHookPluginGUI::REPLACE,
-						"html" => $html
-					];
-				}
+				return [
+					"mode" => ilUIHookPluginGUI::REPLACE,
+					"html" => self::output()->getHTML(new TileListContainerGUI($a_par["html"]))
+				];
 			}
 		}
 
@@ -101,24 +83,21 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 			self::$load[self::TILE_FAVORITES_LOADER] = true;
 
-			$this->initJS();
-
-			$tile_list_gui = new TileListDesktopGUI(self::dic()->user());
-
 			return [
-				"mode" => ilUIHookPluginGUI::PREPEND,
-				"html" => self::output()->getHTML($tile_list_gui)
+				"mode" => ilUIHookPluginGUI::REPLACE,
+				"html" => self::output()->getHTML(new TileListDesktopGUI(self::dic()->user()))
 			];
 		}
 
 		// Recommend modal
 		if (!self::$load[self::TILE_RECOMMEND_MODAL]) {
-			if ($a_par['tpl_id'] === self::ADMIN_FOOTER_TPL_ID) {
+			if ($a_par["tpl_id"] === self::ADMIN_FOOTER_TPL_ID) {
 				self::$load[self::TILE_RECOMMEND_MODAL] = true;
 
-				$recommend_gui = new RecommendGUI();
-
-				return [ "mode" => ilUIHookPluginGUI::APPEND, "html" => $recommend_gui->getModal() ];
+				return [
+					"mode" => ilUIHookPluginGUI::APPEND,
+					"html" => (new RecommendGUI())->getModal()
+				];
 			}
 		}
 
@@ -174,18 +153,10 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 
 	/**
-	 *
-	 */
-	protected function initJS()/*: void*/ {
-		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
-	}
-
-
-	/**
 	 * @return bool
 	 */
 	protected function matchObjectBaseClass(): bool {
-		$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
+		$baseClass = strtolower(filter_input(INPUT_GET, "baseClass"));
 
 		return ($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class)
 			|| $baseClass === strtolower(ilSAHSEditGUI::class)
@@ -203,10 +174,10 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		return (!self::$load[self::TILE_CONTAINER_LOADER]
 			&& Config::getField(Config::KEY_ENABLED_ON_REPOSITORY)
 			&& $this->matchObjectBaseClass()
-			&& $a_part === self::GET
-			&& ($a_par['tpl_id'] === self::TEMPLATE_ID_CONTAINER_PAGE)
+			&& $a_part === self::TEMPLATE_GET
+			&& ($a_par["tpl_id"] === self::TEMPLATE_ID_REPOSITORY)
 			&& !in_array(self::dic()->ctrl()->getCmd(), [ "editOrder" ])
-			&& !in_array(self::dic()->ctrl()->getCallHistory()[0]['cmd'], [ 'editOrder' ])
+			&& !in_array(self::dic()->ctrl()->getCallHistory()[0]["cmd"], [ "editOrder" ])
 			&& !$_SESSION["il_cont_admin_panel"]);
 	}
 
@@ -218,11 +189,12 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 * @return bool
 	 */
 	protected function loadTileFavoritesPossible(string $a_part, array $a_par): bool {
-		$baseClass = strtolower(filter_input(INPUT_GET, 'baseClass'));
+		$baseClass = strtolower(filter_input(INPUT_GET, "baseClass"));
 
 		return (!self::$load[self::TILE_FAVORITES_LOADER]
 			&& Config::getField(Config::KEY_ENABLED_ON_FAVORITES)
 			&& $baseClass === strtolower(ilPersonalDesktopGUI::class)
-			&& $a_par['tpl_id'] === self::TEMPLATE_ID_FAVORITES);
+			&& $a_part === self::TEMPLATE_GET
+			&& $a_par["tpl_id"] === self::TEMPLATE_ID_FAVORITES);
 	}
 }

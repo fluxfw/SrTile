@@ -43,9 +43,19 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 
 
 	/**
+	 *
+	 */
+	protected function initJS()/*: void*/ {
+		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
+	}
+
+
+	/**
 	 * @inheritdoc
 	 */
 	public function render(): string {
+		$this->initJS();
+
 		$tile_list_html = "";
 
 		if (count($this->tile_list->getTiles()) > 0) {

@@ -88,13 +88,10 @@ abstract class TileListAbstract implements TileListInterface {
 
 		foreach ($this->obj_ref_ids as $obj_ref_id) {
 
-			if (self::tiles()->isObject($obj_ref_id)) {
+			$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
 
-				$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
-
-				if (self::access()->hasVisibleAccess($tile->getObjRefId())) {
-					$this->addTile($tile);
-				}
+			if (self::access()->hasVisibleAccess($tile->getObjRefId())) {
+				$this->addTile($tile);
 			}
 		}
 	}
