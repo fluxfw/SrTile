@@ -81,6 +81,8 @@ final class Templates {
 			}
 
 			$template->setObjectType($object_type);
+
+			$template->store();
 		}
 
 		return $template;
