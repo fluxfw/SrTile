@@ -108,6 +108,8 @@ final class Tiles {
 				if ($obj_ref_id !== NULL) {
 					$tile->setObjRefId($obj_ref_id);
 
+					$tile->store(); // Ensure tile id
+
 					self::templates()->applyToTile($tile);
 				}
 			}

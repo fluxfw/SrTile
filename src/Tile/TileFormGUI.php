@@ -63,7 +63,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 		switch ($key) {
 			case "image":
 				if (!empty(parent::getValue($key))) {
-					return "./" . $this->object->getImagePathForDisplay();
+					return "./" . $this->object->getImagePath();
 				}
 				break;
 

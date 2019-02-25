@@ -103,8 +103,6 @@ final class Templates {
 
 		foreach ($tiles as $tile) {
 			$this->applyToTile($tile);
-
-			$tile->store();
 		}
 	}
 
@@ -136,6 +134,8 @@ final class Templates {
 		}
 
 		// Copy template image
-		$tile->applyNewImage($template->getImagePathForDisplay());
+		$tile->applyNewImage($template->getImagePathWithCheck());
+
+		$tile->store();
 	}
 }

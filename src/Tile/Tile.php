@@ -28,6 +28,7 @@ class Tile extends ActiveRecord {
 	use SrTileTrait;
 	const TABLE_NAME = "ui_uihk_srtile_tile";
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+	const IMAGE_PREFIX = "tile_";
 	const COLOR_BLACK = "0,0,0";
 	const COLOR_WHITE = "255,255,255";
 	const SHOW_IMAGE_AS_BACKGROUND_COLOR_ALPHA = 0.6;
@@ -1413,7 +1414,7 @@ class Tile extends ActiveRecord {
 	 * @return string
 	 */
 	public function getImagePathAsRelative(bool $append_filename = true): string {
-		$path = ilSrTilePlugin::WEB_DATA_FOLDER . "/" . "tile_" . $this->getTileId() . "/";
+		$path = ilSrTilePlugin::WEB_DATA_FOLDER . "/" . static::IMAGE_PREFIX . $this->getTileId() . "/";
 
 		if ($append_filename) {
 			$path .= $this->getImage();
@@ -1426,7 +1427,7 @@ class Tile extends ActiveRecord {
 	/**
 	 * @return string
 	 */
-	public function getImagePathForDisplay(): string {
+	public function getImagePath(): string {
 		return ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . $this->getImagePathAsRelative();
 	}
 
@@ -1434,11 +1435,10 @@ class Tile extends ActiveRecord {
 	/**
 	 * @return string
 	 */
-	public function getImagePathForDisplayWithCheck(): string {
+	public function getImagePathWithCheck(): string {
 		if (!empty($this->getImage())) {
-			$image_path = $this->getImagePathForDisplay();
-			if (file_exists($image_path)) {
-				return "./" . $image_path;
+			if (file_exists($image_path = $this->getImagePath())) {
+				return $image_path;
 			}
 		}
 
@@ -1451,7 +1451,7 @@ class Tile extends ActiveRecord {
 	 */
 	public function applyNewImage(string $path_of_new_image)/*: void*/ {
 		if (!empty($this->getImage())) {
-			if (file_exists($image_old_path = $this->getImagePathForDisplay())) {
+			if (file_exists($image_old_path = $this->getImagePath())) {
 				unlink($image_old_path);
 			}
 			$this->setImage("");
@@ -1461,7 +1461,9 @@ class Tile extends ActiveRecord {
 			if (file_exists($path_of_new_image)) {
 				$this->setImage($this->getTileId() . "." . pathinfo($path_of_new_image, PATHINFO_EXTENSION));
 
-				copy($path_of_new_image, $this->getImagePathForDisplay());
+				self::dic()->filesystem()->web()->createDir($this->getImagePathAsRelative(false));
+
+				copy($path_of_new_image, $this->getImagePath());
 			}
 		}
 	}
@@ -1577,11 +1579,11 @@ class Tile extends ActiveRecord {
 	 * @return string
 	 */
 	public function _getImageDominantColor(): string {
-		$image = $this->getImagePathForDisplay();
+		$image = $this->getImagePathWithCheck();
 
 		$colorThiefCache = self::colorThiefCaches()->getColorThiefCache($image);
 
-		if (file_exists($image)) {
+		if (!empty($image)) {
 			if (empty($colorThiefCache->getColor())) {
 				$dominantColor = ColorThief::getColor($image);
 

@@ -14,6 +14,7 @@ use srag\Plugins\SrTile\Tile\Tile;
 class Template extends Tile {
 
 	const TABLE_NAME = "ui_uihk_srtile_tmpl";
+	const IMAGE_PREFIX = "template_";
 	/**
 	 * @var int
 	 *
