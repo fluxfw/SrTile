@@ -212,7 +212,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		}
 
 		$tpl_image = self::plugin()->template("Tile/image.html");
-		$tpl_image->setVariable("IMAGE", $this->tile->_getImage());
+		$tpl_image->setVariable("IMAGE", $this->tile->getImagePathForDisplayWithCheck());
 		$tpl->setVariable("IMAGE", self::output()->getHTML($tpl_image));
 
 		$tpl->setVariable("IMAGE_POSITION", $this->tile->getImagePosition());

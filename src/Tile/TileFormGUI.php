@@ -62,8 +62,8 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 		$key) {
 		switch ($key) {
 			case "image":
-				if (!empty($this->object->getImage())) {
-					return "./" . $this->object->_getImageWebRootRelativePath();
+				if (!empty(parent::getValue($key))) {
+					return "./" . $this->object->getImagePathForDisplay();
 				}
 				break;
 
@@ -744,14 +744,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				$result = array_pop(self::dic()->upload()->getResults());
 
 				if ($this->getInput("image_delete") || $result->getSize() > 0) {
-					if (!empty($this->object->getImage())) {
-						$image_path = $this->object->_getImageWebRootRelativePath();
-						if (file_exists($image_path)) {
-							unlink($image_path);
-						}
-
-						$this->object->setImage("");
-					}
+					$this->object->appendNewImage("");
 				}
 
 				if (intval($result->getSize()) === 0) {
@@ -760,7 +753,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 
 				$file_name = $this->object->getTileId() . "." . pathinfo($result->getName(), PATHINFO_EXTENSION);
 
-				self::dic()->upload()->moveOneFileTo($result, $this->object->_getImageRelativePath(false), Location::WEB, $file_name, true);
+				self::dic()->upload()->moveOneFileTo($result, $this->object->getImagePathAsRelative(false), Location::WEB, $file_name, true);
 
 				parent::storeValue($key, $file_name);
 

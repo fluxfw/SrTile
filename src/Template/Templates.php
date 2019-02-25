@@ -126,10 +126,16 @@ final class Templates {
 				&& $property !== "connector_container_name");
 		}, ARRAY_FILTER_USE_KEY);
 
+		// Delete old image
+		$tile->appendNewImage("");
+
 		foreach ($properties as $key => $value) {
 			Closure::bind(function ($key, $value) {
 				$this->{$key} = $value;
 			}, $tile, Tile::class)($key, $value);
 		}
+
+		// Copy template image
+		$tile->appendNewImage($template->getImagePathForDisplay());
 	}
 }
