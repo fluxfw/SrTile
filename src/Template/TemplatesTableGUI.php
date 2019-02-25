@@ -19,6 +19,7 @@ class TemplatesTableGUI extends ActiveRecordConfigTableGUI {
 
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+	const LANG_MODULE = ilSrTileConfigGUI::LANG_MODULE_TEMPLATE;
 
 
 	/**
@@ -29,6 +30,10 @@ class TemplatesTableGUI extends ActiveRecordConfigTableGUI {
 		$row, /*bool*/
 		$raw_export = false): string {
 		switch ($column) {
+			case "object_type":
+				$column = $row["template"]->_getTitle();
+				break;
+
 			default:
 				$column = $row[$column];
 				break;
@@ -85,7 +90,7 @@ class TemplatesTableGUI extends ActiveRecordConfigTableGUI {
 	 */
 	protected function fillRow(/*array*/
 		$row)/*: void*/ {
-		self::dic()->ctrl()->setParameter($this->parent_obj, "srtile_object_type", $row["object_type"]);
+		self::dic()->ctrl()->setParameter($this->parent_obj, "srtile_object_type", $row["template"]->getObjectType());
 		$edit_template_link = self::dic()->ctrl()->getLinkTarget($this->parent_obj, ilSrTileConfigGUI::CMD_EDIT_TEMPLATE);
 
 		parent::fillRow($row);

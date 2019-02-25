@@ -1,15 +1,7 @@
-config_actions#:#Aktionen
-config_cancel#:#Abbrechen
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
-config_edit_template#:#Vorlage bearbeiten
 config_enabled_on_favorites#:#In Favoriten aktivieren
 config_enabled_on_repository#:#Im Magazin aktivieren
-config_not_override#:#Nicht überschreiben
-config_object_type#:#Objekt-Typ
-config_override#:#Überschreiben
-config_override_confirm#:#Möchten Sie alle Objekte dieses Types überschreiben?
-config_overrided#:#Überschrieben
 config_save#:#Speichern
 config_templates#:#Vorlagen
 favorites_add_to_favorites#:#Zu den Favoriten legen
@@ -37,6 +29,16 @@ removeplugindataconfirm_keep_data#:#%1$s-Daten behalten
 removeplugindataconfirm_msg_kept_data#:#Die %1$s-Daten wurden behalten
 removeplugindataconfirm_msg_removed_data#:#Die %1$s-Daten wurden auch entfernt
 removeplugindataconfirm_remove_data#:#Entferne %1$s-Daten
+template_actions#:#Aktionen
+template_cancel#:#Abbrechen
+template_edit_template#:#Vorlage bearbeiten
+template_not_override#:#Nicht überschreiben
+template_object_type#:#Objekt-Typ
+template_other#:#Andere
+template_override#:#Überschreiben
+template_override_confirm#:#Möchten Sie alle Objekte dieses Types überschreiben?
+template_overrided#:#Überschrieben
+template_templates#:#Vorlagen
 tile#:#Kachel
 tile_actions#:#Aktionen
 tile_apply_colors_to_global_skin#:#Farben auf Globals-Skin anwenden (Experimental)
@@ -86,6 +88,7 @@ tile_rating#:#Bewertung
 tile_recommendation#:#Empfehlung (Experimental)
 tile_recommendation_disabled_hint#:#Bitte das Plugin %s installieren um Empfehlung zu verwenden
 tile_recommend_mail_template#:#Mail-Vorlage
+tile_save#:#Speichern
 tile_saved#:#Die Kachel wurde gespeichert
 tile_set#:#Setzen
 tile_shadow#:#Schatten
@@ -107,7 +110,6 @@ tile_show_recommend_icon#:#Empfehlen-Icon anzeigen
 tile_show_title#:#Titel anzeigen
 tile_show_true#:#Anzeigen
 tile_show_true_if_permitted#:#Anzeigen (Wenn Zugang genehmigt)
-tile_submit#:#Speichern
 tile_tile#:#Kachel
 tile_tile_enabled_children#:#Alle Kinder-Objekte als Kachel anzeigen
 tile_vertical_align#:#Vertikale-Ausrichtung

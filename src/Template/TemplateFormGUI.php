@@ -18,7 +18,7 @@ class TemplateFormGUI extends TileFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initCommands()/*: void*/ {
-		$this->addCommandButton(ilSrTileConfigGUI::CMD_UPDATE_TEMPLATE, $this->txt("submit"), "tile_submit");
+		$this->addCommandButton(ilSrTileConfigGUI::CMD_UPDATE_TEMPLATE, $this->txt("save"));
 
 		$this->addCommandButton($this->parent->getCmdForTab(ilSrTileConfigGUI::TAB_TEMPLATES), $this->txt("cancel"));
 	}

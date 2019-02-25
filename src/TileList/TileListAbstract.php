@@ -58,7 +58,7 @@ abstract class TileListAbstract implements TileListInterface {
 	 * @inheritdoc
 	 */
 	public function addTile(Tile $tile)/*: void*/ {
-		$this->tiles[$tile->getObjRefId()] = $tile;
+		$this->tiles[$tile->getTileId()] = $tile;
 	}
 
 

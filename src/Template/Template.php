@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Template;
 
+use ilSrTileConfigGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 
 /**
@@ -54,6 +55,10 @@ class Template extends Tile {
 	 * @inheritdoc
 	 */
 	public function _getTitle(): string {
-		return $this->object_type;
+		if ($this->object_type !== Templates::TYPE_OTHER) {
+			return self::dic()->language()->txt("obj_" . $this->object_type);
+		} else {
+			return self::plugin()->translate($this->object_type, ilSrTileConfigGUI::LANG_MODULE_TEMPLATE);
+		}
 	}
 }

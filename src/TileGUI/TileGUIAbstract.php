@@ -76,7 +76,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl = self::plugin()->template("Tile/tile.html");
 		$tpl->setCurrentBlock("tile");
 
-		$tpl->setVariable("TILE_ID", $this->tile->getObjRefId());
+		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
 
 		$tpl->setVariable("OBJECT_TYPE", ($this->tile->_getIlObject() !== NULL ? $this->tile->_getIlObject()->getType() : ""));
 
@@ -291,7 +291,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 		$advanced_selection_list = new ilAdvancedSelectionListGUI();
 		$advanced_selection_list->setAsynch(true);
-		$advanced_selection_list->setId('act_' . $this->tile->getObjRefId() . '_tile_' . $this->tile->getObjRefId());
+		$advanced_selection_list->setId('act_' . $this->tile->getObjRefId() . '_tile_' . $this->tile->getTileId());
 		$advanced_selection_list->setAsynchUrl($this->getActionAsyncUrl());
 
 		return self::output()->getHTML($advanced_selection_list);

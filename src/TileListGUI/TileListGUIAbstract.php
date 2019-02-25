@@ -88,17 +88,17 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$css = '';
 		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {
-			$css .= '#sr-tile-' . $tile->getObjRefId();
+			$css .= '#sr-tile-' . $tile->getTileId();
 			$css .= '{' . $tile->_getColor() . $tile->_getSize() . '}';
 
-			$css .= '#sr-tile-' . $tile->getObjRefId() . ' .card-bottom';
+			$css .= '#sr-tile-' . $tile->getTileId() . ' .card-bottom';
 			$css .= '{' . $tile->_getColor(false, true) . '}';
 
-			$css .= '#sr-tile-' . $tile->getObjRefId() . ' > .card';
+			$css .= '#sr-tile-' . $tile->getTileId() . ' > .card';
 			$css .= '{' . $tile->_getBorder() . '}';
 
-			$css .= '#sr-tile-' . $tile->getObjRefId() . ' .btn-default, ';
-			$css .= '#sr-tile-' . $tile->getObjRefId() . ' .badge';
+			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default, ';
+			$css .= '#sr-tile-' . $tile->getTileId() . ' .badge';
 			$css .= '{' . $tile->_getColor(true) . '}';
 
 			if (!$is_parent_css_rendered) {

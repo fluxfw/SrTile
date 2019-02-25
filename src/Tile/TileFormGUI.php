@@ -79,9 +79,9 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initCommands()/*: void*/ {
-		$this->addCommandButton(TileGUI::CMD_UPDATE_TILE, $this->txt("submit"), "tile_submit");
+		$this->addCommandButton(TileGUI::CMD_UPDATE_TILE, $this->txt("save"));
 
-		$this->addCommandButton(TileGUI::CMD_CANCEL, $this->txt("cancel"), "tile_cancel");
+		$this->addCommandButton(TileGUI::CMD_CANCEL, $this->txt("cancel"));
 	}
 
 

@@ -19,6 +19,7 @@ class ilSrTileConfigGUI extends ActiveRecordConfigGUI {
 
 	use SrTileTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+	const LANG_MODULE_TEMPLATE = "template";
 	const TAB_TEMPLATES = "templates";
 	const CMD_EDIT_TEMPLATE = "editTemplate";
 	const CMD_UPDATE_TEMPLATE = "updateTemplate";
@@ -109,10 +110,10 @@ class ilSrTileConfigGUI extends ActiveRecordConfigGUI {
 
 		$confirmation->setFormAction(self::dic()->ctrl()->getFormAction($this));
 
-		$confirmation->setHeaderText($this->txt("override_confirm"));
+		$confirmation->setHeaderText(self::plugin()->translate("override_confirm", self::LANG_MODULE_TEMPLATE));
 
-		$confirmation->setConfirm($this->txt("override"), self::CMD_OVERRIDE);
-		$confirmation->setCancel($this->txt("not_override"), $this->getCmdForTab(self::TAB_TEMPLATES));
+		$confirmation->setConfirm(self::plugin()->translate("override", self::LANG_MODULE_TEMPLATE), self::CMD_OVERRIDE);
+		$confirmation->setCancel(self::plugin()->translate("not_override", self::LANG_MODULE_TEMPLATE), $this->getCmdForTab(self::TAB_TEMPLATES));
 
 		self::output()->output($confirmation);
 	}
@@ -130,7 +131,7 @@ class ilSrTileConfigGUI extends ActiveRecordConfigGUI {
 
 		self::templates()->overrideTilesWithObjectType($object_type);
 
-		ilUtil::sendSuccess($this->txt("overrided"), true);
+		ilUtil::sendSuccess(self::plugin()->translate("overrided", self::LANG_MODULE_TEMPLATE), true);
 
 		$this->redirectToTab(self::TAB_TEMPLATES);
 	}

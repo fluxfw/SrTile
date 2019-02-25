@@ -54,7 +54,7 @@ final class Templates {
 	 */
 	public function getArray(): array {
 		return array_map(function (string $object_type): array {
-			return [ "object_type" => $object_type ];
+			return [ "template" => $this->getByObjectType($object_type) ];
 		}, self::$object_types);
 	}
 

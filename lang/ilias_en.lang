@@ -1,15 +1,7 @@
-config_actions#:#Actions
-config_cancel#:#Cancel
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
-config_edit_template#:#Edit template
 config_enabled_on_favorites#:#Enabled on favorites
 config_enabled_on_repository#:#Enabled on repository
-config_not_override#:#Not override
-config_object_type#:#Object type
-config_override#:#Override
-config_override_confirm#:#Would you like to override all objects of this type?
-config_overrided#:#Overrided
 config_save#:#Save
 config_templates#:#Templates
 favorites_add_to_favorites#:#Add to favorites
@@ -37,6 +29,16 @@ removeplugindataconfirm_keep_data#:#Keep %1$s data
 removeplugindataconfirm_msg_kept_data#:#The %1$s data was kept
 removeplugindataconfirm_msg_removed_data#:#The %1$s data was also removed
 removeplugindataconfirm_remove_data#:#Remove %1$s data
+template_actions#:#Actions
+template_cancel#:#Cancel
+template_edit_template#:#Edit template
+template_not_override#:#Not override
+template_object_type#:#Object type
+template_other#:#Other
+template_override#:#Override
+template_override_confirm#:#Would you like to override all objects of this type?
+template_overrided#:#Overrided
+template_templates#:#Templates
 tile#:#Tile
 tile_actions#:#Actions
 tile_apply_colors_to_global_skin#:#Apply colors to global skin (Experimental)
@@ -86,6 +88,7 @@ tile_rating#:#Rating
 tile_recommendation#:#Recommendation (Experimental)
 tile_recommendation_disabled_hint#:#Please install the plugin %s to use recommendation
 tile_recommend_mail_template#:#Mail template
+tile_save#:#Save
 tile_saved#:#The tile was saved
 tile_set#:#Set
 tile_shadow#:#Shadow
@@ -107,7 +110,6 @@ tile_show_recommend_icon#:#Show recommend icon
 tile_show_title#:#Show title
 tile_show_true#:#Show
 tile_show_true_if_permitted#:#Show (If access permitted)
-tile_submit#:#Save
 tile_tile#:#Tile
 tile_tile_enabled_children#:#Display all child objects as tile
 tile_vertical_align#:#Vertical align
