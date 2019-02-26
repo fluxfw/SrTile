@@ -38,7 +38,7 @@ class TileListContainer extends TileListAbstract {
 	protected function initObjRefIds() /*: void*/ {
 		$obj_ref_ids = [];
 
-		preg_match_all('/id\\s*=\\s*"lg_div_([0-9]+)/', $this->html, $obj_ref_ids);
+		preg_match_all('/id\\s*=\\s*["\']+lg_div_([0-9]+)/', $this->html, $obj_ref_ids);
 
 		if (is_array($obj_ref_ids) && count($obj_ref_ids) > 1 && is_array($obj_ref_ids[1]) && count($obj_ref_ids[1]) > 0) {
 
