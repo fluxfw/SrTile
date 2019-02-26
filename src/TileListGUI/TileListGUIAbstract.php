@@ -43,19 +43,34 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 
 
 	/**
+	 *
+	 */
+	protected function initJS()/*: void*/ {
+		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
+	}
+
+
+	/**
 	 * @inheritdoc
 	 */
 	public function render(): string {
+		$this->initJS();
+
 		$tile_list_html = "";
 
 		if (count($this->tile_list->getTiles()) > 0) {
-			$parent_tile = self::tiles()->getParentTile(current($this->tile_list->getTiles()));
+			if (!empty(self::tiles()->filterRefId())) {
+				$parent_tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
+			} else {
+				// Favorites
+				$parent_tile = self::tiles()->getInstanceForObjRefId(ROOT_FOLDER_ID);
+			}
 
 			self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
 
 			$tpl = self::plugin()->template("TileList/tile_list.html");
 
-			$tpl->setVariable("VIEW", $parent_tile->getProperties()->getView());
+			$tpl->setVariable("VIEW", $parent_tile->getView());
 
 			$gui_class = static::GUI_CLASS;
 			$tile_html = self::output()->getHTML(array_map(function (Tile $tile) use ($gui_class): TileGUIInterface {
@@ -64,11 +79,11 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 
 			$tpl->setVariable("TILES", $tile_html);
 
-			if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getProperties()->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
+			if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
 				$tpl->setVariable("LP_FILTER", self::output()->getHTML(new LearningProgressFilterGUI()));
 			}
 
-			if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getProperties()->getShowLearningProgressLegend() === Tile::SHOW_TRUE) {
+			if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressLegend() === Tile::SHOW_TRUE) {
 				$tpl->setVariable("LP_LEGEND", self::output()->getHTML(new LearningProgressLegendGUI()));
 			}
 
@@ -84,44 +99,37 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public function hideOriginalRowsOfTiles() /*:void*/ {
+	public function hideOriginalRowsOfTiles() /*: void*/ {
 		$css = '';
 		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {
 			$css .= '#sr-tile-' . $tile->getTileId();
-			$css .= '{' . $tile->getProperties()->getColor() . $tile->getProperties()->getSize() . '}';
+			$css .= '{' . $tile->_getColor() . $tile->_getSize() . '}';
 
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .card-bottom';
-			$css .= '{' . $tile->getProperties()->getColor(false, true) . '}';
+			$css .= '{' . $tile->_getColor(false, true) . '}';
 
 			$css .= '#sr-tile-' . $tile->getTileId() . ' > .card';
-			$css .= '{' . $tile->getProperties()->getBorder() . '}';
+			$css .= '{' . $tile->_getBorder() . '}';
 
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default, ';
 			$css .= '#sr-tile-' . $tile->getTileId() . ' .badge';
-			$css .= '{' . $tile->getProperties()->getColor(true) . '}';
-
-			// TODO: Remove html, not hide per CSS
-			$css .= '.ilContainerListItemOuter[id^="lg_div_';
-			$css .= $tile->getObjRefId();
-			$css .= '_pref_';
-			$css .= '"]';
-			$css .= '{display:none!important;}';
+			$css .= '{' . $tile->_getColor(true) . '}';
 
 			if (!$is_parent_css_rendered) {
 				$is_parent_css_rendered = true;
 
 				$parent_tile = self::tiles()->getParentTile($tile);
-				if ($parent_tile !== NULL) {
-					if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
+				if ($parent_tile !== NULL && $parent_tile->getApplyColorsToGlobalSkin() === Tile::SHOW_TRUE) {
+					if (!empty($parent_tile->_getBackgroundColor())) {
 						$css .= 'a#il_mhead_t_focus';
-						$css .= '{color:rgb(' . $parent_tile->getProperties()->getBackgroundColor() . ')!important;}';
+						$css .= '{color:rgb(' . $parent_tile->_getBackgroundColor() . ')!important;}';
 					}
 
 					$css .= '.btn-default';
-					$css .= '{' . $tile->getProperties()->getColor();
-					if (!empty($parent_tile->getProperties()->getBackgroundColor())) {
-						$css .= 'border-color:rgb(' . $parent_tile->getProperties()->getBackgroundColor() . ')!important;';
+					$css .= '{' . $tile->_getColor();
+					if (!empty($parent_tile->_getBackgroundColor())) {
+						$css .= 'border-color:rgb(' . $parent_tile->_getBackgroundColor() . ')!important;';
 					}
 					$css .= '}';
 				}

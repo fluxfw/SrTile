@@ -5,7 +5,6 @@ namespace srag\Plugins\SrTile\LearningProgress;
 use ilLearningProgressBaseGUI;
 use ilLPObjSettings;
 use ilLPStatus;
-use ilObject;
 use ilObjectLP;
 use ilObjUser;
 use ilSrTilePlugin;
@@ -131,7 +130,7 @@ class LearningProgress {
 		}
 
 		if (!isset(self::$status_cache[$obj_ref_id])) {
-			$obj_id = intval(ilObject::_lookupObjectId($obj_ref_id));
+			$obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
 			// Avoid exit
 			if (ilObjectLP::getInstance($obj_id)->getCurrentMode() != ilLPObjSettings::LP_MODE_UNDEFINED) {
@@ -174,7 +173,7 @@ class LearningProgress {
 		}
 
 		if (!isset(self::$has_learning_progress[$obj_ref_id])) {
-			$olp = ilObjectLP::getInstance(ilObject::_lookupObjectId($obj_ref_id));
+			$olp = ilObjectLP::getInstance(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
 			$a_mode = $olp->getCurrentMode();
 

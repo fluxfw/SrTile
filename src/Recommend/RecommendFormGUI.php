@@ -8,6 +8,7 @@ use ilSrTilePlugin;
 use ilTextAreaInputGUI;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
+use srag\Plugins\SrTile\Tile\Tiles;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -45,7 +46,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected final function initAction()/*: void*/ {
-		self::dic()->ctrl()->setParameter($this->parent, "ref_id", $this->tile->getObjRefId());
+		self::dic()->ctrl()->setParameter($this->parent, Tiles::GET_PARAM_REF_ID, $this->tile->getObjRefId());
 
 		$this->setFormAction(self::dic()->ctrl()->getFormAction($this->parent, "", "", true));
 	}
@@ -97,7 +98,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI {
 	 */
 	protected final function initTitle()/*: void*/ {
 		$this->setTitle(self::plugin()->translate("recommendation", self::LANG_MODULE, [
-			$this->tile->getProperties()->getTitle()
+			$this->tile->_getTitle()
 		]));
 	}
 }

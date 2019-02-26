@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Favorite;
 
-use ilObject;
 use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -92,7 +91,8 @@ class Favorites {
 	 * @return bool
 	 */
 	public function hasFavorite(int $obj_ref_id): bool {
-		return boolval($this->user->isDesktopItem($obj_ref_id, ilObject::_lookupType($obj_ref_id, true)));
+		return boolval($this->user->isDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()
+			->lookupObjId($obj_ref_id))));
 	}
 
 
@@ -100,7 +100,7 @@ class Favorites {
 	 * @param int $obj_ref_id
 	 */
 	public function addToFavorites(int $obj_ref_id)/*: void*/ {
-		$this->user->addDesktopItem($obj_ref_id, ilObject::_lookupType($obj_ref_id, true));
+		$this->user->addDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
 	}
 
 
@@ -108,6 +108,6 @@ class Favorites {
 	 * @param int $obj_ref_id
 	 */
 	public function removeFromFavorites(int $obj_ref_id)/*: void*/ {
-		$this->user->dropDesktopItem($obj_ref_id, ilObject::_lookupType($obj_ref_id, true));
+		$this->user->dropDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
 	}
 }

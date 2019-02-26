@@ -25,14 +25,14 @@ interface TileListInterface {
 	/**
 	 * @param Tile $tile
 	 */
-	public function addTile(Tile $tile)/*:void*/
+	public function addTile(Tile $tile)/*: void*/
 	;
 
 
 	/**
 	 * @param int $tile_id
 	 */
-	public function removeTile(int $tile_id)/*:void*/
+	public function removeTile(int $tile_id)/*: void*/
 	;
 
 

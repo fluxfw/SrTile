@@ -59,6 +59,10 @@ class LearningProgressFilterGUI {
 	 * @return string
 	 */
 	public function render(): string {
-		return self::output()->getHTML($this->generateGUI());
+		$tpl_filter = self::plugin()->template("LearningProgress/filter.html");
+
+		$tpl_filter->setVariable("LP_FILTER", self::output()->getHTML($this->generateGUI()));
+
+		return self::output()->getHTML($tpl_filter);
 	}
 }

@@ -13,7 +13,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
             'srag\\Plugins\\SrTile\\' => 20,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\SrTile\\' => 16,
-            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
             'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
@@ -39,7 +39,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
@@ -150,6 +150,10 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\Recommend\\RecommendFormGUI' => __DIR__ . '/../..' . '/src/Recommend/RecommendFormGUI.php',
         'srag\\Plugins\\SrTile\\Recommend\\RecommendGUI' => __DIR__ . '/../..' . '/src/Recommend/class.RecommendGUI.php',
         'srag\\Plugins\\SrTile\\Recommend\\SuccessFormGUI' => __DIR__ . '/../..' . '/src/Recommend/SuccessFormGUI.php',
+        'srag\\Plugins\\SrTile\\Template\\Template' => __DIR__ . '/../..' . '/src/Template/Template.php',
+        'srag\\Plugins\\SrTile\\Template\\TemplateFormGUI' => __DIR__ . '/../..' . '/src/Template/TemplateFormGUI.php',
+        'srag\\Plugins\\SrTile\\Template\\Templates' => __DIR__ . '/../..' . '/src/Template/Templates.php',
+        'srag\\Plugins\\SrTile\\Template\\TemplatesTableGUI' => __DIR__ . '/../..' . '/src/Template/TemplatesTableGUI.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileContainerGUI\\TileContainerGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileContainerGUI/TileContainerGUI.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileGUIAbstract' => __DIR__ . '/../..' . '/src/TileGUI/TileGUIAbstract.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileGUIInterface' => __DIR__ . '/../..' . '/src/TileGUI/TileGUIInterface.php',
@@ -168,7 +172,6 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\Tile\\TileDesktopGUI\\TileDesktopGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileDesktopGUI/TileDesktopGUI.php',
         'srag\\Plugins\\SrTile\\Tile\\TileFormGUI' => __DIR__ . '/../..' . '/src/Tile/TileFormGUI.php',
         'srag\\Plugins\\SrTile\\Tile\\TileGUI' => __DIR__ . '/../..' . '/src/Tile/class.TileGUI.php',
-        'srag\\Plugins\\SrTile\\Tile\\TileProperties' => __DIR__ . '/../..' . '/src/Tile/TileProperties.php',
         'srag\\Plugins\\SrTile\\Tile\\Tiles' => __DIR__ . '/../..' . '/src/Tile/Tiles.php',
         'srag\\Plugins\\SrTile\\Utils\\SrTileTrait' => __DIR__ . '/../..' . '/src/Utils/SrTileTrait.php',
         'srag\\RemovePluginDataConfirm\\SrTile\\AbstractPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractPluginUninstallTrait.php',

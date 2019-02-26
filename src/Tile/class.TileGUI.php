@@ -90,7 +90,7 @@ class TileGUI {
 	/**
 	 *
 	 */
-	protected function cancel()/*:void*/ {
+	protected function cancel()/*: void*/ {
 		$this->dic()->ctrl()->redirectToURL(ilLink::_getStaticLink(self::tiles()->filterRefId()));
 	}
 
@@ -99,7 +99,7 @@ class TileGUI {
 	 *
 	 */
 	protected function editTile()/*: void*/ {
-		$tile = self::tiles()->getInstanceForObjRefId(filter_input(INPUT_GET, "ref_id"));
+		$tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
 
 		self::dic()->ctrl()->setParameterByClass(self::class, self::GET_PARAM_OBJ_REF_ID, $tile->getObjRefId());
 
@@ -137,7 +137,7 @@ class TileGUI {
 	protected function setTabs()/*: void*/ {
 		self::dic()->tabs()->clearTargets();
 
-		self::dic()->ctrl()->setParameter($this, "ref_id", self::tiles()->filterRefId());
+		self::dic()->ctrl()->setParameter($this, Tiles::GET_PARAM_REF_ID, self::tiles()->filterRefId());
 
 		self::dic()->tabs()->addTab(ilSrTileUIHookGUI::TAB_ID, self::plugin()->translate(ilSrTileUIHookGUI::TAB_ID), self::dic()->ctrl()
 			->getLinkTargetByClass([

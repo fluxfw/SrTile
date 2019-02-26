@@ -35,6 +35,6 @@ interface TileListGUIInterface {
 	/**
 	 *
 	 */
-	public function hideOriginalRowsOfTiles() /*:void*/
+	public function hideOriginalRowsOfTiles() /*: void*/
 	;
 }

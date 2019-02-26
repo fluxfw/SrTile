@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0]
+- Simplify config
+ - Removed "From parent object" feature
+ - Global template tiles for some object types
+ - Confirm to override all objects of this type with the template
+ - Remove to enable tile for an object self, only can be enabled for object's children
+- LP Filter margin bottom
+- Disable the experimental feature 'Apply colors to global skin' by default
+- Only show title tab on object's root (If the permissions tab is available)
+- Support Certificate plugin
+
 ## [1.1.0]
 - View: Tile or list
 - Config for show lp on the icons

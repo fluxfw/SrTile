@@ -25,7 +25,7 @@ class TileListContainer extends TileListAbstract {
 	 *
 	 * @param string $html
 	 */
-	protected function __construct(string $html) /*:void*/ {
+	protected function __construct(string $html) /*: void*/ {
 		$this->html = $html;
 
 		parent::__construct();
@@ -35,7 +35,7 @@ class TileListContainer extends TileListAbstract {
 	/**
 	 * @inheritdoc
 	 */
-	protected function initObjRefIds() /*:void*/ {
+	protected function initObjRefIds() /*: void*/ {
 		$obj_ref_ids = [];
 
 		preg_match_all('/id\\s*=\\s*"lg_div_([0-9]+)/', $this->html, $obj_ref_ids);

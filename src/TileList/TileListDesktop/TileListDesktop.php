@@ -26,7 +26,7 @@ class TileListDesktop extends TileListAbstract {
 	 *
 	 * @param ilObjUser $user
 	 */
-	protected function __construct(ilObjUser $user) /*:void*/ {
+	protected function __construct(ilObjUser $user) /*: void*/ {
 		$this->user = $user;
 
 		parent::__construct();
@@ -36,7 +36,7 @@ class TileListDesktop extends TileListAbstract {
 	/**
 	 * @inheritdoc
 	 */
-	protected function initObjRefIds() /*:void*/ {
+	protected function initObjRefIds() /*: void*/ {
 		$this->obj_ref_ids = array_map(function (array $item): int { return intval($item["child"]); }, self::ilias()->favorites($this->user)
 			->getFavorites());
 	}

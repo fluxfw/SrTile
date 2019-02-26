@@ -18,10 +18,13 @@ class Config extends ActiveRecordConfig {
 	use SrTileTrait;
 	const TABLE_NAME = "ui_uihk_srtile_config";
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+	const KEY_ENABLED_ON_FAVORITES = "enabled_on_favorites";
+	const KEY_ENABLED_ON_REPOSITORY = "enabled_on_repository";
 	/**
 	 * @var array
 	 */
 	protected static $fields = [
-
+		self::KEY_ENABLED_ON_FAVORITES => [ self::TYPE_BOOLEAN, true ],
+		self::KEY_ENABLED_ON_REPOSITORY => [ self::TYPE_BOOLEAN, true ]
 	];
 }

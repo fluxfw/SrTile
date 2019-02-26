@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Rating;
 
-use ilObject;
 use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -62,7 +61,7 @@ class Ratings {
 	 * @return int
 	 */
 	public function getLikesCount($obj_ref_id): int {
-		$obj_id = intval(ilObject::_lookupObjectId($obj_ref_id));
+		$obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
 		return Rating::where([
 			"obj_id" => $obj_id
@@ -95,7 +94,7 @@ class Ratings {
 	 * @return bool
 	 */
 	public function hasLike(int $obj_ref_id): bool {
-		$obj_id = intval(ilObject::_lookupObjectId($obj_ref_id));
+		$obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
 		return ($this->getRating($obj_id) !== NULL);
 	}
@@ -105,7 +104,7 @@ class Ratings {
 	 * @param int $obj_ref_id
 	 */
 	public function like(int $obj_ref_id)/*: void*/ {
-		$obj_id = intval(ilObject::_lookupObjectId($obj_ref_id));
+		$obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
 		$rating = $this->getRating($obj_id);
 
@@ -125,7 +124,7 @@ class Ratings {
 	 * @param int $obj_ref_id
 	 */
 	public function unlike(int $obj_ref_id)/*: void*/ {
-		$obj_id = intval(ilObject::_lookupObjectId($obj_ref_id));
+		$obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
 		$rating = $this->getRating($obj_id);
 

@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Config;
 
+use ilCheckboxInputGUI;
 use ilSrTilePlugin;
 use srag\ActiveRecordConfig\SrTile\ActiveRecordConfigFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -25,7 +26,12 @@ class ConfigFormGUI extends ActiveRecordConfigFormGUI {
 	 */
 	protected function initFields()/*: void*/ {
 		$this->fields = [
-
+			Config::KEY_ENABLED_ON_REPOSITORY => [
+				self::PROPERTY_CLASS => ilCheckboxInputGUI::class
+			],
+			Config::KEY_ENABLED_ON_FAVORITES => [
+				self::PROPERTY_CLASS => ilCheckboxInputGUI::class
+			]
 		];
 	}
 }

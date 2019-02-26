@@ -24,6 +24,7 @@ Tile config:
 * PHP >=7.0
 * [composer](https://getcomposer.org)
 * [npm](https://nodejs.org)
+* [Certificate](https://github.com/studer-raimann/Certificate)
 * [Notifications4Plugins](https://github.com/studer-raimann/Notifications4Plugins)
 * [color-thief-php](https://packagist.org/packages/ksubileau/color-thief-php)
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
@@ -36,20 +37,10 @@ Tile config:
 Please use it for further development!
 
 ### Adjustment suggestions
-* Adjustment suggestions by pull requests on https://git.studer-raimann.ch/ILIAS/Plugins/SrTile/tree/develop
+* Adjustment suggestions by pull requests
 * Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/PLSRTILE
 * Bug reports under https://jira.studer-raimann.ch/projects/PLSRTILE
-* For external users please send an email to support-custom1@studer-raimann.ch
-
-### Development
-If you want development in this plugin you should install this plugin like follow:
-
-Start at your ILIAS root directory
-```
-mkdir -p Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
-cd Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
-git clone -b develop git@git.studer-raimann.ch:ILIAS/Plugins/SrTile.git SrTile
-```
+* For external users you can report it at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLSRTILE
 
 ### ILIAS Plugin SLA
 Wir lieben und leben die Philosophie von Open Source Software! Die meisten unserer Entwicklungen, welche wir im Kundenauftrag oder in Eigenleistung entwickeln, stellen wir öffentlich allen Interessierten kostenlos unter https://github.com/studer-raimann zur Verfügung.

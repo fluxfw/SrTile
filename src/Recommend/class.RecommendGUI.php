@@ -42,8 +42,8 @@ class RecommendGUI {
 	 *
 	 */
 	public function executeCommand()/*: void*/ {
-		if (!($this->tile->getProperties()->getShowRecommendIcon() === Tile::SHOW_TRUE
-			&& !empty($this->tile->getProperties()->getRecommendMailTemplate())
+		if (!($this->tile->getShowRecommendIcon() === Tile::SHOW_TRUE
+			&& !empty($this->tile->getRecommendMailTemplate())
 			&& self::access()->hasReadAccess($this->tile->getObjRefId()))) {
 			return;
 		}

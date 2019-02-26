@@ -49,7 +49,7 @@ class Recommend {
 	 */
 	public function send(): bool {
 		try {
-			$mail_template = $this->tile->getProperties()->getRecommendMailTemplate();
+			$mail_template = $this->tile->getRecommendMailTemplate();
 
 			$notification = srNotification::getInstanceByName($mail_template);
 
@@ -58,7 +58,7 @@ class Recommend {
 			$placeholders = [
 				"link" => $this->getLink(),
 				"message" => $this->getMessage(),
-				"object" => $this->tile->getProperties()->getIlObject(),
+				"object" => $this->tile->_getIlObject(),
 				"user" => self::dic()->user()
 			];
 
@@ -73,7 +73,7 @@ class Recommend {
 	 * @return string
 	 */
 	public function getLink(): string {
-		return $this->tile->getProperties()->getLink();
+		return $this->tile->_getLink();
 	}
 
 
