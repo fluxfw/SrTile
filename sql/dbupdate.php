@@ -189,7 +189,7 @@ foreach (\srag\Plugins\SrTile\Tile\Tile::orderBy("obj_ref_id", "asc")->get() as 
 		}
 	}
 
-	if (!boolval($tile->tile_enabled_children)) {
+	if (isset($tile->tile_enabled_children) && !boolval($tile->tile_enabled_children)) {
 		$tile->setView(\srag\Plugins\SrTile\Tile\Tile::VIEW_DISABLED);
 	}
 
