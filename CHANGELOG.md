@@ -1,6 +1,9 @@
 # Changelog
 
-## [2.0.0]
+## [x]
+- Supports ILIAS 5.4
+
+## [1.2.0]
 - Simplify config
  - Removed "From parent object" feature
  - Global template tiles for some object types
