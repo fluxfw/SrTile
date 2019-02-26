@@ -183,7 +183,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 						}
 						break;
 
-					case Tile::LEARNING_PROGRESS_BAR:
+					case Tile::LEARNING_PROGRESS_METER:
 						$learning_progress_bar = self::ilias()->learningProgressBar(self::dic()->user(), $this->tile->getObjRefId());
 
 						$tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress.html");

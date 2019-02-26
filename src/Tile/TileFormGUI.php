@@ -589,9 +589,9 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("show_learning_progress_icon")
 					],
-					Tile::LEARNING_PROGRESS_BAR => [
+					Tile::LEARNING_PROGRESS_METER => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("show_learning_progress_bar")
+						"setTitle" => $this->txt("show_learning_progress_meter")
 					]
 				],
 				self::PROPERTY_NOT_ADD => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
