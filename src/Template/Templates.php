@@ -33,6 +33,7 @@ final class Templates {
 		"crs",
 		"grp",
 		"fold",
+		"sess",
 		self::TYPE_OTHER
 	];
 
