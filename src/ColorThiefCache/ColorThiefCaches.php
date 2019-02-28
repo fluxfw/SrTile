@@ -69,4 +69,22 @@ class ColorThiefCaches {
 
 		return $colorThiefCache;
 	}
+
+
+	/**
+	 * @param string $image_path
+	 */
+	public function delete(string $image_path)/*: void*/ {
+		/**
+		 * @var ColorThiefCache $colorThiefCache
+		 */
+
+		$colorThiefCache = ColorThiefCache::where([
+			"image_path" => $image_path
+		])->first();
+
+		if ($colorThiefCache === NULL) {
+			$colorThiefCache->delete();
+		}
+	}
 }

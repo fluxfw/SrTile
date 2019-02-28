@@ -1425,6 +1425,8 @@ class Tile extends ActiveRecord {
 				unlink($image_old_path);
 			}
 			$this->setImage("");
+
+			self::colorThiefCaches()->delete($image_old_path);
 		}
 
 		if (!empty($path_of_new_image)) {
