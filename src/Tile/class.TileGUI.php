@@ -139,8 +139,7 @@ class TileGUI {
 
 		self::dic()->ctrl()->setParameter($this, Tiles::GET_PARAM_REF_ID, self::tiles()->filterRefId());
 
-		self::dic()->tabs()->addTab(ilSrTileUIHookGUI::TAB_ID, self::plugin()->translate(ilSrTileUIHookGUI::TAB_ID), self::dic()->ctrl()
-			->getLinkTargetByClass([
+		self::dic()->tabs()->addTab(ilSrTileUIHookGUI::TAB_ID, ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTargetByClass([
 				ilUIPluginRouterGUI::class,
 				self::class
 			], self::CMD_EDIT_TILE));
