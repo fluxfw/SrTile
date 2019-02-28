@@ -39,8 +39,6 @@ class ColorThiefCaches {
 
 	/**
 	 * ColorThiefCaches constructor
-	 *
-	 * @param ilObjUser $user
 	 */
 	private function __construct() {
 

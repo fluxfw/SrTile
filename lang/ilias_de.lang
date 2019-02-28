@@ -41,6 +41,7 @@ template_overrided#:#Überschrieben
 template_templates#:#Vorlagen
 tile#:#Kachel
 tile_actions#:#Aktionen
+tile_apply#:#Anwenden
 tile_apply_colors_to_global_skin#:#Farben auf Globals-Skin anwenden (Experimental)
 tile_back#:#Zurück
 tile_background_color#:#Hintergrund-Farbe

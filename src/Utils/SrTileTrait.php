@@ -6,6 +6,7 @@ use ilObjUser;
 use srag\Plugins\SrTile\Access\Access;
 use srag\Plugins\SrTile\Access\Ilias;
 use srag\Plugins\SrTile\ColorThiefCache\ColorThiefCaches;
+use srag\Plugins\SrTile\LearningProgress\LearningProgressFilters;
 use srag\Plugins\SrTile\Rating\Ratings;
 use srag\Plugins\SrTile\Template\Templates;
 use srag\Plugins\SrTile\Tile\Tiles;
@@ -36,6 +37,16 @@ trait SrTileTrait {
 
 
 	/**
+	 * @param ilObjUser $user
+	 *
+	 * @return LearningProgressFilters
+	 */
+	protected static function learningProgressFilters(ilObjUser $user): LearningProgressFilters {
+		return LearningProgressFilters::getInstance($user);
+	}
+
+
+	/**
 	 * @return Ilias
 	 */
 	protected static function ilias(): Ilias {
@@ -54,17 +65,17 @@ trait SrTileTrait {
 
 
 	/**
-	 * @return Tiles
-	 */
-	protected static function tiles(): Tiles {
-		return Tiles::getInstance();
-	}
-
-
-	/**
 	 * @return Templates
 	 */
 	protected static function templates(): Templates {
 		return Templates::getInstance();
+	}
+
+
+	/**
+	 * @return Tiles
+	 */
+	protected static function tiles(): Tiles {
+		return Tiles::getInstance();
 	}
 }

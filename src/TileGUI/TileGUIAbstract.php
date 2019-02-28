@@ -12,7 +12,6 @@ use srag\CustomInputGUIs\SrTile\CustomInputGUIsTrait;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Certificate\CertificateGUI;
 use srag\Plugins\SrTile\Favorite\FavoritesGUI;
-use srag\Plugins\SrTile\LearningProgress\LearningProgressFilterGUI;
 use srag\Plugins\SrTile\Rating\RatingGUI;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
@@ -54,13 +53,13 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 	 * @inheritdoc
 	 */
 	public function render(): string {
-		$parent_tile = self::tiles()->getParentTile($this->tile);
-		if ($parent_tile->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
-			$lp_status_id = (new LearningProgressFilterGUI())->generateGUI()->getActiveId();
+		if (self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId() ?? ROOT_FOLDER_ID)->getShowLearningProgressFilter()
+			=== Tile::SHOW_TRUE) {
 
-			if ($lp_status_id !== "all") {
-				if (!self::ilias()->learningProgress(self::dic()->user())->hasLearningProgress($this->tile->getObjRefId())
-					|| self::ilias()->learningProgress(self::dic()->user())->getStatus($this->tile->getObjRefId()) !== intval($lp_status_id)) {
+			$lp_filters = self::learningProgressFilters(self::dic()->user())->getFilter(intval(self::tiles()->filterRefId()));
+
+			if (count($lp_filters) > 0) {
+				if (!in_array(self::ilias()->learningProgress(self::dic()->user())->getStatus($this->tile->getObjRefId()), $lp_filters)) {
 					return "";
 				}
 			}

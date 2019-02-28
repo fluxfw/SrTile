@@ -15,6 +15,8 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @package           srag\Plugins\SrTile\Rating
  *
+ * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ *
  * @ilCtrl_isCalledBy srag\Plugins\SrTile\Rating\RatingGUI: ilUIPluginRouterGUI
  */
 class RatingGUI {

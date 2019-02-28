@@ -41,6 +41,7 @@ template_overrided#:#Overrided
 template_templates#:#Templates
 tile#:#Tile
 tile_actions#:#Actions
+tile_apply#:#Apply
 tile_apply_colors_to_global_skin#:#Apply colors to global skin (Experimental)
 tile_back#:#Back
 tile_background_color#:#Background color
