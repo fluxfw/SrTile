@@ -99,7 +99,7 @@ class Tile extends ActiveRecord {
 	 */
 	const MAIL_TEMPLATE_PARENT = 2;
 	const LEARNING_PROGRESS_ICON = 1;
-	const LEARNING_PROGRESS_BAR = 2;
+	const LEARNING_PROGRESS_METER = 2;
 	const LEARNING_PROGRESS_NONE = 3;
 	/**
 	 * @var int
@@ -1425,6 +1425,8 @@ class Tile extends ActiveRecord {
 				unlink($image_old_path);
 			}
 			$this->setImage("");
+
+			self::colorThiefCaches()->delete($image_old_path);
 		}
 
 		if (!empty($path_of_new_image)) {

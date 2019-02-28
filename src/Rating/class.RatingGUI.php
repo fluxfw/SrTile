@@ -15,6 +15,8 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @package           srag\Plugins\SrTile\Rating
  *
+ * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ *
  * @ilCtrl_isCalledBy srag\Plugins\SrTile\Rating\RatingGUI: ilUIPluginRouterGUI
  */
 class RatingGUI {
@@ -78,7 +80,7 @@ class RatingGUI {
 
 		ilUtil::sendSuccess(self::plugin()->translate("liked", self::LANG_MODULE_RATING), true);
 
-		if ($parent_ref_id !== NULL) {
+		if (!empty($parent_ref_id)) {
 			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
 		} else {
 			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
@@ -96,7 +98,7 @@ class RatingGUI {
 
 		ilUtil::sendSuccess(self::plugin()->translate("unliked", self::LANG_MODULE_RATING), true);
 
-		if ($parent_ref_id !== NULL) {
+		if (!empty($parent_ref_id)) {
 			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
 		} else {
 			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");

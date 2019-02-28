@@ -41,6 +41,7 @@ template_overrided#:#Overrided
 template_templates#:#Templates
 tile#:#Tile
 tile_actions#:#Actions
+tile_apply#:#Apply
 tile_apply_colors_to_global_skin#:#Apply colors to global skin (Experimental)
 tile_back#:#Back
 tile_background_color#:#Background color
@@ -99,10 +100,10 @@ tile_show_favorites_icon#:#Show favorites icon
 tile_show_image_as_background#:#Show image as background (Experimental)
 tile_show_likes_count#:#Show likes count
 tile_show_learning_progress#:#Show learning progress
-tile_show_learning_progress_bar#:#Bar
 tile_show_learning_progress_filter#:#Show filter
 tile_show_learning_progress_icon#:#Icon
 tile_show_learning_progress_legend#:#Show legend
+tile_show_learning_progress_meter#:#Progress meter
 tile_show_none#:#Not show
 tile_show_object_tabs#:#Show object tabs (Read permissions)
 tile_show_preconditions#:#Show preconditions (Experimental)

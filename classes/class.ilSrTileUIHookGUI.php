@@ -140,7 +140,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 					self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_OBJ_REF_ID, $obj_ref_id);
 
-					self::dic()->tabs()->addTab(self::TAB_ID, self::plugin()->translate(self::TAB_ID), self::dic()->ctrl()->getLinkTargetByClass([
+					self::dic()->tabs()->addTab(self::TAB_ID, ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTargetByClass([
 						ilUIPluginRouterGUI::class,
 						TileGUI::class
 					], TileGUI::CMD_EDIT_TILE));

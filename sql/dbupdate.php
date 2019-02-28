@@ -196,3 +196,7 @@ foreach (\srag\Plugins\SrTile\Tile\Tile::orderBy("obj_ref_id", "asc")->get() as 
 	$tile->store();
 }
 ?>
+<#8>
+<?php
+\srag\Plugins\SrTile\LearningProgress\LearningProgressFilter::updateDB();
+?>

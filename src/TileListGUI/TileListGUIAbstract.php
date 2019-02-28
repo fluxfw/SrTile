@@ -59,12 +59,8 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$tile_list_html = "";
 
 		if (count($this->tile_list->getTiles()) > 0) {
-			if (!empty(self::tiles()->filterRefId())) {
-				$parent_tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
-			} else {
-				// Favorites
-				$parent_tile = self::tiles()->getInstanceForObjRefId(ROOT_FOLDER_ID);
-			}
+
+			$parent_tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId() ?? ROOT_FOLDER_ID);
 
 			self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
 
@@ -80,7 +76,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			$tpl->setVariable("TILES", $tile_html);
 
 			if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
-				$tpl->setVariable("LP_FILTER", self::output()->getHTML(new LearningProgressFilterGUI()));
+				(new LearningProgressFilterGUI())->initToolbar();
 			}
 
 			if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressLegend() === Tile::SHOW_TRUE) {
@@ -103,24 +99,24 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 		$css = '';
 		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {
-			$css .= '#sr-tile-' . $tile->getTileId();
+			$css .= '#sr_tile_' . $tile->getTileId();
 			$css .= '{' . $tile->_getColor() . $tile->_getSize() . '}';
 
-			$css .= '#sr-tile-' . $tile->getTileId() . ' .card-bottom';
+			$css .= '#sr_tile_' . $tile->getTileId() . ' .card-bottom';
 			$css .= '{' . $tile->_getColor(false, true) . '}';
 
-			$css .= '#sr-tile-' . $tile->getTileId() . ' > .card';
+			$css .= '#sr_tile_' . $tile->getTileId() . ' > .card';
 			$css .= '{' . $tile->_getBorder() . '}';
 
-			$css .= '#sr-tile-' . $tile->getTileId() . ' .btn-default, ';
-			$css .= '#sr-tile-' . $tile->getTileId() . ' .badge';
+			$css .= '#sr_tile_' . $tile->getTileId() . ' .btn-default, ';
+			$css .= '#sr_tile_' . $tile->getTileId() . ' .badge';
 			$css .= '{' . $tile->_getColor(true) . '}';
 
 			if (!$is_parent_css_rendered) {
 				$is_parent_css_rendered = true;
 
-				$parent_tile = self::tiles()->getParentTile($tile);
-				if ($parent_tile !== NULL && $parent_tile->getApplyColorsToGlobalSkin() === Tile::SHOW_TRUE) {
+				$parent_tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId() ?? ROOT_FOLDER_ID);
+				if ($parent_tile->getApplyColorsToGlobalSkin() === Tile::SHOW_TRUE) {
 					if (!empty($parent_tile->_getBackgroundColor())) {
 						$css .= 'a#il_mhead_t_focus';
 						$css .= '{color:rgb(' . $parent_tile->_getBackgroundColor() . ')!important;}';

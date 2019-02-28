@@ -1,12 +1,13 @@
 # Changelog
 
-## [2.0.0]
+## [1.2.3]
+- Supports ILIAS 5.4
 - Simplify config
  - Removed "From parent object" feature
  - Global template tiles for some object types
  - Confirm to override all objects of this type with the template
  - Remove to enable tile for an object self, only can be enabled for object's children
-- LP Filter margin bottom
+- Some changes/improvments in LP filter
 - Disable the experimental feature 'Apply colors to global skin' by default
 - Only show title tab on object's root (If the permissions tab is available)
 - Support Certificate plugin

@@ -14,8 +14,8 @@ use srag\DIC\SrTile\DICTrait;
  */
 class ViewControlModeGUI {
 
-	const CMD_HANDLE_BUTTONS = "ViewControlModeGUIHandleButtons";
 	use DICTrait;
+	const CMD_HANDLE_BUTTONS = "ViewControlModeGUIHandleButtons";
 	/**
 	 * @var array
 	 */
@@ -110,7 +110,7 @@ class ViewControlModeGUI {
 	/**
 	 *
 	 */
-	public function handleButtons() {
+	public function handleButtons()/*: void*/ {
 		$active_id = filter_input(INPUT_GET, self::CMD_HANDLE_BUTTONS);
 
 		ilSession::set(self::CMD_HANDLE_BUTTONS . "_" . $this->id, $active_id);
