@@ -77,7 +77,7 @@ class FavoritesGUI {
 
 		ilUtil::sendSuccess(self::plugin()->translate("added_to_favorites", self::LANG_MODULE_FAVORITES), true);
 
-		if ($parent_ref_id !== NULL) {
+		if (!empty($parent_ref_id)) {
 			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
 		} else {
 			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
@@ -95,7 +95,7 @@ class FavoritesGUI {
 
 		ilUtil::sendSuccess(self::plugin()->translate("removed_from_favorites", self::LANG_MODULE_FAVORITES), true);
 
-		if ($parent_ref_id !== NULL) {
+		if (!empty($parent_ref_id)) {
 			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
 		} else {
 			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");

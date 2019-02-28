@@ -78,7 +78,7 @@ class RatingGUI {
 
 		ilUtil::sendSuccess(self::plugin()->translate("liked", self::LANG_MODULE_RATING), true);
 
-		if ($parent_ref_id !== NULL) {
+		if (!empty($parent_ref_id)) {
 			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
 		} else {
 			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
@@ -96,7 +96,7 @@ class RatingGUI {
 
 		ilUtil::sendSuccess(self::plugin()->translate("unliked", self::LANG_MODULE_RATING), true);
 
-		if ($parent_ref_id !== NULL) {
+		if (!empty($parent_ref_id)) {
 			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
 		} else {
 			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
