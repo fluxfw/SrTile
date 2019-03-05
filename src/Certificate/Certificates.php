@@ -126,7 +126,7 @@ class Certificates {
 							if ($cert !== NULL) {
 
 								// The certificate must be active and be generated
-								if ($cert->getActive() && intval($cert->getStatus()) === srCertificate::STATUS_PROCESSED && intval($cert->getId()) > 0) {
+								if ($cert->getActive() && intval($cert->getStatus()) === srCertificate::STATUS_PROCESSED) {
 
 									self::dic()->ctrl()->setParameterByClass(srCertificateUserGUI::class, "cert_id", $cert->getId());
 
@@ -153,7 +153,7 @@ class Certificates {
 				}
 
 				//@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
-				if (ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
+				if (ilCertificate::isActive() && ilCertificate::isObjectActive($this->obj_id) && ilCertificate::isObjectActive($this->getRepositoryObject()->getId()) && ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
 					self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, Tiles::GET_PARAM_REF_ID, $this->obj_ref_id);
 
 					return self::dic()->ctrl()->getLinkTargetByClass([ ilRepositoryGUI::class, ilObjCourseGUI::class ], 'deliverCertificate');
