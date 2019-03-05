@@ -1478,8 +1478,8 @@ class Tile extends ActiveRecord {
 			return ' href="' . htmlspecialchars($tile->_getLink()) . '""';
 		}
 
-		//open directly the one object if it's only one
-		if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE) {
+		//open directly the one object if it's only one AND as READ ACCESS
+		if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE && self::access()->hasReadAccess($obj_ref_id)) {
 			if (count(self::dic()->tree()->getChilds($obj_ref_id)) === 1) {
 				$child_refs = self::dic()->tree()->getChilds($obj_ref_id);
 				$obj_ref_id = $child_refs[0]['child'];
