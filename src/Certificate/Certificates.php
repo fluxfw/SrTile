@@ -119,13 +119,14 @@ class Certificates {
 							// A certificate definition links to the certificate of the user
 							$cert = srCertificate::where([
 								"user_id" => $this->user->getId(),
-								"definition_id" => $cert_def->getId()
+								"definition_id" => $cert_def->getId(),
+								"active" => 1
 							])->first();
 
 							if ($cert !== NULL) {
 
 								// The certificate must be active and be generated
-								if ($cert->getActive() && intval($cert->getStatus()) === srCertificate::STATUS_PROCESSED) {
+								if ($cert->getActive() && intval($cert->getStatus()) === srCertificate::STATUS_PROCESSED && intval($cert->getId()) > 0) {
 
 									self::dic()->ctrl()->setParameterByClass(srCertificateUserGUI::class, "cert_id", $cert->getId());
 
