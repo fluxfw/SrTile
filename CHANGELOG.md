@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.4]
+- Fix no image
+
 ## [1.2.3]
 - Supports ILIAS 5.4
 - Simplify config
