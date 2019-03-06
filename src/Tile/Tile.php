@@ -14,6 +14,7 @@ use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
+use ilLinkResourceItems;
 
 /**
  * Class Tile
@@ -1480,11 +1481,26 @@ class Tile extends ActiveRecord {
 
 		//open directly the one object if it's only one AND as READ ACCESS
 		if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE && self::access()->hasReadAccess($obj_ref_id)) {
-			if (count(self::dic()->tree()->getChilds($obj_ref_id)) === 1) {
-				$child_refs = self::dic()->tree()->getChilds($obj_ref_id);
-				$obj_ref_id = $child_refs[0]['child'];
-				$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
-				$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
+
+			switch ($type) {
+				case "crs":
+				case "cat":
+				case "grp":
+				case "fold":
+					if (count(self::dic()->tree()->getChilds($obj_ref_id)) === 1) {
+						$child_refs = self::dic()->tree()->getChilds($obj_ref_id);
+						$obj_ref_id = $child_refs[0]['child'];
+						$type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
+						$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
+					}
+					break;
+				case "webr":
+					if (ilLinkResourceItems::lookupNumberOfLinks($this->il_object->getId()) == 1) {
+						$link_arr = ilLinkResourceItems::_getFirstLink($this->il_object->getId());
+
+						return ' href="' . htmlspecialchars($link_arr['target']) . '""';
+					}
+					break;
 			}
 		}
 
