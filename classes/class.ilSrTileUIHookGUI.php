@@ -30,7 +30,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
 	const TEMPLATE_ID_FAVORITES = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const TAB_ID = "tile";
-	const TAB_PERMISSIONS_ID = "perm_settings";
+	const TAB_PERM_ID = "perm";
 	const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
 	/**
 	 * @var bool[]
@@ -135,7 +135,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 				}
 
 				if (count(array_filter(self::dic()->tabs()->target, function (array $tab): bool {
-						return ($tab["id"] === self::TAB_PERMISSIONS_ID);
+						return (strpos($tab["id"], self::TAB_PERM_ID) !== - 1);
 					})) > 0) {
 
 					self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_OBJ_REF_ID, $obj_ref_id);
@@ -160,6 +160,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 
 		return ($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class)
 			|| $baseClass === strtolower(ilSAHSEditGUI::class)
+			|| $baseClass === strtolower(ilLMEditorGUI::class)
 			|| empty($baseClass));
 	}
 
