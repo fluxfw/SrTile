@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.6]
+- Supports ILIAS learn modules
+
 ## [1.2.5]
 - FIX only open direct if user has read access
 
