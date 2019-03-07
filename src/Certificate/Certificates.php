@@ -153,7 +153,8 @@ class Certificates {
 				}
 
 				//@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
-				if (ilCertificate::isActive() && ilCertificate::isObjectActive($this->obj_id) && ilCertificate::isObjectActive($this->getRepositoryObject()->getId()) && ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
+				if (self::ilias()->certificates($this->user, $this->obj_ref_id)->enabled()
+					&& ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
 					self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, Tiles::GET_PARAM_REF_ID, $this->obj_ref_id);
 
 					return self::dic()->ctrl()->getLinkTargetByClass([ ilRepositoryGUI::class, ilObjCourseGUI::class ], 'deliverCertificate');

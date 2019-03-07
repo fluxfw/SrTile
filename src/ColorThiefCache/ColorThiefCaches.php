@@ -81,7 +81,7 @@ class ColorThiefCaches {
 			"image_path" => $image_path
 		])->first();
 
-		if (is_object($colorThiefCache)) {
+		if ($colorThiefCache !== NULL) {
 			$colorThiefCache->delete();
 		}
 	}
