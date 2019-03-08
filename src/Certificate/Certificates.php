@@ -3,6 +3,7 @@
 namespace srag\Plugins\SrTile\Certificate;
 
 use ilCertificate;
+use ilCertificatePlugin;
 use ilCourseParticipants;
 use ilLPStatus;
 use ilObjCourseGUI;
@@ -98,7 +99,7 @@ class Certificates {
 	 * @return bool
 	 */
 	public function enabled_plugin(): bool {
-		return file_exists(__DIR__ . "/../../../Certificate/vendor/autoload.php");
+		return file_exists(__DIR__ . "/../../../Certificate/vendor/autoload.php") && ilCertificatePlugin::getInstance()->isActive();
 	}
 
 
