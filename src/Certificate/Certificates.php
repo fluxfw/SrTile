@@ -3,6 +3,7 @@
 namespace srag\Plugins\SrTile\Certificate;
 
 use ilCertificate;
+use ilCertificatePlugin;
 use ilCourseParticipants;
 use ilLPStatus;
 use ilObjCourseGUI;
@@ -82,16 +83,23 @@ class Certificates {
 	 * @return bool
 	 */
 	public function enabled(): bool {
-		if (ilCertificate::isActive() && ilCertificate::isObjectActive($this->obj_id)) {
-			return true;
-		}
+		return ($this->enabled_core() || $this->enabled_plugin());
+	}
 
-		if (file_exists(__DIR__ . "/../../../Certificate/vendor/autoload.php")) {
-			// Certificate is enabled because Certificate plugin is available
-			return true;
-		}
 
-		return false;
+	/**
+	 * @return bool
+	 */
+	public function enabled_core(): bool {
+		return ilCertificate::isActive() && ilCertificate::isObjectActive($this->obj_id);
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function enabled_plugin(): bool {
+		return file_exists(__DIR__ . "/../../../Certificate/vendor/autoload.php") && ilCertificatePlugin::getInstance()->isActive();
 	}
 
 
@@ -102,7 +110,7 @@ class Certificates {
 		switch (self::dic()->objDataCache()->lookupType($this->obj_id)) {
 			case "crs":
 				// First check Certificate plugin
-				if (file_exists(__DIR__ . "/../../../Certificate/vendor/autoload.php")) {
+				if ($this->enabled_plugin()) {
 					/**
 					 * @var srCertificateDefinition|null $cert_def
 					 * @var srCertificate|null           $cert
@@ -111,7 +119,7 @@ class Certificates {
 					// An object links to a certificate definition
 					$cert_def = srCertificateDefinition::where([ "ref_id" => $this->obj_ref_id ])->first();
 
-					if ($cert_def !== NULL) {
+					if ($cert_def !== null) {
 
 						// Check allow to download certificate
 						if (boolval($cert_def->getDownloadable())) {
@@ -119,10 +127,11 @@ class Certificates {
 							// A certificate definition links to the certificate of the user
 							$cert = srCertificate::where([
 								"user_id" => $this->user->getId(),
-								"definition_id" => $cert_def->getId()
+								"definition_id" => $cert_def->getId(),
+								"active" => 1
 							])->first();
 
-							if ($cert !== NULL) {
+							if ($cert !== null) {
 
 								// The certificate must be active and be generated
 								if ($cert->getActive() && intval($cert->getStatus()) === srCertificate::STATUS_PROCESSED) {
@@ -152,7 +161,7 @@ class Certificates {
 				}
 
 				//@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
-				if (ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
+				if ($this->enabled_core() && ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
 					self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, Tiles::GET_PARAM_REF_ID, $this->obj_ref_id);
 
 					return self::dic()->ctrl()->getLinkTargetByClass([ ilRepositoryGUI::class, ilObjCourseGUI::class ], 'deliverCertificate');
@@ -160,22 +169,26 @@ class Certificates {
 				break;
 
 			case "sahs":
-				if (self::ilias()->learningProgress($this->user)->getStatus($this->obj_ref_id) === ilLPStatus::LP_STATUS_COMPLETED_NUM) {
-					//the following way of link generation does not work! the above way is the standard(!:-( ILIAS way of link generation for certificate
-					//$this->ctrl->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $obj_ref_id);
-					//return $this->ctrl->getLinkTargetByClass(ilSAHSPresentationGUI::class,'downloadCertificate');
-					return 'ilias.php?baseClass=' . ilSAHSPresentationGUI::class . '&ref_id=' . $this->obj_ref_id . '&cmd=downloadCertificate';
+				if ($this->enabled_core()) {
+					if (self::ilias()->learningProgress($this->user)->getStatus($this->obj_ref_id) === ilLPStatus::LP_STATUS_COMPLETED_NUM) {
+						//the following way of link generation does not work! the above way is the standard(!:-( ILIAS way of link generation for certificate
+						//$this->ctrl->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $obj_ref_id);
+						//return $this->ctrl->getLinkTargetByClass(ilSAHSPresentationGUI::class,'downloadCertificate');
+						return 'ilias.php?baseClass=' . ilSAHSPresentationGUI::class . '&ref_id=' . $this->obj_ref_id . '&cmd=downloadCertificate';
+					}
 				}
 				break;
 
 			case "tst":
-				// TODO Certificates for ILIAS Test
+				if ($this->enabled_core()) {
+					// TODO Certificates for ILIAS Test
+				}
 				break;
 
 			default:
 				break;
 		}
 
-		return NULL;
+		return null;
 	}
 }
