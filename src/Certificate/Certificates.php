@@ -161,10 +161,12 @@ class Certificates {
 				}
 
 				//@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
-				if ($this->enabled_core() && ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
-					self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, Tiles::GET_PARAM_REF_ID, $this->obj_ref_id);
+				if ($this->enabled_core()) {
+					if (ilCourseParticipants::getDateTimeOfPassed($this->obj_id, $this->user->getId())) {
+						self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, Tiles::GET_PARAM_REF_ID, $this->obj_ref_id);
 
-					return self::dic()->ctrl()->getLinkTargetByClass([ ilRepositoryGUI::class, ilObjCourseGUI::class ], 'deliverCertificate');
+						return self::dic()->ctrl()->getLinkTargetByClass([ ilRepositoryGUI::class, ilObjCourseGUI::class ], 'deliverCertificate');
+					}
 				}
 				break;
 
