@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.7]
+- Fix some bugs on certificates
+
 ## [1.2.6]
 - Supports ILIAS learn modules
 
