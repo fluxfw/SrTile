@@ -136,9 +136,11 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 * @return bool
 	 */
 	protected function matchToolbar(string $a_part): bool {
+		$baseClass = strtolower(filter_input(INPUT_GET, "baseClass"));
 		$obj_ref_id = self::tiles()->filterRefId();
 
 		return (!self::$load[self::TOOLBAR_LOADER]
+			&& $baseClass !== strtolower(ilAdministrationGUI::class)
 			&& $a_part === self::PAR_TABS
 			&& (self::$load[self::TOOLBAR_LOADER] = true)
 			&& self::tiles()->isObject($obj_ref_id));
