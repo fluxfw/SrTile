@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.9]
+- Exclude ilAdministrationGUI
+
 ## [1.2.8]
 - Optimize UIHook - Supports all object types (With permission tab)
 
