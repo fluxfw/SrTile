@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.8]
+- Optimize UIHook - Supports all object types (With permission tab)
+
 ## [1.2.7]
 - Fix some bugs on certificates
 

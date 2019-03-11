@@ -23,10 +23,10 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const PAR_TABS = "tabs";
 	const TEMPLATE_GET = "template_get";
-	const TILE_CONFIG_TAB_LOADER = "tile_config_tab";
-	const TILE_CONTAINER_LOADER = "tile_container";
-	const TILE_FAVORITES_LOADER = "tile_desktop_loader";
-	const TILE_RECOMMEND_MODAL = "tile_recommend_modal";
+	const TOOLBAR_LOADER = "tile_toolbar_loader";
+	const REPOSITORY_LOADER = "tile_repository_loader";
+	const FAVORITES_LOADER = "tile_desktop_loader";
+	const RECOMMEND_MODAL_LOADER = "tile_recommend_modal";
 	const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
 	const TEMPLATE_ID_FAVORITES = "Services/PersonalDesktop/tpl.pd_list_block.html";
 	const TAB_ID = "tile";
@@ -36,10 +36,10 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 * @var bool[]
 	 */
 	protected static $load = [
-		self::TILE_CONFIG_TAB_LOADER => false,
-		self::TILE_CONTAINER_LOADER => false,
-		self::TILE_FAVORITES_LOADER => false,
-		self::TILE_RECOMMEND_MODAL => false
+		self::TOOLBAR_LOADER => false,
+		self::REPOSITORY_LOADER => false,
+		self::FAVORITES_LOADER => false,
+		self::RECOMMEND_MODAL_LOADER => false
 	];
 
 
@@ -62,26 +62,15 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		$a_comp, /*string*/
 		$a_part, $a_par = []): array {
 
-		//Repository
-		if ($this->loadTileContainerPossible($a_part, $a_par)) {
+		if ($this->matchRepository($a_part, $a_par)) {
 
-			self::$load[self::TILE_CONTAINER_LOADER] = true;
-
-			$obj_ref_id = self::tiles()->filterRefId();
-
-			if (self::tiles()->isObject($obj_ref_id) && self::tiles()->getInstanceForObjRefId($obj_ref_id)->getView() !== Tile::VIEW_DISABLED) {
-
-				return [
-					"mode" => ilUIHookPluginGUI::REPLACE,
-					"html" => self::output()->getHTML(new TileListContainerGUI($a_par["html"]))
-				];
-			}
+			return [
+				"mode" => ilUIHookPluginGUI::REPLACE,
+				"html" => self::output()->getHTML(new TileListContainerGUI($a_par["html"]))
+			];
 		}
 
-		//Favorites
-		if ($this->loadTileFavoritesPossible($a_part, $a_par)) {
-
-			self::$load[self::TILE_FAVORITES_LOADER] = true;
+		if ($this->matchFavorites($a_part, $a_par)) {
 
 			return [
 				"mode" => ilUIHookPluginGUI::REPLACE,
@@ -89,16 +78,12 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 			];
 		}
 
-		// Recommend modal
-		if (!self::$load[self::TILE_RECOMMEND_MODAL]) {
-			if ($a_par["tpl_id"] === self::ADMIN_FOOTER_TPL_ID) {
-				self::$load[self::TILE_RECOMMEND_MODAL] = true;
+		if ($this->matchRecommendModal($a_part, $a_par)) {
 
-				return [
-					"mode" => ilUIHookPluginGUI::APPEND,
-					"html" => (new RecommendGUI())->getModal()
-				];
-			}
+			return [
+				"mode" => ilUIHookPluginGUI::APPEND,
+				"html" => (new RecommendGUI())->getModal()
+			];
 		}
 
 		return parent::getHTML($a_comp, $a_part, $a_par);
@@ -114,54 +99,49 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		$a_comp, /*string*/
 		$a_part, /*array*/
 		$a_par = [])/*: void*/ {
-		if (!self::$load[self::TILE_CONFIG_TAB_LOADER]) {
+		$obj_ref_id = self::tiles()->filterRefId();
 
-			$obj_ref_id = self::tiles()->filterRefId();
+		if ($this->matchToolbar($a_part)) {
 
-			if ($this->matchObjectBaseClass()
-				&& $a_part === self::PAR_TABS
-				&& self::tiles()->isObject($obj_ref_id)) {
+			if (!self::access()->hasWriteAccess($obj_ref_id)) {
 
-				self::$load[self::TILE_CONFIG_TAB_LOADER] = true;
-
-				if (!self::access()->hasWriteAccess($obj_ref_id)) {
-
-					if (self::tiles()->getInstanceForObjRefId($obj_ref_id)->getShowObjectTabs() === Tile::SHOW_FALSE) {
-						self::dic()->tabs()->clearTargets();
-						self::dic()->tabs()->clearSubTabs();
-					}
-
-					return;
+				if (self::tiles()->getInstanceForObjRefId($obj_ref_id)->getShowObjectTabs() === Tile::SHOW_FALSE) {
+					self::dic()->tabs()->clearTargets();
+					self::dic()->tabs()->clearSubTabs();
 				}
 
-				if (count(array_filter(self::dic()->tabs()->target, function (array $tab): bool {
-						return (strpos($tab["id"], self::TAB_PERM_ID) !== - 1);
-					})) > 0) {
+				return;
+			}
 
-					self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_OBJ_REF_ID, $obj_ref_id);
+			if (count(array_filter(self::dic()->tabs()->target, function (array $tab): bool {
+					return (strpos($tab["id"], self::TAB_PERM_ID) !== false);
+				})) > 0) {
 
-					self::dic()->tabs()->addTab(self::TAB_ID, ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTargetByClass([
-						ilUIPluginRouterGUI::class,
-						TileGUI::class
-					], TileGUI::CMD_EDIT_TILE));
+				self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_OBJ_REF_ID, $obj_ref_id);
 
-					self::dic()->tabs()->target[count(self::dic()->tabs()->target) - 1]["cmd"] = [];
-				}
+				self::dic()->tabs()->addTab(self::TAB_ID, ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTargetByClass([
+					ilUIPluginRouterGUI::class,
+					TileGUI::class
+				], TileGUI::CMD_EDIT_TILE));
+
+				self::dic()->tabs()->target[count(self::dic()->tabs()->target) - 1]["cmd"] = [];
 			}
 		}
 	}
 
 
 	/**
+	 * @param string $a_part
+	 *
 	 * @return bool
 	 */
-	protected function matchObjectBaseClass(): bool {
-		$baseClass = strtolower(filter_input(INPUT_GET, "baseClass"));
+	protected function matchToolbar(string $a_part): bool {
+		$obj_ref_id = self::tiles()->filterRefId();
 
-		return ($baseClass === strtolower(ilRepositoryGUI::class) || $baseClass === strtolower(ilObjPluginDispatchGUI::class)
-			|| $baseClass === strtolower(ilSAHSEditGUI::class)
-			|| $baseClass === strtolower(ilLMEditorGUI::class)
-			|| empty($baseClass));
+		return (!self::$load[self::TOOLBAR_LOADER]
+			&& $a_part === self::PAR_TABS
+			&& (self::$load[self::TOOLBAR_LOADER] = true)
+			&& self::tiles()->isObject($obj_ref_id));
 	}
 
 
@@ -171,15 +151,19 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 *
 	 * @return bool
 	 */
-	protected function loadTileContainerPossible(string $a_part, array $a_par): bool {
-		return (!self::$load[self::TILE_CONTAINER_LOADER]
-			&& Config::getField(Config::KEY_ENABLED_ON_REPOSITORY)
-			&& $this->matchObjectBaseClass()
+	protected function matchRepository(string $a_part, array $a_par): bool {
+		$obj_ref_id = self::tiles()->filterRefId();
+
+		return (!self::$load[self::REPOSITORY_LOADER]
 			&& $a_part === self::TEMPLATE_GET
-			&& ($a_par["tpl_id"] === self::TEMPLATE_ID_REPOSITORY)
+			&& $a_par["tpl_id"] === self::TEMPLATE_ID_REPOSITORY
+			&& (self::$load[self::REPOSITORY_LOADER] = true)
+			&& Config::getField(Config::KEY_ENABLED_ON_REPOSITORY)
 			&& !in_array(self::dic()->ctrl()->getCmd(), [ "editOrder" ])
 			&& !in_array(self::dic()->ctrl()->getCallHistory()[0]["cmd"], [ "editOrder" ])
-			&& !$_SESSION["il_cont_admin_panel"]);
+			&& !$_SESSION["il_cont_admin_panel"]
+			&& self::tiles()->isObject($obj_ref_id)
+			&& self::tiles()->getInstanceForObjRefId($obj_ref_id)->getView() !== Tile::VIEW_DISABLED);
 	}
 
 
@@ -189,13 +173,27 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 	 *
 	 * @return bool
 	 */
-	protected function loadTileFavoritesPossible(string $a_part, array $a_par): bool {
+	protected function matchFavorites(string $a_part, array $a_par): bool {
 		$baseClass = strtolower(filter_input(INPUT_GET, "baseClass"));
 
-		return (!self::$load[self::TILE_FAVORITES_LOADER]
-			&& Config::getField(Config::KEY_ENABLED_ON_FAVORITES)
+		return (!self::$load[self::FAVORITES_LOADER]
 			&& $baseClass === strtolower(ilPersonalDesktopGUI::class)
 			&& $a_part === self::TEMPLATE_GET
-			&& $a_par["tpl_id"] === self::TEMPLATE_ID_FAVORITES);
+			&& $a_par["tpl_id"] === self::TEMPLATE_ID_FAVORITES
+			&& (self::$load[self::FAVORITES_LOADER] = true)
+			&& Config::getField(Config::KEY_ENABLED_ON_FAVORITES));
+	}
+
+
+	/**
+	 * @param string $a_part
+	 * @param array  $a_par
+	 *
+	 * @return bool
+	 */
+	protected function matchRecommendModal(string $a_part, array $a_par): bool {
+		return (!self::$load[self::RECOMMEND_MODAL_LOADER]
+			&& $a_par["tpl_id"] === self::ADMIN_FOOTER_TPL_ID
+			&& (self::$load[self::RECOMMEND_MODAL_LOADER] = true));
 	}
 }
