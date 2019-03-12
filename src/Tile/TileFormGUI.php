@@ -117,10 +117,6 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					],
 					Tile::VIEW_TILE => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("view_tile")
-					],
-					Tile::VIEW_LIST => [
-						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
 							"columns_type" => [
 								self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -153,6 +149,10 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 								"setTitle" => $this->txt("columns")
 							]
 						],
+						"setTitle" => $this->txt("view_tile")
+					],
+					Tile::VIEW_LIST => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("view_list"),
 					]
 				]
