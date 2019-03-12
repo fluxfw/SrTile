@@ -97,16 +97,22 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 	 */
 	public function hideOriginalRowsOfTiles() /*: void*/ {
 		$css = '';
+
+		$parent_tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId() ?? ROOT_FOLDER_ID);
+
+		$css .= '.tile';
+		$css .= '{' . $parent_tile->_getLayout() . '}';
+
 		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {
 			$css .= '#sr_tile_' . $tile->getTileId();
-			$css .= '{' . $tile->_getColor() . $tile->_getSize() . '}';
+			$css .= '{' . $tile->_getSize() . '}';
 
 			$css .= '#sr_tile_' . $tile->getTileId() . ' .card-bottom';
 			$css .= '{' . $tile->_getColor(false, true) . '}';
 
 			$css .= '#sr_tile_' . $tile->getTileId() . ' > .card';
-			$css .= '{' . $tile->_getBorder() . '}';
+			$css .= '{' . $tile->_getColor() . $tile->_getBorder() . '}';
 
 			$css .= '#sr_tile_' . $tile->getTileId() . ' .btn-default, ';
 			$css .= '#sr_tile_' . $tile->getTileId() . ' .badge';
@@ -115,7 +121,6 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 			if (!$is_parent_css_rendered) {
 				$is_parent_css_rendered = true;
 
-				$parent_tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId() ?? ROOT_FOLDER_ID);
 				if ($parent_tile->getApplyColorsToGlobalSkin() === Tile::SHOW_TRUE) {
 					if (!empty($parent_tile->_getBackgroundColor())) {
 						$css .= 'a#il_mhead_t_focus';

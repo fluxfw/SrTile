@@ -70,7 +70,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				return parent::getValue($key);
 		}
 
-		return NULL;
+		return null;
 	}
 
 
@@ -112,6 +112,41 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						"setTitle" => $this->txt("view_list")
 					]
 				]
+			],
+			"columns_type" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SIZE_TYPE_SET => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"columns" => [
+								self::PROPERTY_CLASS => ilNumberInputGUI::class,
+								self::PROPERTY_REQUIRED => false
+							]
+						],
+						"setTitle" => $this->txt("set")
+					]
+				],
+				"setTitle" => $this->txt("columns")
+			],
+			"margin_type" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::SIZE_TYPE_SET => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"margin" => [
+								self::PROPERTY_CLASS => ilNumberInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								"setSuffix" => "px"
+							]
+						],
+						"setTitle" => $this->txt("set")
+					]
+				],
+				"setTitle" => $this->txt("margin")
 			],
 			"show_object_tabs" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -180,24 +215,6 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						"setTitle" => $this->txt("show_true")
 					]
 				]
-			],
-			"margin_type" => [
-				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
-				self::PROPERTY_REQUIRED => false,
-				self::PROPERTY_SUBITEMS => [
-					Tile::SIZE_TYPE_SET => [
-						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_SUBITEMS => [
-							"margin" => [
-								self::PROPERTY_CLASS => ilNumberInputGUI::class,
-								self::PROPERTY_REQUIRED => false,
-								"setSuffix" => "px"
-							]
-						],
-						"setTitle" => $this->txt("set")
-					]
-				],
-				"setTitle" => $this->txt("margin")
 			],
 			"open_obj_with_one_child_direct" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,

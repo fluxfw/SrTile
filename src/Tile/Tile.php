@@ -6,6 +6,7 @@ use ActiveRecord;
 use arConnector;
 use ColorThief\ColorThief;
 use ilLink;
+use ilLinkResourceItems;
 use ilObject;
 use ilObjectFactory;
 use ilObjSAHSLearningModule;
@@ -14,7 +15,6 @@ use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
-use ilLinkResourceItems;
 
 /**
  * Class Tile
@@ -132,6 +132,8 @@ class Tile extends ActiveRecord {
 	const DEFAULT_BORDER_SIZE = 0;
 	const DEFAULT_BORDER_SIZE_TYPE = self::SIZE_TYPE_SET;
 	const DEFAULT_BORDER_COLOR_TYPE = self::COLOR_TYPE_BACKGROUND;
+	const DEFAULT_COLUMNS = 3;
+	const DEFAULT_COLUMNS_TYPE = self::SIZE_TYPE_SET;
 	const DEFAULT_ENABLE_RATING = Tile::SHOW_FALSE;
 	const DEFAULT_FONT_COLOR_TYPE = self::COLOR_TYPE_CONTRAST;
 	const DEFAULT_FONT_SIZE = 16;
@@ -162,7 +164,7 @@ class Tile extends ActiveRecord {
 	/**
 	 * @var ilObject|null
 	 */
-	protected $il_object = NULL;
+	protected $il_object = null;
 	/**
 	 * @var int
 	 *
@@ -496,6 +498,22 @@ class Tile extends ActiveRecord {
 	 * @con_is_notnull  true
 	 */
 	protected $apply_colors_to_global_skin = self::DEFAULT_APPLY_COLORS_TO_GLOBAL_SKIN;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $columns_type = self::DEFAULT_COLUMNS_TYPE;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $columns = self::DEFAULT_COLUMNS;
 
 
 	/**
@@ -505,7 +523,7 @@ class Tile extends ActiveRecord {
 	 * @param arConnector|null $connector
 	 */
 	public function __construct(/*int*/
-		$primary_key_value = 0, arConnector $connector = NULL) {
+		$primary_key_value = 0, arConnector $connector = null) {
 		parent::__construct($primary_key_value, $connector);
 	}
 
@@ -529,7 +547,7 @@ class Tile extends ActiveRecord {
 
 		switch ($field_name) {
 			default:
-				return NULL;
+				return null;
 		}
 	}
 
@@ -550,6 +568,8 @@ class Tile extends ActiveRecord {
 			case "border_color_type":
 			case "border_size":
 			case "border_size_type":
+			case "columns":
+			case "columns_type":
 			case "enable_rating":
 			case "font_color_type":
 			case "font_size":
@@ -582,7 +602,7 @@ class Tile extends ActiveRecord {
 				return intval($field_value);
 
 			default:
-				return NULL;
+				return null;
 		}
 	}
 
@@ -1245,6 +1265,38 @@ class Tile extends ActiveRecord {
 
 
 	/**
+	 * @return int
+	 */
+	public function getColumnsType(): int {
+		return $this->columns_type;
+	}
+
+
+	/**
+	 * @param int $columns_type
+	 */
+	public function setColumnsType(int $columns_type)/*: void*/ {
+		$this->columns_type = $columns_type;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getColumns(): int {
+		return $this->columns;
+	}
+
+
+	/**
+	 * @param int $columns
+	 */
+	public function setColumns(int $columns)/*: void*/ {
+		$this->columns = $columns;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public function _getBackgroundColor(): string {
@@ -1446,15 +1498,37 @@ class Tile extends ActiveRecord {
 	 * @return ilObject|null
 	 */
 	public function _getIlObject()/*: ?ilObject*/ {
-		if ($this->il_object === NULL) {
+		if ($this->il_object === null) {
 			$this->il_object = ilObjectFactory::getInstanceByRefId($this->getObjRefId(), false);
 
 			if ($this->il_object === false) {
-				$this->il_object = NULL;
+				$this->il_object = null;
 			}
 		}
 
 		return $this->il_object;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function _getLayout(): string {
+		$layout = "";
+
+		$margin = $this->getMargin();
+
+		$columns = $this->getColumns();
+
+		if (!empty($margin)) {
+			$layout .= "padding:" . $margin . "px!important;";
+		}
+
+		if (!empty($columns)) {
+			$layout .= "width:calc(100% / " . $columns . ")!important;";
+		}
+
+		return $layout;
 	}
 
 
@@ -1535,13 +1609,7 @@ class Tile extends ActiveRecord {
 	public function _getSize(): string {
 		$size = "";
 
-		$margin = $this->getMargin();
-
 		$font_size = $this->getFontSize();
-
-		if (!empty($margin)) {
-			$size .= "margin:" . $margin . "px!important;";
-		}
 
 		if (!empty($font_size)) {
 			$size .= "font-size:" . $font_size . "px!important;";
@@ -1555,7 +1623,7 @@ class Tile extends ActiveRecord {
 	 * @return string
 	 */
 	public function _getTitle(): string {
-		if ($this->_getIlObject() !== NULL) {
+		if ($this->_getIlObject() !== null) {
 			return $this->_getIlObject()->getTitle();
 		}
 

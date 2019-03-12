@@ -53,6 +53,7 @@ tile_certificate#:#Certificate (Experimental)
 tile_color_auto_from_image#:#Automatic from image
 tile_color_background#:#Color of background
 tile_color_contrast#:#Calculate automatically based on the contrast of the background color (black or white)
+tile_columns#:#Columns (Experimental)
 tile_disabled#:#Disabled
 tile_disabled_hint#:#Disabled globally in ILIAS
 tile_enable_rating#:#Enable rating
