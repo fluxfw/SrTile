@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.0]
+- Columns config
+
 ## [1.2.9]
 - Exclude ilAdministrationGUI
 

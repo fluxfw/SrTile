@@ -27,12 +27,12 @@
 		border-top: none !important;
 		flex-direction: row;
 
-		.card_image {
+		.card_top {
 		  height: 36px;
 		  width: 36px;
 		}
 
-		.card-title {
+		.card_title {
 		  min-height: unset;
 		}
 	  }
@@ -51,7 +51,7 @@
 	opacity: 0.5;
 
 	.card {
-	  .card_image, .card-title {
+	  .card_top, .card_title {
 		cursor: default !important;
 	  }
 	}
@@ -71,21 +71,26 @@
 	}
 
 	// Card image
-	.card_image {
+	.card_top {
 	  cursor: pointer;
 	  height: 230px;
 	  overflow: hidden;
 	  position: relative;
 	  width: 100%;
 
-	  .tile_image {
-		height: 100%;
+	  .tile_image_container {
+		align-items: center;
+		display: flex;
+		justify-content: center;
 		left: 0;
-		object-fit: cover;
-		object-position: left top;
 		position: absolute;
+		right: 0;
 		top: 0;
-		width: auto;
+
+		.tile_image {
+		  height: 100%;
+		  width: auto;
+		}
 	  }
 
 	  // Object icon
@@ -159,7 +164,7 @@
 	}
 
 	// Card bottom
-	.card-bottom {
+	.card_bottom {
 	  display: flex;
 	  flex-direction: row;
 	  flex-grow: 1;
@@ -167,7 +172,7 @@
 	  width: 100%;
 
 	  // Card label
-	  .card-title {
+	  .card_title {
 		color: inherit;
 		cursor: pointer;
 		display: flex;
@@ -184,9 +189,10 @@
 	  }
 
 	  // Card icons
-	  .card-icons {
+	  .card_icons {
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 		padding: 4px;
 
 		> a, img, svg {
@@ -215,11 +221,11 @@
 
 	  // Icons position left
 	  &[data-actions_position="3"] {
-		.card-title {
+		.card_title {
 		  order: 2;
 		}
 
-		.card-icons {
+		.card_icons {
 		  flex-direction: row-reverse;
 		  order: 1;
 
@@ -239,11 +245,11 @@
 
 	// Image position bottom
 	&[data-image_position="2"] {
-	  .card_image {
+	  .card_top {
 		order: 2;
 	  }
 
-	  .card-bottom {
+	  .card_bottom {
 		order: 1;
 	  }
 	}
@@ -254,7 +260,7 @@
 		min-height: 280px;
 	  }
 
-	  .card_image {
+	  .card_top {
 		height: 100%;
 		left: 0;
 		margin: 0 !important;;
@@ -262,12 +268,12 @@
 		top: 0;
 	  }
 
-	  .card-bottom {
+	  .card_bottom {
 		flex-grow: 0;
 		min-height: 54px;
 	  }
 
-	  &[data-image_position="1"] .card-bottom {
+	  &[data-image_position="1"] .card_bottom {
 		bottom: 0;
 		position: absolute;
 	  }
@@ -351,7 +357,7 @@
 
   .tiles {
 	flex-direction: column !important;
-	margin: 0px !important;
+	margin: 0 !important;
 
 	.tile {
 	  width: 250px !important;
