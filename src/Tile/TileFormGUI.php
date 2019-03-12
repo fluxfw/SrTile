@@ -60,6 +60,18 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	protected function getValue(/*string*/
 		$key) {
 		switch ($key) {
+			case "columns_count":
+				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
+					return $this->object->getColumns();
+				}
+				break;
+
+			case "columns_fix_width":
+				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_PX) {
+					return $this->object->getColumns();
+				}
+				break;
+
 			case "image":
 				if (!empty(parent::getValue($key))) {
 					return "./" . $this->object->getImagePath();
@@ -109,39 +121,41 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					],
 					Tile::VIEW_LIST => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("view_list")
+						self::PROPERTY_SUBITEMS => [
+							"columns_type" => [
+								self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								self::PROPERTY_SUBITEMS => [
+									Tile::SIZE_TYPE_COUNT => [
+										self::PROPERTY_CLASS => ilRadioOption::class,
+										self::PROPERTY_SUBITEMS => [
+											"columns_count" => [
+												self::PROPERTY_CLASS => ilNumberInputGUI::class,
+												self::PROPERTY_REQUIRED => false,
+												"setTitle" => $this->txt("count")
+											]
+										],
+										"setTitle" => $this->txt("count")
+									],
+									Tile::SIZE_TYPE_PX => [
+										self::PROPERTY_CLASS => ilRadioOption::class,
+										self::PROPERTY_SUBITEMS => [
+											"columns_fix_width" => [
+												self::PROPERTY_CLASS => ilNumberInputGUI::class,
+												self::PROPERTY_REQUIRED => false,
+												"setTitle" => $this->txt("fix_width"),
+												"setSuffix" => "px"
+											]
+										],
+										"setTitle" => $this->txt("fix_width")
+									]
+								],
+								"setTitle" => $this->txt("columns")
+							]
+						],
+						"setTitle" => $this->txt("view_list"),
 					]
 				]
-			],
-			"columns_type" => [
-				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
-				self::PROPERTY_REQUIRED => false,
-				self::PROPERTY_SUBITEMS => [
-					Tile::SIZE_TYPE_COUNT => [
-						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_SUBITEMS => [
-							"columns" => [
-								self::PROPERTY_CLASS => ilNumberInputGUI::class,
-								self::PROPERTY_REQUIRED => false,
-								"setTitle" => $this->txt("count")
-							]
-						],
-						"setTitle" => $this->txt("count")
-					],
-					Tile::SIZE_TYPE_PX => [
-						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_SUBITEMS => [
-							"columns" => [
-								self::PROPERTY_CLASS => ilNumberInputGUI::class,
-								self::PROPERTY_REQUIRED => false,
-								"setTitle" => $this->txt("fix_width"),
-								"setSuffix" => "px"
-							]
-						],
-						"setTitle" => $this->txt("fix_width")
-					]
-				],
-				"setTitle" => $this->txt("columns")
 			],
 			"margin_type" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -764,6 +778,18 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	protected function storeValue(/*string*/
 		$key, $value)/*: void*/ {
 		switch ($key) {
+			case "columns_count":
+				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
+					$this->object->setColumns(intval($value));
+				}
+				break;
+
+			case "columns_fix_width":
+				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_PX) {
+					$this->object->setColumns(intval($value));
+				}
+				break;
+
 			case "image":
 				if (!self::dic()->upload()->hasBeenProcessed()) {
 					self::dic()->upload()->process();
