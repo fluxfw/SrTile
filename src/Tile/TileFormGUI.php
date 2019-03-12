@@ -153,7 +153,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 					],
 					Tile::VIEW_LIST => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						"setTitle" => $this->txt("view_list"),
+						"setTitle" => $this->txt("view_list")
 					]
 				]
 			],
