@@ -117,15 +117,28 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [
-					Tile::SIZE_TYPE_SET => [
+					Tile::SIZE_TYPE_COUNT => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
 							"columns" => [
 								self::PROPERTY_CLASS => ilNumberInputGUI::class,
-								self::PROPERTY_REQUIRED => false
+								self::PROPERTY_REQUIRED => false,
+								"setTitle" => $this->txt("count")
 							]
 						],
-						"setTitle" => $this->txt("set")
+						"setTitle" => $this->txt("count")
+					],
+					Tile::SIZE_TYPE_PX => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						self::PROPERTY_SUBITEMS => [
+							"columns" => [
+								self::PROPERTY_CLASS => ilNumberInputGUI::class,
+								self::PROPERTY_REQUIRED => false,
+								"setTitle" => $this->txt("fix_width"),
+								"setSuffix" => "px"
+							]
+						],
+						"setTitle" => $this->txt("fix_width")
 					]
 				],
 				"setTitle" => $this->txt("columns")
@@ -134,7 +147,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [
-					Tile::SIZE_TYPE_SET => [
+					Tile::SIZE_TYPE_PX => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
 							"margin" => [
@@ -329,7 +342,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [
-					Tile::SIZE_TYPE_SET => [
+					Tile::SIZE_TYPE_PX => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
 							"font_size" => [
@@ -415,7 +428,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
 				self::PROPERTY_SUBITEMS => [
-					Tile::SIZE_TYPE_SET => [
+					Tile::SIZE_TYPE_PX => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						self::PROPERTY_SUBITEMS => [
 							"border_size" => [

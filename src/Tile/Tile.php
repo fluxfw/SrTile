@@ -43,7 +43,8 @@ class Tile extends ActiveRecord {
 	 * @deprecated
 	 */
 	const COLOR_TYPE_PARENT = 5;
-	const SIZE_TYPE_SET = 1;
+	const SIZE_TYPE_PX = 1;
+	const SIZE_TYPE_COUNT = 2;
 	/**
 	 * @var int
 	 *
@@ -130,20 +131,20 @@ class Tile extends ActiveRecord {
 	const DEFAULT_APPLY_COLORS_TO_GLOBAL_SKIN = Tile::SHOW_FALSE;
 	const DEFAULT_BACKGROUND_COLOR_TYPE = self::COLOR_TYPE_SET;
 	const DEFAULT_BORDER_SIZE = 0;
-	const DEFAULT_BORDER_SIZE_TYPE = self::SIZE_TYPE_SET;
+	const DEFAULT_BORDER_SIZE_TYPE = self::SIZE_TYPE_PX;
 	const DEFAULT_BORDER_COLOR_TYPE = self::COLOR_TYPE_BACKGROUND;
 	const DEFAULT_COLUMNS = 3;
-	const DEFAULT_COLUMNS_TYPE = self::SIZE_TYPE_SET;
+	const DEFAULT_COLUMNS_TYPE = self::SIZE_TYPE_COUNT;
 	const DEFAULT_ENABLE_RATING = Tile::SHOW_FALSE;
 	const DEFAULT_FONT_COLOR_TYPE = self::COLOR_TYPE_CONTRAST;
 	const DEFAULT_FONT_SIZE = 16;
-	const DEFAULT_FONT_SIZE_TYPE = self::SIZE_TYPE_SET;
+	const DEFAULT_FONT_SIZE_TYPE = self::SIZE_TYPE_PX;
 	const DEFAULT_IMAGE_POSITION = self::POSITION_TOP;
 	const DEFAULT_LABEL_HORIZONTAL_ALIGN = self::HORIZONTAL_ALIGN_LEFT;
 	const DEFAULT_LABEL_VERTICAL_ALIGN = self::VERTICAL_ALIGN_TOP;
 	const DEFAULT_LEARNING_PROGRESS_POSITION = Tile::POSITION_LEFT_TOP;
 	const DEFAULT_MARGIN = 10;
-	const DEFAULT_MARGIN_TYPE = self::SIZE_TYPE_SET;
+	const DEFAULT_MARGIN_TYPE = self::SIZE_TYPE_PX;
 	const DEFAULT_OBJECT_ICON_POSITION = Tile::POSITION_LEFT_BOTTOM;
 	const DEFAULT_OPEN_OBJ_WITH_ONE_CHILD_DIRECT = Tile::OPEN_FALSE;
 	const DEFAULT_RECOMMENDATION_MAIL_TEMPLATE_TYPE = Tile::MAIL_TEMPLATE_SET;
@@ -1340,6 +1341,25 @@ class Tile extends ActiveRecord {
 	/**
 	 * @return string
 	 */
+	public function _getColumns(): string {
+		switch ($this->getColumnsType()) {
+			case Tile::SIZE_TYPE_COUNT:
+				return "calc(100% / " . $this->getColumns() . ")";
+
+			case Tile::SIZE_TYPE_PX:
+				return $this->getColumns() . "px";
+
+			default:
+				break;
+		}
+
+		return "";
+	}
+
+
+	/**
+	 * @return string
+	 */
 	public function _getFontColor(): string {
 		switch ($this->getFontColorType()) {
 			case Tile::COLOR_TYPE_CONTRAST:
@@ -1518,14 +1538,14 @@ class Tile extends ActiveRecord {
 
 		$margin = $this->getMargin();
 
-		$columns = $this->getColumns();
+		$columns = $this->_getColumns();
 
 		if (!empty($margin)) {
 			$layout .= "padding:" . $margin . "px!important;";
 		}
 
 		if (!empty($columns)) {
-			$layout .= "width:calc(100% / " . $columns . ")!important;";
+			$layout .= "width:" . $columns . "!important;";
 		}
 
 		return $layout;

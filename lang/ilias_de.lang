@@ -53,12 +53,14 @@ tile_certificate#:#Zertifikat (Experimental)
 tile_color_auto_from_image#:#Automatisch anhand des Bildes
 tile_color_background#:#Farbe vom Hintergrund
 tile_color_contrast#:#Automatisch anhand des Kontrasts der Hintergrund-Farbe berechnen (schwarz oder weiss)
-tile_columns#:#Spalten (Experimental)
+tile_columns#:#Spalten
+tile_count#:#Anzahl
 tile_disabled#:#Deaktiviert
 tile_disabled_hint#:#Global in ILIAS deaktiviert
 tile_enable_rating#:#Bewertung aktivieren
 tile_enabled#:#Aktiviert
 tile_favorites#:#Favoriten
+tile_fix_width#:#Feste Breite
 tile_font_color#:#Schrift-Farbe
 tile_font_size#:#Schriftgrösse
 tile_horizontal_align#:#Horizontale-Ausrichtung
