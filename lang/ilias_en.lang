@@ -54,13 +54,13 @@ tile_color_auto_from_image#:#Automatic from image
 tile_color_background#:#Color of background
 tile_color_contrast#:#Calculate automatically based on the contrast of the background color (black or white)
 tile_columns#:#Columns
-tile_count#:#Count
+tile_columns_count#:#Count (Experimental)
+tile_columns_fix_width#:#Fix width
 tile_disabled#:#Disabled
 tile_disabled_hint#:#Disabled globally in ILIAS
 tile_enable_rating#:#Enable rating
 tile_enabled#:#Enabled
 tile_favorites#:#Favorites
-tile_fix_width#:#Fix width
 tile_font_color#:#Font color
 tile_font_size#:#Font size
 tile_horizontal_align#:#Horizontal align

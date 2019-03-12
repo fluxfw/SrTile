@@ -132,10 +132,10 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 											"columns_count" => [
 												self::PROPERTY_CLASS => ilNumberInputGUI::class,
 												self::PROPERTY_REQUIRED => false,
-												"setTitle" => $this->txt("count")
+												"setTitle" => $this->txt("columns_count")
 											]
 										],
-										"setTitle" => $this->txt("count")
+										"setTitle" => $this->txt("columns_count")
 									],
 									Tile::SIZE_TYPE_PX => [
 										self::PROPERTY_CLASS => ilRadioOption::class,
@@ -143,11 +143,11 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 											"columns_fix_width" => [
 												self::PROPERTY_CLASS => ilNumberInputGUI::class,
 												self::PROPERTY_REQUIRED => false,
-												"setTitle" => $this->txt("fix_width"),
+												"setTitle" => $this->txt("columns_fix_width"),
 												"setSuffix" => "px"
 											]
 										],
-										"setTitle" => $this->txt("fix_width")
+										"setTitle" => $this->txt("columns_fix_width")
 									]
 								],
 								"setTitle" => $this->txt("columns")
