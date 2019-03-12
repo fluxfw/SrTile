@@ -1544,7 +1544,7 @@ class Tile extends ActiveRecord {
 			$layout .= "padding:" . $margin . "px!important;";
 		}
 
-		if (!empty($columns)) {
+		if ($this->getView() === self::VIEW_TILE && !empty($columns)) {
 			$layout .= "width:" . $columns . "!important;";
 		}
 
