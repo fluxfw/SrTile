@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.1]
+- Using `background-image` so `background-size: cover;` can used
+
 ## [1.3.0]
 - Columns config
 
