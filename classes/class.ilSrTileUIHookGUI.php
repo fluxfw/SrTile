@@ -65,7 +65,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		if ($this->matchRepository($a_part, $a_par)) {
 
 			return [
-				"mode" => ilUIHookPluginGUI::REPLACE,
+				"mode" => self::REPLACE,
 				"html" => self::output()->getHTML(new TileListContainerGUI($a_par["html"]))
 			];
 		}
@@ -73,7 +73,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		if ($this->matchFavorites($a_part, $a_par)) {
 
 			return [
-				"mode" => ilUIHookPluginGUI::REPLACE,
+				"mode" => self::REPLACE,
 				"html" => self::output()->getHTML(new TileListDesktopGUI(self::dic()->user()))
 			];
 		}
@@ -81,7 +81,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI {
 		if ($this->matchRecommendModal($a_part, $a_par)) {
 
 			return [
-				"mode" => ilUIHookPluginGUI::APPEND,
+				"mode" => self::APPEND,
 				"html" => (new RecommendGUI())->getModal()
 			];
 		}
