@@ -53,7 +53,7 @@ class Recommend {
 
 			$notification = NotificationRepository::getInstance()->getNotificationByName($mail_template);
 
-			$sender = SenderRepository::getInstance()->factory()->mail($this->getRecommendedTo());
+			$sender = SenderRepository::getInstance()->factory()->externalMail($this->getRecommendedTo());
 
 			$placeholders = [
 				"link" => $this->getLink(),
