@@ -4,8 +4,8 @@ namespace srag\Plugins\SrTile\Recommend;
 
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\Notifications4Plugins\Notification\srNotification;
-use srag\Plugins\Notifications4Plugins\NotificationSender\srNotificationMailSender;
+use srag\Plugins\Notifications4Plugins\Notification\Repository as NotificationRepository;
+use srag\Plugins\Notifications4Plugins\Sender\Repository as SenderRepository;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use Throwable;
@@ -51,9 +51,9 @@ class Recommend {
 		try {
 			$mail_template = $this->tile->getRecommendMailTemplate();
 
-			$notification = srNotification::getInstanceByName($mail_template);
+			$notification = NotificationRepository::getInstance()->getNotificationByName($mail_template);
 
-			$sender = new srNotificationMailSender($this->getRecommendedTo());
+			$sender = SenderRepository::getInstance()->factory()->externalMail($this->getRecommendedTo());
 
 			$placeholders = [
 				"link" => $this->getLink(),
@@ -62,7 +62,7 @@ class Recommend {
 				"user" => self::dic()->user()
 			];
 
-			return $notification->send($sender, $placeholders, $placeholders["user"]->getLanguage());
+			return SenderRepository::getInstance()->send($sender, $notification, $placeholders, $placeholders["user"]->getLanguage());
 		} catch (Throwable $ex) {
 			return false;
 		}
