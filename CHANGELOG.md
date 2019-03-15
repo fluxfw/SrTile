@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.2]
+- Supports new Notifications4Plugins interface
+
 ## [1.3.1]
 - Using `background-image` so `background-size: cover` can used
 
