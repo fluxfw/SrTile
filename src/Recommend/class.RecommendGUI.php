@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Recommend;
 
-use ilModalGUI;
 use ilPropertyFormGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -76,14 +75,20 @@ class RecommendGUI {
 	public function getModal(): string {
 		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/js/recommend.min.js");
 
-		ilModalGUI::initJS();
+		$modal = self::output()->getHTML(self::dic()->ui()->factory()->modal()->roundtrip("", self::dic()->ui()->factory()->legacy("")));
 
-		$modal = ilModalGUI::getInstance();
-		$modal->setType(ilModalGUI::TYPE_LARGE);
+		// SrTile needs so patches on the new roundtrip modal ui
 
-		$modal->setId("tile_recommend_modal");
+		// tile_recommend_modal
+		$modal = str_replace('<div class="modal', '<div class="tile_recommend_modal modal', $modal);
 
-		return self::output()->getHTML($modal);
+		// Large modal
+		$modal = str_replace('<div class="modal-dialog"', '<div class="modal-dialog modal-lg"', $modal);
+
+		// Buttons will delivered over the form gui
+		$modal = str_replace('<div class="modal-footer">', '<div class="modal-footer" style="display:none;">', $modal);
+
+		return $modal;
 	}
 
 
