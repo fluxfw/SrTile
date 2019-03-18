@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Template;
 
-use ilAdvancedSelectionListGUI;
 use ilSrTileConfigGUI;
 use ilSrTilePlugin;
 use srag\ActiveRecordConfig\SrTile\ActiveRecordConfigTableGUI;
@@ -91,15 +90,12 @@ class TemplatesTableGUI extends ActiveRecordConfigTableGUI {
 	protected function fillRow(/*array*/
 		$row)/*: void*/ {
 		self::dic()->ctrl()->setParameter($this->parent_obj, "srtile_object_type", $row["template"]->getObjectType());
-		$edit_template_link = self::dic()->ctrl()->getLinkTarget($this->parent_obj, ilSrTileConfigGUI::CMD_EDIT_TEMPLATE);
 
 		parent::fillRow($row);
 
-		$actions = new ilAdvancedSelectionListGUI();
-		$actions->setListTitle($this->txt("actions"));
-
-		$actions->addItem($this->txt("edit_template"), "", $edit_template_link);
-
-		$this->tpl->setVariable("COLUMN", self::output()->getHTML($actions));
+		$this->tpl->setVariable("COLUMN", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
+			self::dic()->ui()->factory()->button()->shy($this->txt("edit_template"), self::dic()->ctrl()
+				->getLinkTarget($this->parent_obj, ilSrTileConfigGUI::CMD_EDIT_TEMPLATE))
+		])->withLabel($this->txt("actions"))));
 	}
 }
