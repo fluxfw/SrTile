@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Recommend;
 
-use ilModalGUI;
 use ilPropertyFormGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -76,14 +75,20 @@ class RecommendGUI {
 	public function getModal(): string {
 		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/js/recommend.min.js");
 
-		ilModalGUI::initJS();
+		$modal = self::output()->getHTML(self::dic()->ui()->factory()->modal()->roundtrip("", self::dic()->ui()->factory()->legacy("")));
 
-		$modal = ilModalGUI::getInstance();
-		$modal->setType(ilModalGUI::TYPE_LARGE);
+		// SrTile needs so patches on the new roundtrip modal ui
 
-		$modal->setId("tile_recommend_modal");
+		// tile_recommend_modal
+		$modal = str_replace('<div class="modal', '<div class="tile_recommend_modal modal', $modal);
 
-		return self::output()->getHTML($modal);
+		// Large modal
+		$modal = str_replace('<div class="modal-dialog"', '<div class="modal-dialog modal-lg"', $modal);
+
+		// Buttons will delivered over the form gui
+		$modal = str_replace('<div class="modal-footer">', '<div class="modal-footer" style="display:none;">', $modal);
+
+		return $modal;
 	}
 
 
@@ -119,7 +124,7 @@ class RecommendGUI {
 		$message, ilPropertyFormGUI $form)/*: void*/ {
 		$tpl = self::plugin()->template("Recommend/recommend_modal.html");
 
-		if ($message !== NULL) {
+		if ($message !== null) {
 			$tpl->setCurrentBlock("recommend_message");
 			$tpl->setVariable("MESSAGE", $message);
 		}
@@ -135,7 +140,7 @@ class RecommendGUI {
 	 *
 	 */
 	protected function addRecommend()/*: void*/ {
-		$message = NULL;
+		$message = null;
 
 		$form = $this->getRecommendForm();
 
@@ -147,7 +152,7 @@ class RecommendGUI {
 	 *
 	 */
 	protected function newRecommend()/*: void*/ {
-		$message = NULL;
+		$message = null;
 
 		$form = $this->getRecommendForm();
 
@@ -160,11 +165,21 @@ class RecommendGUI {
 		$recommend = $form->getObject();
 
 		if ($recommend->send()) {
-			$message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
-				->translate("sent_success", self::LANG_MODULE_RECOMMENDATION), "success");
+			if (self::version()->is54()) {
+				$message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->success(self::plugin()
+					->translate("sent_success", self::LANG_MODULE_RECOMMENDATION)));
+			} else {
+				$message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
+					->translate("sent_success", self::LANG_MODULE_RECOMMENDATION), "success");
+			}
 		} else {
-			$message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
-				->translate("sent_failure", self::LANG_MODULE_RECOMMENDATION), "failure");
+			if (self::version()->is54()) {
+				$message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->failure(self::plugin()
+					->translate("sent_failure", self::LANG_MODULE_RECOMMENDATION)));
+			} else {
+				$message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
+					->translate("sent_failure", self::LANG_MODULE_RECOMMENDATION), "failure");
+			}
 		}
 
 		$this->show($message, $form);

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	var $modal = $("#tile_recommend_modal");
+	var $modal = $(".tile_recommend_modal");
 
 	$(".tile_recommend").each(function (i, button) {
 

@@ -1589,7 +1589,7 @@ class Tile extends ActiveRecord {
 					}
 					break;
 				case "webr":
-					if (ilLinkResourceItems::lookupNumberOfLinks($this->il_object->getId()) === 1) {
+					if (intval(ilLinkResourceItems::lookupNumberOfLinks($this->il_object->getId())) === 1) {
 						$link_arr = ilLinkResourceItems::_getFirstLink($this->il_object->getId());
 
 						return ' href="' . htmlspecialchars($link_arr['target']) . '""';
