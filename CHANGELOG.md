@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.3]
+- fix weblink if only one
+
 ## [1.3.2]
 - Supports new Notifications4Plugins interface
 
