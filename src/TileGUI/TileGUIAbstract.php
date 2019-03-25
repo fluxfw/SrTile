@@ -77,7 +77,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 		$tpl->setVariable("TILE_ID", $this->tile->getTileId());
 
-		$tpl->setVariable("OBJECT_TYPE", ($this->tile->_getIlObject() !== NULL ? $this->tile->_getIlObject()->getType() : ""));
+		$tpl->setVariable("OBJECT_TYPE", ($this->tile->_getIlObject() !== null ? $this->tile->_getIlObject()->getType() : ""));
 
 		if ($this->tile->getShowTitle() === Tile::SHOW_TRUE) {
 			$tpl->setVariable("TITLE", $this->tile->_getTitle());
@@ -225,7 +225,7 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		$tpl->setVariable("ACTIONS_VERTICAL_ALIGN", $this->tile->getActionsVerticalAlign());
 
 		if ($this->tile->getObjectIconPosition() !== Tile::POSITION_NONE) {
-			$icon = ilObject::_getIcon(($this->tile->_getIlObject() !== NULL ? $this->tile->_getIlObject()->getId() : NULL), "small");
+			$icon = ilObject::_getIcon(($this->tile->_getIlObject() !== null ? $this->tile->_getIlObject()->getId() : null), "small");
 			if (file_exists($icon)) {
 				$tpl_object_icon = self::plugin()->template("Object/object_icon.html");
 
@@ -305,13 +305,13 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, Tiles::GET_PARAM_REF_ID, ROOT_FOLDER_ID);
 		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", $this->tile->getObjRefId());
 
-		$async_url = self::dic()->ctrl()->getLinkTargetByClass(array(
+		$async_url = self::dic()->ctrl()->getLinkTargetByClass([
 			ilRepositoryGUI::class,
 			ilObjRootFolderGUI::class
-		), "getAsynchItemList", "", true, false);
+		], "getAsynchItemList", "", true, false);
 
-		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, Tiles::GET_PARAM_REF_ID, NULL);
-		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", NULL);
+		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, Tiles::GET_PARAM_REF_ID, null);
+		self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", null);
 
 		return $async_url;
 	}
