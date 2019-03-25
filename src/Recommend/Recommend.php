@@ -62,7 +62,9 @@ class Recommend {
 				"user" => self::dic()->user()
 			];
 
-			return SenderRepository::getInstance()->send($sender, $notification, $placeholders, $placeholders["user"]->getLanguage());
+			SenderRepository::getInstance()->send($sender, $notification, $placeholders, $placeholders["user"]->getLanguage());
+
+			return true;
 		} catch (Throwable $ex) {
 			return false;
 		}
