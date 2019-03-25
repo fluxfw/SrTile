@@ -5,7 +5,6 @@ namespace srag\Plugins\SrTile\Tile;
 use ilObjectFactory;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\Notifications4Plugins\Notification\Repository as NotificationRepository;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use Throwable;
 
@@ -120,18 +119,6 @@ final class Tiles {
 		}
 
 		return self::$instances_by_ref_id[$obj_ref_id];
-	}
-
-
-	/**
-	 * @return array
-	 */
-	public function getMailTemplatesText(): array {
-		if (file_exists(__DIR__ . "/../../../Notifications4Plugins/vendor/autoload.php")) {
-			return NotificationRepository::getInstance()->getArrayForSelection();
-		} else {
-			return [];
-		}
 	}
 
 
