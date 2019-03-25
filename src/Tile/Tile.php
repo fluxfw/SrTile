@@ -1615,7 +1615,6 @@ class Tile extends ActiveRecord {
 
 				return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
 					. $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
-				break;
 
 			default:
 				return ' href="' . htmlspecialchars($tile->_getLink()) . '""';

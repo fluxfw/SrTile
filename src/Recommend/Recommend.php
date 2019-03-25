@@ -53,7 +53,7 @@ class Recommend {
 
 			$notification = NotificationRepository::getInstance()->getNotificationByName($mail_template);
 
-			$sender = SenderRepository::getInstance()->factory()->externalMail($this->getRecommendedTo());
+			$sender = SenderRepository::getInstance()->factory()->externalMail("", $this->getRecommendedTo());
 
 			$placeholders = [
 				"link" => $this->getLink(),
@@ -62,7 +62,9 @@ class Recommend {
 				"user" => self::dic()->user()
 			];
 
-			return SenderRepository::getInstance()->send($sender, $notification, $placeholders, $placeholders["user"]->getLanguage());
+			SenderRepository::getInstance()->send($sender, $notification, $placeholders, $placeholders["user"]->getLanguage());
+
+			return true;
 		} catch (Throwable $ex) {
 			return false;
 		}

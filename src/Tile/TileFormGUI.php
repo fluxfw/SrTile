@@ -11,12 +11,14 @@ use ilImageFileInputGUI;
 use ilNonEditableValueGUI;
 use ilNotifications4PluginsPlugin;
 use ilNumberInputGUI;
+use ilObject;
+use ilObjUser;
 use ilRadioGroupInputGUI;
 use ilRadioOption;
-use ilSelectInputGUI;
 use ilSrTileConfigGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
+use srag\Plugins\Notifications4Plugins\Notification\Repository as NotificationRepository;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -597,14 +599,13 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::MAIL_TEMPLATE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_SUBITEMS => [
-							"recommend_mail_template" => [
-								self::PROPERTY_CLASS => ilSelectInputGUI::class,
-								self::PROPERTY_REQUIRED => false,
-								self::PROPERTY_OPTIONS => [ "" => "" ] + self::tiles()->getMailTemplatesText(),
-								"setInfo" => (!empty($Notifications4Plugins) ? $Notifications4Plugins : "Notifications4Plugins")
-							]
-						],
+						self::PROPERTY_SUBITEMS => (!empty($Notifications4Plugins) ? NotificationRepository::getInstance()->ui()
+							->templateSelection("recommend_mail_template", [
+								"link" => "string",
+								"message" => "string",
+								"object" => "object " . ilObject::class,
+								"user" => "object " . ilObjUser::class
+							]) : []),
 						"setTitle" => $this->txt("set")
 					]
 				],

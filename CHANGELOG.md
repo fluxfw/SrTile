@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.4]
+- Fix Notifications4Plugin
+
 ## [1.3.3]
 - fix weblink if only one
 - Using some new ILIAS 5.3 UI's
