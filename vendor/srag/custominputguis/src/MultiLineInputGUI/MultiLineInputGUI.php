@@ -541,7 +541,8 @@ class MultiLineInputGUI extends ilFormPropertyGUI implements ilTableFilterItem, 
 				'keepInvalid' => true,
 				'sideBySide' => true,
 				//'collapse' => false,
-				'format' => ilCalendarUtil::getUserDateFormat(false)
+				'format' => !empty(self::dic()->user()->getId())
+				&& intval(self::dic()->user()->getId()) !== ANONYMOUS_USER_ID ? ilCalendarUtil::getUserDateFormat(false) : "DD.MM.YYYY"
 			]
 		];
 

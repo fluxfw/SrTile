@@ -8,6 +8,7 @@ if (file_exists(__DIR__ . "/../../Certificate/vendor/autoload.php")) {
 	require_once __DIR__ . "/../../Certificate/vendor/autoload.php";
 }
 
+use srag\DIC\SrTile\Util\LibraryLanguageInstaller;
 use srag\Plugins\SrTile\ColorThiefCache\ColorThiefCache;
 use srag\Plugins\SrTile\Config\Config;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressFilter;
@@ -34,14 +35,14 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 	/**
 	 * @var self|null
 	 */
-	protected static $instance = NULL;
+	protected static $instance = null;
 
 
 	/**
 	 * @return self
 	 */
 	public static function getInstance(): self {
-		if (self::$instance === NULL) {
+		if (self::$instance === null) {
 			self::$instance = new self();
 		}
 
@@ -62,6 +63,17 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 	 */
 	public function getPluginName(): string {
 		return self::PLUGIN_NAME;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function updateLanguages(array $a_lang_keys = null) {
+		parent::updateLanguages($a_lang_keys);
+
+		LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
+			. "/../vendor/srag/removeplugindataconfirm/lang")->updateLanguages();
 	}
 
 

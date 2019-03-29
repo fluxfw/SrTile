@@ -3,9 +3,9 @@
 namespace srag\CustomInputGUIs\SrTile;
 
 use ILIAS\UI\Implementation\Component\Chart\ProgressMeter\Factory as ProgressMeterFactoryCore;
-use srag\CustomInputGUIs\SrTile\LearningProgressPie\LearningProgressPie;
+use srag\CustomInputGUIs\SrTile\LearningProgressPieUI\LearningProgressPieUI;
 use srag\CustomInputGUIs\SrTile\ProgressMeter\Implementation\Factory as ProgressMeterFactory;
-use srag\CustomInputGUIs\SrTile\ViewControlModeGUI\ViewControlModeGUI;
+use srag\CustomInputGUIs\SrTile\ViewControlModeUI\ViewControlModeUI;
 use srag\DIC\SrTile\DICTrait;
 
 /**
@@ -14,8 +14,6 @@ use srag\DIC\SrTile\DICTrait;
  * @package srag\CustomInputGUIs\SrTile
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
- * @internal
  */
 final class CustomInputGUIs {
 
@@ -23,14 +21,14 @@ final class CustomInputGUIs {
 	/**
 	 * @var self
 	 */
-	protected static $instance = NULL;
+	protected static $instance = null;
 
 
 	/**
 	 * @return self
 	 */
-	public static function getInstance(): self {
-		if (self::$instance === NULL) {
+	public static function getInstance()/*: self*/ {
+		if (self::$instance === null) {
 			self::$instance = new self();
 		}
 
@@ -39,10 +37,18 @@ final class CustomInputGUIs {
 
 
 	/**
-	 * @return LearningProgressPie
+	 * CustomInputGUIs constructor
+	 */
+	private function __construct() {
+
+	}
+
+
+	/**
+	 * @return LearningProgressPieUI
 	 */
 	public function learningProgressPie() {
-		return new LearningProgressPie();
+		return new LearningProgressPieUI();
 	}
 
 
@@ -61,9 +67,9 @@ final class CustomInputGUIs {
 
 
 	/**
-	 * @return ViewControlModeGUI
+	 * @return ViewControlModeUI
 	 */
-	public function viewControlModeGUI() {
-		return new ViewControlModeGUI();
+	public function viewControlMode() {
+		return new ViewControlModeUI();
 	}
 }

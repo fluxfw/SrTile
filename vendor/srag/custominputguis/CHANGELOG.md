@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.19.9]
+- Fixes
+
+## [0.19.8]
+- Fixes
+
+## [0.19.7]
+- Fixes
+
+## [0.19.6]
+- Fixes
+
+## [0.19.5]
+- MultiLineInputGUI: Fix date format on public page
+
+## [0.19.4]
+- UsrIdsLearningProgressPie
+
 ## [0.19.3]
 - Support MultiSelectSearchInputGUI in table filter and toolbar
 
@@ -43,16 +61,16 @@
 - Fix TableGUI Export Header
 
 ## [0.17.3]
-- ViewControlModeGUI
+- ViewControlModeUI
 
 ## [0.17.2]
-- ViewControlModeGUI
+- ViewControlModeUI
 
 ## [0.17.1]
-- ViewControlModeGUI
+- ViewControlModeUI
 
 ## [0.17.0]
-- ViewControlModeGUI
+- ViewControlModeUI
 
 ## [0.16.10]
 - Fixes
