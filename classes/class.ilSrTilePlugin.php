@@ -69,7 +69,7 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 	/**
 	 * @inheritdoc
 	 */
-	public function updateLanguages(array $a_lang_keys = null) {
+	public function updateLanguages($a_lang_keys = null) {
 		parent::updateLanguages($a_lang_keys);
 
 		LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
