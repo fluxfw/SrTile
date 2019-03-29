@@ -18,7 +18,11 @@ use ilRadioOption;
 use ilSrTileConfigGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
-use srag\Plugins\Notifications4Plugins\Notification\Repository as NotificationRepository;
+use srag\DIC\Notifications4Plugins\DICStatic as Notifications4PluginsDICStatic;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Repository as NotificationRepository;
+use srag\Notifications4Plugin\Notifications4Plugins\UI\UI as NotificationUI;
+use srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguage;
+use srag\Plugins\Notifications4Plugins\Notification\Notification;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -599,8 +603,11 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::MAIL_TEMPLATE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_SUBITEMS => (!empty($Notifications4Plugins) ? NotificationRepository::getInstance()->ui()
-							->templateSelection("recommend_mail_template", [
+						self::PROPERTY_SUBITEMS => (!empty($Notifications4Plugins) ? NotificationUI::getInstance()
+							->withPlugin(Notifications4PluginsDICStatic::plugin(ilNotifications4PluginsPlugin::class))
+							->templateSelection(NotificationRepository::getInstance(Notification::class, NotificationLanguage::class)
+								->getArrayForSelection(NotificationRepository::getInstance(Notification::class, NotificationLanguage::class)
+									->getNotifications()), "recommend_mail_template", [
 								"link" => "string",
 								"message" => "string",
 								"object" => "object " . ilObject::class,
