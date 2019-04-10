@@ -1,5 +1,8 @@
 # Changelog
 
+## [x]
+- Fix recommendation multiple modal
+
 ## [1.3.5]
 - Fixes
 
