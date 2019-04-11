@@ -221,3 +221,7 @@ foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile
 	$tile->store();
 }
 ?>
+<#10>
+<?php
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
+?>

@@ -164,6 +164,39 @@
 	  }
 	}
 
+	// Learning progress
+	.tile_language {
+	  > img {
+		position: absolute;
+		width: 32px;
+	  }
+
+	  // Learning progress position left top
+	  &[data-language_position="5"] > img {
+		left: 4px;
+		top: 4px;
+	  }
+
+	  // Learning progress position left bottom
+	  &[data-language_position="6"] > img {
+		bottom: 4px;
+		left: 4px;
+	  }
+
+	  // Learning progress position right top
+	  &[data-language_position="7"] > img {
+		right: 4px;
+		top: 4px;
+	  }
+
+	  // Learning progress position right bottom
+	  &[data-language_position="8"] > img {
+		bottom: 4px;
+		right: 4px;
+	  }
+	}
+
+
 	// Card bottom
 	.card_bottom {
 	  display: flex;

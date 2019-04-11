@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\TileGUI;
 
+use function GuzzleHttp\Psr7\str;
 use ilAdvancedSelectionListGUI;
 use ilObject;
 use ilObjRootFolderGUI;
@@ -143,6 +144,18 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 				}
 
 				$tpl->setVariable("RATING", self::output()->getHTML($tpl_rating));
+			}
+
+			if ($this->tile->getShowLanguageFlag() === Tile::SHOW_TRUE && is_object($this->tile->_getIlObject())) {
+				if(strlen(self::ilias()->metadata($this->tile->_getIlObject())->getLanguageFlagImagePath()) > 0) {
+					$tpl_language = self::plugin()->template("Language/language.html");
+					$tpl_language->setVariable("LANGUAGE",
+						self::output()->getHTML(self::dic()->ui()->factory()->image()
+							->standard(self::ilias()->metadata($this->tile->_getIlObject())->getLanguageFlagImagePath(),"")));
+					$tpl_language->setVariable("LANGUAGE_POSITION",Tile::DEFAULT_LANGUAGE_ICON_POSITION);
+
+					$tpl->setVariable("LANGUAGE", self::output()->getHTML($tpl_language));
+				}
 			}
 
 			if ($this->tile->getShowRecommendIcon() === Tile::SHOW_TRUE

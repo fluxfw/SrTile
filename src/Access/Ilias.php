@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Access;
 
+use ilObject;
 use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -9,6 +10,7 @@ use srag\Plugins\SrTile\Certificate\Certificates;
 use srag\Plugins\SrTile\Favorite\Favorites;
 use srag\Plugins\SrTile\LearningProgress\LearningProgress;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressBar;
+use srag\Plugins\SrTile\Metadata\Metadata;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -85,6 +87,16 @@ final class Ilias {
 	 */
 	public function learningProgress(ilObjUser $user): LearningProgress {
 		return LearningProgress::getInstance($user);
+	}
+
+
+	/**
+	 * @param ilObject $il_object
+	 *
+	 * @return LearningProgress
+	 */
+	public function metadata(ilObject $il_object): Metadata {
+		return Metadata::getInstance($il_object);
 	}
 
 
