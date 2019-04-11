@@ -151,6 +151,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressFilterGUI' => __DIR__ . '/../..' . '/src/LearningProgress/class.LearningProgressFilterGUI.php',
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressFilters' => __DIR__ . '/../..' . '/src/LearningProgress/LearningProgressFilters.php',
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressLegendGUI' => __DIR__ . '/../..' . '/src/LearningProgress/LearningProgressLegendGUI.php',
+        'srag\\Plugins\\SrTile\\Metadata\\Metadata' => __DIR__ . '/../..' . '/src/Metadata/Metadata.php',
         'srag\\Plugins\\SrTile\\Rating\\Rating' => __DIR__ . '/../..' . '/src/Rating/Rating.php',
         'srag\\Plugins\\SrTile\\Rating\\RatingGUI' => __DIR__ . '/../..' . '/src/Rating/class.RatingGUI.php',
         'srag\\Plugins\\SrTile\\Rating\\Ratings' => __DIR__ . '/../..' . '/src/Rating/Ratings.php',

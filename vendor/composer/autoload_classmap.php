@@ -103,6 +103,7 @@ return array(
     'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressFilterGUI' => $baseDir . '/src/LearningProgress/class.LearningProgressFilterGUI.php',
     'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressFilters' => $baseDir . '/src/LearningProgress/LearningProgressFilters.php',
     'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressLegendGUI' => $baseDir . '/src/LearningProgress/LearningProgressLegendGUI.php',
+    'srag\\Plugins\\SrTile\\Metadata\\Metadata' => $baseDir . '/src/Metadata/Metadata.php',
     'srag\\Plugins\\SrTile\\Rating\\Rating' => $baseDir . '/src/Rating/Rating.php',
     'srag\\Plugins\\SrTile\\Rating\\RatingGUI' => $baseDir . '/src/Rating/class.RatingGUI.php',
     'srag\\Plugins\\SrTile\\Rating\\Ratings' => $baseDir . '/src/Rating/Ratings.php',
