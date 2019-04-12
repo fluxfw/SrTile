@@ -58,6 +58,7 @@ class Metadata {
 	 * @return string
 	 */
 	public function getLanguageFlagImagePath() {
+
 		if(strlen($this->getLanguageCode()) > 0) {
 			if(is_file(self::plugin()->directory() . "/templates/images/Language/" . $this->getLanguageCode() . ".png")) {
 				return self::plugin()->directory() . "/templates/images/Language/" . $this->getLanguageCode() . ".png";
@@ -73,10 +74,11 @@ class Metadata {
 	 */
 	private function getLanguageCode(): string {
 		$il_md = new ilMD($this->il_object->getId(), $this->il_object->getId(), $this->il_object->getType());
+
 		/**
 		 * var $md_language ilMDLanguage
 		 */
-		$md_language = $il_md->getGeneral()->getLanguage(2);
+		$md_language = $il_md->getGeneral()->getLanguage(array_shift($il_md->getGeneral()->getLanguageIds()));
 
 		return ($md_language->getLanguageCode() !== false ? $md_language->getLanguageCode() : "");
 	}
