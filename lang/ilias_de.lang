@@ -2,6 +2,7 @@ config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
 config_enabled_on_favorites#:#In Favoriten aktivieren
 config_enabled_on_repository#:#Im Magazin aktivieren
+config_notifications#:#Benachrichtigungen
 config_save#:#Speichern
 config_templates#:#Vorlagen
 favorites_add_to_favorites#:#Zu den Favoriten legen
@@ -82,7 +83,6 @@ tile_position_top#:#Oben
 tile_preconditions#:#Vorbedingungen (Experimental)
 tile_rating#:#Bewertung
 tile_recommendation#:#Empfehlung (Experimental)
-tile_recommendation_disabled_hint#:#Bitte das Plugin %s installieren um Empfehlung zu verwenden
 tile_recommend_mail_template#:#Mail-Vorlage
 tile_save#:#Speichern
 tile_saved#:#Die Kachel wurde gespeichert

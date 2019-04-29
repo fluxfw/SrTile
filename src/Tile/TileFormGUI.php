@@ -9,7 +9,6 @@ use ILIAS\FileUpload\DTO\UploadResult;
 use ILIAS\FileUpload\Location;
 use ilImageFileInputGUI;
 use ilNonEditableValueGUI;
-use ilNotifications4PluginsPlugin;
 use ilNumberInputGUI;
 use ilObject;
 use ilObjUser;
@@ -18,11 +17,9 @@ use ilRadioOption;
 use ilSrTileConfigGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
-use srag\DIC\Notifications4Plugins\DICStatic as Notifications4PluginsDICStatic;
-use srag\Notifications4Plugin\Notifications4Plugins\Notification\Repository as NotificationRepository;
-use srag\Notifications4Plugin\Notifications4Plugins\UI\UI as NotificationUI;
-use srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguage;
-use srag\Plugins\Notifications4Plugins\Notification\Notification;
+use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
+use srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage;
+use srag\Plugins\SrTile\Notification\Notification\Notification;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -35,6 +32,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
 class TileFormGUI extends ObjectPropertyFormGUI {
 
 	use SrTileTrait;
+	use Notifications4PluginTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const LANG_MODULE = TileGUI::LANG_MODULE_TILE;
 	/**
@@ -106,12 +104,6 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initFields()/*: void*/ {
-		if (file_exists(__DIR__ . "/../../../Notifications4Plugins/vendor/autoload.php")) {
-			$Notifications4Plugins = ilNotifications4PluginsPlugin::PLUGIN_NAME;
-		} else {
-			$Notifications4Plugins = "";
-		}
-
 		$this->fields = [
 			"view" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -575,13 +567,6 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 			"recommendation" => [
 				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
 			],
-			"recommendation_disabled_hint_" => [
-				self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
-				self::PROPERTY_VALUE => self::plugin()
-					->translate("recommendation_disabled_hint", self::LANG_MODULE, [ (!empty($Notifications4Plugins) ? $Notifications4Plugins : "Notifications4Plugins") ]),
-				self::PROPERTY_NOT_ADD => (!empty($Notifications4Plugins)),
-				"setTitle" => ""
-			],
 			"show_recommend_icon" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
@@ -594,8 +579,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("show_true")
 					]
-				],
-				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins)
+				]
 			],
 			"recommend_mail_template_type" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -603,20 +587,18 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::MAIL_TEMPLATE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_SUBITEMS => (!empty($Notifications4Plugins) ? NotificationUI::getInstance()
-							->withPlugin(Notifications4PluginsDICStatic::plugin(ilNotifications4PluginsPlugin::class))
-							->templateSelection(NotificationRepository::getInstance(Notification::class, NotificationLanguage::class)
-								->getArrayForSelection(NotificationRepository::getInstance(Notification::class, NotificationLanguage::class)
+						self::PROPERTY_SUBITEMS => self::notificationUI()->withPlugin(self::plugin())
+							->templateSelection(self::notification(Notification::class, NotificationLanguage::class)
+								->getArrayForSelection(self::notification(Notification::class, NotificationLanguage::class)
 									->getNotifications()), "recommend_mail_template", [
 								"link" => "string",
 								"message" => "string",
 								"object" => "object " . ilObject::class,
 								"user" => "object " . ilObjUser::class
-							]) : []),
+							]),
 						"setTitle" => $this->txt("set")
 					]
 				],
-				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins),
 				"setTitle" => $this->txt("recommend_mail_template")
 			],
 

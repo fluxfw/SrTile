@@ -80,7 +80,7 @@ class RecommendGUI {
 		// SrTile needs so patches on the new roundtrip modal ui
 
 		// tile_recommend_modal
-		$modal = str_replace('<div class="modal', '<div class="tile_recommend_modal modal', $modal);
+		$modal = str_replace('<div class="modal ', '<div class="tile_recommend_modal modal ', $modal);
 
 		// Large modal
 		$modal = str_replace('<div class="modal-dialog"', '<div class="modal-dialog modal-lg"', $modal);

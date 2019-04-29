@@ -221,3 +221,17 @@ foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile
 	$tile->store();
 }
 ?>
+<#10>
+<?php
+\srag\Plugins\SrTile\Notification\Notification\Notification::updateDB();
+\srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage::updateDB();
+
+foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile\Template\Template::get()) as $tile) {
+	/**
+	 * @var \srag\Plugins\SrTile\Tile\Tile $tile
+	 */
+
+	\srag\Notifications4Plugin\SrTile\Notification\Repository::getInstance(\srag\Plugins\SrTile\Notification\Notification\Notification::class, \srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage::class)
+		->migrateFromOldGlobalPlugin($tile->getRecommendMailTemplate());
+}
+?>
