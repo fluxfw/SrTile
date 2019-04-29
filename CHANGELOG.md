@@ -1,6 +1,7 @@
 # Changelog
 
 ## [x]
+- Notifications4Plugin library
 - Fix recommendation multiple modal
 
 ## [1.3.5]

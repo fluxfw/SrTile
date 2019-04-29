@@ -2,6 +2,7 @@ config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
 config_enabled_on_favorites#:#Enabled on favorites
 config_enabled_on_repository#:#Enabled on repository
+config_notifications#:#Notifications
 config_save#:#Save
 config_templates#:#Templates
 favorites_add_to_favorites#:#Add to favorites
@@ -82,7 +83,6 @@ tile_position_top#:#Top
 tile_preconditions#:#Preconditions
 tile_rating#:#Rating
 tile_recommendation#:#Recommendation (Experimental)
-tile_recommendation_disabled_hint#:#Please install the plugin %s to use recommendation
 tile_recommend_mail_template#:#Mail template
 tile_save#:#Save
 tile_saved#:#The tile was saved
