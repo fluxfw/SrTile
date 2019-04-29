@@ -124,7 +124,8 @@ class NotificationFormGUI extends ObjectPropertyFormGUI {
 	protected function initFields()/*: void*/ {
 		$this->fields = (!empty($this->object->getId()) ? [
 				"id" => [
-					self::PROPERTY_CLASS => ilNonEditableValueGUI::class
+					self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
+					self::PROPERTY_REQUIRED => true
 				]
 			] : []) + [
 				"name" => [
@@ -182,7 +183,7 @@ class NotificationFormGUI extends ObjectPropertyFormGUI {
 				break;
 
 			case ($key === "name"):
-				if (!empty($this->object->getId())) {
+				if (empty($this->object->getId())) {
 					parent::storeValue($key, $value);
 				}
 				break;
