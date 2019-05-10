@@ -26,8 +26,8 @@ class TemplatesTableGUI extends ActiveRecordConfigTableGUI {
 	 */
 	protected function getColumnValue(/*string*/
 		$column, /*array*/
-		$row, /*bool*/
-		$raw_export = false): string {
+		$row, /*int*/
+		$format = self::DEFAULT_FORMAT): string {
 		switch ($column) {
 			case "object_type":
 				$column = $row["template"]->_getTitle();
