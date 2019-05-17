@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\LearningProgress;
 
+use ilDBConstants;
 use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
@@ -80,8 +81,8 @@ class LearningProgressBar {
 				INNER JOIN object_reference AS obj_ref ON obj_ref.obj_id = collection.obj_id
 				INNER JOIN object_reference AS sub_obj ON sub_obj.ref_id = collection.item_id
 				INNER JOIN ut_lp_marks AS mark ON mark.obj_id = sub_obj.obj_id 
-                WHERE obj_ref.ref_id = " . self::dic()->database()->quote($this->obj_ref_id, "integer") . " AND mark.usr_id = " . self::dic()
-				->database()->quote($this->user->getId(), "integer");
+                WHERE obj_ref.ref_id = " . self::dic()->database()->quote($this->obj_ref_id, ilDBConstants::T_INTEGER) . " AND mark.usr_id = " . self::dic()
+				->database()->quote($this->user->getId(), ilDBConstants::T_INTEGER);
 
 		$result = self::dic()->database()->query($query);
 
