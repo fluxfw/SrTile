@@ -2,6 +2,9 @@
 
 namespace srag\DIC\SrTile\DIC;
 
+use srag\DIC\SrTile\Database\DatabaseDetector;
+use srag\DIC\SrTile\Database\DatabaseInterface;
+
 /**
  * Class AbstractDIC
  *
@@ -16,5 +19,13 @@ abstract class AbstractDIC implements DICInterface {
 	 */
 	protected function __construct() {
 
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function database(): DatabaseInterface {
+		return DatabaseDetector::getInstance($this->databaseCore());
 	}
 }

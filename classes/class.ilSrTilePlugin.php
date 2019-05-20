@@ -87,8 +87,8 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin {
 		self::dic()->database()->dropTable(Config::TABLE_NAME, false);
 		self::dic()->database()->dropTable(Rating::TABLE_NAME, false);
 		self::dic()->database()->dropTable(LearningProgressFilter::TABLE_NAME, false);
-		self::dic()->database()->dropTable(Notification::TABLE_NAME, false);
-		self::dic()->database()->dropTable(NotificationLanguage::TABLE_NAME, false);
+		Notification::dropDB_();
+		NotificationLanguage::dropDB_();
 		self::dic()->database()->dropTable(Template::TABLE_NAME, false);
 		self::dic()->database()->dropTable(Tile::TABLE_NAME, false);
 

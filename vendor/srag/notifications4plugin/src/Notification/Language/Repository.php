@@ -3,6 +3,7 @@
 namespace srag\Notifications4Plugin\SrTile\Notification\Language;
 
 use ilDateTime;
+use ilDBConstants;
 use srag\DIC\SrTile\DICTrait;
 use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
 
@@ -57,7 +58,8 @@ final class Repository implements RepositoryInterface {
 	 * @inheritdoc
 	 */
 	public function deleteLanguage(NotificationLanguage $language)/*: void*/ {
-		$language->delete();
+		self::dic()->database()->manipulate('DELETE FROM ' . self::dic()->database()->quoteIdentifier($this->language_class::TABLE_NAME)
+			. " WHERE id=%s", [ ilDBConstants::T_INTEGER ], [ $language->getId() ]);
 	}
 
 
@@ -65,11 +67,9 @@ final class Repository implements RepositoryInterface {
 	 * @inheritdoc
 	 */
 	public function duplicateLanguage(NotificationLanguage $language): NotificationLanguage {
-		/**
-		 * @var NotificationLanguage $duplicated_language
-		 */
+		$duplicated_language = clone $language;
 
-		$duplicated_language = $language->copy();
+		$language->setId(0);
 
 		return $duplicated_language;
 	}
@@ -90,8 +90,11 @@ final class Repository implements RepositoryInterface {
 		/**
 		 * @var NotificationLanguage|null $language
 		 */
-
-		$language = call_user_func($this->language_class . "::where", [ "id" => $id ])->first();
+		$language = self::dic()->database()->fetchObjectCallback(self::dic()->database()->queryF('SELECT * FROM ' . self::dic()->database()
+				->quoteIdentifier($this->language_class::TABLE_NAME) . ' WHERE id=%s', [ ilDBConstants::T_INTEGER ], [ $id ]), [
+			$this->factory(),
+			"fromDB"
+		]);
 
 		return $language;
 	}
@@ -104,8 +107,14 @@ final class Repository implements RepositoryInterface {
 		/**
 		 * @var NotificationLanguage $l
 		 */
-
-		$l = call_user_func($this->language_class . "::where", [ "notification_id" => $notification_id, "language" => $language ])->first();
+		$l = self::dic()->database()->fetchObjectCallback(self::dic()->database()->queryF('SELECT * FROM ' . self::dic()->database()
+				->quoteIdentifier($this->language_class::TABLE_NAME) . ' WHERE notification_id=%s AND language=%s', [
+			ilDBConstants::T_INTEGER,
+			ilDBConstants::T_TEXT
+		], [ $notification_id, $language ]), [
+			$this->factory(),
+			"fromDB"
+		]);
 
 		if ($l === null) {
 			$l = $this->factory()->newInstance();
@@ -122,12 +131,27 @@ final class Repository implements RepositoryInterface {
 	/**
 	 * @inheritdoc
 	 */
+	public function getLanguages(): array {
+		/**
+		 * @var NotificationLanguage[] $languages
+		 */
+		$languages = self::dic()->database()->fetchAllCallback(self::dic()->database()->query('SELECT * FROM ' . self::dic()->database()
+				->quoteIdentifier($this->language_class::TABLE_NAME)), [ $this->factory(), "fromDB" ]);
+
+		return $languages;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
 	public function getLanguagesForNotification(int $notification_id): array {
 		/**
 		 * @var NotificationLanguage[] $array
 		 */
-
-		$array = call_user_func($this->language_class . "::where", [ "notification_id" => $notification_id ])->get();
+		$array = self::dic()->database()->fetchAllCallback(self::dic()->database()->queryF('SELECT * FROM ' . self::dic()->database()
+				->quoteIdentifier($this->language_class::TABLE_NAME)
+			. ' WHERE notification_id=%s', [ ilDBConstants::T_INTEGER ], [ $notification_id ]), [ $this->factory(), "fromDB" ]);
 
 		$languages = [];
 
@@ -151,6 +175,13 @@ final class Repository implements RepositoryInterface {
 
 		$language->setUpdatedAt($date);
 
-		$language->store();
+		self::dic()->database()->store($this->language_class::TABLE_NAME, [
+			"notification_id" => [ ilDBConstants::T_INTEGER, $language->getNotificationId() ],
+			"language" => [ ilDBConstants::T_TEXT, $language->getLanguage() ],
+			"subject" => [ ilDBConstants::T_TEXT, $language->getSubject() ],
+			"text" => [ ilDBConstants::T_TEXT, $language->getText() ],
+			"created_at" => [ ilDBConstants::T_TEXT, $language->getCreatedAt()->get(IL_CAL_DATETIME) ],
+			"updated_at" => [ ilDBConstants::T_TEXT, $language->getUpdatedAt()->get(IL_CAL_DATETIME) ]
+		], "id", $language->getId());
 	}
 }
