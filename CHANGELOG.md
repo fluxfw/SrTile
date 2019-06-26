@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.1]
+- Position certificate icon at first
+- Some other changes (libraries)
+
 ## [1.4.0]
 - Notifications4Plugin library
 - Fix recommendation multiple modal
