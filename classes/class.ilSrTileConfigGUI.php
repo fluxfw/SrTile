@@ -4,6 +4,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use srag\ActiveRecordConfig\SrTile\ActiveRecordConfigGUI;
 use srag\Plugins\SrTile\Config\ConfigFormGUI;
+use srag\Plugins\SrTile\Notification\Ctrl\Notifications4PluginCtrl;
 use srag\Plugins\SrTile\Template\Template;
 use srag\Plugins\SrTile\Template\TemplateFormGUI;
 use srag\Plugins\SrTile\Template\TemplatesTableGUI;
@@ -28,7 +29,15 @@ class ilSrTileConfigGUI extends ActiveRecordConfigGUI {
 	/**
 	 * @var array
 	 */
-	protected static $tabs = [ self::TAB_CONFIGURATION => ConfigFormGUI::class, self::TAB_TEMPLATES => TemplatesTableGUI::class ];
+	protected static $tabs = [
+		self::TAB_CONFIGURATION => ConfigFormGUI::class,
+		self::TAB_TEMPLATES => TemplatesTableGUI::class,
+		self::TAB_CONFIGURATION => ConfigFormGUI::class,
+		Notifications4PluginCtrl::TAB_NOTIFICATIONS => [
+			Notifications4PluginCtrl::class,
+			Notifications4PluginCtrl::CMD_LIST_NOTIFICATIONS
+		]
+	];
 	/**
 	 * @var array
 	 */

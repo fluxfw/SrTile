@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd8953187641836ff7e31368b09571e9",
+    "content-hash": "7a9521ed2ca348c80f1241486061d03a",
     "packages": [
         {
             "name": "ksubileau/color-thief-php",
@@ -61,16 +61,16 @@
         },
         {
             "name": "srag/activerecordconfig",
-            "version": "v0.14.3",
+            "version": "v0.16.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/ActiveRecordConfig.git",
-                "reference": "96d6c2b61cd1a3fb219a7fabf8ffc07aa95e1b02"
+                "reference": "d1b6274f206afe02d58cb02335bae06fae212b67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/96d6c2b61cd1a3fb219a7fabf8ffc07aa95e1b02",
-                "reference": "96d6c2b61cd1a3fb219a7fabf8ffc07aa95e1b02",
+                "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/d1b6274f206afe02d58cb02335bae06fae212b67",
+                "reference": "d1b6274f206afe02d58cb02335bae06fae212b67",
                 "shasum": ""
             },
             "require": {
@@ -103,20 +103,20 @@
                 "activerecord",
                 "config"
             ],
-            "time": "2019-02-11T14:20:12+00:00"
+            "time": "2019-05-09T09:05:20+00:00"
         },
         {
             "name": "srag/custominputguis",
-            "version": "v0.19.9",
+            "version": "v0.22.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/CustomInputGUIs.git",
-                "reference": "ad4420a2a53a82bbf109682ce6ebc9a01fd49202"
+                "reference": "b1d2ed99c6dc3bc7fd24915b858e6df33bd8b04c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/ad4420a2a53a82bbf109682ce6ebc9a01fd49202",
-                "reference": "ad4420a2a53a82bbf109682ce6ebc9a01fd49202",
+                "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/b1d2ed99c6dc3bc7fd24915b858e6df33bd8b04c",
+                "reference": "b1d2ed99c6dc3bc7fd24915b858e6df33bd8b04c",
                 "shasum": ""
             },
             "require": {
@@ -126,7 +126,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\CustomInputGUIs\\SrTile\\": "src/"
+                    "srag\\CustomInputGUIs\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -150,24 +150,24 @@
                 "input",
                 "table"
             ],
-            "time": "2019-03-26T09:38:29+00:00"
+            "time": "2019-06-06T11:23:45+00:00"
         },
         {
             "name": "srag/dic",
-            "version": "v0.15.4",
+            "version": "v0.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/DIC.git",
-                "reference": "9f90f54f36a00a793fc08a7916dfdb06ebe3a76c"
+                "reference": "8cb486d006ae8151139ecfbe1514ecc032b23407"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/9f90f54f36a00a793fc08a7916dfdb06ebe3a76c",
-                "reference": "9f90f54f36a00a793fc08a7916dfdb06ebe3a76c",
+                "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/8cb486d006ae8151139ecfbe1514ecc032b23407",
+                "reference": "8cb486d006ae8151139ecfbe1514ecc032b23407",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
+                "php": ">=7.0"
             },
             "type": "library",
             "autoload": {
@@ -195,20 +195,20 @@
                 "globals",
                 "trait"
             ],
-            "time": "2019-03-26T13:15:41+00:00"
+            "time": "2019-05-28T11:46:06+00:00"
         },
         {
             "name": "srag/librariesnamespacechanger",
-            "version": "v0.5.2",
+            "version": "v0.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/LibrariesNamespaceChanger.git",
-                "reference": "4db267d97b5768d31429c14acde288181bfa4928"
+                "reference": "a7e3029a0fd9d96554ee3b149e02a5ad608b3572"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/4db267d97b5768d31429c14acde288181bfa4928",
-                "reference": "4db267d97b5768d31429c14acde288181bfa4928",
+                "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/a7e3029a0fd9d96554ee3b149e02a5ad608b3572",
+                "reference": "a7e3029a0fd9d96554ee3b149e02a5ad608b3572",
                 "shasum": ""
             },
             "require": {
@@ -238,7 +238,53 @@
                 "ILIAS",
                 "libraries"
             ],
-            "time": "2019-03-19T14:25:06+00:00"
+            "time": "2019-05-24T11:57:27+00:00"
+        },
+        {
+            "name": "srag/notifications4plugin",
+            "version": "v4.4.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/studer-raimann/Notifications4Plugin.git",
+                "reference": "021039e3b82a5620a467f6027d521f6023894a33"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/studer-raimann/Notifications4Plugin/zipball/021039e3b82a5620a467f6027d521f6023894a33",
+                "reference": "021039e3b82a5620a467f6027d521f6023894a33",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "srag/custominputguis": ">=0.1.0",
+                "srag/dic": ">=0.1.0",
+                "twig/twig": "1.18.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "srag\\Notifications4Plugin\\SrTile\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "studer + raimann ag - Team Custom 1",
+                    "email": "support-custom1@studer-raimann.ch",
+                    "homepage": "https://studer-raimann.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This library offers a quick and easy way to create and send notifications in any language. The notifications are usually configured in the config screen of Notifications4Plugin and can then be sent for instance as an email by other plugins dynamic",
+            "homepage": "https://github.com/studer-raimann/Notifications4Plugin",
+            "keywords": [
+                "ILIAS",
+                "notifications"
+            ],
+            "time": "2019-06-04T16:18:07+00:00"
         },
         {
             "name": "srag/removeplugindataconfirm",
@@ -286,6 +332,63 @@
                 "uninstall"
             ],
             "time": "2019-03-26T13:17:27+00:00"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.18.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "4cf7464348e7f9893a93f7096a90b73722be99cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/4cf7464348e7f9893a93f7096a90b73722be99cf",
+                "reference": "4cf7464348e7f9893a93f7096a90b73722be99cf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.18-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2015-01-25T17:32:08+00:00"
         }
     ],
     "packages-dev": [],

@@ -1,5 +1,61 @@
 # Changelog
 
+## [0.22.5]
+- Fix render multiple legend entries
+
+## [0.22.4]
+- Remove `checkBoolArg` because not exists in older ILIAS versions
+
+## [0.22.3]
+- Remove PHP 7.1 return `void` syntax
+
+## [0.22.2]
+- Remove PHP 7.1 `null` syntax (`?`)
+
+## [0.22.1]
+- Remove d3 library (Not needed anymore)
+
+## [0.22.0]
+- PieChart
+- Use PieChart in LearningProgressPieUI
+
+## [0.21.0]
+- WeekdayInputGUI
+
+## [0.20.8]
+- NumberInputGUI in toolbar
+
+## [0.20.7]
+- PHPDoc
+
+## [0.20.6]
+- `strToCamelCase`
+
+## [0.20.5]
+- `strToCamelCase` in table
+
+## [0.20.4]
+- Nothing to fix ...
+
+## [0.20.3]
+- Nothing to fix ...
+
+## [0.20.2]
+- Use export format in `getColumnValue`
+
+## [0.20.1]
+- Improvments TableGUI PDF export
+
+## [0.20.0]
+- TableGUI PDF export
+- Fix TableGUI excel export
+
+## [0.19.11]
+- PropertyFormGUI supports MultiLineInputGUI
+
+## [0.19.10]
+- Make `txt` not final
+
 ## [0.19.9]
 - Fixes
 

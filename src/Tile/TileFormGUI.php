@@ -9,7 +9,6 @@ use ILIAS\FileUpload\DTO\UploadResult;
 use ILIAS\FileUpload\Location;
 use ilImageFileInputGUI;
 use ilNonEditableValueGUI;
-use ilNotifications4PluginsPlugin;
 use ilNumberInputGUI;
 use ilObject;
 use ilObjUser;
@@ -18,11 +17,9 @@ use ilRadioOption;
 use ilSrTileConfigGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
-use srag\DIC\Notifications4Plugins\DICStatic as Notifications4PluginsDICStatic;
-use srag\Notifications4Plugin\Notifications4Plugins\Notification\Repository as NotificationRepository;
-use srag\Notifications4Plugin\Notifications4Plugins\UI\UI as NotificationUI;
-use srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguage;
-use srag\Plugins\Notifications4Plugins\Notification\Notification;
+use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
+use srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage;
+use srag\Plugins\SrTile\Notification\Notification\Notification;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -35,6 +32,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
 class TileFormGUI extends ObjectPropertyFormGUI {
 
 	use SrTileTrait;
+	use Notifications4PluginTrait;
 	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 	const LANG_MODULE = TileGUI::LANG_MODULE_TILE;
 	/**
@@ -47,12 +45,12 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	 * TileFormGUI constructor
 	 *
 	 * @param TileGUI|ilSrTileConfigGUI $parent
-	 * @param Tile                      $tile
+	 * @param Tile                      $object
 	 *
 	 * @throws ilException
 	 */
-	public function __construct($parent, Tile $tile) {
-		parent::__construct($parent, $tile);
+	public function __construct($parent, Tile $object) {
+		parent::__construct($parent, $object);
 
 		if (!self::access()->hasWriteAccess(self::tiles()->filterRefId())) {
 			throw new ilException("You have no permission to access this page");
@@ -63,18 +61,17 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	/**
 	 * @inheritdoc
 	 */
-	protected function getValue(/*string*/
-		$key) {
+	protected function getValue(/*string*/ $key) {
 		switch ($key) {
 			case "columns_count":
 				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
-					return $this->object->getColumns();
+					return parent::getValue("columns");
 				}
 				break;
 
 			case "columns_fix_width":
 				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_PX) {
-					return $this->object->getColumns();
+					return parent::getValue("columns");
 				}
 				break;
 
@@ -106,12 +103,6 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	 * @inheritdoc
 	 */
 	protected function initFields()/*: void*/ {
-		if (file_exists(__DIR__ . "/../../../Notifications4Plugins/vendor/autoload.php")) {
-			$Notifications4Plugins = ilNotifications4PluginsPlugin::PLUGIN_NAME;
-		} else {
-			$Notifications4Plugins = "";
-		}
-
 		$this->fields = [
 			"view" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -575,13 +566,6 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 			"recommendation" => [
 				self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
 			],
-			"recommendation_disabled_hint_" => [
-				self::PROPERTY_CLASS => ilNonEditableValueGUI::class,
-				self::PROPERTY_VALUE => self::plugin()
-					->translate("recommendation_disabled_hint", self::LANG_MODULE, [ (!empty($Notifications4Plugins) ? $Notifications4Plugins : "Notifications4Plugins") ]),
-				self::PROPERTY_NOT_ADD => (!empty($Notifications4Plugins)),
-				"setTitle" => ""
-			],
 			"show_recommend_icon" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
 				self::PROPERTY_REQUIRED => false,
@@ -594,8 +578,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						self::PROPERTY_CLASS => ilRadioOption::class,
 						"setTitle" => $this->txt("show_true")
 					]
-				],
-				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins)
+				]
 			],
 			"recommend_mail_template_type" => [
 				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
@@ -603,20 +586,18 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 				self::PROPERTY_SUBITEMS => [
 					Tile::MAIL_TEMPLATE_SET => [
 						self::PROPERTY_CLASS => ilRadioOption::class,
-						self::PROPERTY_SUBITEMS => (!empty($Notifications4Plugins) ? NotificationUI::getInstance()
-							->withPlugin(Notifications4PluginsDICStatic::plugin(ilNotifications4PluginsPlugin::class))
-							->templateSelection(NotificationRepository::getInstance(Notification::class, NotificationLanguage::class)
-								->getArrayForSelection(NotificationRepository::getInstance(Notification::class, NotificationLanguage::class)
+						self::PROPERTY_SUBITEMS => self::notificationUI()->withPlugin(self::plugin())
+							->templateSelection(self::notification(Notification::class, NotificationLanguage::class)
+								->getArrayForSelection(self::notification(Notification::class, NotificationLanguage::class)
 									->getNotifications()), "recommend_mail_template", [
 								"link" => "string",
 								"message" => "string",
 								"object" => "object " . ilObject::class,
 								"user" => "object " . ilObjUser::class
-							]) : []),
+							]),
 						"setTitle" => $this->txt("set")
 					]
 				],
-				self::PROPERTY_NOT_ADD => empty($Notifications4Plugins),
 				"setTitle" => $this->txt("recommend_mail_template")
 			],
 
@@ -783,18 +764,17 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	/**
 	 * @inheritdoc
 	 */
-	protected function storeValue(/*string*/
-		$key, $value)/*: void*/ {
+	protected function storeValue(/*string*/ $key, $value)/*: void*/ {
 		switch ($key) {
 			case "columns_count":
 				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
-					$this->object->setColumns(intval($value));
+					parent::storeValue("columns", $value);
 				}
 				break;
 
 			case "columns_fix_width":
 				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_PX) {
-					$this->object->setColumns(intval($value));
+					parent::storeValue("columns", $value);
 				}
 				break;
 
