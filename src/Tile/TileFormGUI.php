@@ -45,12 +45,12 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	 * TileFormGUI constructor
 	 *
 	 * @param TileGUI|ilSrTileConfigGUI $parent
-	 * @param Tile                      $tile
+	 * @param Tile                      $object
 	 *
 	 * @throws ilException
 	 */
-	public function __construct($parent, Tile $tile) {
-		parent::__construct($parent, $tile);
+	public function __construct($parent, Tile $object) {
+		parent::__construct($parent, $object);
 
 		if (!self::access()->hasWriteAccess(self::tiles()->filterRefId())) {
 			throw new ilException("You have no permission to access this page");
@@ -61,18 +61,17 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	/**
 	 * @inheritdoc
 	 */
-	protected function getValue(/*string*/
-		$key) {
+	protected function getValue(/*string*/ $key) {
 		switch ($key) {
 			case "columns_count":
 				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
-					return $this->object->getColumns();
+					return parent::getValue("columns");
 				}
 				break;
 
 			case "columns_fix_width":
 				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_PX) {
-					return $this->object->getColumns();
+					return parent::getValue("columns");
 				}
 				break;
 
@@ -765,18 +764,17 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	/**
 	 * @inheritdoc
 	 */
-	protected function storeValue(/*string*/
-		$key, $value)/*: void*/ {
+	protected function storeValue(/*string*/ $key, $value)/*: void*/ {
 		switch ($key) {
 			case "columns_count":
 				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
-					$this->object->setColumns(intval($value));
+					parent::storeValue("columns", $value);
 				}
 				break;
 
 			case "columns_fix_width":
 				if ($this->object->getColumnsType() === Tile::SIZE_TYPE_PX) {
-					$this->object->setColumns(intval($value));
+					parent::storeValue("columns", $value);
 				}
 				break;
 

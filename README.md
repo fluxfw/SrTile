@@ -19,22 +19,9 @@ Tab:
 Tile config:
 ![Tiles](./doc/screenshots/tile_config.png)
 
-### Dependencies
+### Requirements
 * ILIAS 5.3 or ILIAS 5.4
 * PHP >=7.0
-* [composer](https://getcomposer.org)
-* [npm](https://nodejs.org)
-* [Certificate](https://github.com/studer-raimann/Certificate)
-* [color-thief-php](https://packagist.org/packages/ksubileau/color-thief-php)
-* [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
-* [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
-* [srag/dic](https://packagist.org/packages/srag/dic)
-* [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
-* [srag/notifications4plugin](https://packagist.org/packages/srag/notifications4plugin)
-* [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
-* [@iconfu/svg-inject](https://www.npmjs.com/package/@iconfu/svg-inject)
-
-Please use it for further development!
 
 ### Adjustment suggestions
 * Adjustment suggestions by pull requests

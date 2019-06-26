@@ -2,8 +2,10 @@
 
 namespace srag\Notifications4Plugin\SrTile\Notification;
 
+use ilDateTime;
 use srag\DIC\SrTile\DICTrait;
 use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
+use stdClass;
 
 /**
  * Class Factory
@@ -12,12 +14,12 @@ use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Factory {
+final class Factory implements FactoryInterface {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
 	/**
-	 * @var self[]
+	 * @var FactoryInterface[]
 	 */
 	protected static $instances = [];
 
@@ -25,9 +27,9 @@ final class Factory {
 	/**
 	 * @param string $notification_class
 	 *
-	 * @return self
+	 * @return FactoryInterface
 	 */
-	public static function getInstance(string $notification_class): self {
+	public static function getInstance(string $notification_class): FactoryInterface {
 		if (!isset(self::$instances[$notification_class])) {
 			self::$instances[$notification_class] = new self($notification_class);
 		}
@@ -37,7 +39,7 @@ final class Factory {
 
 
 	/**
-	 * @var string|AbstractNotification
+	 * @var string|Notification
 	 */
 	protected $notification_class;
 
@@ -53,9 +55,28 @@ final class Factory {
 
 
 	/**
-	 * @return AbstractNotification
+	 * @inheritdoc
 	 */
-	public function newInstance(): AbstractNotification {
+	public function fromDB(stdClass $data): Notification {
+		$language = $this->newInstance();
+
+		$language->setId($data->id);
+		$language->setName($data->name);
+		$language->setTitle($data->title);
+		$language->setDescription($data->description);
+		$language->setDefaultLanguage($data->default_language);
+		$language->setParser($data->parser);
+		$language->setCreatedAt(new ilDateTime($data->created_at, IL_CAL_DATETIME));
+		$language->setUpdatedAt(new ilDateTime($data->updated_at, IL_CAL_DATETIME));
+
+		return $language;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function newInstance(): Notification {
 		$notification = new $this->notification_class();
 
 		return $notification;

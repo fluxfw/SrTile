@@ -28,6 +28,7 @@ So I recommand to use [srag/librariesnamespacechanger](https://packagist.org/pac
 * [MultiSelectSearchInputGUI](./src/MultiSelectSearchInputGUI/doc/MultiSelectSearchInputGUI.md)
 * [MultiSelectSearchInput2GUI](./src/MultiSelectSearchInputGUI/doc/MultiSelectSearchInput2GUI.md)
 * [NumberInputGUI](./src/NumberInputGUI/doc/NumberInputGUI.md)
+* [PieChart](./src/PieChart/doc/PieChart.md)
 * [ProgressMeter](./src/ProgressMeter/doc/ProgressMeter.md)
 * [PropertyFormGUI](./src/PropertyFormGUI/doc/PropertyFormGUI.md)
 * [ScreenshotsInputGUI](./src/ScreenshotsInputGUI/doc/ScreenshotsInputGUI.md)
@@ -38,23 +39,11 @@ So I recommand to use [srag/librariesnamespacechanger](https://packagist.org/pac
 * [TextInputGUI](./src/TextInputGUI/doc/TextInputGUI.md)
 * [ViewControlModeUI](./src/ViewControlModeUI/doc/ViewControlModeUI.md)
 * [Waiter](./src/Waiter/doc/Waiter.md)
+* [WeekdayInputGUI](./src/WeekdayInputGUI/doc/WeekdayInputGUI.md)
 
-### Dependencies
-* ILIAS 5.2 or ILIAS 5.3
+### Requirements
+* ILIAS 5.3 or ILIAS 5.4
 * PHP >=5.6
-* [composer](https://getcomposer.org)
-* [npm](https://nodejs.org)
-* [canvas-toBlob](https://www.npmjs.com/package/canvas-toBlob)
-* [d3](https://www.npmjs.com/package/d3)
-* [es6-promise](https://www.npmjs.com/package/es6-promise)
-* [html2canvas](https://www.npmjs.com/package/html2canvas)
-* [select2](https://www.npmjs.com/package/select2)
-* [srag/dic](https://packagist.org/packages/srag/dic)
-* [babel-minify -g](https://www.npmjs.com/package/babel-minify)
-* [clean-css-cli](https://www.npmjs.com/package/clean-css-cli)
-* [less -g](https://www.npmjs.com/package/less)
-
-Please use it for further development!
 
 ### Adjustment suggestions
 * Adjustment suggestions by pull requests

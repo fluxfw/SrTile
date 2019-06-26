@@ -2,9 +2,12 @@
 
 namespace srag\Notifications4Plugin\SrTile\UI;
 
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\Items\Items;
 use srag\CustomInputGUIs\SrTile\TableGUI\TableGUI;
 use srag\DIC\SrTile\Plugin\PluginInterface;
-use srag\Notifications4Plugin\SrTile\Ctrl\AbstractCtrl;
+use srag\Notifications4Plugin\SrTile\Ctrl\CtrlInterface;
+use srag\Notifications4Plugin\SrTile\Notification\Language\NotificationLanguage;
+use srag\Notifications4Plugin\SrTile\Notification\Notification;
 use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
 
 /**
@@ -18,7 +21,7 @@ use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
 class NotificationsTableGUI extends TableGUI {
 
 	use Notifications4PluginTrait;
-	const LANG_MODULE = AbstractCtrl::LANG_MODULE_NOTIFICATIONS4PLUGIN;
+	const LANG_MODULE = CtrlInterface::LANG_MODULE_NOTIFICATIONS4PLUGIN;
 	/**
 	 * @var PluginInterface
 	 */
@@ -27,19 +30,25 @@ class NotificationsTableGUI extends TableGUI {
 	 * @var callable
 	 */
 	protected $getNotifications;
+	/**
+	 * @var callable
+	 */
+	protected $getNotificationsCount;
 
 
 	/**
 	 * NotificationsTableGUI constructor
 	 *
 	 * @param PluginInterface $plugin
-	 * @param AbstractCtrl    $parent
+	 * @param CtrlInterface   $parent
 	 * @param string          $parent_cmd
 	 * @param callable        $getNotifications
+	 * @param callable        $getNotificationsCount
 	 */
-	public function __construct(PluginInterface $plugin, AbstractCtrl $parent, string $parent_cmd, callable $getNotifications) {
+	public function __construct(PluginInterface $plugin, CtrlInterface $parent, string $parent_cmd, callable $getNotifications, callable $getNotificationsCount) {
 		$this->plugin = $plugin;
 		$this->getNotifications = $getNotifications;
+		$this->getNotificationsCount = $getNotificationsCount;
 
 		parent::__construct($parent, $parent_cmd);
 	}
@@ -47,18 +56,24 @@ class NotificationsTableGUI extends TableGUI {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @param Notification $row
 	 */
-	protected function getColumnValue(/*string*/
-		$column, /*array*/
-		$row, /*bool*/
-		$raw_export = false): string {
+	protected function getColumnValue(/*string*/ $column, /*Notification*/ $row, /*int*/ $format = self::DEFAULT_FORMAT): string {
+		$value = Items::getter($row, $column);
+
 		switch ($column) {
+			case "languages":
+				$value = implode(", ", array_map(function (NotificationLanguage $language): string {
+					return $language->getLanguage();
+				}, $value));
+				break;
+
 			default:
-				$column = $row[$column];
 				break;
 		}
 
-		return strval($column);
+		return strval($value);
 	}
 
 
@@ -93,9 +108,6 @@ class NotificationsTableGUI extends TableGUI {
 		parent::initColumns();
 
 		$this->addColumn($this->txt("actions"));
-
-		$this->setDefaultOrderField("title");
-		$this->setDefaultOrderDirection("asc");
 	}
 
 
@@ -104,7 +116,7 @@ class NotificationsTableGUI extends TableGUI {
 	 */
 	protected function initCommands()/*: void*/ {
 		self::dic()->toolbar()->addComponent(self::dic()->ui()->factory()->button()->standard($this->txt("add_notification"), self::dic()->ctrl()
-			->getLinkTarget($this->parent_obj, AbstractCtrl::CMD_ADD_NOTIFICATION)));
+			->getLinkTarget($this->parent_obj, CtrlInterface::CMD_ADD_NOTIFICATION)));
 	}
 
 
@@ -112,7 +124,22 @@ class NotificationsTableGUI extends TableGUI {
 	 * @inheritdoc
 	 */
 	protected function initData()/*: void*/ {
-		$this->setData(($this->getNotifications)());
+		$getNotifications = $this->getNotifications;
+		$getNotificationsCount = $this->getNotificationsCount;
+
+		$this->setExternalSegmentation(true);
+		$this->setExternalSorting(true);
+
+		$this->setDefaultOrderField("title");
+		$this->setDefaultOrderDirection("asc");
+
+		// Fix stupid ilTable2GUI !!! ...
+		$this->determineLimit();
+		$this->determineOffsetAndOrder();
+
+		$this->setData($getNotifications($this->getOrderField(), $this->getOrderDirection(), intval($this->getOffset()), intval($this->getLimit())));
+
+		$this->setMaxCount($getNotificationsCount());
 	}
 
 
@@ -128,7 +155,7 @@ class NotificationsTableGUI extends TableGUI {
 	 * @inheritdoc
 	 */
 	protected function initId()/*: void*/ {
-		$this->setId(strtolower(AbstractCtrl::NAME) . "_" . $this->plugin->getPluginObject()->getId());
+		$this->setId(strtolower(CtrlInterface::NAME) . "_" . $this->plugin->getPluginObject()->getId());
 	}
 
 
@@ -141,21 +168,22 @@ class NotificationsTableGUI extends TableGUI {
 
 
 	/**
-	 * @param array $row
+	 * @inheritdoc
+	 *
+	 * @param Notification $row
 	 */
-	protected function fillRow(/*array*/
-		$row)/*: void*/ {
-		self::dic()->ctrl()->setParameter($this->parent_obj, AbstractCtrl::GET_PARAM, $row["id"]);
+	protected function fillRow(/*Notification*/ $row)/*: void*/ {
+		self::dic()->ctrl()->setParameter($this->parent_obj, CtrlInterface::GET_PARAM, $row->getId());
 
 		parent::fillRow($row);
 
 		$this->tpl->setVariable("COLUMN", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
 			self::dic()->ui()->factory()->button()->shy($this->txt("edit"), self::dic()->ctrl()
-				->getLinkTarget($this->parent_obj, AbstractCtrl::CMD_EDIT_NOTIFICATION)),
+				->getLinkTarget($this->parent_obj, CtrlInterface::CMD_EDIT_NOTIFICATION)),
 			self::dic()->ui()->factory()->button()->shy($this->txt("duplicate"), self::dic()->ctrl()
-				->getLinkTarget($this->parent_obj, AbstractCtrl::CMD_DUPLICATE_NOTIFICATION)),
+				->getLinkTarget($this->parent_obj, CtrlInterface::CMD_DUPLICATE_NOTIFICATION)),
 			self::dic()->ui()->factory()->button()->shy($this->txt("delete"), self::dic()->ctrl()
-				->getLinkTarget($this->parent_obj, AbstractCtrl::CMD_DELETE_NOTIFICATION_CONFIRM))
+				->getLinkTarget($this->parent_obj, CtrlInterface::CMD_DELETE_NOTIFICATION_CONFIRM))
 		])->withLabel($this->txt("actions"))));
 	}
 
@@ -163,9 +191,7 @@ class NotificationsTableGUI extends TableGUI {
 	/**
 	 * @inheritdoc
 	 */
-	public function txt(/*string*/
-		$key,/*?string*/
-		$default = null): string {
+	public function txt(/*string*/ $key,/*?string*/ $default = null): string {
 		if ($default !== null) {
 			return $this->plugin->translate($key, self::LANG_MODULE, [], true, "", $default);
 		} else {

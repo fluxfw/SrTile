@@ -3,10 +3,10 @@
 namespace srag\Notifications4Plugin\SrTile\Notification;
 
 use ilDateTime;
+use ilDBConstants;
 use srag\DIC\SrTile\DICTrait;
 use srag\DIC\SrTile\Plugin\PluginInterface;
-use srag\Notifications4Plugin\SrTile\Ctrl\AbstractCtrl;
-use srag\Notifications4Plugin\SrTile\Notification\Language\AbstractNotificationLanguage;
+use srag\Notifications4Plugin\SrTile\Ctrl\CtrlInterface;
 use srag\Notifications4Plugin\SrTile\Parser\twigParser;
 use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
 
@@ -17,12 +17,12 @@ use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Repository {
+final class Repository implements RepositoryInterface {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
 	/**
-	 * @var self[]
+	 * @var RepositoryInterface[]
 	 */
 	protected static $instances = [];
 
@@ -31,9 +31,9 @@ final class Repository {
 	 * @param string $notification_class
 	 * @param string $language_class
 	 *
-	 * @return self
+	 * @return RepositoryInterface
 	 */
-	public static function getInstance(string $notification_class, string $language_class): self {
+	public static function getInstance(string $notification_class, string $language_class): RepositoryInterface {
 		if (!isset(self::$instances[$notification_class . "_" . $language_class])) {
 			self::$instances[$notification_class . "_" . $language_class] = new self($notification_class, $language_class);
 		}
@@ -43,7 +43,7 @@ final class Repository {
 
 
 	/**
-	 * @var string|AbstractNotification
+	 * @var string|Notification
 	 */
 	protected $notification_class;
 	/**
@@ -65,10 +65,11 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotification $notification
+	 * @inheritdoc
 	 */
-	public function deleteNotification(AbstractNotification $notification)/*: void*/ {
-		$notification->delete();
+	public function deleteNotification(Notification $notification)/*: void*/ {
+		self::dic()->database()->manipulate('DELETE FROM ' . self::dic()->database()->quoteIdentifier($this->notification_class::TABLE_NAME)
+			. " WHERE id=%s", [ ilDBConstants::T_INTEGER ], [ $notification->getId() ]);
 
 		foreach (self::notificationLanguage($this->language_class)->getLanguagesForNotification($notification->getId()) as $language) {
 			self::notificationLanguage($this->language_class)->deleteLanguage($language);
@@ -77,20 +78,15 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotification $notification
-	 * @param PluginInterface      $plugin
-	 *
-	 * @return AbstractNotification
+	 * @inheritdoc
 	 */
-	public function duplicateNotification(AbstractNotification $notification, PluginInterface $plugin): AbstractNotification {
-		/**
-		 * @var AbstractNotification $duplicated_notification
-		 */
+	public function duplicateNotification(Notification $notification, PluginInterface $plugin): Notification {
+		$duplicated_notification = clone $notification;
 
-		$duplicated_notification = $notification->copy();
+		$duplicated_notification->setId(0);
 
 		$duplicated_notification->setTitle($duplicated_notification->getTitle() . " ("
-			. $plugin->translate("duplicated", AbstractCtrl::LANG_MODULE_NOTIFICATIONS4PLUGIN) . ")");
+			. $plugin->translate("duplicated", CtrlInterface::LANG_MODULE_NOTIFICATIONS4PLUGIN) . ")");
 
 		$languages = [];
 		foreach (self::notificationLanguage($this->language_class)->getLanguagesForNotification($notification->getId()) as $language) {
@@ -103,17 +99,15 @@ final class Repository {
 
 
 	/**
-	 * @return Factory
+	 * @inheritdoc
 	 */
-	public function factory(): Factory {
+	public function factory(): FactoryInterface {
 		return Factory::getInstance($this->notification_class);
 	}
 
 
 	/**
-	 * @param AbstractNotification[] $notifications
-	 *
-	 * @return array
+	 * @inheritdoc
 	 */
 	public function getArrayForSelection(array $notifications): array {
 		$array = [];
@@ -127,84 +121,117 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotification[] $notifications
-	 *
-	 * @return array
-	 */
-	public function getArrayForTable(array $notifications): array {
-		$data = [];
-
-		foreach ($notifications as $notification) {
-			$row = [];
-			$row["id"] = $notification->getId();
-			$row["title"] = $notification->getTitle();
-			$row["name"] = $notification->getName();
-			$row["description"] = $notification->getDescription();
-			$row["default_language"] = $notification->getDefaultLanguage();
-			$row["languages"] = implode(", ", array_map(function (AbstractNotificationLanguage $language): string {
-				return $language->getLanguage();
-			}, $notification->getLanguages()));
-			$data[] = $row;
-		}
-
-		return $data;
-	}
-
-
-	/**
-	 * @param int $id
-	 *
-	 * @return AbstractNotification|null
+	 * @inheritdoc
 	 */
 	public function getNotificationById(int $id)/*: ?Notification*/ {
 		/**
-		 * @var AbstractNotification|null $notification
+		 * @var Notification|null $notification
 		 */
+		$notification = self::dic()->database()->fetchObjectCallback(self::dic()->database()->queryF('SELECT * FROM ' . self::dic()->database()
+				->quoteIdentifier($this->notification_class::TABLE_NAME) . ' WHERE id=%s', [ ilDBConstants::T_INTEGER ], [ $id ]), [
+			$this->factory(),
+			"fromDB"
+		]);
 
-		$notification = $this->notification_class::where([ "id" => $id ])->first();
+		if ($notification !== null) {
+			$notification->setLanguages(self::notificationLanguage($this->language_class)->getLanguagesForNotification($notification->getId()));
+		}
 
 		return $notification;
 	}
 
 
 	/**
-	 * @param string $name
-	 *
-	 * @return AbstractNotification|null
+	 * @inheritdoc
 	 */
 	public function getNotificationByName(string $name)/*: ?Notification*/ {
 		/**
-		 * @var AbstractNotification|null $notification
+		 * @var Notification|null $notification
 		 */
+		$notification = self::dic()->database()->fetchObjectCallback(self::dic()->database()->queryF('SELECT * FROM ' . self::dic()->database()
+				->quoteIdentifier($this->notification_class::TABLE_NAME)
+			. ' WHERE name=%s', [ ilDBConstants::T_TEXT ], [ $name ]), [ $this->factory(), "fromDB" ]);
 
-		$notification = $this->notification_class::where([ "name" => $name ])->first();
+		if ($notification !== null) {
+			$notification->setLanguages(self::notificationLanguage($this->language_class)->getLanguagesForNotification($notification->getId()));
+		}
 
 		return $notification;
 	}
 
 
 	/**
-	 * @return AbstractNotification[]
+	 * @inheritdoc
 	 */
-	public function getNotifications(): array {
-		/**
-		 * @var AbstractNotification[] $notifications
-		 */
+	public function getNotifications(string $sort_by = null, string $sort_by_direction = null, int $limit_start = null, int $limit_end = null): array {
 
-		$notifications = $this->notification_class::orderBy("title", "ASC")->get();
+		$sql = 'SELECT *';
+
+		$sql .= $this->getNotificationsQuery($sort_by, $sort_by_direction, $limit_start, $limit_end);
+
+		/**
+		 * @var Notification[] $notifications
+		 */
+		$notifications = self::dic()->database()->fetchAllCallback(self::dic()->database()->query($sql), [ $this->factory(), "fromDB" ]);
+
+		foreach ($notifications as $notification) {
+			$notification->setLanguages(self::notificationLanguage($this->language_class)->getLanguagesForNotification($notification->getId()));
+		}
 
 		return $notifications;
 	}
 
 
 	/**
-	 * @param string $name |null
+	 * @inheritdoc
+	 */
+	public function getNotificationsCount(): int {
+
+		$sql = 'SELECT COUNT(id) AS count';
+
+		$sql .= $this->getNotificationsQuery(null, null, null, null);
+
+		$result = self::dic()->database()->query($sql);
+
+		if (($row = $result->fetchAssoc()) !== false) {
+			return intval($row["count"]);
+		}
+
+		return 0;
+	}
+
+
+	/**
+	 * @param string|null $sort_by
+	 * @param string|null $sort_by_direction
+	 * @param int|null    $limit_start
+	 * @param int|null    $limit_end
 	 *
-	 * @return AbstractNotification|null
+	 * @return string
+	 */
+	private function getNotificationsQuery(string $sort_by = null, string $sort_by_direction = null, int $limit_start = null, int $limit_end = null): string {
+
+		$sql = ' FROM ' . self::dic()->database()->quoteIdentifier($this->notification_class::TABLE_NAME);
+
+		if ($sort_by !== null && $sort_by_direction !== null) {
+			$sql .= ' ORDER BY ' . self::dic()->database()->quoteIdentifier($sort_by) . ' ' . $sort_by_direction;
+		}
+
+		if ($limit_start !== null && $limit_end !== null) {
+			$sql .= ' LIMIT ' . self::dic()->database()->quote($limit_start, ilDBConstants::T_INTEGER) . ',' . self::dic()->database()
+					->quote($limit_end, ilDBConstants::T_INTEGER);
+		}
+
+		return $sql;
+	}
+
+
+	/**
+	 * @inheritdoc
 	 *
 	 * @deprecated
 	 */
-	public function migrateFromOldGlobalPlugin(string $name = null)/*: ?AbstractNotification*/ {
+	public function migrateFromOldGlobalPlugin(string $name = null)/*: ?Notification*/ {
 		$global_plugin_notification_table_name = "sr_notification";
 		$global_plugin_notification_language_table_name = "sr_notification_lang";
 		$global_plugin_twig_parser_class = implode("\\", [
@@ -218,8 +245,8 @@ final class Repository {
 		if (!empty($name)) {
 			if (self::dic()->database()->tableExists($global_plugin_notification_table_name)
 				&& self::dic()->database()->tableExists($global_plugin_notification_language_table_name)) {
-				$result = self::dic()->database()->queryF("SELECT * FROM " . $global_plugin_notification_table_name
-					. " WHERE name=%s", [ "text" ], [ $name ]);
+				$result = self::dic()->database()->queryF('SELECT * FROM ' . self::dic()->database()
+						->quoteIdentifier($global_plugin_notification_table_name) . ' WHERE name=%s', [ ilDBConstants::T_TEXT ], [ $name ]);
 
 				if (($row = $result->fetchAssoc()) !== false) {
 
@@ -235,14 +262,15 @@ final class Repository {
 					$notification->setDescription($row["description"]);
 					$notification->setDefaultLanguage($row["default_language"]);
 
-					if ($row["parser"] === $global_plugin_twig_parser_class) {
+					if (empty($row["parser"]) || $row["parser"] === $global_plugin_twig_parser_class) {
 						$notification->setParser(twigParser::class);
 					} else {
 						$notification->setParser($row["parser"]);
 					}
 
-					$result2 = self::dic()->database()->queryF("SELECT * FROM " . $global_plugin_notification_language_table_name
-						. " WHERE notification_id=%s", [ "integer" ], [ $row["id"] ]);
+					$result2 = self::dic()->database()->queryF('SELECT * FROM ' . self::dic()->database()
+							->quoteIdentifier($global_plugin_notification_language_table_name)
+						. ' WHERE notification_id=%s', [ ilDBConstants::T_INTEGER ], [ $row["id"] ]);
 
 					while (($row2 = $result2->fetchAssoc()) !== false) {
 						$notification->setSubject($row2["subject"], $row2["language"]);
@@ -261,9 +289,9 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotification $notification
+	 * @inheritdoc
 	 */
-	public function storeInstance(AbstractNotification $notification)/*: void*/ {
+	public function storeInstance(Notification $notification)/*: void*/ {
 		$date = new ilDateTime(time(), IL_CAL_UNIX);
 
 		if (empty($notification->getId())) {
@@ -272,7 +300,15 @@ final class Repository {
 
 		$notification->setUpdatedAt($date);
 
-		$notification->store();
+		$notification->setId(self::dic()->database()->store($this->notification_class::TABLE_NAME, [
+			"name" => [ ilDBConstants::T_TEXT, $notification->getName() ],
+			"title" => [ ilDBConstants::T_TEXT, $notification->getTitle() ],
+			"description" => [ ilDBConstants::T_TEXT, $notification->getDescription() ],
+			"default_language" => [ ilDBConstants::T_TEXT, $notification->getDefaultLanguage() ],
+			"parser" => [ ilDBConstants::T_TEXT, $notification->getParser() ],
+			"created_at" => [ ilDBConstants::T_TEXT, $notification->getCreatedAt()->get(IL_CAL_DATETIME) ],
+			"updated_at" => [ ilDBConstants::T_TEXT, $notification->getUpdatedAt()->get(IL_CAL_DATETIME) ]
+		], "id", $notification->getId()));
 
 		foreach ($notification->getLanguages() as $language) {
 			$language->setNotificationId($notification->getId());
