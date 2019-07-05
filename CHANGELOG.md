@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.4.2]
+- Do not show on org units
+
 ## [1.4.1]
 - Position certificate icon at first
 - Some other changes (libraries)

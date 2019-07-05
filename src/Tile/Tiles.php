@@ -3,6 +3,7 @@
 namespace srag\Plugins\SrTile\Tile;
 
 use ilObjectFactory;
+use ilObjOrgUnit;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -151,11 +152,11 @@ final class Tiles {
 	 *
 	 * @deprecated
 	 */
-	public function isObject(/*?*/
-		int $obj_ref_id = null): bool {
+	public function isObject(/*?*/ int $obj_ref_id = null): bool {
 		if (!isset(self::$is_object_cache[$obj_ref_id])) {
 			self::$is_object_cache[$obj_ref_id] = ($obj_ref_id !== null && $obj_ref_id > 0 && $obj_ref_id !== intval(SYSTEM_FOLDER_ID)
-				&& ($obj_ref_id === intval(ROOT_FOLDER_ID) || ilObjectFactory::getInstanceByRefId($obj_ref_id, false) !== false));
+				&& ($obj_ref_id === intval(ROOT_FOLDER_ID) || ($object = ilObjectFactory::getInstanceByRefId($obj_ref_id, false)) !== false)
+				&& !($object instanceof ilObjOrgUnit));
 		}
 
 		return self::$is_object_cache[$obj_ref_id];
