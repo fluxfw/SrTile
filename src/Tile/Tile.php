@@ -523,8 +523,7 @@ class Tile extends ActiveRecord {
 	 * @param int              $primary_key_value
 	 * @param arConnector|null $connector
 	 */
-	public function __construct(/*int*/
-		$primary_key_value = 0, arConnector $connector = null) {
+	public function __construct(/*int*/ $primary_key_value = 0, arConnector $connector = null) {
 		parent::__construct($primary_key_value, $connector);
 	}
 
@@ -542,8 +541,7 @@ class Tile extends ActiveRecord {
 	 *
 	 * @return mixed|null
 	 */
-	public function sleep(/*string*/
-		$field_name) {
+	public function sleep(/*string*/ $field_name) {
 		$field_value = $this->{$field_name};
 
 		switch ($field_name) {
@@ -559,8 +557,7 @@ class Tile extends ActiveRecord {
 	 *
 	 * @return mixed|null
 	 */
-	public function wakeUp(/*string*/
-		$field_name, $field_value) {
+	public function wakeUp(/*string*/ $field_name, $field_value) {
 		switch ($field_name) {
 			case "actions_position":
 			case "actions_vertical_align":
@@ -1564,6 +1561,8 @@ class Tile extends ActiveRecord {
 	 * @return string
 	 */
 	public function _getOnClickLink(): string {
+		$this->_getIlObject();
+
 		$obj_ref_id = $this->il_object->getRefId();
 		$type = $this->il_object->getType();
 		$tile = $this;
