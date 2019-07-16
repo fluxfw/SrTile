@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrTile\Notification\Ctrl;
 
+use ilObject;
+use ilObjUser;
 use ilSrTilePlugin;
 use srag\Notifications4Plugin\SrTile\Ctrl\AbstractCtrl;
 use srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage;
@@ -32,5 +34,18 @@ class Notifications4PluginCtrl extends AbstractCtrl {
 		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
 		parent::executeCommand();
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getPlaceholderTypes(): array {
+		return [
+			"link" => "string",
+			"message" => "string",
+			"object" => "object " . ilObject::class,
+			"user" => "object " . ilObjUser::class
+		];
 	}
 }

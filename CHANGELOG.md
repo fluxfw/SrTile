@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.4.3]
+- Display placeholder types in notification form
+
 ## [1.4.2]
 - Do not show on org units
 

@@ -10,8 +10,6 @@ use ILIAS\FileUpload\Location;
 use ilImageFileInputGUI;
 use ilNonEditableValueGUI;
 use ilNumberInputGUI;
-use ilObject;
-use ilObjUser;
 use ilRadioGroupInputGUI;
 use ilRadioOption;
 use ilSrTileConfigGUI;
@@ -589,12 +587,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						self::PROPERTY_SUBITEMS => self::notificationUI()->withPlugin(self::plugin())
 							->templateSelection(self::notification(Notification::class, NotificationLanguage::class)
 								->getArrayForSelection(self::notification(Notification::class, NotificationLanguage::class)
-									->getNotifications()), "recommend_mail_template", [
-								"link" => "string",
-								"message" => "string",
-								"object" => "object " . ilObject::class,
-								"user" => "object " . ilObjUser::class
-							]),
+									->getNotifications()), "recommend_mail_template"),
 						"setTitle" => $this->txt("set")
 					]
 				],
