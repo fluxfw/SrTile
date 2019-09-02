@@ -757,6 +757,21 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 	/**
 	 * @inheritdoc
 	 */
+	public function checkInput(): bool {
+		if (intval(filter_input(INPUT_POST, "view") === Tile::VIEW_DISABLED)) {
+			// Allows incomplete configuration if the tile is disabled
+			parent::checkInput();
+
+			return true;
+		} else {
+			return parent::checkInput();
+		}
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
 	protected function storeValue(/*string*/ $key, $value)/*: void*/ {
 		switch ($key) {
 			case "columns_count":

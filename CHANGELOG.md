@@ -2,6 +2,7 @@
 
 ## [x]
 - Make possible to style spec. tile icons
+- Allows incomplete configuration if the tile is disabled
 
 ## [1.4.3]
 - Display placeholder types in notification form
