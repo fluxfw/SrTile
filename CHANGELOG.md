@@ -1,5 +1,8 @@
 # Changelog
 
+## [x]
+- Make possible to style spec. tile icons
+
 ## [1.4.3]
 - Display placeholder types in notification form
 
