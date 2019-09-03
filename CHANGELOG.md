@@ -1,6 +1,6 @@
 # Changelog
 
-## [x]
+## [1.5.0]
 - Make possible to style spec. tile icons
 - Allows incomplete configuration if the tile is disabled
 - Show language flag
