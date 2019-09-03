@@ -11,7 +11,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             'srag\\RemovePluginDataConfirm\\SrTile\\' => 36,
             'srag\\Plugins\\SrTile\\' => 20,
-            'srag\\Notifications4Plugin\\' => 26,
+            'srag\\Notifications4Plugin\\SrTile\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\SrTile\\' => 16,
             'srag\\CustomInputGUIs\\SrTile\\' => 28,
@@ -32,7 +32,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'srag\\Notifications4Plugin\\' => 
+        'srag\\Notifications4Plugin\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/notifications4plugin/src',
         ),
@@ -395,6 +395,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressFilterGUI' => __DIR__ . '/../..' . '/src/LearningProgress/class.LearningProgressFilterGUI.php',
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressFilters' => __DIR__ . '/../..' . '/src/LearningProgress/LearningProgressFilters.php',
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressLegendGUI' => __DIR__ . '/../..' . '/src/LearningProgress/LearningProgressLegendGUI.php',
+        'srag\\Plugins\\SrTile\\Metadata\\Metadata' => __DIR__ . '/../..' . '/src/Metadata/Metadata.php',
         'srag\\Plugins\\SrTile\\Notification\\Ctrl\\Notifications4PluginCtrl' => __DIR__ . '/../..' . '/src/Notification/Ctrl/class.Notifications4PluginCtrl.php',
         'srag\\Plugins\\SrTile\\Notification\\Notification\\Language\\NotificationLanguage' => __DIR__ . '/../..' . '/src/Notification/Notification/Language/NotificationLanguage.php',
         'srag\\Plugins\\SrTile\\Notification\\Notification\\Notification' => __DIR__ . '/../..' . '/src/Notification/Notification/Notification.php',
