@@ -240,3 +240,8 @@ foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile
 \srag\Plugins\SrTile\Notification\Notification\Notification::updateDB_();
 \srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage::updateDB_();
 ?>
+<#12>
+<?php
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
+\srag\Plugins\SrTile\Template\Template::updateDB();
+?>

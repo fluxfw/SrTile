@@ -153,6 +153,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_SHOW_DOWNLOAD_CERTIFICATE = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_FAVORITES_ICON = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_IMAGE_AS_BACKGROUND = Tile::SHOW_FALSE;
+	const DEFAULT_SHOW_LANGUAGE_FLAG = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LEARNING_PROGRESS = Tile::LEARNING_PROGRESS_NONE;
 	const DEFAULT_SHOW_LEARNING_PROGRESS_FILTER = Tile::SHOW_FALSE;
 	const DEFAULT_SHOW_LEARNING_PROGRESS_LEGEND = Tile::SHOW_FALSE;
@@ -515,6 +516,14 @@ class Tile extends ActiveRecord {
 	 * @con_is_notnull  true
 	 */
 	protected $columns = self::DEFAULT_COLUMNS;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $show_language_flag = self::DEFAULT_SHOW_LANGUAGE_FLAG;
 
 
 	/**
@@ -587,6 +596,7 @@ class Tile extends ActiveRecord {
 			case "show_download_certificate":
 			case "show_favorites_icon":
 			case "show_image_as_background":
+			case "show_language_flag":
 			case "show_likes_count":
 			case "show_learning_progress":
 			case "show_learning_progress_filter":
@@ -955,6 +965,22 @@ class Tile extends ActiveRecord {
 	 */
 	public function setShowLikesCount(int $show_likes_count)/*: void*/ {
 		$this->show_likes_count = $show_likes_count;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getShowLanguageFlag(): int {
+		return $this->show_language_flag;
+	}
+
+
+	/**
+	 * @param int $show_language_flag
+	 */
+	public function setShowLanguageFlag(int $show_language_flag)/*: void*/ {
+		$this->show_language_flag = $show_language_flag;
 	}
 
 

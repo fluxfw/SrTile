@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	var $modal = $(".tile_recommend_modal");
 
-	$(".tile_recommend").each(function (i, button) {
+	$(".tile_icon_recommend").each(function (i, button) {
 
 		var $button = $(button);
 		var $form;

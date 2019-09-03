@@ -62,6 +62,7 @@ tile_horizontal_align_left#:#Left
 tile_horizontal_align_right#:#Right
 tile_image#:#Image
 tile_label#:#Label
+tile_language#:#Language
 tile_learning_progress#:#Learning progress
 tile_learning_progress_position#:#Position
 tile_margin#:#Margin
@@ -93,12 +94,13 @@ tile_show_download_certificate#:#Show download certificate
 tile_show_false#:#Not show
 tile_show_favorites_icon#:#Show favorites icon
 tile_show_image_as_background#:#Show image as background (Experimental)
-tile_show_likes_count#:#Show likes count
+tile_show_language_flag#:#Show language flag
 tile_show_learning_progress#:#Show learning progress
 tile_show_learning_progress_filter#:#Show filter
 tile_show_learning_progress_icon#:#Icon
 tile_show_learning_progress_legend#:#Show legend
 tile_show_learning_progress_meter#:#Progress meter
+tile_show_likes_count#:#Show likes count
 tile_show_none#:#Not show
 tile_show_object_tabs#:#Show object tabs (Read permissions)
 tile_show_preconditions#:#Show preconditions (Experimental)

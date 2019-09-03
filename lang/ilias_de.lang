@@ -62,6 +62,7 @@ tile_horizontal_align_left#:#Links
 tile_horizontal_align_right#:#Rechts
 tile_image#:#Bild
 tile_label#:#Beschriftung
+tile_language#:#Sprache
 tile_learning_progress#:#Lernfortschritt
 tile_learning_progress_position#:#Position
 tile_margin#:#Abstand
@@ -93,6 +94,7 @@ tile_show_download_certificate#:#Zertifikat herunterladen anzeigen
 tile_show_false#:#Nicht anzeigen
 tile_show_favorites_icon#:#Favoriten-Icon anzeigen
 tile_show_image_as_background#:#Bild als Hintergrund anzeigen (Experimental)
+tile_show_language_flag#:#Sprache-Flagge anzeigen
 tile_show_learning_progress#:#Lernfortschritt anzeigen
 tile_show_learning_progress_filter#:#Filter anzeigen
 tile_show_learning_progress_icon#:#Icon

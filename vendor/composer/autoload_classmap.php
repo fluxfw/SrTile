@@ -332,6 +332,7 @@ return array(
     'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressFilterGUI' => $baseDir . '/src/LearningProgress/class.LearningProgressFilterGUI.php',
     'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressFilters' => $baseDir . '/src/LearningProgress/LearningProgressFilters.php',
     'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressLegendGUI' => $baseDir . '/src/LearningProgress/LearningProgressLegendGUI.php',
+    'srag\\Plugins\\SrTile\\Metadata\\Metadata' => $baseDir . '/src/Metadata/Metadata.php',
     'srag\\Plugins\\SrTile\\Notification\\Ctrl\\Notifications4PluginCtrl' => $baseDir . '/src/Notification/Ctrl/class.Notifications4PluginCtrl.php',
     'srag\\Plugins\\SrTile\\Notification\\Notification\\Language\\NotificationLanguage' => $baseDir . '/src/Notification/Notification/Language/NotificationLanguage.php',
     'srag\\Plugins\\SrTile\\Notification\\Notification\\Notification' => $baseDir . '/src/Notification/Notification/Notification.php',
