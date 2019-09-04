@@ -105,6 +105,10 @@ abstract class TileListGUIAbstract implements TileListGUIInterface {
 
 		$is_parent_css_rendered = false;
 		foreach ($this->tile_list->getTiles() as $tile) {
+			self::dic()->appEventHandler()->raise("Plugins/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_CHANGE_TILE_BEFORE_RENDER, [
+				"tile" => $tile
+			]);
+
 			$css .= '#sr_tile_' . $tile->getTileId();
 			$css .= '{' . $tile->_getSize() . '}';
 
