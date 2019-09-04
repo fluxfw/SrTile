@@ -245,3 +245,24 @@ foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile
 \srag\Plugins\SrTile\Tile\Tile::updateDB();
 \srag\Plugins\SrTile\Template\Template::updateDB();
 ?>
+<#13>
+<?php
+\srag\Plugins\SrTile\Tile\Tile::updateDB();
+\srag\Plugins\SrTile\Template\Template::updateDB();
+
+foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile\Template\Template::get()) as $tile) {
+	/**
+	 * @var \srag\Plugins\SrTile\Tile\Tile $tile
+	 */
+
+	if (empty($tile->getShowLanguageFlag())) {
+		$tile->setShowLanguageFlag(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LANGUAGE_FLAG);
+	}
+
+	if (empty($tile->getLanguageFlagPosition())) {
+		$tile->setLanguageFlagPosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_LANGUAGE_FLAG_POSITION);
+	}
+
+	$tile->store();
+}
+?>

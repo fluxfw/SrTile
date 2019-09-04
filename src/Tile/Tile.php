@@ -142,6 +142,7 @@ class Tile extends ActiveRecord {
 	const DEFAULT_IMAGE_POSITION = self::POSITION_TOP;
 	const DEFAULT_LABEL_HORIZONTAL_ALIGN = self::HORIZONTAL_ALIGN_LEFT;
 	const DEFAULT_LABEL_VERTICAL_ALIGN = self::VERTICAL_ALIGN_TOP;
+	const DEFAULT_LANGUAGE_FLAG_POSITION = Tile::POSITION_RIGHT_TOP;
 	const DEFAULT_LEARNING_PROGRESS_POSITION = Tile::POSITION_LEFT_TOP;
 	const DEFAULT_MARGIN = 10;
 	const DEFAULT_MARGIN_TYPE = self::SIZE_TYPE_PX;
@@ -524,6 +525,14 @@ class Tile extends ActiveRecord {
 	 * @con_is_notnull  true
 	 */
 	protected $show_language_flag = self::DEFAULT_SHOW_LANGUAGE_FLAG;
+	/**
+	 * @var int
+	 *
+	 * @con_has_field   true
+	 * @con_fieldtype   integer
+	 * @con_is_notnull  true
+	 */
+	protected $language_flag_position = self::DEFAULT_LANGUAGE_FLAG_POSITION;
 
 
 	/**
@@ -584,6 +593,7 @@ class Tile extends ActiveRecord {
 			case "image_position":
 			case "label_horizontal_align":
 			case "label_vertical_align":
+			case "language_flag_position":
 			case "learning_progress_position":
 			case "margin":
 			case "margin_type":
@@ -971,22 +981,6 @@ class Tile extends ActiveRecord {
 	/**
 	 * @return int
 	 */
-	public function getShowLanguageFlag(): int {
-		return $this->show_language_flag;
-	}
-
-
-	/**
-	 * @param int $show_language_flag
-	 */
-	public function setShowLanguageFlag(int $show_language_flag)/*: void*/ {
-		$this->show_language_flag = $show_language_flag;
-	}
-
-
-	/**
-	 * @return int
-	 */
 	public function getShowRecommendIcon(): int {
 		return $this->show_recommend_icon;
 	}
@@ -1317,6 +1311,38 @@ class Tile extends ActiveRecord {
 	 */
 	public function setColumns(int $columns)/*: void*/ {
 		$this->columns = $columns;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getShowLanguageFlag(): int {
+		return $this->show_language_flag;
+	}
+
+
+	/**
+	 * @param int $show_language_flag
+	 */
+	public function setShowLanguageFlag(int $show_language_flag)/*: void*/ {
+		$this->show_language_flag = $show_language_flag;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getLanguageFlagPosition(): int {
+		return $this->language_flag_position;
+	}
+
+
+	/**
+	 * @param int $language_flag_position
+	 */
+	public function setLanguageFlagPosition(int $language_flag_position)/*: void*/ {
+		$this->language_flag_position = $language_flag_position;
 	}
 
 

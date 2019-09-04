@@ -162,6 +162,39 @@
 		  right: 4px;
 		}
 	  }
+
+	  // Language flag
+	  .tile_language_flag {
+		> img {
+		  height: auto;
+		  position: absolute;
+		  width: 32px;
+		}
+
+		// Language flag left top
+		&[data-language_flag_position="5"] > img {
+		  left: 2px;
+		  top: 2px;
+		}
+
+		// Language flag left bottom
+		&[data-language_flag_position="6"] > img {
+		  bottom: 2px;
+		  left: 2px;
+		}
+
+		// Language flag right top
+		&[data-language_flag_position="7"] > img {
+		  right: 2px;
+		  top: 2px;
+		}
+
+		// Language flag bottom
+		&[data-language_flag_position="8"] > img {
+		  bottom: 2px;
+		  right: 2px;
+		}
+	  }
 	}
 
 	// Card bottom
@@ -217,12 +250,6 @@
 		  position: absolute;
 		  right: 0;
 		  top: 3px;
-		}
-
-		.tile_language {
-		  > img {
-			width: 32px;
-		  }
 		}
 	  }
 
