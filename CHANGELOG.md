@@ -1,5 +1,8 @@
 # Changelog
 
+## [x]
+- Adapt colors of learning process
+
 ## [1.5.2]
 - Supports referenced objects
 
