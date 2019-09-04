@@ -587,7 +587,7 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						self::PROPERTY_SUBITEMS => self::notificationUI()->withPlugin(self::plugin())
 							->templateSelection(self::notification(Notification::class, NotificationLanguage::class)
 								->getArrayForSelection(self::notification(Notification::class, NotificationLanguage::class)
-									->getNotifications()), "recommend_mail_template"),
+									->getNotifications()), "recommend_mail_template", false),
 						"setTitle" => $this->txt("set")
 					]
 				],
