@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
+use ilContainerReference;
 use ilObjectFactory;
 use ilObjOrgUnit;
 use ilSrTilePlugin;
@@ -101,19 +102,35 @@ final class Tiles {
 	 * @deprecated
 	 */
 	public function getInstanceForObjRefId(int $obj_ref_id = null): Tile {
+		/**
+		 * @var Tile $tile
+		 * @var Tile $tile_class
+		 */
+		if (ilObjectFactory::getInstanceByRefId($obj_ref_id, false) instanceof ilContainerReference) {
+			$tile_class = TileReference::class;
+		} else {
+			$tile_class = Tile::class;
+		}
+
 		if (!isset(self::$instances_by_ref_id[$obj_ref_id])) {
-			$tile = Tile::where([ 'obj_ref_id' => $obj_ref_id ])->first();
+			$obj_ref_id_prepared = $tile_class::modifyTileRefIdForRead($obj_ref_id);
+
+			$tile = $tile_class::where([ "obj_ref_id" => $obj_ref_id_prepared ])->first();
 
 			if ($tile === null) {
-				$tile = new Tile();
+				$tile = new $tile_class();
 
-				if ($obj_ref_id !== null) {
-					$tile->setObjRefId($obj_ref_id);
+				if ($obj_ref_id_prepared !== null) {
+					$tile->setObjRefId($obj_ref_id_prepared);
 
 					$tile->store(); // Ensure tile id
 
 					self::templates()->applyToTile($tile);
 				}
+			}
+
+			if ($tile instanceof TileReference) {
+				$tile->setSourceObjRefId($obj_ref_id);
 			}
 
 			self::$instances_by_ref_id[$obj_ref_id] = $tile;

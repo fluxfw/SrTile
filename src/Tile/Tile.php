@@ -164,6 +164,17 @@ class Tile extends ActiveRecord {
 	const DEFAULT_SHOW_OBJECT_TABS = Tile::SHOW_TRUE;
 	const DEFAULT_SHOW_TITLE = Tile::SHOW_TRUE;
 	const DEFAULT_VIEW = Tile::VIEW_TILE;
+
+
+	/**
+	 * @param int|null $obj_ref_id
+	 *
+	 * @return int|null
+	 */
+	public static function modifyTileRefIdForRead(int $obj_ref_id = null)/*: ?int*/ {
+		return $obj_ref_id;
+	}
+
 	/**
 	 * @var ilObject|null
 	 */

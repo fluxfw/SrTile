@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.2]
+- Supports referenced objects
+
 ## [1.5.1]
 - Fix recommend template is not required anymore
 - Improve/fix language flags
