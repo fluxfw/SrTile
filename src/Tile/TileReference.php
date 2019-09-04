@@ -18,7 +18,7 @@ class TileReference extends Tile {
 	 * @inheritDoc
 	 */
 	public static function modifyTileRefIdForRead(int $obj_ref_id = null)/*: ?int*/ {
-		// Get tile config for target object
+		// Get and set tile config for target object
 		return ilContainerReference::_lookupTargetRefId(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 	}
 

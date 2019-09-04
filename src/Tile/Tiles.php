@@ -113,15 +113,15 @@ final class Tiles {
 		}
 
 		if (!isset(self::$instances_by_ref_id[$obj_ref_id])) {
-			$obj_ref_id_prepared = $tile_class::modifyTileRefIdForRead($obj_ref_id);
+			$obj_ref_id_modified_for_read = $tile_class::modifyTileRefIdForRead($obj_ref_id);
 
-			$tile = $tile_class::where([ "obj_ref_id" => $obj_ref_id_prepared ])->first();
+			$tile = $tile_class::where([ "obj_ref_id" => $obj_ref_id_modified_for_read ])->first();
 
 			if ($tile === null) {
 				$tile = new $tile_class();
 
-				if ($obj_ref_id_prepared !== null) {
-					$tile->setObjRefId($obj_ref_id_prepared);
+				if ($obj_ref_id_modified_for_read !== null) {
+					$tile->setObjRefId($obj_ref_id_modified_for_read);
 
 					$tile->store(); // Ensure tile id
 
