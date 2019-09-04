@@ -7,9 +7,7 @@ use ilSrTilePlugin;
 use ilSrTileUIHookGUI;
 use ilUIPluginRouterGUI;
 use ilUtil;
-use srag\CustomInputGUIs\SrTile\ViewControlModeGUI\ViewControlModeGUI;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\LearningProgress\LearningProgressFilterGUI;
 use srag\Plugins\SrTile\TileListGUI\TileListStaticGUI\TileListStaticGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 

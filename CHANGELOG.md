@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.1]
+- Fix recommend template is not required anymore
+- Improve/fix language flags
+
 ## [1.5.0]
 - Make possible to style spec. tile icons
 - Allows incomplete configuration if the tile is disabled

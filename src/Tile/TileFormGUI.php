@@ -739,6 +739,28 @@ class TileFormGUI extends ObjectPropertyFormGUI {
 						"setTitle" => $this->txt("show_true")
 					]
 				]
+			],
+			"language_flag_position" => [
+				self::PROPERTY_CLASS => ilRadioGroupInputGUI::class,
+				self::PROPERTY_REQUIRED => false,
+				self::PROPERTY_SUBITEMS => [
+					Tile::POSITION_LEFT_TOP => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_left_top")
+					],
+					Tile::POSITION_LEFT_BOTTOM => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_left_bottom")
+					],
+					Tile::POSITION_RIGHT_TOP => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_right_top")
+					],
+					Tile::POSITION_RIGHT_BOTTOM => [
+						self::PROPERTY_CLASS => ilRadioOption::class,
+						"setTitle" => $this->txt("position_right_bottom")
+					]
+				]
 			]
 		];
 	}

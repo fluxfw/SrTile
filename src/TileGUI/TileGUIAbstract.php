@@ -145,17 +145,6 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 				$tpl->setVariable("RATING", self::output()->getHTML($tpl_rating));
 			}
 
-			if ($this->tile->getShowLanguageFlag() === Tile::SHOW_TRUE) {
-				if (self::ilias()->metadata($this->tile->_getIlObject())->getLanguageFlagImagePath() !== "") {
-					$tpl_language_flag = self::plugin()->template("LanguageFlag/language_flag.html");
-
-					$tpl_language_flag->setVariable("LANGUAGE_FLAG", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard(self::ilias()
-						->metadata($this->tile->_getIlObject())->getLanguageFlagImagePath(), "")));
-
-					$tpl->setVariable("LANGUAGE_FLAG", self::output()->getHTML($tpl_language_flag));
-				}
-			}
-
 			if ($this->tile->getShowRecommendIcon() === Tile::SHOW_TRUE
 				&& !empty($this->tile->getRecommendMailTemplate())
 				&& self::access()->hasReadAccess($this->tile->getObjRefId())) {
@@ -215,6 +204,19 @@ abstract class TileGUIAbstract implements TileGUIInterface {
 
 					default:
 						break;
+				}
+			}
+
+			if ($this->tile->getShowLanguageFlag() === Tile::SHOW_TRUE) {
+				if (self::ilias()->metadata($this->tile->_getIlObject())->getLanguageFlagImagePath() !== "") {
+					$tpl_language_flag = self::plugin()->template("LanguageFlag/language_flag.html");
+
+					$tpl_language_flag->setVariable("LANGUAGE_FLAG", self::output()->getHTML(self::dic()->ui()->factory()->image()
+						->standard(self::ilias()->metadata($this->tile->_getIlObject())->getLanguageFlagImagePath(), "")));
+
+					$tpl_language_flag->setVariable("LANGUAGE_FLAG_POSITION", $this->tile->getLanguageFlagPosition());
+
+					$tpl->setVariable("LANGUAGE_FLAG", self::output()->getHTML($tpl_language_flag));
 				}
 			}
 		} else {
