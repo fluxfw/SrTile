@@ -1,0 +1,6 @@
+<?php xml version = "1.0" encoding = "UTF-8"?>
+<plugin id="srtile">
+	<events>
+		<event type="raise" id="change_title_before_render" />
+	</events>
+</plugin>

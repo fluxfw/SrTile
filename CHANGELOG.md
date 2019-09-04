@@ -2,6 +2,7 @@
 
 ## [x]
 - Adapt colors of learning process
+- Event for custom plugins to handle spec. render
 
 ## [1.5.2]
 - Supports referenced objects
