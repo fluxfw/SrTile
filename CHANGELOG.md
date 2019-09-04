@@ -1,6 +1,6 @@
 # Changelog
 
-## [x]
+## [1.5.3]
 - Adapt colors of learning process
 - Event for custom plugins to handle spec. render
 
