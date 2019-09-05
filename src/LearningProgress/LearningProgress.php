@@ -95,12 +95,12 @@ class LearningProgress {
 			case ilLPStatus::LP_STATUS_IN_PROGRESS_NUM:
 			case ilLPStatus::LP_STATUS_IN_PROGRESS:
 			case ilLPStatus::LP_STATUS_REGISTERED:
-				return self::plugin()->directory() . "/templates/images/LearningProgress/incomplete.svg";
+				return self::plugin()->directory() . "/templates/images/LearningProgress/incompleted.svg";
 
 			case ilLPStatus::LP_STATUS_COMPLETED_NUM:
 			case ilLPStatus::LP_STATUS_COMPLETED:
 			case ilLPStatus::LP_STATUS_PARTICIPATED:
-				return self::plugin()->directory() . "/templates/images/LearningProgress/complete.svg";
+				return self::plugin()->directory() . "/templates/images/LearningProgress/completed.svg";
 
 			case ilLPStatus::LP_STATUS_FAILED_NUM:
 			case ilLPStatus::LP_STATUS_FAILED:

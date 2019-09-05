@@ -41,7 +41,7 @@ class LearningProgressLegendGUI {
 
 		foreach ([
 			         "not_attempted" => "not_attempted",
-			         "incomplete" => "in_progress",
+			         "incompleted" => "in_progress",
 			         "completed" => "completed"
 			         //"failed" => "failed"
 		         ] as $img => $txt) {
