@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.5]
+- Fix 'Open object with one child direct' with reference objects
+
 ## [1.5.4]
 - Reduce redundant double learning progress images
 
