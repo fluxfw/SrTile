@@ -175,6 +175,7 @@ class Tile extends ActiveRecord {
 		return $obj_ref_id;
 	}
 
+
 	/**
 	 * @var ilObject|null
 	 */
@@ -1626,7 +1627,7 @@ class Tile extends ActiveRecord {
 	public function _getOnClickLink(): string {
 		$this->_getIlObject();
 
-		$obj_ref_id = $this->il_object->getRefId();
+		$obj_ref_id = $this->getObjRefId();
 		$type = $this->il_object->getType();
 		$tile = $this;
 
@@ -1638,11 +1639,12 @@ class Tile extends ActiveRecord {
 		//open directly the one object if it's only one AND as READ ACCESS
 		if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE && self::access()->hasReadAccess($obj_ref_id)) {
 
-			switch ($type) {
-				case "crs":
-				case "cat":
-				case "grp":
-				case "fold":
+			switch (true) {
+				case ($type === "crs"):
+				case ($type === "cat"):
+				case ($type === "grp"):
+				case ($type === "fold"):
+				case ($this instanceof TileReference):
 					if (count(self::dic()->tree()->getChilds($obj_ref_id)) === 1) {
 						$child_refs = self::dic()->tree()->getChilds($obj_ref_id);
 						$obj_ref_id = $child_refs[0]['child'];
@@ -1650,7 +1652,7 @@ class Tile extends ActiveRecord {
 						$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
 					}
 					break;
-				case "webr":
+				case  ($type === "webr"):
 					if (intval(ilLinkResourceItems::lookupNumberOfLinks($this->il_object->getId())) === 1) {
 						$link_arr = ilLinkResourceItems::_getFirstLink($this->il_object->getId());
 
@@ -1660,8 +1662,8 @@ class Tile extends ActiveRecord {
 			}
 		}
 
-		switch ($type) {
-			case "sahs":
+		switch (true) {
+			case  ($type === "sahs"):
 				$slm_gui = new ilObjSCORMLearningModuleGUI("", $obj_ref_id, true, false);
 
 				$sahs_obj = new ilObjSAHSLearningModule($obj_ref_id);
