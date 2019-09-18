@@ -78,7 +78,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
     protected function initFields()/*: void*/
     {
         $this->fields = [
-            "recommend_to" => [
+            "recommended_to" => [
                 self::PROPERTY_CLASS    => ilEMailInputGUI::class,
                 self::PROPERTY_REQUIRED => true
             ],
