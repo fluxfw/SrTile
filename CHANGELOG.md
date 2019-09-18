@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.7]
+- Fix send recommend mail
+
 ## [1.5.6]
 - Fix and optimize links and certificates for 'Open object with one child direct'
 

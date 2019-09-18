@@ -18,7 +18,7 @@ recommendation_link#:#Link
 recommendation_message#:#Message
 recommendation_recommend#:#Recommend
 recommendation_recommendation#:#Recommendation %s
-recommendation_recommend_to#:#To
+recommendation_recommended_to#:#To
 recommendation_sent_failure#:#Sorry, your recommendation could not be sent!
 recommendation_sent_success#:#Your recommendation has been sent!
 recommendation_submit#:#Submit
