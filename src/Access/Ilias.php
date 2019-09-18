@@ -11,6 +11,7 @@ use srag\Plugins\SrTile\Favorite\Favorites;
 use srag\Plugins\SrTile\LearningProgress\LearningProgress;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressBar;
 use srag\Plugins\SrTile\Metadata\Metadata;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -20,92 +21,101 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Ilias {
+final class Ilias
+{
 
-	use DICTrait;
-	use SrTileTrait;
-	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	/**
-	 * @var self
-	 */
-	protected static $instance = null;
-
-
-	/**
-	 * @return self
-	 */
-	public static function getInstance(): self {
-		if (self::$instance === null) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
+    use DICTrait;
+    use SrTileTrait;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    /**
+     * @var self
+     */
+    protected static $instance = null;
 
 
-	/**
-	 * Ilias constructor
-	 */
-	private function __construct() {
+    /**
+     * @return self
+     */
+    public static function getInstance() : self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
 
-	}
-
-
-	/**
-	 * @param ilObjUser $user
-	 * @param int       $obj_ref_id
-	 *
-	 * @return Certificates
-	 */
-	public function certificates(ilObjUser $user, int $obj_ref_id): Certificates {
-		return Certificates::getInstance($user, $obj_ref_id);
-	}
+        return self::$instance;
+    }
 
 
-	/**
-	 * @return Courses
-	 */
-	public function courses(): Courses {
-		return Courses::getInstance();
-	}
+    /**
+     * Ilias constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
-	/**
-	 * @param ilObjUser $user
-	 *
-	 * @return Favorites
-	 */
-	public function favorites(ilObjUser $user): Favorites {
-		return Favorites::getInstance($user);
-	}
+    /**
+     * @param ilObjUser $user
+     * @param Tile      $tile
+     *
+     * @return Certificates
+     */
+    public function certificates(ilObjUser $user, Tile $tile) : Certificates
+    {
+        return Certificates::getInstance($user, $tile);
+    }
 
 
-	/**
-	 * @param ilObjUser $user
-	 *
-	 * @return LearningProgress
-	 */
-	public function learningProgress(ilObjUser $user): LearningProgress {
-		return LearningProgress::getInstance($user);
-	}
+    /**
+     * @return Courses
+     */
+    public function courses() : Courses
+    {
+        return Courses::getInstance();
+    }
 
 
-	/**
-	 * @param ilObjUser $user
-	 *
-	 * @return LearningProgressBar
-	 */
-	public function learningProgressBar(ilObjUser $user, int $obj_ref_id): LearningProgressBar {
-		return LearningProgressBar::getInstance($user, $obj_ref_id);
-	}
+    /**
+     * @param ilObjUser $user
+     *
+     * @return Favorites
+     */
+    public function favorites(ilObjUser $user) : Favorites
+    {
+        return Favorites::getInstance($user);
+    }
 
 
-	/**
-	 * @param ilObject $il_object
-	 *
-	 * @return Metadata
-	 */
-	public function metadata(ilObject $il_object): Metadata {
-		return Metadata::getInstance($il_object);
-	}
+    /**
+     * @param ilObjUser $user
+     *
+     * @return LearningProgress
+     */
+    public function learningProgress(ilObjUser $user) : LearningProgress
+    {
+        return LearningProgress::getInstance($user);
+    }
+
+
+    /**
+     * @param ilObjUser $user
+     *
+     * @return LearningProgressBar
+     */
+    public function learningProgressBar(ilObjUser $user, int $obj_ref_id) : LearningProgressBar
+    {
+        return LearningProgressBar::getInstance($user, $obj_ref_id);
+    }
+
+
+    /**
+     * @param ilObject $il_object
+     *
+     * @return Metadata
+     */
+    public function metadata(ilObject $il_object) : Metadata
+    {
+        return Metadata::getInstance($il_object);
+    }
 }

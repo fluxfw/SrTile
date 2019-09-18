@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.6]
+- Fix and optimize links and certificates for 'Open object with one child direct'
+
 ## [1.5.5]
 - Fix 'Open object with one child direct' with reference objects
 

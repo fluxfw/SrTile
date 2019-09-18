@@ -12,14 +12,16 @@ use srag\Plugins\SrTile\Tile\TileFormGUI;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class TemplateFormGUI extends TileFormGUI {
+class TemplateFormGUI extends TileFormGUI
+{
 
-	/**
-	 * @inheritdoc
-	 */
-	protected function initCommands()/*: void*/ {
-		$this->addCommandButton(ilSrTileConfigGUI::CMD_UPDATE_TEMPLATE, $this->txt("save"));
+    /**
+     * @inheritdoc
+     */
+    protected function initCommands()/*: void*/
+    {
+        $this->addCommandButton(ilSrTileConfigGUI::CMD_UPDATE_TEMPLATE, $this->txt("save"));
 
-		$this->addCommandButton($this->parent->getCmdForTab(ilSrTileConfigGUI::TAB_TEMPLATES), $this->txt("cancel"));
-	}
+        $this->addCommandButton($this->parent->getCmdForTab(ilSrTileConfigGUI::TAB_TEMPLATES), $this->txt("cancel"));
+    }
 }

@@ -14,8 +14,9 @@ use srag\Plugins\SrTile\TileListGUI\TileListGUIAbstract;
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
  */
-class TileListDesktopGUI extends TileListGUIAbstract {
+class TileListDesktopGUI extends TileListGUIAbstract
+{
 
-	const GUI_CLASS = TileDesktopGUI::class;
-	const LIST_CLASS = TileListDesktop::class;
+    const GUI_CLASS = TileDesktopGUI::class;
+    const LIST_CLASS = TileListDesktop::class;
 }

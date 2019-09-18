@@ -14,94 +14,99 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class LearningProgressFilters {
+class LearningProgressFilters
+{
 
-	use SrTileTrait;
-	use DICTrait;
-	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	/**
-	 * @var self[]
-	 */
-	protected static $instances = [];
-
-
-	/**
-	 * @param ilObjUser $user
-	 *
-	 * @return self
-	 */
-	public static function getInstance(ilObjUser $user): self {
-		if (!isset(self::$instances[$user->getId()])) {
-			self::$instances[$user->getId()] = new self($user);
-		}
-
-		return self::$instances[$user->getId()];
-	}
+    use SrTileTrait;
+    use DICTrait;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    /**
+     * @var self[]
+     */
+    protected static $instances = [];
 
 
-	/**
-	 * @var ilObjUser
-	 */
-	protected $user;
+    /**
+     * @param ilObjUser $user
+     *
+     * @return self
+     */
+    public static function getInstance(ilObjUser $user) : self
+    {
+        if (!isset(self::$instances[$user->getId()])) {
+            self::$instances[$user->getId()] = new self($user);
+        }
+
+        return self::$instances[$user->getId()];
+    }
 
 
-	/**
-	 * LearningProgressFilters constructor
-	 *
-	 * @param ilObjUser $user
-	 */
-	private function __construct(ilObjUser $user) {
-		$this->user = $user;
-	}
+    /**
+     * @var ilObjUser
+     */
+    protected $user;
 
 
-	/**
-	 * @param int $obj_ref_id
-	 *
-	 * @return array
-	 */
-	public function getFilter(int $obj_ref_id): array {
-		/**
-		 * @var LearningProgressFilter $learningProgressFilter
-		 */
-
-		$learningProgressFilter = LearningProgressFilter::where([
-			"obj_ref_id" => $obj_ref_id,
-			"user_id" => $this->user->getId()
-		])->first();
-
-		if ($learningProgressFilter !== NULL) {
-			return $learningProgressFilter->getFilter();
-		}
-
-		return [];
-	}
+    /**
+     * LearningProgressFilters constructor
+     *
+     * @param ilObjUser $user
+     */
+    private function __construct(ilObjUser $user)
+    {
+        $this->user = $user;
+    }
 
 
-	/**
-	 * @param int   $obj_ref_id
-	 * @param array $filter
-	 */
-	public function setFilter(int $obj_ref_id, array $filter)/*: void*/ {
-		/**
-		 * @var LearningProgressFilter $learningProgressFilter
-		 */
+    /**
+     * @param int $obj_ref_id
+     *
+     * @return array
+     */
+    public function getFilter(int $obj_ref_id) : array
+    {
+        /**
+         * @var LearningProgressFilter $learningProgressFilter
+         */
 
-		$learningProgressFilter = LearningProgressFilter::where([
-			"obj_ref_id" => $obj_ref_id,
-			"user_id" => $this->user->getId()
-		])->first();
+        $learningProgressFilter = LearningProgressFilter::where([
+            "obj_ref_id" => $obj_ref_id,
+            "user_id"    => $this->user->getId()
+        ])->first();
 
-		if ($learningProgressFilter === NULL) {
-			$learningProgressFilter = new LearningProgressFilter();
+        if ($learningProgressFilter !== null) {
+            return $learningProgressFilter->getFilter();
+        }
 
-			$learningProgressFilter->setObjRefId($obj_ref_id);
+        return [];
+    }
 
-			$learningProgressFilter->setUserId($this->user->getId());
-		}
 
-		$learningProgressFilter->setFilter($filter);
+    /**
+     * @param int   $obj_ref_id
+     * @param array $filter
+     */
+    public function setFilter(int $obj_ref_id, array $filter)/*: void*/
+    {
+        /**
+         * @var LearningProgressFilter $learningProgressFilter
+         */
 
-		$learningProgressFilter->store();
-	}
+        $learningProgressFilter = LearningProgressFilter::where([
+            "obj_ref_id" => $obj_ref_id,
+            "user_id"    => $this->user->getId()
+        ])->first();
+
+        if ($learningProgressFilter === null) {
+            $learningProgressFilter = new LearningProgressFilter();
+
+            $learningProgressFilter->setObjRefId($obj_ref_id);
+
+            $learningProgressFilter->setUserId($this->user->getId());
+        }
+
+        $learningProgressFilter->setFilter($filter);
+
+        $learningProgressFilter->store();
+    }
 }

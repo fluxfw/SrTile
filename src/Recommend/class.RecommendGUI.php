@@ -17,171 +17,183 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @ilCtrl_isCalledBy srag\Plugins\SrTile\Recommend\RecommendGUI: ilUIPluginRouterGUI
  */
-class RecommendGUI {
+class RecommendGUI
+{
 
-	use DICTrait;
-	use SrTileTrait;
-	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const CMD_ADD_RECOMMEND = "addRecommend";
-	const CMD_NEW_RECOMMEND = "newRecommend";
-	const LANG_MODULE_RECOMMENDATION = "recommendation";
-	/**
-	 * @var Tile
-	 */
-	protected $tile;
-
-
-	/**
-	 * RecommendGUI constructor
-	 */
-	public function __construct() {
-		$this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
-	}
+    use DICTrait;
+    use SrTileTrait;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    const CMD_ADD_RECOMMEND = "addRecommend";
+    const CMD_NEW_RECOMMEND = "newRecommend";
+    const LANG_MODULE_RECOMMENDATION = "recommendation";
+    /**
+     * @var Tile
+     */
+    protected $tile;
 
 
-	/**
-	 *
-	 */
-	public function executeCommand()/*: void*/ {
-		if (!($this->tile->getShowRecommendIcon() === Tile::SHOW_TRUE
-			&& !empty($this->tile->getRecommendMailTemplate())
-			&& self::access()->hasReadAccess($this->tile->getObjRefId()))) {
-			return;
-		}
-
-		$next_class = self::dic()->ctrl()->getNextClass($this);
-
-		switch ($next_class) {
-			default:
-				$cmd = self::dic()->ctrl()->getCmd();
-
-				switch ($cmd) {
-					case self::CMD_ADD_RECOMMEND:
-					case self::CMD_NEW_RECOMMEND:
-						$this->{$cmd}();
-						break;
-
-					default:
-						break;
-				}
-				break;
-		}
-	}
+    /**
+     * RecommendGUI constructor
+     */
+    public function __construct()
+    {
+        $this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
+    }
 
 
-	/**
-	 * @return string
-	 */
-	public function getModal(): string {
-		self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/js/recommend.min.js");
+    /**
+     *
+     */
+    public function executeCommand()/*: void*/
+    {
+        if (!($this->tile->getShowRecommendIcon() === Tile::SHOW_TRUE
+            && !empty($this->tile->getRecommendMailTemplate())
+            && self::access()->hasReadAccess($this->tile->getObjRefId()))
+        ) {
+            return;
+        }
 
-		$modal = self::output()->getHTML(self::dic()->ui()->factory()->modal()->roundtrip("", self::dic()->ui()->factory()->legacy("")));
+        $next_class = self::dic()->ctrl()->getNextClass($this);
 
-		// SrTile needs so patches on the new roundtrip modal ui
+        switch ($next_class) {
+            default:
+                $cmd = self::dic()->ctrl()->getCmd();
 
-		// tile_recommend_modal
-		$modal = str_replace('<div class="modal ', '<div class="tile_recommend_modal modal ', $modal);
+                switch ($cmd) {
+                    case self::CMD_ADD_RECOMMEND:
+                    case self::CMD_NEW_RECOMMEND:
+                        $this->{$cmd}();
+                        break;
 
-		// Large modal
-		$modal = str_replace('<div class="modal-dialog"', '<div class="modal-dialog modal-lg"', $modal);
-
-		// Buttons will delivered over the form gui
-		$modal = str_replace('<div class="modal-footer">', '<div class="modal-footer" style="display:none;">', $modal);
-
-		return $modal;
-	}
-
-
-	/**
-	 * @return RecommendFormGUI
-	 */
-	protected function getRecommendForm(): RecommendFormGUI {
-		$tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
-
-		$form = new RecommendFormGUI($this, $tile);
-
-		return $form;
-	}
+                    default:
+                        break;
+                }
+                break;
+        }
+    }
 
 
-	/**
-	 * @return SuccessFormGUI
-	 */
-	protected function getSuccessForm(): SuccessFormGUI {
-		$tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
+    /**
+     * @return string
+     */
+    public function getModal() : string
+    {
+        self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/js/recommend.min.js");
 
-		$form = new SuccessFormGUI($this, $tile);
+        $modal = self::output()->getHTML(self::dic()->ui()->factory()->modal()->roundtrip("", self::dic()->ui()->factory()->legacy("")));
 
-		return $form;
-	}
+        // SrTile needs so patches on the new roundtrip modal ui
 
+        // tile_recommend_modal
+        $modal = str_replace('<div class="modal ', '<div class="tile_recommend_modal modal ', $modal);
 
-	/**
-	 * @param string|null       $message
-	 * @param ilPropertyFormGUI $form
-	 */
-	protected function show(/*?string*/
-		$message, ilPropertyFormGUI $form)/*: void*/ {
-		$tpl = self::plugin()->template("Recommend/recommend_modal.html");
+        // Large modal
+        $modal = str_replace('<div class="modal-dialog"', '<div class="modal-dialog modal-lg"', $modal);
 
-		if ($message !== null) {
-			$tpl->setCurrentBlock("recommend_message");
-			$tpl->setVariable("MESSAGE", $message);
-		}
+        // Buttons will delivered over the form gui
+        $modal = str_replace('<div class="modal-footer">', '<div class="modal-footer" style="display:none;">', $modal);
 
-		$tpl->setCurrentBlock("recommend_form");
-		$tpl->setVariable("FORM", self::output()->getHTML($form));
-
-		self::output()->output($tpl, true);
-	}
+        return $modal;
+    }
 
 
-	/**
-	 *
-	 */
-	protected function addRecommend()/*: void*/ {
-		$message = null;
+    /**
+     * @return RecommendFormGUI
+     */
+    protected function getRecommendForm() : RecommendFormGUI
+    {
+        $tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
 
-		$form = $this->getRecommendForm();
+        $form = new RecommendFormGUI($this, $tile);
 
-		$this->show($message, $form);
-	}
+        return $form;
+    }
 
 
-	/**
-	 *
-	 */
-	protected function newRecommend()/*: void*/ {
-		$message = null;
+    /**
+     * @return SuccessFormGUI
+     */
+    protected function getSuccessForm() : SuccessFormGUI
+    {
+        $tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
 
-		$form = $this->getRecommendForm();
+        $form = new SuccessFormGUI($this, $tile);
 
-		if (!$form->storeForm()) {
-			$this->show($message, $form);
+        return $form;
+    }
 
-			return;
-		}
 
-		$recommend = $form->getObject();
+    /**
+     * @param string|null       $message
+     * @param ilPropertyFormGUI $form
+     */
+    protected function show(/*?string*/
+        $message,
+        ilPropertyFormGUI $form
+    )/*: void*/
+    {
+        $tpl = self::plugin()->template("Recommend/recommend_modal.html");
 
-		if ($recommend->send()) {
-			if (self::version()->is54()) {
-				$message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->success(self::plugin()
-					->translate("sent_success", self::LANG_MODULE_RECOMMENDATION)));
-			} else {
-				$message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
-					->translate("sent_success", self::LANG_MODULE_RECOMMENDATION), "success");
-			}
-		} else {
-			if (self::version()->is54()) {
-				$message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->failure(self::plugin()
-					->translate("sent_failure", self::LANG_MODULE_RECOMMENDATION)));
-			} else {
-				$message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
-					->translate("sent_failure", self::LANG_MODULE_RECOMMENDATION), "failure");
-			}
-		}
+        if ($message !== null) {
+            $tpl->setCurrentBlock("recommend_message");
+            $tpl->setVariable("MESSAGE", $message);
+        }
 
-		$this->show($message, $form);
-	}
+        $tpl->setCurrentBlock("recommend_form");
+        $tpl->setVariable("FORM", self::output()->getHTML($form));
+
+        self::output()->output($tpl, true);
+    }
+
+
+    /**
+     *
+     */
+    protected function addRecommend()/*: void*/
+    {
+        $message = null;
+
+        $form = $this->getRecommendForm();
+
+        $this->show($message, $form);
+    }
+
+
+    /**
+     *
+     */
+    protected function newRecommend()/*: void*/
+    {
+        $message = null;
+
+        $form = $this->getRecommendForm();
+
+        if (!$form->storeForm()) {
+            $this->show($message, $form);
+
+            return;
+        }
+
+        $recommend = $form->getObject();
+
+        if ($recommend->send()) {
+            if (self::version()->is54()) {
+                $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->success(self::plugin()
+                    ->translate("sent_success", self::LANG_MODULE_RECOMMENDATION)));
+            } else {
+                $message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
+                    ->translate("sent_success", self::LANG_MODULE_RECOMMENDATION), "success");
+            }
+        } else {
+            if (self::version()->is54()) {
+                $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->failure(self::plugin()
+                    ->translate("sent_failure", self::LANG_MODULE_RECOMMENDATION)));
+            } else {
+                $message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
+                    ->translate("sent_failure", self::LANG_MODULE_RECOMMENDATION), "failure");
+            }
+        }
+
+        $this->show($message, $form);
+    }
 }

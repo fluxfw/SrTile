@@ -12,24 +12,27 @@ use srag\Plugins\SrTile\TileList\TileListAbstract;
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
  */
-class TileListStatic extends TileListAbstract {
+class TileListStatic extends TileListAbstract
+{
 
-	/**
-	 * TileListStatic constructor
-	 *
-	 * @param array $obj_ref_ids
-	 */
-	protected function __construct(array $obj_ref_ids) /*: void*/ {
-		$this->obj_ref_ids = $obj_ref_ids;
+    /**
+     * TileListStatic constructor
+     *
+     * @param array $obj_ref_ids
+     */
+    protected function __construct(array $obj_ref_ids) /*: void*/
+    {
+        $this->obj_ref_ids = $obj_ref_ids;
 
-		parent::__construct();
-	}
+        parent::__construct();
+    }
 
 
-	/**
-	 * @inheritdoc
-	 */
-	protected function initObjRefIds() /*: void*/ {
+    /**
+     * @inheritdoc
+     */
+    protected function initObjRefIds() /*: void*/
+    {
 
-	}
+    }
 }
