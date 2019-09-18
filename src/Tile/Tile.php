@@ -1731,52 +1731,62 @@ class Tile extends ActiveRecord
 
 
     /**
-     * @return string
+     * @return self
      */
-    public function _getOnClickLink() : string
+    public function _getSelfOrFirstChildIfShouldDirect() : self
     {
         $this->_getIlObject();
 
-        $obj_ref_id = $this->getObjRefId();
-        $type = $this->il_object->getType();
-        $tile = $this;
-
-        //write access - open normally!
-        if (self::access()->hasWriteAccess($obj_ref_id)) {
-            return ' href="' . htmlspecialchars($tile->_getLink()) . '""';
-        }
-
         //open directly the one object if it's only one AND as READ ACCESS
-        if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE && self::access()->hasReadAccess($obj_ref_id)) {
+        if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE && self::access()->hasReadAccess($this->getObjRefId())) {
 
             switch (true) {
-                case ($type === "crs"):
-                case ($type === "cat"):
-                case ($type === "grp"):
-                case ($type === "fold"):
+                case ($this->il_object->getType() === "crs"):
+                case ($this->il_object->getType() === "cat"):
+                case ($this->il_object->getType() === "grp"):
+                case ($this->il_object->getType() === "fold"):
                 case ($this instanceof TileReference):
-                    if (count(self::dic()->tree()->getChilds($obj_ref_id)) === 1) {
-                        $child_refs = self::dic()->tree()->getChilds($obj_ref_id);
-                        $obj_ref_id = $child_refs[0]['child'];
-                        $type = self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
-                        $tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
+                    $childs = self::dic()->tree()->getChilds($this->getObjRefId());
+
+                    $childs = array_filter($childs, function(array $child):bool{
+                        return self::access()->hasReadAccess($child["child"]);
+                    });
+
+                    if (count($childs) === 1) {
+                        $tile = self::tiles()->getInstanceForObjRefId(intval(current($childs)["child"]));
+
+                        $tile->_getIlObject();
+
+                        return $tile;
                     }
                     break;
-                case  ($type === "webr"):
-                    if (intval(ilLinkResourceItems::lookupNumberOfLinks($this->il_object->getId())) === 1) {
-                        $link_arr = ilLinkResourceItems::_getFirstLink($this->il_object->getId());
 
-                        return ' href="' . htmlspecialchars($link_arr['target']) . '""';
-                    }
+                default:
                     break;
             }
         }
 
-        switch (true) {
-            case  ($type === "sahs"):
-                $slm_gui = new ilObjSCORMLearningModuleGUI("", $obj_ref_id, true, false);
+        return $this;
+    }
 
-                $sahs_obj = new ilObjSAHSLearningModule($obj_ref_id);
+
+    /**
+     * @return string
+     */
+    public function _getOnClickLink() : string
+    {
+        // write access - open normally!
+        if (self::access()->hasWriteAccess($this->getObjRefId())) {
+            return ' href="' . htmlspecialchars($this->_getLink()) . '""';
+        }
+
+        $tile = $this->_getSelfOrFirstChildIfShouldDirect();
+
+        switch (true) {
+            case ($tile->il_object->getType() === "sahs"):
+                $slm_gui = new ilObjSCORMLearningModuleGUI("", $tile->getObjRefId(), true, false);
+
+                $sahs_obj = new ilObjSAHSLearningModule($tile->getObjRefId());
                 $om = $sahs_obj->getOpenMode();
                 $width = $sahs_obj->getWidth();
                 $height = $sahs_obj->getHeight();
@@ -1785,14 +1795,24 @@ class Tile extends ActiveRecord
                     $om++;
                 }
 
-                self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $obj_ref_id);
+                self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $tile->getObjRefId());
 
                 return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
                     . $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
 
+            case ($tile->il_object->getType() === "webr"):
+                if (intval(ilLinkResourceItems::lookupNumberOfLinks($tile->il_object->getId())) === 1) {
+                    $link_arr = ilLinkResourceItems::_getFirstLink($tile->il_object->getId());
+
+                    return ' href="' . htmlspecialchars($link_arr['target']) . '""';
+                }
+                break;
+
             default:
-                return ' href="' . htmlspecialchars($tile->_getLink()) . '""';
+                break;
         }
+
+        return ' href="' . htmlspecialchars($tile->_getLink()) . '""';
     }
 
 

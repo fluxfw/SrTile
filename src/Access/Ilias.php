@@ -11,6 +11,7 @@ use srag\Plugins\SrTile\Favorite\Favorites;
 use srag\Plugins\SrTile\LearningProgress\LearningProgress;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressBar;
 use srag\Plugins\SrTile\Metadata\Metadata;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -56,13 +57,13 @@ final class Ilias
 
     /**
      * @param ilObjUser $user
-     * @param int       $obj_ref_id
+     * @param Tile      $tile
      *
      * @return Certificates
      */
-    public function certificates(ilObjUser $user, int $obj_ref_id) : Certificates
+    public function certificates(ilObjUser $user, Tile $tile) : Certificates
     {
-        return Certificates::getInstance($user, $obj_ref_id);
+        return Certificates::getInstance($user, $tile);
     }
 
 

@@ -5,6 +5,7 @@ namespace srag\Plugins\SrTile\Certificate;
 use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Tile\TileGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -26,21 +27,21 @@ class CertificateGUI
      */
     protected $user;
     /**
-     * @var int
+     * @var Tile
      */
-    protected $obj_ref_id;
+    protected $tile;
 
 
     /**
      * CertificateGUI constructor
      *
      * @param ilObjUser $user
-     * @param int       $obj_ref_id
+     * @param Tile      $tile
      */
-    public function __construct(ilObjUser $user, $obj_ref_id)
+    public function __construct(ilObjUser $user, Tile $tile)
     {
         $this->user = $user;
-        $this->obj_ref_id = $obj_ref_id;
+        $this->tile = $tile;
     }
 
 
@@ -49,7 +50,7 @@ class CertificateGUI
      */
     public function render() : string
     {
-        $certificates = self::ilias()->certificates($this->user, $this->obj_ref_id);
+        $certificates = self::ilias()->certificates($this->user, $this->tile);
 
         $link = $certificates->getCertificateDownloadLink();
 
