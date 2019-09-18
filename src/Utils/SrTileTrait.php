@@ -18,64 +18,72 @@ use srag\Plugins\SrTile\Tile\Tiles;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-trait SrTileTrait {
+trait SrTileTrait
+{
 
-	/**
-	 * @return Access
-	 */
-	protected static function access(): Access {
-		return Access::getInstance();
-	}
-
-
-	/**
-	 * @return ColorThiefCaches
-	 */
-	protected static function colorThiefCaches(): ColorThiefCaches {
-		return ColorThiefCaches::getInstance();
-	}
+    /**
+     * @return Access
+     */
+    protected static function access() : Access
+    {
+        return Access::getInstance();
+    }
 
 
-	/**
-	 * @param ilObjUser $user
-	 *
-	 * @return LearningProgressFilters
-	 */
-	protected static function learningProgressFilters(ilObjUser $user): LearningProgressFilters {
-		return LearningProgressFilters::getInstance($user);
-	}
+    /**
+     * @return ColorThiefCaches
+     */
+    protected static function colorThiefCaches() : ColorThiefCaches
+    {
+        return ColorThiefCaches::getInstance();
+    }
 
 
-	/**
-	 * @return Ilias
-	 */
-	protected static function ilias(): Ilias {
-		return Ilias::getInstance();
-	}
+    /**
+     * @param ilObjUser $user
+     *
+     * @return LearningProgressFilters
+     */
+    protected static function learningProgressFilters(ilObjUser $user) : LearningProgressFilters
+    {
+        return LearningProgressFilters::getInstance($user);
+    }
 
 
-	/**
-	 * @param ilObjUser $user
-	 *
-	 * @return Ratings
-	 */
-	protected static function rating(ilObjUser $user): Ratings {
-		return Ratings::getInstance($user);
-	}
+    /**
+     * @return Ilias
+     */
+    protected static function ilias() : Ilias
+    {
+        return Ilias::getInstance();
+    }
 
 
-	/**
-	 * @return Templates
-	 */
-	protected static function templates(): Templates {
-		return Templates::getInstance();
-	}
+    /**
+     * @param ilObjUser $user
+     *
+     * @return Ratings
+     */
+    protected static function rating(ilObjUser $user) : Ratings
+    {
+        return Ratings::getInstance($user);
+    }
 
 
-	/**
-	 * @return Tiles
-	 */
-	protected static function tiles(): Tiles {
-		return Tiles::getInstance();
-	}
+    /**
+     * @return Templates
+     */
+    protected static function templates() : Templates
+    {
+        return Templates::getInstance();
+    }
+
+
+    /**
+     * @return Tiles
+     */
+    protected static function tiles() : Tiles
+    {
+        return Tiles::getInstance();
+    }
 }

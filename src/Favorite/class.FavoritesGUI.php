@@ -19,88 +19,93 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @ilCtrl_isCalledBy srag\Plugins\SrTile\Favorite\FavoritesGUI: ilUIPluginRouterGUI
  */
-class FavoritesGUI {
+class FavoritesGUI
+{
 
-	use DICTrait;
-	use SrTileTrait;
-	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const CMD_ADD_TO_FAVORITES = "addToFavorites";
-	const CMD_REMOVE_FROM_FAVORITES = "removeFromFavorites";
-	const LANG_MODULE_FAVORITES = "favorites";
-	/**
-	 * @var Tile
-	 */
-	protected $tile;
-
-
-	/**
-	 * FavoritesGUI constructor
-	 */
-	public function __construct() {
-		$this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
-	}
+    use DICTrait;
+    use SrTileTrait;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    const CMD_ADD_TO_FAVORITES = "addToFavorites";
+    const CMD_REMOVE_FROM_FAVORITES = "removeFromFavorites";
+    const LANG_MODULE_FAVORITES = "favorites";
+    /**
+     * @var Tile
+     */
+    protected $tile;
 
 
-	/**
-	 *
-	 */
-	public function executeCommand()/*: void*/ {
-		if (!(self::ilias()->favorites(self::dic()->user())->enabled() && $this->tile->getShowFavoritesIcon() === Tile::SHOW_TRUE)) {
-			return;
-		}
-
-		$next_class = self::dic()->ctrl()->getNextClass($this);
-
-		switch ($next_class) {
-			default:
-				$cmd = self::dic()->ctrl()->getCmd();
-
-				switch ($cmd) {
-					case self::CMD_ADD_TO_FAVORITES:
-					case self::CMD_REMOVE_FROM_FAVORITES:
-						$this->{$cmd}();
-						break;
-
-					default:
-						break;
-				}
-				break;
-		}
-	}
+    /**
+     * FavoritesGUI constructor
+     */
+    public function __construct()
+    {
+        $this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
+    }
 
 
-	/**
-	 *
-	 */
-	protected function addToFavorites()/*: void*/ {
-		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
+    /**
+     *
+     */
+    public function executeCommand()/*: void*/
+    {
+        if (!(self::ilias()->favorites(self::dic()->user())->enabled() && $this->tile->getShowFavoritesIcon() === Tile::SHOW_TRUE)) {
+            return;
+        }
 
-		self::ilias()->favorites(self::dic()->user())->addToFavorites($this->tile->getObjRefId());
+        $next_class = self::dic()->ctrl()->getNextClass($this);
 
-		ilUtil::sendSuccess(self::plugin()->translate("added_to_favorites", self::LANG_MODULE_FAVORITES), true);
+        switch ($next_class) {
+            default:
+                $cmd = self::dic()->ctrl()->getCmd();
 
-		if (!empty($parent_ref_id)) {
-			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
-		} else {
-			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-		}
-	}
+                switch ($cmd) {
+                    case self::CMD_ADD_TO_FAVORITES:
+                    case self::CMD_REMOVE_FROM_FAVORITES:
+                        $this->{$cmd}();
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+        }
+    }
 
 
-	/**
-	 *
-	 */
-	protected function removeFromFavorites()/*: void*/ {
-		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
+    /**
+     *
+     */
+    protected function addToFavorites()/*: void*/
+    {
+        $parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
 
-		self::ilias()->favorites(self::dic()->user())->removeFromFavorites($this->tile->getObjRefId());
+        self::ilias()->favorites(self::dic()->user())->addToFavorites($this->tile->getObjRefId());
 
-		ilUtil::sendSuccess(self::plugin()->translate("removed_from_favorites", self::LANG_MODULE_FAVORITES), true);
+        ilUtil::sendSuccess(self::plugin()->translate("added_to_favorites", self::LANG_MODULE_FAVORITES), true);
 
-		if (!empty($parent_ref_id)) {
-			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
-		} else {
-			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-		}
-	}
+        if (!empty($parent_ref_id)) {
+            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
+        } else {
+            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+        }
+    }
+
+
+    /**
+     *
+     */
+    protected function removeFromFavorites()/*: void*/
+    {
+        $parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
+
+        self::ilias()->favorites(self::dic()->user())->removeFromFavorites($this->tile->getObjRefId());
+
+        ilUtil::sendSuccess(self::plugin()->translate("removed_from_favorites", self::LANG_MODULE_FAVORITES), true);
+
+        if (!empty($parent_ref_id)) {
+            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
+        } else {
+            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+        }
+    }
 }

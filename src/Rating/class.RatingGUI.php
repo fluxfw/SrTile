@@ -19,89 +19,95 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @ilCtrl_isCalledBy srag\Plugins\SrTile\Rating\RatingGUI: ilUIPluginRouterGUI
  */
-class RatingGUI {
+class RatingGUI
+{
 
-	use DICTrait;
-	use SrTileTrait;
-	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	const CMD_LIKE = "like";
-	const CMD_UNLIKE = "unlike";
-	const LANG_MODULE_RATING = "rating";
-	/**
-	 * @var Tile
-	 */
-	protected $tile;
-
-
-	/**
-	 * RatingGUI constructor
-	 */
-	public function __construct() {
-		$this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
-	}
+    use DICTrait;
+    use SrTileTrait;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    const CMD_LIKE = "like";
+    const CMD_UNLIKE = "unlike";
+    const LANG_MODULE_RATING = "rating";
+    /**
+     * @var Tile
+     */
+    protected $tile;
 
 
-	/**
-	 *
-	 */
-	public function executeCommand()/*: void*/ {
-		if (!($this->tile->getEnableRating() === Tile::SHOW_TRUE
-			&& self::access()->hasReadAccess($this->tile->getObjRefId()))) {
-			return;
-		}
-
-		$next_class = self::dic()->ctrl()->getNextClass($this);
-
-		switch ($next_class) {
-			default:
-				$cmd = self::dic()->ctrl()->getCmd();
-
-				switch ($cmd) {
-					case self::CMD_LIKE:
-					case self::CMD_UNLIKE:
-						$this->{$cmd}();
-						break;
-
-					default:
-						break;
-				}
-				break;
-		}
-	}
+    /**
+     * RatingGUI constructor
+     */
+    public function __construct()
+    {
+        $this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
+    }
 
 
-	/**
-	 *
-	 */
-	protected function like()/*: void*/ {
-		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
+    /**
+     *
+     */
+    public function executeCommand()/*: void*/
+    {
+        if (!($this->tile->getEnableRating() === Tile::SHOW_TRUE
+            && self::access()->hasReadAccess($this->tile->getObjRefId()))
+        ) {
+            return;
+        }
 
-		self::rating(self::dic()->user())->like($this->tile->getObjRefId());
+        $next_class = self::dic()->ctrl()->getNextClass($this);
 
-		ilUtil::sendSuccess(self::plugin()->translate("liked", self::LANG_MODULE_RATING), true);
+        switch ($next_class) {
+            default:
+                $cmd = self::dic()->ctrl()->getCmd();
 
-		if (!empty($parent_ref_id)) {
-			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
-		} else {
-			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-		}
-	}
+                switch ($cmd) {
+                    case self::CMD_LIKE:
+                    case self::CMD_UNLIKE:
+                        $this->{$cmd}();
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+        }
+    }
 
 
-	/**
-	 *
-	 */
-	protected function unlike()/*: void*/ {
-		$parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
+    /**
+     *
+     */
+    protected function like()/*: void*/
+    {
+        $parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
 
-		self::rating(self::dic()->user())->unlike($this->tile->getObjRefId());
+        self::rating(self::dic()->user())->like($this->tile->getObjRefId());
 
-		ilUtil::sendSuccess(self::plugin()->translate("unliked", self::LANG_MODULE_RATING), true);
+        ilUtil::sendSuccess(self::plugin()->translate("liked", self::LANG_MODULE_RATING), true);
 
-		if (!empty($parent_ref_id)) {
-			self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
-		} else {
-			self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-		}
-	}
+        if (!empty($parent_ref_id)) {
+            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
+        } else {
+            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+        }
+    }
+
+
+    /**
+     *
+     */
+    protected function unlike()/*: void*/
+    {
+        $parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
+
+        self::rating(self::dic()->user())->unlike($this->tile->getObjRefId());
+
+        ilUtil::sendSuccess(self::plugin()->translate("unliked", self::LANG_MODULE_RATING), true);
+
+        if (!empty($parent_ref_id)) {
+            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
+        } else {
+            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+        }
+    }
 }

@@ -14,92 +14,99 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
  */
-abstract class TileListAbstract implements TileListInterface {
+abstract class TileListAbstract implements TileListInterface
+{
 
-	use DICTrait;
-	use SrTileTrait;
-	/**
-	 * @var TileListInterface[]
-	 */
-	protected static $instances = [];
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public static function getInstance($param): TileListInterface {
-		if (self::$instances[static::class] === NULL) {
-			self::$instances[static::class] = new static($param);
-		}
-
-		return self::$instances[static::class];
-	}
+    use DICTrait;
+    use SrTileTrait;
+    /**
+     * @var TileListInterface[]
+     */
+    protected static $instances = [];
 
 
-	/**
-	 * @var array
-	 */
-	protected $obj_ref_ids = [];
-	/**
-	 * @var tile[]
-	 */
-	private $tiles = [];
+    /**
+     * @inheritdoc
+     */
+    public static function getInstance($param) : TileListInterface
+    {
+        if (self::$instances[static::class] === null) {
+            self::$instances[static::class] = new static($param);
+        }
+
+        return self::$instances[static::class];
+    }
 
 
-	/**
-	 * TileListAbstract constructor
-	 */
-	protected function __construct() {
-		$this->read();
-	}
+    /**
+     * @var array
+     */
+    protected $obj_ref_ids = [];
+    /**
+     * @var tile[]
+     */
+    private $tiles = [];
 
 
-	/**
-	 * @inheritdoc
-	 */
-	public function addTile(Tile $tile)/*: void*/ {
-		$this->tiles[$tile->getTileId()] = $tile;
-	}
+    /**
+     * TileListAbstract constructor
+     */
+    protected function __construct()
+    {
+        $this->read();
+    }
 
 
-	/**
-	 * @inheritdoc
-	 */
-	public function removeTile(int $tile_id)/*: void*/ {
-		if (isset($this->tiles[$tile_id])) {
-			unset($this->tiles[$tile_id]);
-		}
-	}
+    /**
+     * @inheritdoc
+     */
+    public function addTile(Tile $tile)/*: void*/
+    {
+        $this->tiles[$tile->getTileId()] = $tile;
+    }
 
 
-	/**
-	 * @inheritdoc
-	 */
-	public function getTiles(): array {
-		return $this->tiles;
-	}
+    /**
+     * @inheritdoc
+     */
+    public function removeTile(int $tile_id)/*: void*/
+    {
+        if (isset($this->tiles[$tile_id])) {
+            unset($this->tiles[$tile_id]);
+        }
+    }
 
 
-	/**
-	 *
-	 */
-	protected function read() /*: void*/ {
-		$this->initObjRefIds();
-
-		foreach ($this->obj_ref_ids as $obj_ref_id) {
-
-			$tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
-
-			if (self::access()->hasVisibleAccess($tile->getObjRefId())) {
-				$this->addTile($tile);
-			}
-		}
-	}
+    /**
+     * @inheritdoc
+     */
+    public function getTiles() : array
+    {
+        return $this->tiles;
+    }
 
 
-	/**
-	 *
-	 */
-	protected abstract function initObjRefIds() /*: void*/
-	;
+    /**
+     *
+     */
+    protected function read() /*: void*/
+    {
+        $this->initObjRefIds();
+
+        foreach ($this->obj_ref_ids as $obj_ref_id) {
+
+            $tile = self::tiles()->getInstanceForObjRefId($obj_ref_id);
+
+            if (self::access()->hasVisibleAccess($tile->getObjRefId())) {
+                $this->addTile($tile);
+            }
+        }
+    }
+
+
+    /**
+     *
+     */
+    protected abstract function initObjRefIds() /*: void*/
+    ;
 }

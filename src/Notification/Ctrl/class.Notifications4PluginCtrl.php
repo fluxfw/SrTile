@@ -19,33 +19,36 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @ilCtrl_isCalledBy srag\Plugins\SrTile\Notification\Ctrl\Notifications4PluginCtrl: ilSrTileConfigGUI
  */
-class Notifications4PluginCtrl extends AbstractCtrl {
+class Notifications4PluginCtrl extends AbstractCtrl
+{
 
-	use SrTileTrait;
-	const NOTIFICATION_CLASS_NAME = Notification::class;
-	const LANGUAGE_CLASS_NAME = NotificationLanguage::class;
-	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-
-
-	/**
-	 * @inheritdoc
-	 */
-	public function executeCommand()/*: void*/ {
-		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
-
-		parent::executeCommand();
-	}
+    use SrTileTrait;
+    const NOTIFICATION_CLASS_NAME = Notification::class;
+    const LANGUAGE_CLASS_NAME = NotificationLanguage::class;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 
 
-	/**
-	 * @inheritdoc
-	 */
-	public function getPlaceholderTypes(): array {
-		return [
-			"link" => "string",
-			"message" => "string",
-			"object" => "object " . ilObject::class,
-			"user" => "object " . ilObjUser::class
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function executeCommand()/*: void*/
+    {
+        self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
+
+        parent::executeCommand();
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function getPlaceholderTypes() : array
+    {
+        return [
+            "link"    => "string",
+            "message" => "string",
+            "object"  => "object " . ilObject::class,
+            "user"    => "object " . ilObjUser::class
+        ];
+    }
 }

@@ -12,8 +12,9 @@ use srag\RemovePluginDataConfirm\SrTile\AbstractRemovePluginDataConfirm;
  *
  * @ilCtrl_isCalledBy SrTileRemoveDataConfirm: ilUIPluginRouterGUI
  */
-class SrTileRemoveDataConfirm extends AbstractRemovePluginDataConfirm {
+class SrTileRemoveDataConfirm extends AbstractRemovePluginDataConfirm
+{
 
-	use SrTileTrait;
-	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    use SrTileTrait;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 }

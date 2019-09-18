@@ -29,171 +29,171 @@
 <#7>
 <?php
 foreach (\srag\Plugins\SrTile\Tile\Tile::orderBy("obj_ref_id", "asc")->get() as $tile) {
-	/**
-	 * @var \srag\Plugins\SrTile\Tile\Tile $tile
-	 */
+    /**
+     * @var \srag\Plugins\SrTile\Tile\Tile $tile
+     */
 
-	$parent = \srag\Plugins\SrTile\Tile\Tiles::getInstance()->getParentTile($tile);
-	if ($parent !== null) {
+    $parent = \srag\Plugins\SrTile\Tile\Tiles::getInstance()->getParentTile($tile);
+    if ($parent !== null) {
 
-		if ($tile->getActionsPosition() === \srag\Plugins\SrTile\Tile\Tile::POSITION_PARENT) {
-			$tile->setActionsPosition($parent->getActionsPosition());
-		}
+        if ($tile->getActionsPosition() === \srag\Plugins\SrTile\Tile\Tile::POSITION_PARENT) {
+            $tile->setActionsPosition($parent->getActionsPosition());
+        }
 
-		if ($tile->getActionsVerticalAlign() === \srag\Plugins\SrTile\Tile\Tile::VERTICAL_ALIGN_PARENT) {
-			$tile->setActionsVerticalAlign($parent->getActionsVerticalAlign());
-		}
+        if ($tile->getActionsVerticalAlign() === \srag\Plugins\SrTile\Tile\Tile::VERTICAL_ALIGN_PARENT) {
+            $tile->setActionsVerticalAlign($parent->getActionsVerticalAlign());
+        }
 
-		if ($tile->getApplyColorsToGlobalSkin() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setApplyColorsToGlobalSkin($parent->getApplyColorsToGlobalSkin());
-		}
+        if ($tile->getApplyColorsToGlobalSkin() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setApplyColorsToGlobalSkin($parent->getApplyColorsToGlobalSkin());
+        }
 
-		if ($tile->getBackgroundColorType() === \srag\Plugins\SrTile\Tile\Tile::COLOR_TYPE_PARENT) {
-			$tile->setBackgroundColorType($parent->getBackgroundColorType());
+        if ($tile->getBackgroundColorType() === \srag\Plugins\SrTile\Tile\Tile::COLOR_TYPE_PARENT) {
+            $tile->setBackgroundColorType($parent->getBackgroundColorType());
 
-			if (empty($tile->getBackgroundColor())) {
-				$tile->setBackgroundColor($parent->getBackgroundColor());
-			}
-		}
+            if (empty($tile->getBackgroundColor())) {
+                $tile->setBackgroundColor($parent->getBackgroundColor());
+            }
+        }
 
-		if ($tile->getBorderColorType() === \srag\Plugins\SrTile\Tile\Tile::COLOR_TYPE_PARENT) {
-			$tile->setBorderColorType($parent->getBorderColorType());
+        if ($tile->getBorderColorType() === \srag\Plugins\SrTile\Tile\Tile::COLOR_TYPE_PARENT) {
+            $tile->setBorderColorType($parent->getBorderColorType());
 
-			if (empty($tile->getBorderColor())) {
-				$tile->setBorderColor($parent->getBorderColor());
-			}
-		}
+            if (empty($tile->getBorderColor())) {
+                $tile->setBorderColor($parent->getBorderColor());
+            }
+        }
 
-		if ($tile->getBorderSizeType() === \srag\Plugins\SrTile\Tile\Tile::SIZE_TYPE_PARENT) {
-			$tile->setBorderSizeType($parent->getBorderSizeType());
+        if ($tile->getBorderSizeType() === \srag\Plugins\SrTile\Tile\Tile::SIZE_TYPE_PARENT) {
+            $tile->setBorderSizeType($parent->getBorderSizeType());
 
-			if (empty($tile->getBorderSize())) {
-				$tile->setBorderSize($parent->getBorderSize());
-			}
-		}
+            if (empty($tile->getBorderSize())) {
+                $tile->setBorderSize($parent->getBorderSize());
+            }
+        }
 
-		if ($tile->getEnableRating() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setEnableRating($parent->getEnableRating());
-		}
+        if ($tile->getEnableRating() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setEnableRating($parent->getEnableRating());
+        }
 
-		if ($tile->getFontColorType() === \srag\Plugins\SrTile\Tile\Tile::COLOR_TYPE_PARENT) {
-			$tile->setFontColorType($parent->getFontColorType());
+        if ($tile->getFontColorType() === \srag\Plugins\SrTile\Tile\Tile::COLOR_TYPE_PARENT) {
+            $tile->setFontColorType($parent->getFontColorType());
 
-			if (empty($tile->getFontColor())) {
-				$tile->setFontColor($parent->getFontColor());
-			}
-		}
+            if (empty($tile->getFontColor())) {
+                $tile->setFontColor($parent->getFontColor());
+            }
+        }
 
-		if ($tile->getFontSizeType() === \srag\Plugins\SrTile\Tile\Tile::SIZE_TYPE_PARENT) {
-			$tile->setFontSizeType($parent->getFontSizeType());
+        if ($tile->getFontSizeType() === \srag\Plugins\SrTile\Tile\Tile::SIZE_TYPE_PARENT) {
+            $tile->setFontSizeType($parent->getFontSizeType());
 
-			if (empty($tile->getFontSize())) {
-				$tile->setFontSize($parent->getFontSize());
-			}
-		}
+            if (empty($tile->getFontSize())) {
+                $tile->setFontSize($parent->getFontSize());
+            }
+        }
 
-		if ($tile->getImagePosition() === \srag\Plugins\SrTile\Tile\Tile::POSITION_PARENT) {
-			$tile->setImagePosition($parent->getImagePosition());
-		}
+        if ($tile->getImagePosition() === \srag\Plugins\SrTile\Tile\Tile::POSITION_PARENT) {
+            $tile->setImagePosition($parent->getImagePosition());
+        }
 
-		if ($tile->getLabelHorizontalAlign() === \srag\Plugins\SrTile\Tile\Tile::HORIZONTAL_ALIGN_PARENT) {
-			$tile->setLabelHorizontalAlign($parent->getLabelHorizontalAlign());
-		}
+        if ($tile->getLabelHorizontalAlign() === \srag\Plugins\SrTile\Tile\Tile::HORIZONTAL_ALIGN_PARENT) {
+            $tile->setLabelHorizontalAlign($parent->getLabelHorizontalAlign());
+        }
 
-		if ($tile->getLabelVerticalAlign() === \srag\Plugins\SrTile\Tile\Tile::VERTICAL_ALIGN_PARENT) {
-			$tile->setLabelVerticalAlign($parent->getLabelVerticalAlign());
-		}
+        if ($tile->getLabelVerticalAlign() === \srag\Plugins\SrTile\Tile\Tile::VERTICAL_ALIGN_PARENT) {
+            $tile->setLabelVerticalAlign($parent->getLabelVerticalAlign());
+        }
 
-		if ($tile->getLearningProgressPosition() === \srag\Plugins\SrTile\Tile\Tile::POSITION_PARENT) {
-			$tile->setLearningProgressPosition($parent->getLearningProgressPosition());
-		}
+        if ($tile->getLearningProgressPosition() === \srag\Plugins\SrTile\Tile\Tile::POSITION_PARENT) {
+            $tile->setLearningProgressPosition($parent->getLearningProgressPosition());
+        }
 
-		if ($tile->getMarginType() === \srag\Plugins\SrTile\Tile\Tile::SIZE_TYPE_PARENT) {
-			$tile->setMarginType($parent->getMarginType());
+        if ($tile->getMarginType() === \srag\Plugins\SrTile\Tile\Tile::SIZE_TYPE_PARENT) {
+            $tile->setMarginType($parent->getMarginType());
 
-			if (empty($tile->getMargin())) {
-				$tile->setMargin($parent->getMargin());
-			}
-		}
+            if (empty($tile->getMargin())) {
+                $tile->setMargin($parent->getMargin());
+            }
+        }
 
-		if ($tile->getObjectIconPosition() === \srag\Plugins\SrTile\Tile\Tile::POSITION_PARENT) {
-			$tile->setObjectIconPosition($parent->getObjectIconPosition());
-		}
+        if ($tile->getObjectIconPosition() === \srag\Plugins\SrTile\Tile\Tile::POSITION_PARENT) {
+            $tile->setObjectIconPosition($parent->getObjectIconPosition());
+        }
 
-		if ($tile->getOpenObjWithOneChildDirect() === \srag\Plugins\SrTile\Tile\Tile::OPEN_PARENT) {
-			$tile->setOpenObjWithOneChildDirect($parent->getOpenObjWithOneChildDirect());
-		}
+        if ($tile->getOpenObjWithOneChildDirect() === \srag\Plugins\SrTile\Tile\Tile::OPEN_PARENT) {
+            $tile->setOpenObjWithOneChildDirect($parent->getOpenObjWithOneChildDirect());
+        }
 
-		if ($tile->getRecommendMailTemplateType() === \srag\Plugins\SrTile\Tile\Tile::MAIL_TEMPLATE_PARENT) {
-			$tile->setRecommendMailTemplateType($parent->getRecommendMailTemplateType());
+        if ($tile->getRecommendMailTemplateType() === \srag\Plugins\SrTile\Tile\Tile::MAIL_TEMPLATE_PARENT) {
+            $tile->setRecommendMailTemplateType($parent->getRecommendMailTemplateType());
 
-			if (empty($tile->getRecommendMailTemplate())) {
-				$tile->setRecommendMailTemplate($parent->getRecommendMailTemplate());
-			}
-		}
+            if (empty($tile->getRecommendMailTemplate())) {
+                $tile->setRecommendMailTemplate($parent->getRecommendMailTemplate());
+            }
+        }
 
-		if ($tile->getShadow() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShadow($parent->getShadow());
-		}
+        if ($tile->getShadow() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShadow($parent->getShadow());
+        }
 
-		if ($tile->getShowActions() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowActions($parent->getShowActions());
-		}
+        if ($tile->getShowActions() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowActions($parent->getShowActions());
+        }
 
-		if ($tile->getShowDownloadCertificate() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowDownloadCertificate($parent->getShowDownloadCertificate());
-		}
+        if ($tile->getShowDownloadCertificate() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowDownloadCertificate($parent->getShowDownloadCertificate());
+        }
 
-		if ($tile->getShowFavoritesIcon() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowFavoritesIcon($parent->getShowFavoritesIcon());
-		}
+        if ($tile->getShowFavoritesIcon() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowFavoritesIcon($parent->getShowFavoritesIcon());
+        }
 
-		if ($tile->getShowImageAsBackground() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowImageAsBackground($parent->getShowImageAsBackground());
-		}
+        if ($tile->getShowImageAsBackground() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowImageAsBackground($parent->getShowImageAsBackground());
+        }
 
-		if ($tile->getShowLearningProgress() === \srag\Plugins\SrTile\Tile\Tile::LEARNING_PROGRESS_PARENT) {
-			$tile->setShowLearningProgress($parent->getShowLearningProgress());
-		}
+        if ($tile->getShowLearningProgress() === \srag\Plugins\SrTile\Tile\Tile::LEARNING_PROGRESS_PARENT) {
+            $tile->setShowLearningProgress($parent->getShowLearningProgress());
+        }
 
-		if ($tile->getShowLearningProgressFilter() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowLearningProgressFilter($parent->getShowLearningProgressFilter());
-		}
+        if ($tile->getShowLearningProgressFilter() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowLearningProgressFilter($parent->getShowLearningProgressFilter());
+        }
 
-		if ($tile->getShowLearningProgressLegend() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowLearningProgressLegend($parent->getShowLearningProgressLegend());
-		}
+        if ($tile->getShowLearningProgressLegend() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowLearningProgressLegend($parent->getShowLearningProgressLegend());
+        }
 
-		if ($tile->getShowLikesCount() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowLikesCount($parent->getShowLikesCount());
-		}
+        if ($tile->getShowLikesCount() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowLikesCount($parent->getShowLikesCount());
+        }
 
-		if ($tile->getShowObjectTabs() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowObjectTabs($parent->getShowObjectTabs());
-		}
+        if ($tile->getShowObjectTabs() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowObjectTabs($parent->getShowObjectTabs());
+        }
 
-		if ($tile->getShowPreconditions() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowPreconditions($parent->getShowPreconditions());
-		}
+        if ($tile->getShowPreconditions() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowPreconditions($parent->getShowPreconditions());
+        }
 
-		if ($tile->getShowRecommendIcon() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowRecommendIcon($parent->getShowRecommendIcon());
-		}
+        if ($tile->getShowRecommendIcon() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowRecommendIcon($parent->getShowRecommendIcon());
+        }
 
-		if ($tile->getShowTitle() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
-			$tile->setShowTitle($parent->getShowTitle());
-		}
+        if ($tile->getShowTitle() === \srag\Plugins\SrTile\Tile\Tile::SHOW_PARENT) {
+            $tile->setShowTitle($parent->getShowTitle());
+        }
 
-		if ($tile->getView() === \srag\Plugins\SrTile\Tile\Tile::VIEW_PARENT) {
-			$tile->setView($parent->getView());
-		}
-	}
+        if ($tile->getView() === \srag\Plugins\SrTile\Tile\Tile::VIEW_PARENT) {
+            $tile->setView($parent->getView());
+        }
+    }
 
-	if (isset($tile->tile_enabled_children) && !boolval($tile->tile_enabled_children)) {
-		$tile->setView(\srag\Plugins\SrTile\Tile\Tile::VIEW_DISABLED);
-	}
+    if (isset($tile->tile_enabled_children) && !boolval($tile->tile_enabled_children)) {
+        $tile->setView(\srag\Plugins\SrTile\Tile\Tile::VIEW_DISABLED);
+    }
 
-	$tile->store();
+    $tile->store();
 }
 ?>
 <#8>
@@ -206,19 +206,19 @@ foreach (\srag\Plugins\SrTile\Tile\Tile::orderBy("obj_ref_id", "asc")->get() as 
 \srag\Plugins\SrTile\Template\Template::updateDB();
 
 foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile\Template\Template::get()) as $tile) {
-	/**
-	 * @var \srag\Plugins\SrTile\Tile\Tile $tile
-	 */
+    /**
+     * @var \srag\Plugins\SrTile\Tile\Tile $tile
+     */
 
-	if (empty($tile->getColumnsType())) {
-		$tile->setColumnsType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_COLUMNS_TYPE);
-	}
+    if (empty($tile->getColumnsType())) {
+        $tile->setColumnsType(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_COLUMNS_TYPE);
+    }
 
-	if (empty($tile->getColumns())) {
-		$tile->setColumns(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_COLUMNS);
-	}
+    if (empty($tile->getColumns())) {
+        $tile->setColumns(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_COLUMNS);
+    }
 
-	$tile->store();
+    $tile->store();
 }
 ?>
 <#10>
@@ -227,12 +227,13 @@ foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile
 \srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage::updateDB_();
 
 foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile\Template\Template::get()) as $tile) {
-	/**
-	 * @var \srag\Plugins\SrTile\Tile\Tile $tile
-	 */
+    /**
+     * @var \srag\Plugins\SrTile\Tile\Tile $tile
+     */
 
-	\srag\Notifications4Plugin\SrTile\Notification\Repository::getInstance(\srag\Plugins\SrTile\Notification\Notification\Notification::class, \srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage::class)
-		->migrateFromOldGlobalPlugin($tile->getRecommendMailTemplate());
+    \srag\Notifications4Plugin\SrTile\Notification\Repository::getInstance(\srag\Plugins\SrTile\Notification\Notification\Notification::class,
+        \srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage::class)
+        ->migrateFromOldGlobalPlugin($tile->getRecommendMailTemplate());
 }
 ?>
 <#11>
@@ -251,18 +252,18 @@ foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile
 \srag\Plugins\SrTile\Template\Template::updateDB();
 
 foreach (array_merge(\srag\Plugins\SrTile\Tile\Tile::get(), \srag\Plugins\SrTile\Template\Template::get()) as $tile) {
-	/**
-	 * @var \srag\Plugins\SrTile\Tile\Tile $tile
-	 */
+    /**
+     * @var \srag\Plugins\SrTile\Tile\Tile $tile
+     */
 
-	if (empty($tile->getShowLanguageFlag())) {
-		$tile->setShowLanguageFlag(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LANGUAGE_FLAG);
-	}
+    if (empty($tile->getShowLanguageFlag())) {
+        $tile->setShowLanguageFlag(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_SHOW_LANGUAGE_FLAG);
+    }
 
-	if (empty($tile->getLanguageFlagPosition())) {
-		$tile->setLanguageFlagPosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_LANGUAGE_FLAG_POSITION);
-	}
+    if (empty($tile->getLanguageFlagPosition())) {
+        $tile->setLanguageFlagPosition(\srag\Plugins\SrTile\Tile\Tile::DEFAULT_LANGUAGE_FLAG_POSITION);
+    }
 
-	$tile->store();
+    $tile->store();
 }
 ?>

@@ -12,8 +12,9 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class NotificationLanguage extends AbstractNotificationLanguage {
+class NotificationLanguage extends AbstractNotificationLanguage
+{
 
-	use SrTileTrait;
-	const TABLE_NAME = "ui_uihk_srtile_not_lan";
+    use SrTileTrait;
+    const TABLE_NAME = "ui_uihk_srtile_not_lan";
 }

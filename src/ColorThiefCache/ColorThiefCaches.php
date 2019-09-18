@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\ColorThiefCache;
 
-use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -14,75 +13,80 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class ColorThiefCaches {
+class ColorThiefCaches
+{
 
-	use SrTileTrait;
-	use DICTrait;
-	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	/**
-	 * @var self|null
-	 */
-	protected static $instance = NULL;
-
-
-	/**
-	 * @return self
-	 */
-	public static function getInstance(): self {
-		if (self::$instance === NULL) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-	}
+    use SrTileTrait;
+    use DICTrait;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    /**
+     * @var self|null
+     */
+    protected static $instance = null;
 
 
-	/**
-	 * ColorThiefCaches constructor
-	 */
-	private function __construct() {
+    /**
+     * @return self
+     */
+    public static function getInstance() : self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
 
-	}
-
-
-	/**
-	 * @param string $image_path
-	 *
-	 * @return ColorThiefCache
-	 */
-	public function getColorThiefCache(string $image_path): ColorThiefCache {
-		/**
-		 * @var ColorThiefCache $colorThiefCache
-		 */
-
-		$colorThiefCache = ColorThiefCache::where([
-			"image_path" => $image_path
-		])->first();
-
-		if ($colorThiefCache === NULL) {
-			$colorThiefCache = new ColorThiefCache();
-
-			$colorThiefCache->setImagePath($image_path);
-		}
-
-		return $colorThiefCache;
-	}
+        return self::$instance;
+    }
 
 
-	/**
-	 * @param string $image_path
-	 */
-	public function delete(string $image_path)/*: void*/ {
-		/**
-		 * @var ColorThiefCache $colorThiefCache
-		 */
+    /**
+     * ColorThiefCaches constructor
+     */
+    private function __construct()
+    {
 
-		$colorThiefCache = ColorThiefCache::where([
-			"image_path" => $image_path
-		])->first();
+    }
 
-		if ($colorThiefCache !== NULL) {
-			$colorThiefCache->delete();
-		}
-	}
+
+    /**
+     * @param string $image_path
+     *
+     * @return ColorThiefCache
+     */
+    public function getColorThiefCache(string $image_path) : ColorThiefCache
+    {
+        /**
+         * @var ColorThiefCache $colorThiefCache
+         */
+
+        $colorThiefCache = ColorThiefCache::where([
+            "image_path" => $image_path
+        ])->first();
+
+        if ($colorThiefCache === null) {
+            $colorThiefCache = new ColorThiefCache();
+
+            $colorThiefCache->setImagePath($image_path);
+        }
+
+        return $colorThiefCache;
+    }
+
+
+    /**
+     * @param string $image_path
+     */
+    public function delete(string $image_path)/*: void*/
+    {
+        /**
+         * @var ColorThiefCache $colorThiefCache
+         */
+
+        $colorThiefCache = ColorThiefCache::where([
+            "image_path" => $image_path
+        ])->first();
+
+        if ($colorThiefCache !== null) {
+            $colorThiefCache->delete();
+        }
+    }
 }

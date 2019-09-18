@@ -14,122 +14,130 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class Ratings {
+class Ratings
+{
 
-	use SrTileTrait;
-	use DICTrait;
-	const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-	/**
-	 * @var self[]
-	 */
-	protected static $instances = [];
-
-
-	/**
-	 * @param ilObjUser $user
-	 *
-	 * @return self
-	 */
-	public static function getInstance(ilObjUser $user): self {
-		if (!isset(self::$instances[$user->getId()])) {
-			self::$instances[$user->getId()] = new self($user);
-		}
-
-		return self::$instances[$user->getId()];
-	}
+    use SrTileTrait;
+    use DICTrait;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    /**
+     * @var self[]
+     */
+    protected static $instances = [];
 
 
-	/**
-	 * @var ilObjUser
-	 */
-	protected $user;
+    /**
+     * @param ilObjUser $user
+     *
+     * @return self
+     */
+    public static function getInstance(ilObjUser $user) : self
+    {
+        if (!isset(self::$instances[$user->getId()])) {
+            self::$instances[$user->getId()] = new self($user);
+        }
+
+        return self::$instances[$user->getId()];
+    }
 
 
-	/**
-	 * Ratings constructor
-	 *
-	 * @param ilObjUser $user
-	 */
-	private function __construct(ilObjUser $user) {
-		$this->user = $user;
-	}
+    /**
+     * @var ilObjUser
+     */
+    protected $user;
 
 
-	/**
-	 * @param int $obj_ref_id
-	 *
-	 * @return int
-	 */
-	public function getLikesCount($obj_ref_id): int {
-		$obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
-
-		return Rating::where([
-			"obj_id" => $obj_id
-		])->count();
-	}
+    /**
+     * Ratings constructor
+     *
+     * @param ilObjUser $user
+     */
+    private function __construct(ilObjUser $user)
+    {
+        $this->user = $user;
+    }
 
 
-	/**
-	 * @param int $obj_id
-	 *
-	 * @return Rating|null
-	 */
-	public function getRating(int $obj_id)/*: ?Rating*/ {
-		/**
-		 * @var Rating|null $rating
-		 */
+    /**
+     * @param int $obj_ref_id
+     *
+     * @return int
+     */
+    public function getLikesCount($obj_ref_id) : int
+    {
+        $obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
-		$rating = Rating::where([
-			"obj_id" => $obj_id,
-			"user_id" => $this->user->getId()
-		])->first();
-
-		return $rating;
-	}
+        return Rating::where([
+            "obj_id" => $obj_id
+        ])->count();
+    }
 
 
-	/**
-	 * @param int $obj_ref_id
-	 *
-	 * @return bool
-	 */
-	public function hasLike(int $obj_ref_id): bool {
-		$obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
+    /**
+     * @param int $obj_id
+     *
+     * @return Rating|null
+     */
+    public function getRating(int $obj_id)/*: ?Rating*/
+    {
+        /**
+         * @var Rating|null $rating
+         */
 
-		return ($this->getRating($obj_id) !== NULL);
-	}
+        $rating = Rating::where([
+            "obj_id"  => $obj_id,
+            "user_id" => $this->user->getId()
+        ])->first();
 
-
-	/**
-	 * @param int $obj_ref_id
-	 */
-	public function like(int $obj_ref_id)/*: void*/ {
-		$obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
-
-		$rating = $this->getRating($obj_id);
-
-		if ($rating === NULL) {
-			$rating = new Rating();
-
-			$rating->setObjId($obj_id);
-
-			$rating->setUserId($this->user->getId());
-
-			$rating->store();
-		}
-	}
+        return $rating;
+    }
 
 
-	/**
-	 * @param int $obj_ref_id
-	 */
-	public function unlike(int $obj_ref_id)/*: void*/ {
-		$obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
+    /**
+     * @param int $obj_ref_id
+     *
+     * @return bool
+     */
+    public function hasLike(int $obj_ref_id) : bool
+    {
+        $obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
-		$rating = $this->getRating($obj_id);
+        return ($this->getRating($obj_id) !== null);
+    }
 
-		if ($rating !== NULL) {
-			$rating->delete();
-		}
-	}
+
+    /**
+     * @param int $obj_ref_id
+     */
+    public function like(int $obj_ref_id)/*: void*/
+    {
+        $obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
+
+        $rating = $this->getRating($obj_id);
+
+        if ($rating === null) {
+            $rating = new Rating();
+
+            $rating->setObjId($obj_id);
+
+            $rating->setUserId($this->user->getId());
+
+            $rating->store();
+        }
+    }
+
+
+    /**
+     * @param int $obj_ref_id
+     */
+    public function unlike(int $obj_ref_id)/*: void*/
+    {
+        $obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
+
+        $rating = $this->getRating($obj_id);
+
+        if ($rating !== null) {
+            $rating->delete();
+        }
+    }
 }
