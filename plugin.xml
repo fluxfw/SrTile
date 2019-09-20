@@ -2,5 +2,6 @@
 <plugin id="srtile">
 	<events>
 		<event type="raise" id="change_title_before_render" />
+		<event type="raise" id="should_not_display_alert_message" />
 	</events>
 </plugin>

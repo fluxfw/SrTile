@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.8]
+- Event for custom plugins to handle spec. should display an alert message
+
 ## [1.5.7]
 - Fix send recommend mail
 
@@ -11,7 +14,7 @@
 
 ## [1.5.4]
 - Reduce redundant double learning progress images
-
+~~~~
 ## [1.5.3]
 - Adapt colors of learning process
 - Event for custom plugins to handle spec. render

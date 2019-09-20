@@ -5,7 +5,7 @@ namespace srag\Plugins\SrTile\Rating;
 use ilLink;
 use ilPersonalDesktopGUI;
 use ilSrTilePlugin;
-use ilUtil;
+use ilSrTileUIHookGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -83,7 +83,7 @@ class RatingGUI
 
         self::rating(self::dic()->user())->like($this->tile->getObjRefId());
 
-        ilUtil::sendSuccess(self::plugin()->translate("liked", self::LANG_MODULE_RATING), true);
+        ilSrTileUIHookGUI::askAndDisplayAlertMessage("liked", self::LANG_MODULE_RATING);
 
         if (!empty($parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
@@ -102,7 +102,7 @@ class RatingGUI
 
         self::rating(self::dic()->user())->unlike($this->tile->getObjRefId());
 
-        ilUtil::sendSuccess(self::plugin()->translate("unliked", self::LANG_MODULE_RATING), true);
+        ilSrTileUIHookGUI::askAndDisplayAlertMessage("unliked", self::LANG_MODULE_RATING);
 
         if (!empty($parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));

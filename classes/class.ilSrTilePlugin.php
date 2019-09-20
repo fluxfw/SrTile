@@ -33,6 +33,7 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
     const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = SrTileRemoveDataConfirm::class;
     const WEB_DATA_FOLDER = self::PLUGIN_ID . "_data";
     const EVENT_CHANGE_TILE_BEFORE_RENDER = "change_title_before_render";
+    const EVENT_SHOULD_NOT_DISPLAY_ALERT_MESSAGE = "should_not_display_alert_message";
     /**
      * @var self|null
      */
