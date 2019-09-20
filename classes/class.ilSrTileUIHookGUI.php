@@ -208,4 +208,27 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && $a_par["tpl_id"] === self::ADMIN_FOOTER_TPL_ID
             && (self::$load[self::RECOMMEND_MODAL_LOADER] = true));
     }
+
+
+    /**
+     * @param string $key
+     * @param string $module
+     * @param string $alert_type
+     * @param bool   $keep
+     */
+    public static function askAndDisplayAlertMessage(string $key, string $module, string $alert_type = "success", bool $keep = true)/*: void*/
+    {
+        $should_not_display = [];
+
+        self::dic()->appEventHandler()->raise("Plugins/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_SHOULD_NOT_DISPLAY_ALERT_MESSAGE, [
+            "lang_module"        => $module,
+            "lang_key"           => $key,
+            "alert_type"         => $alert_type,
+            "should_not_display" => &$should_not_display // Unfortunately ILIAS Raise Event System not supports return results so use a referenced variable
+        ]);
+
+        if (count((array) $should_not_display) === 0) {
+            ilUtil::{"send" . ucfirst($alert_type)}(self::plugin()->translate($key, $module), $keep);
+        }
+    }
 }

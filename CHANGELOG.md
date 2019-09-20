@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.8]
+- Event for custom plugins to handle spec. should display an alert message
+
 ## [1.5.7]
 - Fix send recommend mail
 
