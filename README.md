@@ -34,6 +34,7 @@ In your plugin class implement or extend the `handleEvent` method
 			case "Plugins/" . ilSrTilePlugin::PLUGIN_NAME:
 				switch ($a_event) {
 					case ilSrTilePlugin::EVENT_...;
+						...
 						break;
 
 					default:
