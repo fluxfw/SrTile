@@ -1722,15 +1722,6 @@ class Tile extends ActiveRecord
 
 
     /**
-     * @return string
-     */
-    protected function _getSimpleLink() : string
-    {
-        return ilLink::_getStaticLink($this->getObjRefId());
-    }
-
-
-    /**
      * @return self
      */
     public function _getSelfOrFirstChildIfShouldDirect() : self
@@ -1771,14 +1762,23 @@ class Tile extends ActiveRecord
 
 
     /**
+     * @return string
+     */
+    protected function _getSimpleLink() : string
+    {
+        return ilLink::_getStaticLink($this->getObjRefId());
+    }
+
+
+    /**
      * @param bool $only_link
      *
      * @return string
      */
-    public function _getOnClickLink(bool $only_link = false) : string
+    public function _getAdvancedLink(bool $only_link = false) : string
     {
         // write access - open normally!
-        if (self::access()->hasWriteAccess($this->getObjRefId())) {
+        if (false&&self::access()->hasWriteAccess($this->getObjRefId())) {
             if ($only_link) {
                 return $this->_getSimpleLink();
             } else {
