@@ -1722,15 +1722,6 @@ class Tile extends ActiveRecord
 
 
     /**
-     * @return string
-     */
-    public function _getLink() : string
-    {
-        return ilLink::_getStaticLink($this->getObjRefId());
-    }
-
-
-    /**
      * @return self
      */
     public function _getSelfOrFirstChildIfShouldDirect() : self
@@ -1748,7 +1739,7 @@ class Tile extends ActiveRecord
                 case ($this instanceof TileReference):
                     $childs = self::dic()->tree()->getChilds($this->getObjRefId());
 
-                    $childs = array_filter($childs, function(array $child):bool{
+                    $childs = array_filter($childs, function (array $child) : bool {
                         return self::access()->hasReadAccess($child["child"]);
                     });
 
@@ -1773,38 +1764,64 @@ class Tile extends ActiveRecord
     /**
      * @return string
      */
-    public function _getOnClickLink() : string
+    protected function _getSimpleLink() : string
+    {
+        return ilLink::_getStaticLink($this->getObjRefId());
+    }
+
+
+    /**
+     * @param bool $only_link
+     *
+     * @return string
+     */
+    public function _getAdvancedLink(bool $only_link = false) : string
     {
         // write access - open normally!
-        if (self::access()->hasWriteAccess($this->getObjRefId())) {
-            return ' href="' . htmlspecialchars($this->_getLink()) . '""';
+        if (false&&self::access()->hasWriteAccess($this->getObjRefId())) {
+            if ($only_link) {
+                return $this->_getSimpleLink();
+            } else {
+                return ' href="' . htmlspecialchars($this->_getSimpleLink()) . '"';
+            }
         }
 
         $tile = $this->_getSelfOrFirstChildIfShouldDirect();
 
         switch (true) {
             case ($tile->il_object->getType() === "sahs"):
-                $slm_gui = new ilObjSCORMLearningModuleGUI("", $tile->getObjRefId(), true, false);
-
-                $sahs_obj = new ilObjSAHSLearningModule($tile->getObjRefId());
-                $om = $sahs_obj->getOpenMode();
-                $width = $sahs_obj->getWidth();
-                $height = $sahs_obj->getHeight();
-
-                if (($om == 5 || $om == 1) && $width > 0 && $height > 0) {
-                    $om++;
-                }
-
                 self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $tile->getObjRefId());
 
-                return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
-                    . $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
+                if ($only_link) {
+                    return ILIAS_HTTP_PATH . '/goto.php?target=cat_' . $this->getObjRefId() . '_opensahs_' . $tile->getObjRefId() . '&client_id='
+                        . CLIENT_ID;
+                } else {
+                    $slm_gui = new ilObjSCORMLearningModuleGUI("", $tile->getObjRefId(), true, false);
+
+                    $sahs_obj = new ilObjSAHSLearningModule($tile->getObjRefId());
+                    $om = $sahs_obj->getOpenMode();
+                    $width = $sahs_obj->getWidth();
+                    $height = $sahs_obj->getHeight();
+
+                    if (($om == 5 || $om == 1) && $width > 0 && $height > 0) {
+                        $om++;
+                    }
+
+                    self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $tile->getObjRefId());
+
+                    return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
+                        . $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
+                }
 
             case ($tile->il_object->getType() === "webr"):
                 if (intval(ilLinkResourceItems::lookupNumberOfLinks($tile->il_object->getId())) === 1) {
                     $link_arr = ilLinkResourceItems::_getFirstLink($tile->il_object->getId());
 
-                    return ' href="' . htmlspecialchars($link_arr['target']) . '""';
+                    if ($only_link) {
+                        return $link_arr['target'];
+                    } else {
+                        return ' href="' . htmlspecialchars($link_arr['target']) . '"';
+                    }
                 }
                 break;
 
@@ -1812,7 +1829,11 @@ class Tile extends ActiveRecord
                 break;
         }
 
-        return ' href="' . htmlspecialchars($tile->_getLink()) . '""';
+        if ($only_link) {
+            return $tile->_getSimpleLink();
+        } else {
+            return ' href="' . htmlspecialchars($tile->_getSimpleLink()) . '"';
+        }
     }
 
 

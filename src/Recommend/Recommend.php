@@ -81,7 +81,7 @@ class Recommend
      */
     public function getLink() : string
     {
-        return $this->tile->_getLink();
+        return $this->tile->_getAdvancedLink(true);
     }
 
 
