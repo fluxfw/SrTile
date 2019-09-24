@@ -129,7 +129,7 @@ final class Templates
 
         $template = $this->getByObjectType($object_type);
 
-        $properties = Closure::bind(function () {
+        $properties = Closure::bind(function () : array {
             return get_object_vars($this);
         }, $template, Template::class)();
         $properties = array_filter($properties, function (string $property) : bool {
@@ -142,7 +142,7 @@ final class Templates
         $tile->applyNewImage("");
 
         foreach ($properties as $key => $value) {
-            Closure::bind(function ($key, $value) {
+            Closure::bind(function ($key, $value)/*:void*/ {
                 $this->{$key} = $value;
             }, $tile, Tile::class)($key, $value);
         }
