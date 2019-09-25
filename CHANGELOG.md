@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.10]
+- Fix install
+
 ## [1.5.9]
 - Fix link on recommend mail
 

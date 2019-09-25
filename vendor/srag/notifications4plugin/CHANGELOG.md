@@ -1,5 +1,8 @@
 # Changelog
 
+## [4.5.6]
+- Fix install (Fix Call to a member function getName() on null (Because not use ILIAS primary key))
+
 ## [4.5.5]
 - Allows template selection is not required
 
