@@ -51,6 +51,7 @@ tile_columns_count#:#Anzahl (Experimental)
 tile_columns_fix_width#:#Feste Breite
 tile_disabled#:#Deaktiviert
 tile_disabled_hint#:#Global in ILIAS deaktiviert
+tile_download_certificate#:#Zertifikat herunterladen
 tile_enable_rating#:#Bewertung aktivieren
 tile_enabled#:#Aktiviert
 tile_favorites#:#Favoriten

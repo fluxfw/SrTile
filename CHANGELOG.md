@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.11]
+- Fix download certificate tooltip
+
 ## [1.5.10]
 - Fix install
 
