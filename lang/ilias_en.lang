@@ -51,6 +51,7 @@ tile_columns_count#:#Count (Experimental)
 tile_columns_fix_width#:#Fix width
 tile_disabled#:#Disabled
 tile_disabled_hint#:#Disabled globally in ILIAS
+tile_download_certificate#:#Download certificate
 tile_enable_rating#:#Enable rating
 tile_enabled#:#Enabled
 tile_favorites#:#Favorites
