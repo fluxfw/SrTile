@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.12]
+- Make learning progress progress meter works again with PHP 7.0
+
 ## [1.5.11]
 - Fix download certificate tooltip
 
