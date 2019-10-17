@@ -22,6 +22,18 @@ class TemplatesTableGUI extends TableGUI
 
 
     /**
+     * TemplatesTableGUI constructor
+     *
+     * @param TemplatesGUI $parent
+     * @param string       $parent_cmd
+     */
+    public function __construct(TemplatesGUI $parent, string $parent_cmd)
+    {
+        parent::__construct($parent, $parent_cmd);
+    }
+
+
+    /**
      * @inheritdoc
      */
     protected function getColumnValue(/*string*/
