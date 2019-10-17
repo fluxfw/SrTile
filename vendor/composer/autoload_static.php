@@ -13,8 +13,8 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
             'srag\\Plugins\\SrTile\\' => 20,
             'srag\\Notifications4Plugin\\SrTile\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\DIC\\SrTile\\' => 16,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
             'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
@@ -40,11 +40,11 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
@@ -315,7 +315,6 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\CustomInputGUIs\\SrTile\\Template\\Template' => __DIR__ . '/..' . '/srag/custominputguis/src/Template/Template.php',
         'srag\\CustomInputGUIs\\SrTile\\TextAreaInputGUI\\TextAreaInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/TextAreaInputGUI/TextAreaInputGUI.php',
         'srag\\CustomInputGUIs\\SrTile\\TextInputGUI\\TextInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/TextInputGUI/TextInputGUI.php',
-        'srag\\CustomInputGUIs\\SrTile\\TextInputGUI\\TextInputGUIWithModernAutoComplete' => __DIR__ . '/..' . '/srag/custominputguis/src/TextInputGUI/TextInputGUIWithModernAutoComplete.php',
         'srag\\CustomInputGUIs\\SrTile\\ViewControlModeUI\\ViewControlModeUI' => __DIR__ . '/..' . '/srag/custominputguis/src/ViewControlModeGUI/ViewControlModeUI.php',
         'srag\\CustomInputGUIs\\SrTile\\Waiter\\Waiter' => __DIR__ . '/..' . '/srag/custominputguis/src/Waiter/Waiter.php',
         'srag\\CustomInputGUIs\\SrTile\\WeekdayInputGUI\\WeekdayInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/WeekdayInputGUI/WeekdayInputGUI.php',
@@ -410,6 +409,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\Template\\Template' => __DIR__ . '/../..' . '/src/Template/Template.php',
         'srag\\Plugins\\SrTile\\Template\\TemplateFormGUI' => __DIR__ . '/../..' . '/src/Template/TemplateFormGUI.php',
         'srag\\Plugins\\SrTile\\Template\\Templates' => __DIR__ . '/../..' . '/src/Template/Templates.php',
+        'srag\\Plugins\\SrTile\\Template\\TemplatesGUI' => __DIR__ . '/../..' . '/src/Template/class.TemplatesGUI.php',
         'srag\\Plugins\\SrTile\\Template\\TemplatesTableGUI' => __DIR__ . '/../..' . '/src/Template/TemplatesTableGUI.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileContainerGUI\\TileContainerGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileContainerGUI/TileContainerGUI.php',
         'srag\\Plugins\\SrTile\\TileGUI\\TileGUIAbstract' => __DIR__ . '/../..' . '/src/TileGUI/TileGUIAbstract.php',

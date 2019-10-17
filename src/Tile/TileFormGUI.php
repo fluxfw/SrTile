@@ -12,12 +12,12 @@ use ilNonEditableValueGUI;
 use ilNumberInputGUI;
 use ilRadioGroupInputGUI;
 use ilRadioOption;
-use ilSrTileConfigGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
 use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
 use srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage;
 use srag\Plugins\SrTile\Notification\Notification\Notification;
+use srag\Plugins\SrTile\Template\TemplatesGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -43,8 +43,8 @@ class TileFormGUI extends ObjectPropertyFormGUI
     /**
      * TileFormGUI constructor
      *
-     * @param TileGUI|ilSrTileConfigGUI $parent
-     * @param Tile                      $object
+     * @param TileGUI|TemplatesGUI $parent
+     * @param Tile                 $object
      *
      * @throws ilException
      */
