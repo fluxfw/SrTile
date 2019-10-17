@@ -10,15 +10,15 @@ use srag\Plugins\SrTile\Tile\TileGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
- * Class TemplatesGUI
+ * Class TemplatesConfigGUI
  *
  * @package           srag\Plugins\SrTile\Template
  *
  * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
- * @ilCtrl_isCalledBy srag\Plugins\SrTile\Template\TemplatesGUI: ilSrTileConfigGUI
+ * @ilCtrl_isCalledBy srag\Plugins\SrTile\Template\TemplatesConfigGUI: ilSrTileConfigGUI
  */
-class TemplatesGUI
+class TemplatesConfigGUI
 {
 
     use DICTrait;
@@ -34,7 +34,7 @@ class TemplatesGUI
 
 
     /**
-     * TemplatesGUI constructor
+     * TemplatesConfigGUI constructor
      */
     public function __construct()
     {

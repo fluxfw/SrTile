@@ -18,16 +18,16 @@ class TemplatesTableGUI extends TableGUI
 
     use SrTileTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-    const LANG_MODULE = TemplatesGUI::LANG_MODULE_TEMPLATE;
+    const LANG_MODULE = TemplatesConfigGUI::LANG_MODULE_TEMPLATE;
 
 
     /**
      * TemplatesTableGUI constructor
      *
-     * @param TemplatesGUI $parent
-     * @param string       $parent_cmd
+     * @param TemplatesConfigGUI $parent
+     * @param string             $parent_cmd
      */
-    public function __construct(TemplatesGUI $parent, string $parent_cmd)
+    public function __construct(TemplatesConfigGUI $parent, string $parent_cmd)
     {
         parent::__construct($parent, $parent_cmd);
     }
@@ -132,7 +132,7 @@ class TemplatesTableGUI extends TableGUI
 
         $this->tpl->setVariable("COLUMN", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
             self::dic()->ui()->factory()->button()->shy($this->txt("edit_template"), self::dic()->ctrl()
-                ->getLinkTarget($this->parent_obj, TemplatesGUI::CMD_EDIT_TEMPLATE))
+                ->getLinkTarget($this->parent_obj, TemplatesConfigGUI::CMD_EDIT_TEMPLATE))
         ])->withLabel($this->txt("actions"))));
     }
 }
