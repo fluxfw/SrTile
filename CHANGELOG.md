@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.13]
+- Fix shadow
+
 ## [1.5.12]
 - Make learning progress progress meter works again with PHP 7.0
 

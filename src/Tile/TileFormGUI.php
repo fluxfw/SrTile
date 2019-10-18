@@ -765,7 +765,8 @@ class TileFormGUI extends ObjectPropertyFormGUI
                         self::PROPERTY_CLASS => ilRadioOption::class,
                         "setTitle"           => $this->txt("position_right_bottom")
                     ]
-                ]
+                ],
+                "setTitle"              => $this->txt("position")
             ]
         ];
     }
