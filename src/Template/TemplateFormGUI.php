@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Template;
 
-use ilSrTileConfigGUI;
 use srag\Plugins\SrTile\Tile\TileFormGUI;
 
 /**
@@ -20,8 +19,8 @@ class TemplateFormGUI extends TileFormGUI
      */
     protected function initCommands()/*: void*/
     {
-        $this->addCommandButton(ilSrTileConfigGUI::CMD_UPDATE_TEMPLATE, $this->txt("save"));
+        $this->addCommandButton(TemplatesConfigGUI::CMD_UPDATE_TEMPLATE, $this->txt("save"));
 
-        $this->addCommandButton($this->parent->getCmdForTab(ilSrTileConfigGUI::TAB_TEMPLATES), $this->txt("cancel"));
+        $this->addCommandButton(TemplatesConfigGUI::CMD_LIST_TEMPLATES, $this->txt("cancel"));
     }
 }

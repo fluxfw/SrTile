@@ -2,9 +2,8 @@
 
 namespace srag\Plugins\SrTile\Template;
 
-use ilSrTileConfigGUI;
 use ilSrTilePlugin;
-use srag\ActiveRecordConfig\SrTile\ActiveRecordConfigTableGUI;
+use srag\CustomInputGUIs\SrTile\TableGUI\TableGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -14,12 +13,24 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class TemplatesTableGUI extends ActiveRecordConfigTableGUI
+class TemplatesTableGUI extends TableGUI
 {
 
     use SrTileTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-    const LANG_MODULE = ilSrTileConfigGUI::LANG_MODULE_TEMPLATE;
+    const LANG_MODULE = TemplatesConfigGUI::LANG_MODULE_TEMPLATE;
+
+
+    /**
+     * TemplatesTableGUI constructor
+     *
+     * @param TemplatesConfigGUI $parent
+     * @param string             $parent_cmd
+     */
+    public function __construct(TemplatesConfigGUI $parent, string $parent_cmd)
+    {
+        parent::__construct($parent, $parent_cmd);
+    }
 
 
     /**
@@ -84,9 +95,27 @@ class TemplatesTableGUI extends ActiveRecordConfigTableGUI
     /**
      * @inheritdoc
      */
+    protected function initFilterFields()/*: void*/
+    {
+        $this->filter_fields = [];
+    }
+
+
+    /**
+     * @inheritdoc
+     */
     protected function initId()/*: void*/
     {
         $this->setId("srtile_templates");
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    protected function initTitle()/*: void*/
+    {
+        $this->setTitle($this->txt("templates"));
     }
 
 
@@ -103,7 +132,7 @@ class TemplatesTableGUI extends ActiveRecordConfigTableGUI
 
         $this->tpl->setVariable("COLUMN", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
             self::dic()->ui()->factory()->button()->shy($this->txt("edit_template"), self::dic()->ctrl()
-                ->getLinkTarget($this->parent_obj, ilSrTileConfigGUI::CMD_EDIT_TEMPLATE))
+                ->getLinkTarget($this->parent_obj, TemplatesConfigGUI::CMD_EDIT_TEMPLATE))
         ])->withLabel($this->txt("actions"))));
     }
 }
