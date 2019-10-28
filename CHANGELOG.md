@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.15]
+- Fix drag'n' drop file upload
+
 ## [1.5.14]
 - Fix scorm 'Opens in a New Tab or Alternatively in a New Window, Without ILIAS Main Menu'
 
