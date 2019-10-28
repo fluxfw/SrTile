@@ -1778,7 +1778,7 @@ class Tile extends ActiveRecord
     public function _getAdvancedLink(bool $only_link = false) : string
     {
         // write access - open normally!
-        if (false && self::access()->hasWriteAccess($this->getObjRefId())) {
+        if (self::access()->hasWriteAccess($this->getObjRefId())) {
             if ($only_link) {
                 return $this->_getSimpleLink();
             } else {
