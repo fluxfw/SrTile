@@ -1778,7 +1778,7 @@ class Tile extends ActiveRecord
     public function _getAdvancedLink(bool $only_link = false) : string
     {
         // write access - open normally!
-        if (false&&self::access()->hasWriteAccess($this->getObjRefId())) {
+        if (self::access()->hasWriteAccess($this->getObjRefId())) {
             if ($only_link) {
                 return $this->_getSimpleLink();
             } else {
@@ -1805,6 +1805,10 @@ class Tile extends ActiveRecord
 
                     if (($om == 5 || $om == 1) && $width > 0 && $height > 0) {
                         $om++;
+                    } else {
+                        if ($om == 0) {
+                            return ' href="' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . '" target="ilContObj' . $slm_gui->object->getId() . '"';
+                        }
                     }
 
                     self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $tile->getObjRefId());

@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.14]
+- Fix scorm 'Opens in a New Tab or Alternatively in a New Window, Without ILIAS Main Menu'
+
 ## [1.5.13]
 - Fix shadow
 
