@@ -89,8 +89,9 @@ abstract class TileGUIAbstract implements TileGUIInterface
         $tpl->setVariable("TITLE_HORIZONTAL_ALIGN", $this->tile->getLabelHorizontalAlign());
         $tpl->setVariable("TITLE_VERTICAL_ALIGN", $this->tile->getLabelVerticalAlign());
 
+        $tpl->setVariable("LINK", $this->tile->_getAdvancedLink());
+
         if (self::access()->hasOpenAccess($this->tile)) {
-            $tpl->setVariable("LINK", $this->tile->_getAdvancedLink());
 
             if (self::ilias()->favorites(self::dic()->user())->enabled()
                 && $this->tile->getShowFavoritesIcon() === Tile::SHOW_TRUE
@@ -226,8 +227,6 @@ abstract class TileGUIAbstract implements TileGUIInterface
                     $tpl->setVariable("LANGUAGE_FLAG", self::output()->getHTML($tpl_language_flag));
                 }
             }
-        } else {
-            $tpl->setVariable("DISABLED", " tile_disabled");
         }
 
         $image = $this->tile->getImagePathWithCheck();

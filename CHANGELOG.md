@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.16]
+- Remove disable only visibile permission
+
 ## [1.5.15]
 - Fix drag'n' drop file upload
 
@@ -35,7 +38,7 @@
 
 ## [1.5.4]
 - Reduce redundant double learning progress images
-~~~~
+
 ## [1.5.3]
 - Adapt colors of learning process
 - Event for custom plugins to handle spec. render
