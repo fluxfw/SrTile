@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.16]
+- Remove disable only visibile permission
+
 ## [1.5.15]
 - Fix drag'n' drop file upload
 
