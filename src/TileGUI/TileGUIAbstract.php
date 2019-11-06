@@ -237,8 +237,20 @@ abstract class TileGUIAbstract implements TileGUIInterface
         $tpl->setVariable("IMAGE_POSITION", $this->tile->getImagePosition());
         $tpl->setVariable("IMAGE_SHOW_AS_BACKGROUND", $this->tile->getShowImageAsBackground());
 
-        if ($this->tile->getShowActions() === Tile::SHOW_TRUE && self::access()->hasWriteAccess($this->tile->getObjRefId())) {
-            $tpl->setVariable("ACTIONS", $this->getActions());
+        switch ($this->tile->getShowActions()) {
+            case Tile::SHOW_ACTIONS_ALWAYS:
+                $tpl->setVariable("ACTIONS", $this->getActions());
+                break;
+
+            case Tile::SHOW_ACTIONS_ONLY_WITH_WRITE_PERMISSIONS:
+                if (self::access()->hasWriteAccess($this->tile->getObjRefId())) {
+                    $tpl->setVariable("ACTIONS", $this->getActions());
+                }
+                break;
+
+            case Tile::SHOW_ACTIONS_NONE:
+            default:
+                break;
         }
         $tpl->setVariable("ACTIONS_POSITION", $this->tile->getActionsPosition());
         $tpl->setVariable("ACTIONS_VERTICAL_ALIGN", $this->tile->getActionsVerticalAlign());

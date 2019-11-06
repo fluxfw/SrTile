@@ -104,11 +104,11 @@ tile_show_learning_progress_meter#:#Progress-Meter
 tile_show_likes_count#:#Likes-Zähler anzeigen
 tile_show_none#:#Nicht anzeigen
 tile_show_object_tabs#:#Objekt-Tabs anzeigen (Leserechte)
+tile_show_only_write_permissions#:#Nur mit Schreibrechte anzeigen
 tile_show_preconditions#:#Vorbedingungen anzeigen
 tile_show_recommend_icon#:#Empfehlen-Icon anzeigen
 tile_show_title#:#Titel anzeigen
 tile_show_true#:#Anzeigen
-tile_show_true_if_permitted#:#Anzeigen (Wenn Zugang genehmigt)
 tile_tile#:#Kachel
 tile_vertical_align#:#Vertikale-Ausrichtung
 tile_vertical_align_bottom#:#Unten

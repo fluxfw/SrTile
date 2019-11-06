@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.17]
+- Show actions always config
+
 ## [1.5.16]
 - Remove disable only visibile permission
 
