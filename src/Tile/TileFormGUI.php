@@ -498,13 +498,17 @@ class TileFormGUI extends ObjectPropertyFormGUI
                 self::PROPERTY_CLASS    => ilRadioGroupInputGUI::class,
                 self::PROPERTY_REQUIRED => false,
                 self::PROPERTY_SUBITEMS => [
-                    Tile::SHOW_FALSE => [
+                    Tile::SHOW_ACTIONS_NONE => [
                         self::PROPERTY_CLASS => ilRadioOption::class,
                         "setTitle"           => $this->txt("show_false")
                     ],
-                    Tile::SHOW_TRUE  => [
+                    Tile::SHOW_ACTIONS_ONLY_WITH_WRITE_PERMISSIONS  => [
                         self::PROPERTY_CLASS => ilRadioOption::class,
-                        "setTitle"           => $this->txt("show_true_if_permitted")
+                        "setTitle"           => $this->txt("show_only_write_permissions")
+                    ],
+                    Tile::SHOW_ACTIONS_ALWAYS  => [
+                        self::PROPERTY_CLASS => ilRadioOption::class,
+                        "setTitle"           => $this->txt("show_true")
                     ]
                 ]
             ],

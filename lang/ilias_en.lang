@@ -104,11 +104,11 @@ tile_show_learning_progress_meter#:#Progress meter
 tile_show_likes_count#:#Show likes count
 tile_show_none#:#Not show
 tile_show_object_tabs#:#Show object tabs (Read permissions)
+tile_show_only_write_permissions#:#Show only with write permissions
 tile_show_preconditions#:#Show preconditions (Experimental)
 tile_show_recommend_icon#:#Show recommend icon
 tile_show_title#:#Show title
 tile_show_true#:#Show
-tile_show_true_if_permitted#:#Show (If access permitted)
 tile_tile#:#Tile
 tile_vertical_align#:#Vertical align
 tile_vertical_align_bottom#:#Bottom
