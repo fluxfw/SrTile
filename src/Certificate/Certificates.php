@@ -92,7 +92,7 @@ class Certificates
      */
     public function enabled_core() : bool
     {
-        return ilCertificate::isActive() && ilCertificate::isObjectActive($this->tile->_getSelfOrFirstChildIfShouldDirect()->_getIlObject()->getId());
+        return ilCertificate::isActive();
     }
 
 
