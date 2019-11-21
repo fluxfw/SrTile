@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.5.18]
+- Fix certificates are not configurable if it was disabled for the objekt (Possible problem with templates or with 'Open object with one child direct')
+
 ## [1.5.17]
 - Show actions always config
 
