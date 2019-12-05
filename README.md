@@ -53,6 +53,7 @@ class ilXPlugin extends ...
 				break;
 		}
 	}
+...
 ```
 
 | Event | Parameters | Purpose |
