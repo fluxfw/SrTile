@@ -38,7 +38,7 @@ class ilXPlugin extends ...
 	 */
 	public function handleEvent($a_component, $a_event, $a_parameter) {
 		switch ($a_component) {
-			case "Plugins/" . ilSrTilePlugin::PLUGIN_NAME:
+			case IL_COMP_PLUGIN . "/" . ilSrTilePlugin::PLUGIN_NAME:
 				switch ($a_event) {
 					case ilSrTilePlugin::EVENT_...;
 						...

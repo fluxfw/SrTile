@@ -220,7 +220,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     {
         $should_not_display = [];
 
-        self::dic()->appEventHandler()->raise("Plugins/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_SHOULD_NOT_DISPLAY_ALERT_MESSAGE, [
+        self::dic()->appEventHandler()->raise(IL_COMP_PLUGIN . "/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_SHOULD_NOT_DISPLAY_ALERT_MESSAGE, [
             "lang_module"        => $module,
             "lang_key"           => $key,
             "alert_type"         => $alert_type,

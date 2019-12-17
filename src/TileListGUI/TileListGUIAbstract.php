@@ -110,7 +110,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface
 
         $is_parent_css_rendered = false;
         foreach ($this->tile_list->getTiles() as $tile) {
-            self::dic()->appEventHandler()->raise("Plugins/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_CHANGE_TILE_BEFORE_RENDER, [
+            self::dic()->appEventHandler()->raise(IL_COMP_PLUGIN . "/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_CHANGE_TILE_BEFORE_RENDER, [
                 "tile" => $tile
             ]);
 
