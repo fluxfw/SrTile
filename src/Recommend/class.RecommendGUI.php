@@ -25,7 +25,8 @@ class RecommendGUI
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_ADD_RECOMMEND = "addRecommend";
     const CMD_NEW_RECOMMEND = "newRecommend";
-    const LANG_MODULE_RECOMMENDATION = "recommendation";
+    const GET_PARAM_REF_ID = "ref_id";
+    const LANG_MODULE = "recommendation";
     /**
      * @var Tile
      */
@@ -37,7 +38,7 @@ class RecommendGUI
      */
     public function __construct()
     {
-        $this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
+
     }
 
 
@@ -46,12 +47,18 @@ class RecommendGUI
      */
     public function executeCommand()/*: void*/
     {
+        $this->tile = self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID)));
+
         if (!($this->tile->getShowRecommendIcon() === Tile::SHOW_TRUE
             && !empty($this->tile->getRecommendMailTemplate())
-            && self::access()->hasReadAccess($this->tile->getObjRefId()))
+            && self::srTile()->access()->hasReadAccess($this->tile->getObjRefId()))
         ) {
-            return;
+            die();
         }
+
+        self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_REF_ID);
+
+        $this->setTabs();
 
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
@@ -70,6 +77,15 @@ class RecommendGUI
                 }
                 break;
         }
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*:void*/
+    {
+
     }
 
 
@@ -94,32 +110,6 @@ class RecommendGUI
         $modal = str_replace('<div class="modal-footer">', '<div class="modal-footer" style="display:none;">', $modal);
 
         return $modal;
-    }
-
-
-    /**
-     * @return RecommendFormGUI
-     */
-    protected function getRecommendForm() : RecommendFormGUI
-    {
-        $tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
-
-        $form = new RecommendFormGUI($this, $tile);
-
-        return $form;
-    }
-
-
-    /**
-     * @return SuccessFormGUI
-     */
-    protected function getSuccessForm() : SuccessFormGUI
-    {
-        $tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
-
-        $form = new SuccessFormGUI($this, $tile);
-
-        return $form;
     }
 
 
@@ -153,7 +143,7 @@ class RecommendGUI
     {
         $message = null;
 
-        $form = $this->getRecommendForm();
+        $form = self::srTile()->recommend()->factory()->newFormInstance($this, $this->tile);
 
         $this->show($message, $form);
     }
@@ -166,7 +156,7 @@ class RecommendGUI
     {
         $message = null;
 
-        $form = $this->getRecommendForm();
+        $form = self::srTile()->recommend()->factory()->newFormInstance($this, $this->tile);
 
         if (!$form->storeForm()) {
             $this->show($message, $form);
@@ -179,18 +169,18 @@ class RecommendGUI
         if ($recommend->send()) {
             if (self::version()->is54()) {
                 $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->success(self::plugin()
-                    ->translate("sent_success", self::LANG_MODULE_RECOMMENDATION)));
+                    ->translate("sent_success", self::LANG_MODULE)));
             } else {
                 $message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
-                    ->translate("sent_success", self::LANG_MODULE_RECOMMENDATION), "success");
+                    ->translate("sent_success", self::LANG_MODULE), "success");
             }
         } else {
             if (self::version()->is54()) {
                 $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->failure(self::plugin()
-                    ->translate("sent_failure", self::LANG_MODULE_RECOMMENDATION)));
+                    ->translate("sent_failure", self::LANG_MODULE)));
             } else {
                 $message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
-                    ->translate("sent_failure", self::LANG_MODULE_RECOMMENDATION), "failure");
+                    ->translate("sent_failure", self::LANG_MODULE), "failure");
             }
         }
 

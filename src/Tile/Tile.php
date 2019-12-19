@@ -13,6 +13,7 @@ use ilObjSAHSLearningModule;
 use ilObjSCORMLearningModuleGUI;
 use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
+use ilSrTileUIHookGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -1669,7 +1670,7 @@ class Tile extends ActiveRecord
             }
             $this->setImage("");
 
-            self::colorThiefCaches()->delete($image_old_path);
+            self::srTile()->colorThiefCaches()->delete($image_old_path);
         }
 
         if (!empty($path_of_new_image)) {
@@ -1732,7 +1733,7 @@ class Tile extends ActiveRecord
         $this->_getIlObject();
 
         //open directly the one object if it's only one AND as READ ACCESS
-        if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE && self::access()->hasReadAccess($this->getObjRefId())) {
+        if ($this->getOpenObjWithOneChildDirect() === Tile::OPEN_TRUE && self::srTile()->access()->hasReadAccess($this->getObjRefId())) {
 
             switch (true) {
                 case ($this->il_object->getType() === "crs"):
@@ -1743,11 +1744,11 @@ class Tile extends ActiveRecord
                     $childs = self::dic()->tree()->getChilds($this->getObjRefId());
 
                     $childs = array_filter($childs, function (array $child) : bool {
-                        return self::access()->hasReadAccess($child["child"]);
+                        return self::srTile()->access()->hasReadAccess($child["child"]);
                     });
 
                     if (count($childs) === 1) {
-                        $tile = self::tiles()->getInstanceForObjRefId(intval(current($childs)["child"]));
+                        $tile = self::srTile()->tiles()->getInstanceForObjRefId(intval(current($childs)["child"]));
 
                         $tile->_getIlObject();
 
@@ -1781,7 +1782,7 @@ class Tile extends ActiveRecord
     public function _getAdvancedLink(bool $only_link = false) : string
     {
         // write access - open normally!
-        if (self::access()->hasWriteAccess($this->getObjRefId())) {
+        if (self::srTile()->access()->hasWriteAccess($this->getObjRefId())) {
             if ($only_link) {
                 return $this->_getSimpleLink();
             } else {
@@ -1793,7 +1794,7 @@ class Tile extends ActiveRecord
 
         switch (true) {
             case ($tile->il_object->getType() === "sahs"):
-                self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $tile->getObjRefId());
+                self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
 
                 if ($only_link) {
                     return ILIAS_HTTP_PATH . '/goto.php?target=cat_' . $this->getObjRefId() . '_opensahs_' . $tile->getObjRefId() . '&client_id='
@@ -1814,7 +1815,7 @@ class Tile extends ActiveRecord
                         }
                     }
 
-                    self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $tile->getObjRefId());
+                    self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
 
                     return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
                         . $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
@@ -1881,7 +1882,7 @@ class Tile extends ActiveRecord
     {
         $image = $this->getImagePathWithCheck();
 
-        $colorThiefCache = self::colorThiefCaches()->getColorThiefCache($image);
+        $colorThiefCache = self::srTile()->colorThiefCaches()->getColorThiefCache($image);
 
         if (!empty($image)) {
             if (empty($colorThiefCache->getColor())) {
@@ -1891,11 +1892,11 @@ class Tile extends ActiveRecord
                     $colorThiefCache->setColor(implode(",", $dominantColor));
                 }
 
-                $colorThiefCache->store();
+                self::srTile()->colorThiefCaches()->storeColorThiefCache($colorThiefCache);
             }
         } else {
             $colorThiefCache->setColor("");
-            $colorThiefCache->store();
+            self::srTile()->colorThiefCaches()->storeColorThiefCache($colorThiefCache);
         }
 
         return $colorThiefCache->getColor();

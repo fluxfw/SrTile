@@ -8,7 +8,6 @@ use ilSrTilePlugin;
 use ilTextAreaInputGUI;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
-use srag\Plugins\SrTile\Tile\Tiles;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -23,7 +22,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
     use SrTileTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-    const LANG_MODULE = RecommendGUI::LANG_MODULE_RECOMMENDATION;
+    const LANG_MODULE = RecommendGUI::LANG_MODULE;
     /**
      * @var Recommend
      */
@@ -44,7 +43,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
     {
         $this->tile = $tile;
 
-        parent::__construct($parent, new Recommend($this->tile), false);
+        parent::__construct($parent, self::srTile()->recommend()->factory()->newInstance($this->tile), false);
     }
 
 
@@ -53,8 +52,6 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
      */
     protected final function initAction()/*: void*/
     {
-        self::dic()->ctrl()->setParameter($this->parent, Tiles::GET_PARAM_REF_ID, $this->tile->getObjRefId());
-
         $this->setFormAction(self::dic()->ctrl()->getFormAction($this->parent, "", "", true));
     }
 
@@ -82,12 +79,12 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
                 self::PROPERTY_CLASS    => ilEMailInputGUI::class,
                 self::PROPERTY_REQUIRED => true
             ],
-            "message"      => [
+            "message"        => [
                 self::PROPERTY_CLASS    => ilTextAreaInputGUI::class,
                 self::PROPERTY_REQUIRED => true,
                 "setRows"               => 6
             ],
-            "link"         => [
+            "link"           => [
                 self::PROPERTY_CLASS => ilNonEditableValueGUI::class
             ]
         ];

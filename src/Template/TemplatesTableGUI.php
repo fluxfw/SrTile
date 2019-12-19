@@ -3,6 +3,7 @@
 namespace srag\Plugins\SrTile\Template;
 
 use ilSrTilePlugin;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\Items\Items;
 use srag\CustomInputGUIs\SrTile\TableGUI\TableGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -18,7 +19,7 @@ class TemplatesTableGUI extends TableGUI
 
     use SrTileTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-    const LANG_MODULE = TemplatesConfigGUI::LANG_MODULE_TEMPLATE;
+    const LANG_MODULE = TemplatesConfigGUI::LANG_MODULE;
 
 
     /**
@@ -35,19 +36,21 @@ class TemplatesTableGUI extends TableGUI
 
     /**
      * @inheritdoc
+     *
+     * @param Template $template
      */
     protected function getColumnValue(/*string*/
-        $column, /*array*/
-        $row, /*int*/
+        $column, /*Template*/
+        $template, /*int*/
         $format = self::DEFAULT_FORMAT
     ) : string {
         switch ($column) {
             case "object_type":
-                $column = $row["template"]->_getTitle();
+                $column = $template->_getTitle();
                 break;
 
             default:
-                $column = $row[$column];
+                $column = Items::getter($template, $column);
                 break;
         }
 
@@ -88,7 +91,10 @@ class TemplatesTableGUI extends TableGUI
      */
     protected function initData()/*: void*/
     {
-        $this->setData(self::templates()->getArray());
+        $this->setExternalSegmentation(true);
+        $this->setExternalSorting(true);
+
+        $this->setData(self::srTile()->templates()->getArray());
     }
 
 
@@ -120,19 +126,17 @@ class TemplatesTableGUI extends TableGUI
 
 
     /**
-     * @param array $row
+     * @param Template $template
      */
-    protected function fillRow(/*array*/
-        $row
-    )/*: void*/
+    protected function fillRow(/*Template*/ $template)/*: void*/
     {
-        self::dic()->ctrl()->setParameter($this->parent_obj, "srtile_object_type", $row["template"]->getObjectType());
+        self::dic()->ctrl()->setParameterByClass(TemplateConfigGUI::class, TemplateConfigGUI::GET_PARAM_OBJECT_TYPE, $template->getObjectType());
 
-        parent::fillRow($row);
+        parent::fillRow($template);
 
         $this->tpl->setVariable("COLUMN", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
             self::dic()->ui()->factory()->button()->shy($this->txt("edit_template"), self::dic()->ctrl()
-                ->getLinkTarget($this->parent_obj, TemplatesConfigGUI::CMD_EDIT_TEMPLATE))
+                ->getLinkTargetByClass(TemplateConfigGUI::class, TemplateConfigGUI::CMD_EDIT_TEMPLATE))
         ])->withLabel($this->txt("actions"))));
     }
 }

@@ -11,10 +11,10 @@ use ilObjUser;
 use ilRepositoryGUI;
 use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
+use ilSrTileUIHookGUI;
 use ilUIPluginRouterGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Tile;
-use srag\Plugins\SrTile\Tile\Tiles;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srCertificate;
 use srCertificateDefinition;
@@ -168,7 +168,7 @@ class Certificates
                 //@see Modules/Course/classes/class.ilObjCourseGUI.php:3214
                 if ($this->enabled_core()) {
                     if (ilCourseParticipants::getDateTimeOfPassed($tile->_getIlObject()->getId(), $this->user->getId())) {
-                        self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, Tiles::GET_PARAM_REF_ID, $tile->getObjRefId());
+                        self::dic()->ctrl()->setParameterByClass(ilObjCourseGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
 
                         return self::dic()->ctrl()->getLinkTargetByClass([ilRepositoryGUI::class, ilObjCourseGUI::class], 'deliverCertificate');
                     }
@@ -177,9 +177,9 @@ class Certificates
 
             case "sahs":
                 if ($this->enabled_core()) {
-                    if (self::ilias()->learningProgress($this->user)->getStatus($tile->getObjRefId()) === ilLPStatus::LP_STATUS_COMPLETED_NUM) {
+                    if (self::srTile()->ilias()->learningProgress($this->user)->getStatus($tile->getObjRefId()) === ilLPStatus::LP_STATUS_COMPLETED_NUM) {
                         //the following way of link generation does not work! the above way is the standard(!:-( ILIAS way of link generation for certificate
-                        //$this->ctrl->setParameterByClass(ilSAHSPresentationGUI::class, Tiles::GET_PARAM_REF_ID, $obj_ref_id);
+                        //$this->ctrl->setParameterByClass(ilSAHSPresentationGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, $obj_ref_id);
                         //return $this->ctrl->getLinkTargetByClass(ilSAHSPresentationGUI::class,'downloadCertificate');
                         return 'ilias.php?baseClass=' . ilSAHSPresentationGUI::class . '&ref_id=' . $tile->getObjRefId() . '&cmd=downloadCertificate';
                     }

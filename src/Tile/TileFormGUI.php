@@ -3,7 +3,6 @@
 namespace srag\Plugins\SrTile\Tile;
 
 use ilColorPickerInputGUI;
-use ilException;
 use ilFormSectionHeaderGUI;
 use ILIAS\FileUpload\DTO\UploadResult;
 use ILIAS\FileUpload\Location;
@@ -12,12 +11,12 @@ use ilNonEditableValueGUI;
 use ilNumberInputGUI;
 use ilRadioGroupInputGUI;
 use ilRadioOption;
+use ilSelectInputGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
-use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
-use srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage;
-use srag\Plugins\SrTile\Notification\Notification\Notification;
-use srag\Plugins\SrTile\Template\TemplatesConfigGUI;
+use srag\Notifications4Plugin\SrTile\Notification\NotificationInterface;
+use srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl;
+use srag\Plugins\SrTile\Template\TemplateConfigGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -31,9 +30,8 @@ class TileFormGUI extends ObjectPropertyFormGUI
 {
 
     use SrTileTrait;
-    use Notifications4PluginTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-    const LANG_MODULE = TileGUI::LANG_MODULE_TILE;
+    const LANG_MODULE = TileGUI::LANG_MODULE;
     /**
      * @var Tile
      */
@@ -43,18 +41,12 @@ class TileFormGUI extends ObjectPropertyFormGUI
     /**
      * TileFormGUI constructor
      *
-     * @param TileGUI|TemplatesConfigGUI $parent
-     * @param Tile                       $object
-     *
-     * @throws ilException
+     * @param TileGUI|TemplateConfigGUI $parent
+     * @param Tile                      $object
      */
     public function __construct($parent, Tile $object)
     {
         parent::__construct($parent, $object);
-
-        if (!self::access()->hasWriteAccess(self::tiles()->filterRefId())) {
-            throw new ilException("You have no permission to access this page");
-        }
     }
 
 
@@ -97,7 +89,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
     {
         $this->addCommandButton(TileGUI::CMD_UPDATE_TILE, $this->txt("save"));
 
-        $this->addCommandButton(TileGUI::CMD_CANCEL, $this->txt("cancel"));
+        $this->addCommandButton(TileGUI::CMD_BACK, $this->txt("cancel"));
     }
 
 
@@ -498,15 +490,15 @@ class TileFormGUI extends ObjectPropertyFormGUI
                 self::PROPERTY_CLASS    => ilRadioGroupInputGUI::class,
                 self::PROPERTY_REQUIRED => false,
                 self::PROPERTY_SUBITEMS => [
-                    Tile::SHOW_ACTIONS_NONE => [
+                    Tile::SHOW_ACTIONS_NONE                        => [
                         self::PROPERTY_CLASS => ilRadioOption::class,
                         "setTitle"           => $this->txt("show_false")
                     ],
-                    Tile::SHOW_ACTIONS_ONLY_WITH_WRITE_PERMISSIONS  => [
+                    Tile::SHOW_ACTIONS_ONLY_WITH_WRITE_PERMISSIONS => [
                         self::PROPERTY_CLASS => ilRadioOption::class,
                         "setTitle"           => $this->txt("show_only_write_permissions")
                     ],
-                    Tile::SHOW_ACTIONS_ALWAYS  => [
+                    Tile::SHOW_ACTIONS_ALWAYS                      => [
                         self::PROPERTY_CLASS => ilRadioOption::class,
                         "setTitle"           => $this->txt("show_true")
                     ]
@@ -519,7 +511,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
             "favorites_disabled_hint" => [
                 self::PROPERTY_CLASS   => ilNonEditableValueGUI::class,
                 self::PROPERTY_VALUE   => $this->txt("disabled_hint"),
-                self::PROPERTY_NOT_ADD => self::ilias()->favorites(self::dic()->user())->enabled(),
+                self::PROPERTY_NOT_ADD => self::srTile()->favorites(self::dic()->user())->enabled(),
                 "setTitle"             => ""
             ],
             "show_favorites_icon"     => [
@@ -535,7 +527,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
                         "setTitle"           => $this->txt("show_true")
                     ]
                 ],
-                self::PROPERTY_NOT_ADD  => (!self::ilias()->favorites(self::dic()->user())->enabled())
+                self::PROPERTY_NOT_ADD  => (!self::srTile()->favorites(self::dic()->user())->enabled())
             ],
 
             "rating"           => [
@@ -593,10 +585,21 @@ class TileFormGUI extends ObjectPropertyFormGUI
                 self::PROPERTY_SUBITEMS => [
                     Tile::MAIL_TEMPLATE_SET => [
                         self::PROPERTY_CLASS    => ilRadioOption::class,
-                        self::PROPERTY_SUBITEMS => self::notificationUI()->withPlugin(self::plugin())
-                            ->templateSelection(self::notification(Notification::class, NotificationLanguage::class)
-                                ->getArrayForSelection(self::notification(Notification::class, NotificationLanguage::class)
-                                    ->getNotifications()), "recommend_mail_template", false),
+                        self::PROPERTY_SUBITEMS =>
+                            [
+                                "recommend_mail_template" => [
+                                    self::PROPERTY_CLASS    => ilSelectInputGUI::class,
+                                    self::PROPERTY_REQUIRED => false,
+                                    self::PROPERTY_OPTIONS  => ["" => ""] + array_combine(array_map(function (NotificationInterface $notification) : string {
+                                            return $notification->getName();
+                                        }, self::srTile()->notifications4plugin()->notifications()
+                                            ->getNotifications()), array_map(function (NotificationInterface $notification) : string {
+                                            return $notification->getTitle();
+                                        }, self::srTile()->notifications4plugin()->notifications()
+                                            ->getNotifications())),
+                                    "setTitle"              => self::plugin()->translate("template_selection", NotificationsCtrl::LANG_MODULE)
+                                ]
+                            ],
                         "setTitle"              => $this->txt("set")
                     ]
                 ],
@@ -609,7 +612,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
             "learning_progress_disabled_hint" => [
                 self::PROPERTY_CLASS   => ilNonEditableValueGUI::class,
                 self::PROPERTY_VALUE   => $this->txt("disabled_hint"),
-                self::PROPERTY_NOT_ADD => self::ilias()->learningProgress(self::dic()->user())->enabled(),
+                self::PROPERTY_NOT_ADD => self::srTile()->ilias()->learningProgress(self::dic()->user())->enabled(),
                 "setTitle"             => ""
             ],
             "show_learning_progress"          => [
@@ -629,7 +632,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
                         "setTitle"           => $this->txt("show_learning_progress_meter")
                     ]
                 ],
-                self::PROPERTY_NOT_ADD  => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
+                self::PROPERTY_NOT_ADD  => (!self::srTile()->ilias()->learningProgress(self::dic()->user())->enabled())
             ],
             "learning_progress_position"      => [
                 self::PROPERTY_CLASS    => ilRadioGroupInputGUI::class,
@@ -656,7 +659,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
                         "setTitle"           => $this->txt("position_on_the_icons")
                     ]
                 ],
-                self::PROPERTY_NOT_ADD  => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
+                self::PROPERTY_NOT_ADD  => (!self::srTile()->ilias()->learningProgress(self::dic()->user())->enabled())
             ],
             "show_learning_progress_legend"   => [
                 self::PROPERTY_CLASS    => ilRadioGroupInputGUI::class,
@@ -671,7 +674,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
                         "setTitle"           => $this->txt("show_true")
                     ]
                 ],
-                self::PROPERTY_NOT_ADD  => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
+                self::PROPERTY_NOT_ADD  => (!self::srTile()->ilias()->learningProgress(self::dic()->user())->enabled())
             ],
             "show_learning_progress_filter"   => [
                 self::PROPERTY_CLASS    => ilRadioGroupInputGUI::class,
@@ -686,7 +689,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
                         "setTitle"           => $this->txt("show_true")
                     ]
                 ],
-                self::PROPERTY_NOT_ADD  => (!self::ilias()->learningProgress(self::dic()->user())->enabled())
+                self::PROPERTY_NOT_ADD  => (!self::srTile()->ilias()->learningProgress(self::dic()->user())->enabled())
             ],
 
             "preconditions"      => [
@@ -713,7 +716,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
             "certificate_hint"          => [
                 self::PROPERTY_CLASS   => ilNonEditableValueGUI::class,
                 self::PROPERTY_VALUE   => $this->txt("disabled_hint"),
-                self::PROPERTY_NOT_ADD => self::ilias()->certificates(self::dic()->user(), $this->object)->enabled(),
+                self::PROPERTY_NOT_ADD => self::srTile()->ilias()->certificates(self::dic()->user(), $this->object)->enabled(),
                 "setTitle"             => ""
             ],
             "show_download_certificate" => [
@@ -729,7 +732,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
                         "setTitle"           => $this->txt("show_true")
                     ]
                 ],
-                self::PROPERTY_NOT_ADD  => (!self::ilias()->certificates(self::dic()->user(), $this->object)->enabled())
+                self::PROPERTY_NOT_ADD  => (!self::srTile()->ilias()->certificates(self::dic()->user(), $this->object)->enabled())
             ],
 
             "language"               => [

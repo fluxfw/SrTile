@@ -2,14 +2,7 @@
 
 namespace srag\Plugins\SrTile\Utils;
 
-use ilObjUser;
-use srag\Plugins\SrTile\Access\Access;
-use srag\Plugins\SrTile\Access\Ilias;
-use srag\Plugins\SrTile\ColorThiefCache\ColorThiefCaches;
-use srag\Plugins\SrTile\LearningProgress\LearningProgressFilters;
-use srag\Plugins\SrTile\Rating\Ratings;
-use srag\Plugins\SrTile\Template\Templates;
-use srag\Plugins\SrTile\Tile\Tiles;
+use srag\Plugins\SrTile\Repository;
 
 /**
  * Trait SrTileTrait
@@ -22,68 +15,10 @@ trait SrTileTrait
 {
 
     /**
-     * @return Access
+     * @return Repository
      */
-    protected static function access() : Access
+    protected static function srTile() : Repository
     {
-        return Access::getInstance();
-    }
-
-
-    /**
-     * @return ColorThiefCaches
-     */
-    protected static function colorThiefCaches() : ColorThiefCaches
-    {
-        return ColorThiefCaches::getInstance();
-    }
-
-
-    /**
-     * @param ilObjUser $user
-     *
-     * @return LearningProgressFilters
-     */
-    protected static function learningProgressFilters(ilObjUser $user) : LearningProgressFilters
-    {
-        return LearningProgressFilters::getInstance($user);
-    }
-
-
-    /**
-     * @return Ilias
-     */
-    protected static function ilias() : Ilias
-    {
-        return Ilias::getInstance();
-    }
-
-
-    /**
-     * @param ilObjUser $user
-     *
-     * @return Ratings
-     */
-    protected static function rating(ilObjUser $user) : Ratings
-    {
-        return Ratings::getInstance($user);
-    }
-
-
-    /**
-     * @return Templates
-     */
-    protected static function templates() : Templates
-    {
-        return Templates::getInstance();
-    }
-
-
-    /**
-     * @return Tiles
-     */
-    protected static function tiles() : Tiles
-    {
-        return Tiles::getInstance();
+        return Repository::getInstance();
     }
 }

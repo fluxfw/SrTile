@@ -40,7 +40,7 @@ class TileListDesktop extends TileListAbstract
      */
     protected function initObjRefIds() /*: void*/
     {
-        $this->obj_ref_ids = array_map(function (array $item) : int { return intval($item["child"]); }, self::ilias()->favorites($this->user)
+        $this->obj_ref_ids = array_map(function (array $item) : int { return intval($item["child"]); }, self::srTile()->favorites($this->user)
             ->getFavorites());
     }
 }

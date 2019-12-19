@@ -27,7 +27,13 @@ class FavoritesGUI
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_ADD_TO_FAVORITES = "addToFavorites";
     const CMD_REMOVE_FROM_FAVORITES = "removeFromFavorites";
-    const LANG_MODULE_FAVORITES = "favorites";
+    const GET_PARAM_PARENT_REF_ID = "parent_ref_id";
+    const GET_PARAM_REF_ID = "ref_id";
+    const LANG_MODULE = "favorites";
+    /**
+     * @var int
+     */
+    protected $parent_ref_id;
     /**
      * @var Tile
      */
@@ -39,7 +45,7 @@ class FavoritesGUI
      */
     public function __construct()
     {
-        $this->tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId());
+
     }
 
 
@@ -48,9 +54,17 @@ class FavoritesGUI
      */
     public function executeCommand()/*: void*/
     {
-        if (!(self::ilias()->favorites(self::dic()->user())->enabled() && $this->tile->getShowFavoritesIcon() === Tile::SHOW_TRUE)) {
-            return;
+        $this->parent_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_PARENT_REF_ID));
+        $this->tile = self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID)));
+
+        if (!(self::srTile()->favorites(self::dic()->user())->enabled() && $this->tile->getShowFavoritesIcon() === Tile::SHOW_TRUE)) {
+            die();
         }
+
+        self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_PARENT_REF_ID);
+        self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_REF_ID);
+
+        $this->setTabs();
 
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
@@ -75,16 +89,23 @@ class FavoritesGUI
     /**
      *
      */
+    protected function setTabs()/*:void*/
+    {
+
+    }
+
+
+    /**
+     *
+     */
     protected function addToFavorites()/*: void*/
     {
-        $parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
+        self::srTile()->favorites(self::dic()->user())->addToFavorites($this->tile->getObjRefId());
 
-        self::ilias()->favorites(self::dic()->user())->addToFavorites($this->tile->getObjRefId());
+        ilSrTileUIHookGUI::askAndDisplayAlertMessage("added_to_favorites", self::LANG_MODULE);
 
-        ilSrTileUIHookGUI::askAndDisplayAlertMessage("added_to_favorites", self::LANG_MODULE_FAVORITES);
-
-        if (!empty($parent_ref_id)) {
-            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
+        if (!empty($this->parent_ref_id)) {
+            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
             self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
         }
@@ -96,14 +117,12 @@ class FavoritesGUI
      */
     protected function removeFromFavorites()/*: void*/
     {
-        $parent_ref_id = intval(filter_input(INPUT_GET, "parent_ref_id"));
+        self::srTile()->favorites(self::dic()->user())->removeFromFavorites($this->tile->getObjRefId());
 
-        self::ilias()->favorites(self::dic()->user())->removeFromFavorites($this->tile->getObjRefId());
+        ilSrTileUIHookGUI::askAndDisplayAlertMessage("removed_from_favorites", self::LANG_MODULE);
 
-        ilSrTileUIHookGUI::askAndDisplayAlertMessage("removed_from_favorites", self::LANG_MODULE_FAVORITES);
-
-        if (!empty($parent_ref_id)) {
-            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent_ref_id));
+        if (!empty($this->parent_ref_id)) {
+            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
             self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
         }
