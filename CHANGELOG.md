@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.6.0]
+- Some improvments
+
 ## [1.5.18]
 - Fix certificates are not configurable if it was disabled for the object (Possible problem with templates or with 'Open object with one child direct')
 
