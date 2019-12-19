@@ -4,9 +4,6 @@ namespace srag\Plugins\SrTile\Recommend;
 
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
-use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
-use srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage;
-use srag\Plugins\SrTile\Notification\Notification\Notification;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use Throwable;
@@ -23,7 +20,6 @@ class Recommend
 
     use DICTrait;
     use SrTileTrait;
-    use Notifications4PluginTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var Tile
@@ -56,9 +52,9 @@ class Recommend
         try {
             $mail_template = $this->tile->getRecommendMailTemplate();
 
-            $notification = self::notification(Notification::class, NotificationLanguage::class)->getNotificationByName($mail_template);
+            $notification = self::srTile()->notifications4plugin()->notifications()->getNotificationByName($mail_template);
 
-            $sender = self::sender()->factory()->externalMail("", $this->getRecommendedTo());
+            $sender = self::srTile()->notifications4plugin()->sender()->factory()->externalMail("", $this->getRecommendedTo());
 
             $placeholders = [
                 "link"    => $this->getLink(),
@@ -67,7 +63,7 @@ class Recommend
                 "user"    => self::dic()->user()
             ];
 
-            self::sender()->send($sender, $notification, $placeholders, $placeholders["user"]->getLanguage());
+            self::srTile()->notifications4plugin()->sender()->send($sender, $notification, $placeholders, $placeholders["user"]->getLanguage());
 
             return true;
         } catch (Throwable $ex) {

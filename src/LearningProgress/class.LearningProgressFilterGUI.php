@@ -11,7 +11,6 @@ use ilUIPluginRouterGUI;
 use srag\CustomInputGUIs\SrTile\MultiSelectSearchInputGUI\MultiSelectSearchInputGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\TileGUI;
-use srag\Plugins\SrTile\Tile\Tiles;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -30,6 +29,7 @@ class LearningProgressFilterGUI
     use SrTileTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_SET_FILTER = "setFilter";
+    const GET_PARAM_REF_ID = "ref_id";
     const POST_VAR = "lp_filter";
     /**
      * @var int
@@ -42,7 +42,7 @@ class LearningProgressFilterGUI
      */
     public function __construct()
     {
-        $this->obj_ref_id = intval(self::tiles()->filterRefId());
+
     }
 
 
@@ -51,6 +51,12 @@ class LearningProgressFilterGUI
      */
     public function executeCommand()/*: void*/
     {
+        $this->obj_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID));
+
+        $this->setTabs();
+
+        self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_REF_ID);
+
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
         switch ($next_class) {
@@ -71,17 +77,17 @@ class LearningProgressFilterGUI
 
 
     /**
-     *
+     * @param int $obj_ref_id
      */
-    public function initToolbar()/*: void*/
+    public static function initToolbar(int $obj_ref_id)/*: void*/
     {
         self::dic()->language()->loadLanguageModule("trac");
 
-        self::dic()->ctrl()->setParameterByClass(self::class, Tiles::GET_PARAM_REF_ID, $this->obj_ref_id);
+        self::dic()->ctrl()->setParameterByClass(self::class, self::GET_PARAM_REF_ID, $obj_ref_id);
 
         self::dic()->toolbar()->setFormAction(self::dic()->ctrl()->getFormActionByClass([ilUIPluginRouterGUI::class, self::class]));
 
-        self::dic()->toolbar()->addText(self::plugin()->translate("learning_progress", TileGUI::LANG_MODULE_TILE));
+        self::dic()->toolbar()->addText(self::plugin()->translate("learning_progress", TileGUI::LANG_MODULE));
 
         $filter = new MultiSelectSearchInputGUI("", self::POST_VAR);
         $filter->setOptions(array_map(function (string $txt) : string {
@@ -92,13 +98,22 @@ class LearningProgressFilterGUI
             ilLPStatus::LP_STATUS_COMPLETED_NUM     => "completed",
             //ilLPStatus::LP_STATUS_FAILED_NUM => "failed"
         ]));
-        $filter->setValue(self::learningProgressFilters(self::dic()->user())->getFilter($this->obj_ref_id));
+        $filter->setValue(self::srTile()->learningProgressFilters(self::dic()->user())->getFilter($obj_ref_id));
         self::dic()->toolbar()->addInputItem($filter);
 
         $apply_button = ilSubmitButton::getInstance();
-        $apply_button->setCaption(self::plugin()->translate("apply", TileGUI::LANG_MODULE_TILE), false);
+        $apply_button->setCaption(self::plugin()->translate("apply", TileGUI::LANG_MODULE), false);
         $apply_button->setCommand(self::CMD_SET_FILTER);
         self::dic()->toolbar()->addButtonInstance($apply_button);
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*:void*/
+    {
+
     }
 
 
@@ -116,7 +131,7 @@ class LearningProgressFilterGUI
             return intval($status);
         }, $filter);
 
-        self::learningProgressFilters(self::dic()->user())->setFilter($this->obj_ref_id, $filter);
+        self::srTile()->learningProgressFilters(self::dic()->user())->setFilter($this->obj_ref_id, $filter);
 
         if (!empty($this->obj_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->obj_ref_id));

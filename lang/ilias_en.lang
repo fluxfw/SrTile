@@ -2,9 +2,7 @@ config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
 config_enabled_on_favorites#:#Enabled on favorites
 config_enabled_on_repository#:#Enabled on repository
-config_notifications#:#Notifications
 config_save#:#Save
-config_templates#:#Templates
 favorites_add_to_favorites#:#Add to favorites
 favorites_added_to_favorites#:#The object has been added to the favorites
 favorites_remove_from_favorites#:#Remove from favorites

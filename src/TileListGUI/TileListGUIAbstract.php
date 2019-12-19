@@ -3,6 +3,7 @@
 namespace srag\Plugins\SrTile\TileListGUI;
 
 use ilSrTilePlugin;
+use ilSrTileUIHookGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressFilterGUI;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressLegendGUI;
@@ -64,7 +65,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface
 
         if (count($this->tile_list->getTiles()) > 0) {
 
-            $parent_tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId() ?? ROOT_FOLDER_ID);
+            $parent_tile = self::srTile()->tiles()->getInstanceForObjRefId(ilSrTileUIHookGUI::filterRefId() ?? ROOT_FOLDER_ID);
 
             self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
 
@@ -80,7 +81,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface
             $tpl->setVariable("TILES", $tile_html);
 
             if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
-                (new LearningProgressFilterGUI())->initToolbar();
+                LearningProgressFilterGUI::initToolbar(intval(ilSrTileUIHookGUI::filterRefId()));
             }
 
             if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressLegend() === Tile::SHOW_TRUE) {
@@ -103,7 +104,7 @@ abstract class TileListGUIAbstract implements TileListGUIInterface
     {
         $css = '';
 
-        $parent_tile = self::tiles()->getInstanceForObjRefId(self::tiles()->filterRefId() ?? ROOT_FOLDER_ID);
+        $parent_tile = self::srTile()->tiles()->getInstanceForObjRefId(ilSrTileUIHookGUI::filterRefId() ?? ROOT_FOLDER_ID);
 
         $css .= '.tile';
         $css .= '{' . $parent_tile->_getLayout() . '}';

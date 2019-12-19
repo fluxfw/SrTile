@@ -6,14 +6,6 @@ if (file_exists(__DIR__ . "/../../Certificate/vendor/autoload.php")) {
 }
 
 use srag\DIC\SrTile\Util\LibraryLanguageInstaller;
-use srag\Plugins\SrTile\ColorThiefCache\ColorThiefCache;
-use srag\Plugins\SrTile\Config\Config;
-use srag\Plugins\SrTile\LearningProgress\LearningProgressFilter;
-use srag\Plugins\SrTile\Notification\Notification\Language\NotificationLanguage;
-use srag\Plugins\SrTile\Notification\Notification\Notification;
-use srag\Plugins\SrTile\Rating\Rating;
-use srag\Plugins\SrTile\Template\Template;
-use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\RemovePluginDataConfirm\SrTile\PluginUninstallTrait;
 
@@ -81,8 +73,7 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
         LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
             . "/../vendor/srag/removeplugindataconfirm/lang")->updateLanguages();
 
-        LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
-            . "/../vendor/srag/notifications4plugin/lang")->updateLanguages();
+        self::srTile()->notifications4plugin()->installLanguages();
     }
 
 
@@ -91,15 +82,6 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
      */
     protected function deleteData()/*: void*/
     {
-        self::dic()->database()->dropTable(ColorThiefCache::TABLE_NAME, false);
-        self::dic()->database()->dropTable(Config::TABLE_NAME, false);
-        self::dic()->database()->dropTable(Rating::TABLE_NAME, false);
-        self::dic()->database()->dropTable(LearningProgressFilter::TABLE_NAME, false);
-        Notification::dropDB_();
-        NotificationLanguage::dropDB_();
-        self::dic()->database()->dropTable(Template::TABLE_NAME, false);
-        self::dic()->database()->dropTable(Tile::TABLE_NAME, false);
-
-        ilUtil::delDir(ILIAS_WEB_DIR . "/" . CLIENT_ID . "/" . self::WEB_DATA_FOLDER);
+        self::srTile()->dropTables();
     }
 }

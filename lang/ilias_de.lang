@@ -2,9 +2,7 @@ config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
 config_enabled_on_favorites#:#In Favoriten aktivieren
 config_enabled_on_repository#:#Im Magazin aktivieren
-config_notifications#:#Benachrichtigungen
 config_save#:#Speichern
-config_templates#:#Vorlagen
 favorites_add_to_favorites#:#Zu den Favoriten legen
 favorites_added_to_favorites#:#Das Objekt wurde zu den Favoriten gelegt
 favorites_remove_from_favorites#:#Aus den Favoriten entfernen

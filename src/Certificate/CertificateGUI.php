@@ -50,7 +50,7 @@ class CertificateGUI
      */
     public function render() : string
     {
-        $certificates = self::ilias()->certificates($this->user, $this->tile);
+        $certificates = self::srTile()->ilias()->certificates($this->user, $this->tile);
 
         $link = $certificates->getCertificateDownloadLink();
 
@@ -61,7 +61,7 @@ class CertificateGUI
         $tpl = self::plugin()->template("Certificate/certificate.html");
 
         $tpl->setVariable("CERTIFICATE_LINK", $link);
-        $tpl->setVariable("CERTIFICATE_TEXT", self::plugin()->translate("download_certificate", TileGUI::LANG_MODULE_TILE));
+        $tpl->setVariable("CERTIFICATE_TEXT", self::plugin()->translate("download_certificate", TileGUI::LANG_MODULE));
         $tpl->setVariable("CERTIFICATE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/certificate.svg");
 
         return self::output()->getHTML($tpl);

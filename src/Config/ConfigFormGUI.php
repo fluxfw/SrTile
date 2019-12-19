@@ -3,8 +3,9 @@
 namespace srag\Plugins\SrTile\Config;
 
 use ilCheckboxInputGUI;
+use ilSrTileConfigGUI;
 use ilSrTilePlugin;
-use srag\ActiveRecordConfig\SrTile\ActiveRecordConfigFormGUI;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ConfigPropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -14,12 +15,33 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class ConfigFormGUI extends ActiveRecordConfigFormGUI
+class ConfigFormGUI extends ConfigPropertyFormGUI
 {
 
     use SrTileTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    const LANG_MODULE = ilSrTileConfigGUI::LANG_MODULE;
     const CONFIG_CLASS_NAME = Config::class;
+
+
+    /**
+     * ConfigFormGUI constructor
+     *
+     * @param ilSrTileConfigGUI $parent
+     */
+    public function __construct(ilSrTileConfigGUI $parent)
+    {
+        parent::__construct($parent);
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    protected function initCommands()/*: void*/
+    {
+        $this->addCommandButton(ilSrTileConfigGUI::CMD_UPDATE_CONFIGURE, $this->txt("save"));
+    }
 
 
     /**
@@ -35,5 +57,23 @@ class ConfigFormGUI extends ActiveRecordConfigFormGUI
                 self::PROPERTY_CLASS => ilCheckboxInputGUI::class
             ]
         ];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    protected function initId()/*: void*/
+    {
+
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    protected function initTitle()/*: void*/
+    {
+        $this->setTitle($this->txt("configuration"));
     }
 }

@@ -28,9 +28,10 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     const RECOMMEND_MODAL_LOADER = "tile_recommend_modal";
     const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
     const TEMPLATE_ID_FAVORITES = "Services/PersonalDesktop/tpl.pd_list_block.html";
-    const TAB_ID = "tile";
     const TAB_PERM_ID = "perm";
     const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
+    const GET_PARAM_REF_ID = "ref_id";
+    const GET_PARAM_TARGET = "target";
     /**
      * @var bool[]
      */
@@ -41,6 +42,31 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             self::FAVORITES_LOADER       => false,
             self::RECOMMEND_MODAL_LOADER => false
         ];
+
+
+    /**
+     * @return int|null
+     *
+     * @deprecated
+     */
+    public static function filterRefId()/*: ?int*/
+    {
+        $obj_ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
+
+        if ($obj_ref_id === null) {
+            $param_target = filter_input(INPUT_GET, self::GET_PARAM_TARGET);
+
+            $obj_ref_id = explode("_", $param_target)[1];
+        }
+
+        $obj_ref_id = intval($obj_ref_id);
+
+        if ($obj_ref_id > 0) {
+            return $obj_ref_id;
+        } else {
+            return null;
+        }
+    }
 
 
     /**
@@ -104,13 +130,13 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
         $a_par = []
     )/*: void*/
     {
-        $obj_ref_id = self::tiles()->filterRefId();
+        $obj_ref_id = self::filterRefId();
 
         if ($this->matchToolbar($a_part)) {
 
-            if (!self::access()->hasWriteAccess($obj_ref_id)) {
+            if (!self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
 
-                if (self::tiles()->getInstanceForObjRefId($obj_ref_id)->getShowObjectTabs() === Tile::SHOW_FALSE) {
+                if (self::srTile()->tiles()->getInstanceForObjRefId($obj_ref_id)->getShowObjectTabs() === Tile::SHOW_FALSE) {
                     self::dic()->tabs()->clearTargets();
                     self::dic()->tabs()->clearSubTabs();
                 }
@@ -123,12 +149,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
                 })) > 0
             ) {
 
-                self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_OBJ_REF_ID, $obj_ref_id);
-
-                self::dic()->tabs()->addTab(self::TAB_ID, ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTargetByClass([
-                    ilUIPluginRouterGUI::class,
-                    TileGUI::class
-                ], TileGUI::CMD_EDIT_TILE));
+                TileGUI::addTabs($obj_ref_id);
 
                 self::dic()->tabs()->target[count(self::dic()->tabs()->target) - 1]["cmd"] = [];
             }
@@ -144,13 +165,13 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     protected function matchToolbar(string $a_part) : bool
     {
         $baseClass = strtolower(filter_input(INPUT_GET, "baseClass"));
-        $obj_ref_id = self::tiles()->filterRefId();
+        $obj_ref_id = self::filterRefId();
 
         return (!self::$load[self::TOOLBAR_LOADER]
             && $baseClass !== strtolower(ilAdministrationGUI::class)
             && $a_part === self::PAR_TABS
             && (self::$load[self::TOOLBAR_LOADER] = true)
-            && self::tiles()->isObject($obj_ref_id));
+            && self::srTile()->tiles()->isObject($obj_ref_id));
     }
 
 
@@ -162,7 +183,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
      */
     protected function matchRepository(string $a_part, array $a_par) : bool
     {
-        $obj_ref_id = self::tiles()->filterRefId();
+        $obj_ref_id = self::filterRefId();
 
         return (!self::$load[self::REPOSITORY_LOADER]
             && $a_part === self::TEMPLATE_GET
@@ -172,8 +193,8 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && !in_array(self::dic()->ctrl()->getCmd(), ["editOrder"])
             && !in_array(self::dic()->ctrl()->getCallHistory()[0]["cmd"], ["editOrder"])
             && !$_SESSION["il_cont_admin_panel"]
-            && self::tiles()->isObject($obj_ref_id)
-            && self::tiles()->getInstanceForObjRefId($obj_ref_id)->getView() !== Tile::VIEW_DISABLED);
+            && self::srTile()->tiles()->isObject($obj_ref_id)
+            && self::srTile()->tiles()->getInstanceForObjRefId($obj_ref_id)->getView() !== Tile::VIEW_DISABLED);
     }
 
 
@@ -227,7 +248,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             "should_not_display" => &$should_not_display // Unfortunately ILIAS Raise Event System not supports return results so use a referenced variable
         ]);
 
-        if (count((array) $should_not_display) === 0) {
+        if (empty($should_not_display)) {
             ilUtil::{"send" . ucfirst($alert_type)}(self::plugin()->translate($key, $module), $keep);
         }
     }
