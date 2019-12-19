@@ -7,7 +7,6 @@ use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Certificate\Certificates;
-use srag\Plugins\SrTile\Favorite\Favorites;
 use srag\Plugins\SrTile\LearningProgress\LearningProgress;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressBar;
 use srag\Plugins\SrTile\Metadata\Metadata;
@@ -73,17 +72,6 @@ final class Ilias
     public function courses() : Courses
     {
         return Courses::getInstance();
-    }
-
-
-    /**
-     * @param ilObjUser $user
-     *
-     * @return Favorites
-     */
-    public function favorites(ilObjUser $user) : Favorites
-    {
-        return Favorites::getInstance($user);
     }
 
 

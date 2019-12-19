@@ -58,10 +58,10 @@ class Template extends Tile
      */
     public function _getTitle() : string
     {
-        if ($this->object_type !== Templates::TYPE_OTHER) {
+        if ($this->object_type !== Repository::TYPE_OTHER) {
             return self::dic()->language()->txt("obj_" . $this->object_type);
         } else {
-            return self::plugin()->translate(substr($this->object_type, 1), TemplatesConfigGUI::LANG_MODULE_TEMPLATE);
+            return self::plugin()->translate(substr($this->object_type, 1), TemplatesConfigGUI::LANG_MODULE);
         }
     }
 }

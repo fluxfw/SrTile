@@ -15,12 +15,21 @@ class TemplateFormGUI extends TileFormGUI
 {
 
     /**
+     * @inheritDoc
+     */
+    public function __construct(TemplateConfigGUI $parent, Template $object)
+    {
+        parent::__construct($parent, $object);
+    }
+
+
+    /**
      * @inheritdoc
      */
     protected function initCommands()/*: void*/
     {
-        $this->addCommandButton(TemplatesConfigGUI::CMD_UPDATE_TEMPLATE, $this->txt("save"));
+        $this->addCommandButton(TemplateConfigGUI::CMD_UPDATE_TEMPLATE, $this->txt("save"));
 
-        $this->addCommandButton(TemplatesConfigGUI::CMD_LIST_TEMPLATES, $this->txt("cancel"));
+        $this->addCommandButton(TemplateConfigGUI::CMD_BACK, $this->txt("cancel"));
     }
 }
