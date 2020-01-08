@@ -1,12 +1,28 @@
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
 config_enabled_on_favorites#:#In Favoriten aktivieren
+config_enabled_object_links#:#Objekt-Verknüpfungen aktivieren
+config_enabled_object_links_once_select#:#Benutzer kann nur einmal auswählen
 config_enabled_on_repository#:#Im Magazin aktivieren
 config_save#:#Speichern
 favorites_add_to_favorites#:#Zu den Favoriten legen
 favorites_added_to_favorites#:#Das Objekt wurde zu den Favoriten gelegt
 favorites_remove_from_favorites#:#Aus den Favoriten entfernen
 favorites_removed_from_favorites#:#Das Objekt wurde aus den Favoriten entfernt
+object_links_actions#:#Aktionen
+object_links_add#:#Hinzufügen
+object_links_add_object_link#:#Objekt-Verknüpfung hinzufügen
+object_links_added_object_link#:#Objekt-Verknüpfung hinzugefügt
+object_links_back#:#Zurück
+object_links_cancel#:#Abbrechen
+object_links_can_not_be_changed_anymore#:#Kann nach dem Öffnen nicht mehr geändert werden
+object_links_language#:#Sprache
+object_links_merged#:#Zusammengeführt
+object_links_object#:#Objekt
+object_links_object_links#:#Objekt-Verknüpfungen
+object_links_open#:#Öffnen
+object_links_remove_object_link#:#Objekt-Verknüpfung entfernen
+object_links_removed_object_link#:#Objekt-Verknüpfung entfernt
 rating_like#:#Like
 rating_liked#:#Liked
 rating_unlike#:#Unlike
@@ -50,6 +66,7 @@ tile_columns_fix_width#:#Feste Breite
 tile_disabled#:#Deaktiviert
 tile_disabled_hint#:#Global in ILIAS deaktiviert
 tile_download_certificate#:#Zertifikat herunterladen
+tile_edit_tile#:#Kachel bearbeiten
 tile_enable_rating#:#Bewertung aktivieren
 tile_enabled#:#Aktiviert
 tile_favorites#:#Favoriten

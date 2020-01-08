@@ -135,7 +135,7 @@ class TemplatesTableGUI extends TableGUI
         parent::fillRow($template);
 
         $this->tpl->setVariable("COLUMN", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
-            self::dic()->ui()->factory()->button()->shy($this->txt("edit_template"), self::dic()->ctrl()
+            self::dic()->ui()->factory()->link()->standard($this->txt("edit_template"), self::dic()->ctrl()
                 ->getLinkTargetByClass(TemplateConfigGUI::class, TemplateConfigGUI::CMD_EDIT_TEMPLATE))
         ])->withLabel($this->txt("actions"))));
     }

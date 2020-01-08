@@ -7,6 +7,7 @@ use ilObjectFactory;
 use ilObjOrgUnit;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Tile\Renderer\Repository as RendererRepository;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use Throwable;
 
@@ -387,6 +388,15 @@ final class Repository
         }
 
         return self::$is_object_cache[$obj_ref_id];
+    }
+
+
+    /**
+     * @return RendererRepository
+     */
+    public function renderer() : RendererRepository
+    {
+        return RendererRepository::getInstance();
     }
 
 

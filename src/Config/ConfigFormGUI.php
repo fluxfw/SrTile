@@ -55,6 +55,14 @@ class ConfigFormGUI extends ConfigPropertyFormGUI
             ],
             Config::KEY_ENABLED_ON_FAVORITES  => [
                 self::PROPERTY_CLASS => ilCheckboxInputGUI::class
+            ],
+            Config::KEY_ENABLED_OBJECT_LINKS  => [
+                self::PROPERTY_CLASS    => ilCheckboxInputGUI::class,
+                self::PROPERTY_SUBITEMS => [
+                    Config::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT => [
+                        self::PROPERTY_CLASS => ilCheckboxInputGUI::class
+                    ]
+                ]
             ]
         ];
     }

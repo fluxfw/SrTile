@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.7.0]
+- Object links
+- New and more language flags
+
 ## [1.6.0]
 - Some improvments
 

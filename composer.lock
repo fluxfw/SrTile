@@ -4,8 +4,46 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a9521ed2ca348c80f1241486061d03a",
+    "content-hash": "b818ff0c09a1112c592ff99f82f6ac72",
     "packages": [
+        {
+            "name": "components/flag-icon-css",
+            "version": "3.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lipis/flag-icon-css.git",
+                "reference": "1f59635c9fb1b7464c2e710ba6da2119210753cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/1f59635c9fb1b7464c2e710ba6da2119210753cd",
+                "reference": "1f59635c9fb1b7464c2e710ba6da2119210753cd",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "name": "flag-icon-css",
+                    "files": [
+                        "less/**",
+                        "css/**",
+                        "flags/**"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Panayiotis Lipiridis (Lipis)",
+                    "email": "lipiridis@gmail.com"
+                }
+            ],
+            "description": "CSS for vector based country flags",
+            "time": "2019-10-23T19:15:31+00:00"
+        },
         {
             "name": "ksubileau/color-thief-php",
             "version": "v1.4.1",
@@ -81,7 +119,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\ActiveRecordConfig\\": "src/"
+                    "srag\\ActiveRecordConfig\\SrTile\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -172,7 +210,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\DIC\\": "src/"
+                    "srag\\DIC\\SrTile\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -307,7 +345,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\RemovePluginDataConfirm\\": "src/"
+                    "srag\\RemovePluginDataConfirm\\SrTile\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

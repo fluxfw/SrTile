@@ -62,12 +62,40 @@ class Metadata
     /**
      * @return string
      */
-    public function getLanguageFlagImagePath() : string
+    public function getLanguageCode() : string
     {
+        $il_md = new ilMD($this->il_object->getId(), $this->il_object->getId(), $this->il_object->getType());
+
+        if (!$il_md->getGeneral()) {
+            return "";
+        }
+
+        /**
+         * var $md_language ilMDLanguage
+         */
+        $md_language = $il_md->getGeneral()->getLanguage(current($il_md->getGeneral()->getLanguageIds()));
+
+        return ($md_language->getLanguageCode() !== false ? $md_language->getLanguageCode() : "");
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getLanguageImage() : string
+    {
+        $mapping = [
+            "en" => "gb"
+        ];
+
+        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/vendor/components/flag-icon-css/css/flag-icon.min.css");
+
         $language_code = $this->getLanguageCode();
 
-        if (file_exists($image_path = self::plugin()->directory() . "/templates/images/Language/" . $language_code . ".png")) {
-            return $image_path;
+        if (!empty($language_code)) {
+            $language_code = $mapping[$language_code] ?: $language_code;
+
+            return '<span class="flag-icon flag-icon-' . $language_code . '"></span> ';
         }
 
         return "";
@@ -77,15 +105,16 @@ class Metadata
     /**
      * @return string
      */
-    private function getLanguageCode() : string
+    public function getLanguageText() : string
     {
-        $il_md = new ilMD($this->il_object->getId(), $this->il_object->getId(), $this->il_object->getType());
+        $language_code = $this->getLanguageCode();
 
-        /**
-         * var $md_language ilMDLanguage
-         */
-        $md_language = $il_md->getGeneral()->getLanguage(current($il_md->getGeneral()->getLanguageIds()));
+        if (!empty($language_code)) {
+            self::dic()->language()->loadLanguageModule("meta");
 
-        return ($md_language->getLanguageCode() !== false ? $md_language->getLanguageCode() : "");
+            return self::dic()->language()->txt("meta_l_" . $language_code);
+        }
+
+        return "";
     }
 }

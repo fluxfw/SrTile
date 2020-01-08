@@ -7,7 +7,7 @@ use ilSrTilePlugin;
 use ilUIPluginRouterGUI;
 use ilUtil;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\TileListGUI\TileListStaticGUI\TileListStaticGUI;
+use srag\Plugins\SrTile\ObjectLink\ObjectLinksGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -29,8 +29,8 @@ class TileGUI
     const CMD_EDIT_TILE = "editTile";
     const CMD_GET_PRECONDITIONS = "getPreconditions";
     const CMD_UPDATE_TILE = "updateTile";
-    const LANG_MODULE = "tile";
     const GET_PARAM_REF_ID = "ref_id";
+    const LANG_MODULE = "tile";
     const TAB_TILE = "tile";
     /**
      * @var Tile
@@ -65,6 +65,10 @@ class TileGUI
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
         switch (strtolower($next_class)) {
+            case strtolower(ObjectLinksGUI::class):
+                self::dic()->ctrl()->forwardCommand(new ObjectLinksGUI($this));
+                break;
+
             default:
                 $cmd = self::dic()->ctrl()->getCmd();
 
@@ -89,7 +93,7 @@ class TileGUI
      */
     public static function addTabs(int $obj_ref_id)/*:void*/
     {
-        self::dic()->ctrl()->setParameterByClass(TileGUI::class, self::GET_PARAM_REF_ID, $obj_ref_id);
+        self::dic()->ctrl()->setParameterByClass(self::class, self::GET_PARAM_REF_ID, $obj_ref_id);
 
         self::dic()->tabs()->addTab(self::TAB_TILE, ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTargetByClass([
             ilUIPluginRouterGUI::class,
@@ -105,13 +109,15 @@ class TileGUI
     {
         self::dic()->tabs()->clearTargets();
 
-        self::dic()->tabs()->addTab(self::TAB_TILE, ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTargetByClass([
+        self::dic()->tabs()->setBackTarget(self::plugin()->translate("back", self::LANG_MODULE), self::dic()->ctrl()
+            ->getLinkTarget($this, self::CMD_BACK));
+
+        self::dic()->tabs()->addTab(self::TAB_TILE, self::plugin()->translate("edit_tile", self::LANG_MODULE), self::dic()->ctrl()->getLinkTargetByClass([
             ilUIPluginRouterGUI::class,
             self::class
         ], self::CMD_EDIT_TILE));
 
-        self::dic()->tabs()->setBackTarget(self::plugin()->translate("back", self::LANG_MODULE), self::dic()->ctrl()
-            ->getLinkTarget($this, self::CMD_BACK));
+        ObjectLinksGUI::addTabs();
     }
 
 
@@ -129,6 +135,8 @@ class TileGUI
      */
     protected function editTile()/*: void*/
     {
+        self::dic()->tabs()->activateTab(self::TAB_TILE);
+
         $form = self::srTile()->tiles()->factory()->newFormInstance($this, $this->tile);
 
         self::output()->output($form, true);
@@ -140,6 +148,8 @@ class TileGUI
      */
     protected function updateTile()/*: void*/
     {
+        self::dic()->tabs()->activateTab(self::TAB_TILE);
+
         $form = self::srTile()->tiles()->factory()->newFormInstance($this, $this->tile);
 
         if (!$form->storeForm()) {
@@ -161,6 +171,15 @@ class TileGUI
     {
         $preconditions = self::srTile()->ilias()->courses()->getPreconditions($this->tile->getObjRefId());
 
-        self::output()->output(new TileListStaticGUI($preconditions));
+        self::output()->output(self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->fixed($preconditions));
+    }
+
+
+    /**
+     * @return Tile
+     */
+    public function getTile() : Tile
+    {
+        return $this->tile;
     }
 }
