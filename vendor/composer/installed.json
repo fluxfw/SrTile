@@ -1,5 +1,45 @@
 [
     {
+        "name": "components/flag-icon-css",
+        "version": "3.4.5",
+        "version_normalized": "3.4.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lipis/flag-icon-css.git",
+            "reference": "1f59635c9fb1b7464c2e710ba6da2119210753cd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/1f59635c9fb1b7464c2e710ba6da2119210753cd",
+            "reference": "1f59635c9fb1b7464c2e710ba6da2119210753cd",
+            "shasum": ""
+        },
+        "time": "2019-10-23T19:15:31+00:00",
+        "type": "component",
+        "extra": {
+            "component": {
+                "name": "flag-icon-css",
+                "files": [
+                    "less/**",
+                    "css/**",
+                    "flags/**"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Panayiotis Lipiridis (Lipis)",
+                "email": "lipiridis@gmail.com"
+            }
+        ],
+        "description": "CSS for vector based country flags"
+    },
+    {
         "name": "ksubileau/color-thief-php",
         "version": "v1.4.1",
         "version_normalized": "1.4.1.0",

@@ -21,6 +21,7 @@
   },
   "require": {
     "php": ">=7.0",
+    "components/flag-icon-css": "^3.4",
     "ksubileau/color-thief-php": "^1.4",
     "srag/activerecordconfig": ">=0.1.0",
     "srag/custominputguis": ">=0.1.0",

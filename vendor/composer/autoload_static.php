@@ -9,13 +9,13 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\' => 29,
+            'srag\\RemovePluginDataConfirm\\SrTile\\' => 36,
             'srag\\Plugins\\SrTile\\' => 20,
             'srag\\Notifications4Plugin\\SrTile\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
+            'srag\\DIC\\SrTile\\' => 16,
             'srag\\CustomInputGUIs\\SrTile\\' => 28,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
         array (
@@ -24,7 +24,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\' => 
+        'srag\\RemovePluginDataConfirm\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -40,7 +40,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
@@ -48,7 +48,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -404,6 +404,14 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\LearningProgress\\LearningProgressLegendGUI' => __DIR__ . '/../..' . '/src/LearningProgress/LearningProgressLegendGUI.php',
         'srag\\Plugins\\SrTile\\LearningProgress\\Repository' => __DIR__ . '/../..' . '/src/LearningProgress/Repository.php',
         'srag\\Plugins\\SrTile\\Metadata\\Metadata' => __DIR__ . '/../..' . '/src/Metadata/Metadata.php',
+        'srag\\Plugins\\SrTile\\ObjectLink\\Factory' => __DIR__ . '/../..' . '/src/ObjectLink/Factory.php',
+        'srag\\Plugins\\SrTile\\ObjectLink\\Group' => __DIR__ . '/../..' . '/src/ObjectLink/Group.php',
+        'srag\\Plugins\\SrTile\\ObjectLink\\ObjectLink' => __DIR__ . '/../..' . '/src/ObjectLink/ObjectLink.php',
+        'srag\\Plugins\\SrTile\\ObjectLink\\ObjectLinkFormGUI' => __DIR__ . '/../..' . '/src/ObjectLink/ObjectLinkFormGUI.php',
+        'srag\\Plugins\\SrTile\\ObjectLink\\ObjectLinkGUI' => __DIR__ . '/../..' . '/src/ObjectLink/class.ObjectLinkGUI.php',
+        'srag\\Plugins\\SrTile\\ObjectLink\\ObjectLinksGUI' => __DIR__ . '/../..' . '/src/ObjectLink/class.ObjectLinksGUI.php',
+        'srag\\Plugins\\SrTile\\ObjectLink\\ObjectLinksTableGUI' => __DIR__ . '/../..' . '/src/ObjectLink/ObjectLinksTableGUI.php',
+        'srag\\Plugins\\SrTile\\ObjectLink\\Repository' => __DIR__ . '/../..' . '/src/ObjectLink/Repository.php',
         'srag\\Plugins\\SrTile\\Rating\\Factory' => __DIR__ . '/../..' . '/src/Rating/Factory.php',
         'srag\\Plugins\\SrTile\\Rating\\Rating' => __DIR__ . '/../..' . '/src/Rating/Rating.php',
         'srag\\Plugins\\SrTile\\Rating\\RatingGUI' => __DIR__ . '/../..' . '/src/Rating/class.RatingGUI.php',
@@ -421,24 +429,27 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\Template\\TemplateFormGUI' => __DIR__ . '/../..' . '/src/Template/TemplateFormGUI.php',
         'srag\\Plugins\\SrTile\\Template\\TemplatesConfigGUI' => __DIR__ . '/../..' . '/src/Template/class.TemplatesConfigGUI.php',
         'srag\\Plugins\\SrTile\\Template\\TemplatesTableGUI' => __DIR__ . '/../..' . '/src/Template/TemplatesTableGUI.php',
-        'srag\\Plugins\\SrTile\\TileGUI\\TileContainerGUI\\TileContainerGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileContainerGUI/TileContainerGUI.php',
-        'srag\\Plugins\\SrTile\\TileGUI\\TileGUIAbstract' => __DIR__ . '/../..' . '/src/TileGUI/TileGUIAbstract.php',
-        'srag\\Plugins\\SrTile\\TileGUI\\TileGUIInterface' => __DIR__ . '/../..' . '/src/TileGUI/TileGUIInterface.php',
-        'srag\\Plugins\\SrTile\\TileGUI\\TileStaticGUI\\TileStaticGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileStaticGUI/TileStaticGUI.php',
-        'srag\\Plugins\\SrTile\\TileListGUI\\TileListContainerGUI\\TileListContainerGUI' => __DIR__ . '/../..' . '/src/TileListGUI/TileListContainerGUI/TileListContainerGUI.php',
-        'srag\\Plugins\\SrTile\\TileListGUI\\TileListDesktopGUI\\TileListDesktopGUI' => __DIR__ . '/../..' . '/src/TileListGUI/TileListDesktopGUI/TileListDesktopGUI.php',
-        'srag\\Plugins\\SrTile\\TileListGUI\\TileListGUIAbstract' => __DIR__ . '/../..' . '/src/TileListGUI/TileListGUIAbstract.php',
-        'srag\\Plugins\\SrTile\\TileListGUI\\TileListGUIInterface' => __DIR__ . '/../..' . '/src/TileListGUI/TileListGUIInterface.php',
-        'srag\\Plugins\\SrTile\\TileListGUI\\TileListStaticGUI\\TileListStaticGUI' => __DIR__ . '/../..' . '/src/TileListGUI/TileListStaticGUI/TileListStaticGUI.php',
-        'srag\\Plugins\\SrTile\\TileList\\TileListAbstract' => __DIR__ . '/../..' . '/src/TileList/TileListAbstract.php',
-        'srag\\Plugins\\SrTile\\TileList\\TileListContainer\\TileListContainer' => __DIR__ . '/../..' . '/src/TileList/TileListContainer/TileListContainer.php',
-        'srag\\Plugins\\SrTile\\TileList\\TileListDesktop\\TileListDesktop' => __DIR__ . '/../..' . '/src/TileList/TileListDesktop/TileListDesktop.php',
-        'srag\\Plugins\\SrTile\\TileList\\TileListInterface' => __DIR__ . '/../..' . '/src/TileList/TileListInterface.php',
-        'srag\\Plugins\\SrTile\\TileList\\TileListStatic\\TileListStatic' => __DIR__ . '/../..' . '/src/TileList/TileListStatic/TileListStatic.php',
         'srag\\Plugins\\SrTile\\Tile\\Factory' => __DIR__ . '/../..' . '/src/Tile/Factory.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\AbstractCollection' => __DIR__ . '/../..' . '/src/Tile/Renderer/AbstractCollection.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\AbstractCollectionGUI' => __DIR__ . '/../..' . '/src/Tile/Renderer/AbstractCollectionGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\AbstractSingleGUI' => __DIR__ . '/../..' . '/src/Tile/Renderer/AbstractSingleGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\CollectionGUIFactory' => __DIR__ . '/../..' . '/src/Tile/Renderer/CollectionGUIFactory.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\CollectionGUIInterface' => __DIR__ . '/../..' . '/src/Tile/Renderer/CollectionGUIInterface.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\CollectionInterface' => __DIR__ . '/../..' . '/src/Tile/Renderer/CollectionInterface.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Container\\ContainerCollection' => __DIR__ . '/../..' . '/src/Tile/Renderer/Container/ContainerCollection.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Container\\ContainerCollectionGUI' => __DIR__ . '/../..' . '/src/Tile/Renderer/Container/ContainerCollectionGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Container\\ContainerSingleGUI' => __DIR__ . '/../..' . '/src/Tile/Renderer/Container/ContainerSingleGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Desktop\\DesktopCollection' => __DIR__ . '/../..' . '/src/Tile/Renderer/Desktop/DesktopCollection.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Desktop\\DesktopCollectionGUI' => __DIR__ . '/../..' . '/src/Tile/Renderer/Desktop/DesktopCollectionGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Desktop\\DesktopSingleGUI' => __DIR__ . '/../..' . '/src/Tile/Renderer/Desktop/DesktopSingleGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Factory' => __DIR__ . '/../..' . '/src/Tile/Renderer/Factory.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Fixed\\FixedCollection' => __DIR__ . '/../..' . '/src/Tile/Renderer/Fixed/FixedCollection.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Fixed\\FixedCollectionGUI' => __DIR__ . '/../..' . '/src/Tile/Renderer/Fixed/FixedCollectionGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Fixed\\FixedSingleGUI' => __DIR__ . '/../..' . '/src/Tile/Renderer/Fixed/FixedSingleGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\Repository' => __DIR__ . '/../..' . '/src/Tile/Renderer/Repository.php',
+        'srag\\Plugins\\SrTile\\Tile\\Renderer\\SingleGUIInterface' => __DIR__ . '/../..' . '/src/Tile/Renderer/SingleGUIInterface.php',
         'srag\\Plugins\\SrTile\\Tile\\Repository' => __DIR__ . '/../..' . '/src/Tile/Repository.php',
         'srag\\Plugins\\SrTile\\Tile\\Tile' => __DIR__ . '/../..' . '/src/Tile/Tile.php',
-        'srag\\Plugins\\SrTile\\Tile\\TileDesktopGUI\\TileDesktopGUI' => __DIR__ . '/../..' . '/src/TileGUI/TileDesktopGUI/TileDesktopGUI.php',
         'srag\\Plugins\\SrTile\\Tile\\TileFormGUI' => __DIR__ . '/../..' . '/src/Tile/TileFormGUI.php',
         'srag\\Plugins\\SrTile\\Tile\\TileGUI' => __DIR__ . '/../..' . '/src/Tile/class.TileGUI.php',
         'srag\\Plugins\\SrTile\\Tile\\TileReference' => __DIR__ . '/../..' . '/src/Tile/TileReference.php',

@@ -5,8 +5,6 @@ use srag\Plugins\SrTile\Config\Config;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Tile\TileGUI;
-use srag\Plugins\SrTile\TileListGUI\TileListContainerGUI\TileListContainerGUI;
-use srag\Plugins\SrTile\TileListGUI\TileListDesktopGUI\TileListDesktopGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -95,7 +93,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
             return [
                 "mode" => self::REPLACE,
-                "html" => self::output()->getHTML(new TileListContainerGUI($a_par["html"]))
+                "html" => self::output()->getHTML(self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->container($a_par["html"]))
             ];
         }
 
@@ -103,7 +101,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
             return [
                 "mode" => self::REPLACE,
-                "html" => self::output()->getHTML(new TileListDesktopGUI(self::dic()->user()))
+                "html" => self::output()->getHTML(self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->desktop(self::dic()->user()))
             ];
         }
 

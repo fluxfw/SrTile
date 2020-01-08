@@ -1,12 +1,28 @@
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
 config_enabled_on_favorites#:#Enabled on favorites
+config_enabled_object_links#:#Enable object links
+config_enabled_object_links_once_select#:#User can only select once
 config_enabled_on_repository#:#Enabled on repository
 config_save#:#Save
 favorites_add_to_favorites#:#Add to favorites
 favorites_added_to_favorites#:#The object has been added to the favorites
 favorites_remove_from_favorites#:#Remove from favorites
 favorites_removed_from_favorites#:#The object has been removed from the favorites
+object_links_actions#:#Actions
+object_links_add#:#Add
+object_links_add_object_link#:#Add object link
+object_links_added_object_link#:#Added object link
+object_links_back#:#Back
+object_links_cancel#:#Cancel
+object_links_can_not_be_changed_anymore#:#Can not be changed anymore after open
+object_links_language#:#Language
+object_links_merged#:#Merged
+object_links_object#:#Object
+object_links_object_links#:#Object links
+object_links_open#:#Open
+object_links_remove_object_link#:#Remove object link
+object_links_removed_object_link#:#Removed object link
 rating_like#:#Like
 rating_liked#:#Liked
 rating_unlike#:#Unlike
@@ -50,6 +66,7 @@ tile_columns_fix_width#:#Fix width
 tile_disabled#:#Disabled
 tile_disabled_hint#:#Disabled globally in ILIAS
 tile_download_certificate#:#Download certificate
+tile_edit_tile#:#Edit tile
 tile_enable_rating#:#Enable rating
 tile_enabled#:#Enabled
 tile_favorites#:#Favorites
