@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\ObjectLink;
 
+use ilObjectFactory;
 use ilSrTilePlugin;
 use ilUtil;
 use srag\DIC\SrTile\DICTrait;
@@ -199,7 +200,12 @@ final class Repository
             self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id))), function (array $child) use ($group_id): bool {
             return ($this->getObjectLink($group_id, $child["child"]) === null);
         }), function (array $childs, array $child) : array {
-            $childs[$child["child"]] = $child["title"];
+            $language_text = self::srTile()->ilias()->metadata(ilObjectFactory::getInstanceByRefId($child["child"], false))->getLanguageText();
+            if (!empty($language_text)) {
+                $language_text = " (" . $language_text . ")";
+            }
+
+            $childs[$child["child"]] = $child["title"] . $language_text;
 
             return $childs;
         }, []);

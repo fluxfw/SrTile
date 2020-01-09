@@ -6,6 +6,7 @@ use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\Items\Items;
 use srag\CustomInputGUIs\SrTile\TableGUI\TableGUI;
 use srag\CustomInputGUIs\SrTile\Waiter\Waiter;
+use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -48,7 +49,12 @@ class ObjectLinksTableGUI extends TableGUI
                 break;
 
             case "language":
-                $column = self::srTile()->ilias()->metadata($object_link->getObject())->getLanguageImage() . self::srTile()->ilias()->metadata($object_link->getObject())->getLanguageText();
+                $language_flag = "";
+                if ($this->parent_obj->getParent()->getTile()->getShowLanguageFlag() === Tile::SHOW_TRUE) {
+                    $language_flag = self::srTile()->ilias()->metadata($object_link->getObject())->getLanguageImage();
+                }
+
+                $column = $language_flag . self::srTile()->ilias()->metadata($object_link->getObject())->getLanguageText();
                 break;
 
             default:
