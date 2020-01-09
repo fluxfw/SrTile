@@ -297,7 +297,7 @@ final class Repository
      *
      * @return bool
      */
-    public function shouldObjectLink(int $obj_ref_id) : bool
+    public function shouldShowObjectLink(int $obj_ref_id) : bool
     {
         $object_links = $this->getObjectLinks($this->getGroupByObject($obj_ref_id)->getGroupId());
 
@@ -305,9 +305,13 @@ final class Repository
             return true;
         }
 
-        $object_links2 = array_filter($object_links, function (ObjectLink $object_link) : bool {
-            return (!empty(self::srTile()->ilias()->learningProgress(self::dic()->user())->getStatus($object_link->getObjRefId())));
-        });
+        if (!self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
+            $object_links2 = array_filter($object_links, function (ObjectLink $object_link) : bool {
+                return (!empty(self::srTile()->ilias()->learningProgress(self::dic()->user())->getStatus($object_link->getObjRefId())));
+            });
+        } else {
+            $object_links2 = [];
+        }
 
         if (!empty($object_links2)) {
             return (current($object_links2)->getObjRefId() === $obj_ref_id);
