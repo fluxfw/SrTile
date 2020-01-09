@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrTile\Tile\Renderer;
 
+use srag\Plugins\SrTile\ObjectLink\ObjectLink;
+
 /**
  * Interface SingleGUIInterface
  *
@@ -20,9 +22,11 @@ interface SingleGUIInterface
 
 
     /**
+     * @param ObjectLink[] $object_links
+     *
      * @return string
      */
-    public function getActions() : string;
+    public function getActions(array $object_links = []) : string;
 
 
     /**

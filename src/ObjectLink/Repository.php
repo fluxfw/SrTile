@@ -217,10 +217,6 @@ final class Repository
             return [];
         }
 
-        if (self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
-            return [];
-        }
-
         $object_links = $this->getObjectLinks($this->getGroupByObject($obj_ref_id)->getGroupId());
 
         if (count($object_links) < 2) {
@@ -228,11 +224,13 @@ final class Repository
         }
 
         if (Config::getField(Config::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
-            if (!empty(array_filter($object_links, function (ObjectLink $object_link) : bool {
-                return (!empty(self::srTile()->ilias()->learningProgress(self::dic()->user())->getStatus($object_link->getObjRefId())));
-            }))
-            ) {
-                return [];
+            if (!self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
+                if (!empty(array_filter($object_links, function (ObjectLink $object_link) : bool {
+                    return (!empty(self::srTile()->ilias()->learningProgress(self::dic()->user())->getStatus($object_link->getObjRefId())));
+                }))
+                ) {
+                    return [];
+                }
             }
         }
 
@@ -301,10 +299,6 @@ final class Repository
      */
     public function shouldObjectLink(int $obj_ref_id) : bool
     {
-        if (self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
-            return true;
-        }
-
         $object_links = $this->getObjectLinks($this->getGroupByObject($obj_ref_id)->getGroupId());
 
         if (count($object_links) < 2) {

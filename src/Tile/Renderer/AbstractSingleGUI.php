@@ -79,7 +79,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         self::dic()->ctrl()->setParameterByClass(RatingGUI::class, RatingGUI::GET_PARAM_REF_ID, $this->tile->getObjRefId());
         self::dic()->ctrl()->setParameterByClass(RecommendGUI::class, RecommendGUI::GET_PARAM_REF_ID, $this->tile->getObjRefId());
 
-        $tpl = self::plugin()->template("Tile/tile.html");
+        $tpl = self::plugin()->template("TileSingle/single.html");
         $tpl->setCurrentBlock("tile");
 
         $tpl->setVariable("TILE_ID", $this->tile->getTileId());
@@ -95,7 +95,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         $object_links = self::srTile()->objectLinks()->getShouldShowObjectLinks($this->tile->getObjRefId());
 
         if (!empty($object_links)) {
-            $actions = array_map(function (ObjectLink $object_link) : StandardLink {
+            $items = array_map(function (ObjectLink $object_link) : StandardLink {
 
                 $language_flag = "";
                 if ($this->tile->getShowLanguageFlag() === Tile::SHOW_TRUE) {
@@ -107,18 +107,20 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
             }, $object_links);
 
             if (Config::getField(Config::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
-                $message = self::plugin()->translate("can_not_be_changed_anymore", ObjectLinksGUI::LANG_MODULE);
-                if (self::version()->is54()) {
-                    $message = self::dic()->ui()->factory()->messageBox()->info($message);
-                } else {
-                    $message = self::dic()->ui()->factory()->legacy(self::dic()->mainTemplate()->getMessageHTML($message, "info"));
-                }
+                if (!self::srTile()->access()->hasWriteAccess($this->tile->getObjRefId())) {
+                    $message = self::plugin()->translate("can_not_be_changed_anymore", ObjectLinksGUI::LANG_MODULE);
+                    if (self::version()->is54()) {
+                        $message = self::dic()->ui()->factory()->messageBox()->info($message);
+                    } else {
+                        $message = self::dic()->ui()->factory()->legacy(self::dic()->mainTemplate()->getMessageHTML($message, "info"));
+                    }
 
-                array_unshift($actions, $message);
+                    array_unshift($items, $message);
+                }
             }
 
             $tpl->setVariable("OBJECT_LINKS",
-                self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard($actions)->withLabel(self::plugin()->translate("open", ObjectLinksGUI::LANG_MODULE))));
+                self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard($items)->withLabel(self::plugin()->translate("open", ObjectLinksGUI::LANG_MODULE))));
         } else {
             $tpl->setVariable("LINK", $this->tile->_getAdvancedLink());
         }
@@ -259,7 +261,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         }
 
         $image = $this->tile->getImagePathWithCheck();
-        $tpl_image = self::plugin()->template("Tile/image.html");
+        $tpl_image = self::plugin()->template("TileSingle/image.html");
         $tpl_image->setVariable("IMAGE", (!empty($image) ? "./" . $image : ""));
         $tpl->setVariable("IMAGE", self::output()->getHTML($tpl_image));
 
@@ -268,12 +270,12 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
         switch ($this->tile->getShowActions()) {
             case Tile::SHOW_ACTIONS_ALWAYS:
-                $tpl->setVariable("ACTIONS", $this->getActions());
+                $tpl->setVariable("ACTIONS", $this->getActions($object_links));
                 break;
 
             case Tile::SHOW_ACTIONS_ONLY_WITH_WRITE_PERMISSIONS:
                 if (self::srTile()->access()->hasWriteAccess($this->tile->getObjRefId())) {
-                    $tpl->setVariable("ACTIONS", $this->getActions());
+                    $tpl->setVariable("ACTIONS", $this->getActions($object_links));
                 }
                 break;
 
@@ -342,7 +344,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
     /**
      * @inheritdoc
      */
-    public function getActions() : string
+    public function getActions(array $object_links = []) : string
     {
         if (self::dic()->ctrl()->isAsynch()) {
             // Hide because not work for asynch asynch load (Preconditions) - Some missing javascript int call on asynch
@@ -353,6 +355,10 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         $advanced_selection_list->setAsynch(true);
         $advanced_selection_list->setId("act_" . $this->tile->getObjRefId() . "_tile_" . $this->tile->getTileId());
         $advanced_selection_list->setAsynchUrl($this->getActionAsyncUrl());
+
+        if (!empty($object_links)) {
+            $advanced_selection_list->setListTitle(self::plugin()->translate("actions", TileGUI::LANG_MODULE));
+        }
 
         return self::output()->getHTML($advanced_selection_list);
     }

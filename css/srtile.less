@@ -243,6 +243,15 @@
 
 		.btn-group {
 		  display: block;
+
+		  & ~ .dropdown {
+			margin-left: 2px;
+
+			.alert {
+			  margin: 0 !important;
+			  padding: 0 !important;
+			}
+		  }
 		}
 
 		.likes_count {
@@ -356,11 +365,6 @@
   // Buttons no border
   .btn-default {
 	border: none !important;
-  }
-
-  .alert {
-	margin: 0 !important;
-	padding: 0 !important;
   }
 }
 
