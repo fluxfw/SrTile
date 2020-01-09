@@ -305,12 +305,13 @@ final class Repository
             return true;
         }
 
-        if (!self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
-            $object_links2 = array_filter($object_links, function (ObjectLink $object_link) : bool {
-                return (!empty(self::srTile()->ilias()->learningProgress(self::dic()->user())->getStatus($object_link->getObjRefId())));
-            });
-        } else {
-            $object_links2 = [];
+        $object_links2 = [];
+        if (Config::getField(Config::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
+            if (!self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
+                $object_links2 = array_filter($object_links, function (ObjectLink $object_link) : bool {
+                    return (!empty(self::srTile()->ilias()->learningProgress(self::dic()->user())->getStatus($object_link->getObjRefId())));
+                });
+            }
         }
 
         if (!empty($object_links2)) {
