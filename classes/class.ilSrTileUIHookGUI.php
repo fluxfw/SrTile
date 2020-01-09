@@ -31,6 +31,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     const ACTIONS_MENU_TEMPLATE = "Services/UIComponent/AdvancedSelectionList/tpl.adv_selection_list.html";
     const GET_PARAM_REF_ID = "ref_id";
     const GET_PARAM_TARGET = "target";
+    const GET_RENDER_EDIT_TILE_ACTION = "render_edit_tile_action";
     /**
      * @var bool[]
      */
@@ -115,35 +116,41 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
         }
 
         if ($a_par["tpl_id"] === self::ACTIONS_MENU_TEMPLATE && $a_part === self::TEMPLATE_GET) {
-            $html = $a_par["html"];
 
-            $matches = [];
-            preg_match('/id="act_([0-9]+)/', $html, $matches);
-            if (is_array($matches) && count($matches) >= 2) {
+            if (!empty(filter_input(INPUT_GET, self::GET_RENDER_EDIT_TILE_ACTION))) {
 
-                $obj_ref_id = intval($matches[1]);
+                $html = $a_par["html"];
 
-                if (self::srTile()->tiles()->isObject($obj_ref_id)) {
-                    if (self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
-                        self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_REF_ID, $obj_ref_id);
+                $matches = [];
+                preg_match('/id="act_([0-9]+)/', $html, $matches);
+                if (is_array($matches) && count($matches) >= 2) {
 
-                        $edit_tile_html = '<li>' . self::output()->getHTML(self::dic()->ui()->factory()->link()->standard('<span class="xsmall">' . self::plugin()
-                                    ->translate("edit_tile", TileGUI::LANG_MODULE) . '</span>',
-                                self::dic()->ctrl()->getLinkTargetByClass([
-                                    ilUIPluginRouterGUI::class,
-                                    TileGUI::class
-                                ], TileGUI::CMD_EDIT_TILE))) . '</li>';
+                    $obj_ref_id = intval($matches[1]);
 
-                        $matches = [];
-                        preg_match('/<ul class="dropdown-menu pull-right" role="menu" id="ilAdvSelListTable_.*">/',
-                            $html, $matches);
-                        if (is_array($matches) && count($matches) >= 1) {
-                            $html = str_ireplace($matches[0], $matches[0] . $edit_tile_html, $html);
-                        } else {
-                            $html = $edit_tile_html . $html;
+                    if (self::srTile()->tiles()->isObject($obj_ref_id)) {
+
+                        if (self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
+
+                            self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_REF_ID, $obj_ref_id);
+
+                            $edit_tile_html = '<li>' . self::output()->getHTML(self::dic()->ui()->factory()->link()->standard('<span class="xsmall">' . self::plugin()
+                                        ->translate("edit_tile", TileGUI::LANG_MODULE) . '</span>',
+                                    self::dic()->ctrl()->getLinkTargetByClass([
+                                        ilUIPluginRouterGUI::class,
+                                        TileGUI::class
+                                    ], TileGUI::CMD_EDIT_TILE))) . '</li>';
+
+                            $matches = [];
+                            preg_match('/<ul class="dropdown-menu pull-right" role="menu" id="ilAdvSelListTable_.*">/',
+                                $html, $matches);
+                            if (is_array($matches) && count($matches) >= 1) {
+                                $html = str_ireplace($matches[0], $matches[0] . $edit_tile_html, $html);
+                            } else {
+                                $html = $edit_tile_html . $html;
+                            }
+
+                            return ["mode" => self::REPLACE, "html" => $html];
                         }
-
-                        return ["mode" => self::REPLACE, "html" => $html];
                     }
                 }
             }
