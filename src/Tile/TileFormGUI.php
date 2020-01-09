@@ -88,8 +88,6 @@ class TileFormGUI extends ObjectPropertyFormGUI
     protected function initCommands()/*: void*/
     {
         $this->addCommandButton(TileGUI::CMD_UPDATE_TILE, $this->txt("save"));
-
-        $this->addCommandButton(TileGUI::CMD_BACK, $this->txt("cancel"));
     }
 
 
@@ -793,7 +791,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
      */
     protected function initTitle()/*: void*/
     {
-        $this->setTitle(self::plugin()->translate("object", self::LANG_MODULE, [$this->object->_getTitle()]));
+        $this->setTitle($this->object->_getTitle());
     }
 
 

@@ -68,6 +68,10 @@
 	  position: relative;
 	  width: 100%;
 
+	  &:not([href]) {
+		cursor: default;
+	  }
+
 	  .tile_image_container {
 		bottom: 0;
 		left: 0;
@@ -155,32 +159,32 @@
 
 	  // Language flag
 	  .tile_language_flag {
-		> img {
-		  height: auto;
+		> span {
+		  height: 24px;
 		  position: absolute;
 		  width: 32px;
 		}
 
 		// Language flag left top
-		&[data-language_flag_position="5"] > img {
+		&[data-language_flag_position="5"] > span {
 		  left: 2px;
 		  top: 2px;
 		}
 
 		// Language flag left bottom
-		&[data-language_flag_position="6"] > img {
+		&[data-language_flag_position="6"] > span {
 		  bottom: 2px;
 		  left: 2px;
 		}
 
 		// Language flag right top
-		&[data-language_flag_position="7"] > img {
+		&[data-language_flag_position="7"] > span {
 		  right: 2px;
 		  top: 2px;
 		}
 
 		// Language flag bottom
-		&[data-language_flag_position="8"] > img {
+		&[data-language_flag_position="8"] > span {
 		  bottom: 2px;
 		  right: 2px;
 		}
@@ -210,6 +214,11 @@
 		text-decoration: none;
 		text-overflow: ellipsis;
 		word-break: break-word;
+
+		&:not([href]) {
+		  cursor: default;
+		}
+
 	  }
 
 	  // Card icons
@@ -234,6 +243,15 @@
 
 		.btn-group {
 		  display: block;
+
+		  & ~ .dropdown {
+			margin-left: 2px;
+
+			.alert {
+			  margin: 0 !important;
+			  padding: 0 !important;
+			}
+		  }
 		}
 
 		.likes_count {

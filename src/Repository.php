@@ -15,6 +15,7 @@ use srag\Plugins\SrTile\ColorThiefCache\Repository as ColorThiefCacheRepository;
 use srag\Plugins\SrTile\Config\Config;
 use srag\Plugins\SrTile\Favorite\Repository as FavoriteRepository;
 use srag\Plugins\SrTile\LearningProgress\Repository as LearningProgressFilterRepository;
+use srag\Plugins\SrTile\ObjectLink\Repository as ObjectLinkRepository;
 use srag\Plugins\SrTile\Rating\Repository as RatingRepository;
 use srag\Plugins\SrTile\Recommend\Repository as RecommendRepository;
 use srag\Plugins\SrTile\Template\Repository as TemplateRepository;
@@ -99,6 +100,7 @@ final class Repository
         $this->favorites(self::dic()->user())->dropTables();
         $this->learningProgressFilters(self::dic()->user())->dropTables();
         $this->notifications4plugin()->dropTables();
+        $this->objectLinks()->dropTables();
         $this->rating(self::dic()->user())->dropTables();
         $this->recommend()->dropTables();
         $this->templates()->dropTables();
@@ -136,6 +138,7 @@ final class Repository
         $this->favorites(self::dic()->user())->installTables();
         $this->learningProgressFilters(self::dic()->user())->installTables();
         $this->notifications4plugin()->installTables();
+        $this->objectLinks()->installTables();
         $this->rating(self::dic()->user())->installTables();
         $this->recommend()->installTables();
         $this->templates()->installTables();
@@ -160,6 +163,15 @@ final class Repository
     public function notifications4plugin() : NotificationRepositoryInterface
     {
         return self::_notifications4plugin();
+    }
+
+
+    /**
+     * @return ObjectLinkRepository
+     */
+    public function objectLinks() : ObjectLinkRepository
+    {
+        return ObjectLinkRepository::getInstance();
     }
 
 

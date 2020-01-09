@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.7.0]
+- Object links
+- New and more language flags
+- Edit tile from action menu
+
 ## [1.6.0]
 - Some improvments
 
