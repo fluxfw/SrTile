@@ -13,7 +13,6 @@ object_links_actions#:#Actions
 object_links_add#:#Add
 object_links_add_object_link#:#Add object link
 object_links_added_object_link#:#Added object link
-object_links_back#:#Back
 object_links_cancel#:#Cancel
 object_links_can_not_be_changed_anymore#:#Can not be changed anymore after open
 object_links_language#:#Language
@@ -50,7 +49,6 @@ tile#:#Tile
 tile_actions#:#Actions
 tile_apply#:#Apply
 tile_apply_colors_to_global_skin#:#Apply colors to global skin (Experimental)
-tile_back#:#Back
 tile_background_color#:#Background color
 tile_border#:#Border
 tile_border_color#:#Border color
@@ -82,7 +80,6 @@ tile_language#:#Language
 tile_learning_progress#:#Learning progress
 tile_learning_progress_position#:#Position
 tile_margin#:#Margin
-tile_object#:#Object: %s
 tile_object_icon_position#:#Object icon
 tile_open_false#:#Not open
 tile_open_obj_with_one_child_direct#:#Open object with one child direct

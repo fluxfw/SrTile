@@ -25,7 +25,8 @@ class TileGUI
     use DICTrait;
     use SrTileTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-    const CMD_BACK = "back";
+    const CMD_BACK_TO_OBJECT = "backToObject";
+    const CMD_BACK_TO_PARENT = "backToParent";
     const CMD_EDIT_TILE = "editTile";
     const CMD_GET_PRECONDITIONS = "getPreconditions";
     const CMD_UPDATE_TILE = "updateTile";
@@ -73,7 +74,8 @@ class TileGUI
                 $cmd = self::dic()->ctrl()->getCmd();
 
                 switch ($cmd) {
-                    case self::CMD_BACK:
+                    case self::CMD_BACK_TO_OBJECT:
+                    case self::CMD_BACK_TO_PARENT:
                     case self::CMD_EDIT_TILE:
                     case self::CMD_GET_PRECONDITIONS;
                     case self::CMD_UPDATE_TILE:
@@ -109,8 +111,14 @@ class TileGUI
     {
         self::dic()->tabs()->clearTargets();
 
-        self::dic()->tabs()->setBackTarget(self::plugin()->translate("back", self::LANG_MODULE), self::dic()->ctrl()
-            ->getLinkTarget($this, self::CMD_BACK));
+        $parent = self::srTile()->tiles()->getParentTile($this->tile);
+        if (self::srTile()->tiles()->isObject($parent->getObjRefId())) {
+            self::dic()->tabs()->setBack2Target($parent->_getTitle(), self::dic()->ctrl()
+                ->getLinkTarget($this, self::CMD_BACK_TO_PARENT));
+        }
+
+        self::dic()->tabs()->setBackTarget($this->tile->_getTitle(), self::dic()->ctrl()
+            ->getLinkTarget($this, self::CMD_BACK_TO_OBJECT));
 
         self::dic()->tabs()->addTab(self::TAB_TILE, self::plugin()->translate("edit_tile", self::LANG_MODULE), self::dic()->ctrl()->getLinkTargetByClass([
             ilUIPluginRouterGUI::class,
@@ -124,7 +132,20 @@ class TileGUI
     /**
      *
      */
-    protected function back()/*: void*/
+    protected function backToParent()/*: void*/
+    {
+        $parent = self::srTile()->tiles()->getParentTile($this->tile);
+
+        if (self::srTile()->tiles()->isObject($parent->getObjRefId())) {
+            $this->dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent->getObjRefId()));
+        }
+    }
+
+
+    /**
+     *
+     */
+    protected function backToObject()/*: void*/
     {
         $this->dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->tile->getObjRefId()));
     }

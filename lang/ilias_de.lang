@@ -13,7 +13,6 @@ object_links_actions#:#Aktionen
 object_links_add#:#Hinzufügen
 object_links_add_object_link#:#Objekt-Verknüpfung hinzufügen
 object_links_added_object_link#:#Objekt-Verknüpfung hinzugefügt
-object_links_back#:#Zurück
 object_links_cancel#:#Abbrechen
 object_links_can_not_be_changed_anymore#:#Kann nach dem Öffnen nicht mehr geändert werden
 object_links_language#:#Sprache
@@ -50,7 +49,6 @@ tile#:#Kachel
 tile_actions#:#Aktionen
 tile_apply#:#Anwenden
 tile_apply_colors_to_global_skin#:#Farben auf Globals-Skin anwenden (Experimental)
-tile_back#:#Zurück
 tile_background_color#:#Hintergrund-Farbe
 tile_border#:#Rahmen
 tile_border_color#:#Rahmen-Farbe
@@ -82,7 +80,6 @@ tile_language#:#Sprache
 tile_learning_progress#:#Lernfortschritt
 tile_learning_progress_position#:#Position
 tile_margin#:#Abstand
-tile_object#:#Objekt: %s
 tile_object_icon_position#:#Objekt-Icon
 tile_open_false#:#Nicht öffnen
 tile_open_obj_with_one_child_direct#:#Öffne Objekt mit nur einem Kind direkt

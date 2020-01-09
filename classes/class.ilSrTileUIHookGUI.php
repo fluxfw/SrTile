@@ -1,5 +1,6 @@
 <?php
 
+use ILIAS\UI\Component\Component;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Config\Config;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;
@@ -28,6 +29,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     const TEMPLATE_ID_FAVORITES = "Services/PersonalDesktop/tpl.pd_list_block.html";
     const TAB_PERM_ID = "perm";
     const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
+    const ACTIONS_MENU_TEMPLATE = "Services/UIComponent/AdvancedSelectionList/tpl.adv_selection_list.html";
     const GET_PARAM_REF_ID = "ref_id";
     const GET_PARAM_TARGET = "target";
     /**
@@ -111,6 +113,44 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
                 "mode" => self::APPEND,
                 "html" => (new RecommendGUI())->getModal()
             ];
+        }
+
+        if ($a_par["tpl_id"] === self::ACTIONS_MENU_TEMPLATE && $a_part === self::TEMPLATE_GET) {
+            $html = $a_par["html"];
+
+            $matches = [];
+            preg_match('/id="act_([0-9]+)/', $html, $matches);
+            if (is_array($matches) && count($matches) >= 2) {
+
+                $obj_ref_id = intval($matches[1]);
+
+                if (self::srTile()->tiles()->isObject($obj_ref_id)) {
+                    if (self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
+                        self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_REF_ID, $obj_ref_id);
+
+                        $actions_html = self::output()->getHTML(array_map(function (Component $action) : string {
+                            return '<li>' . self::output()->getHTML($action) . '</li>';
+                        }, [
+                            self::dic()->ui()->factory()->link()->standard('<span class="xsmall">' . self::plugin()->translate("edit_tile", TileGUI::LANG_MODULE) . '</span>',
+                                self::dic()->ctrl()->getLinkTargetByClass([
+                                    ilUIPluginRouterGUI::class,
+                                    TileGUI::class
+                                ], TileGUI::CMD_EDIT_TILE))
+                        ]));
+
+                        $matches = [];
+                        preg_match('/<ul class="dropdown-menu pull-right" role="menu" id="ilAdvSelListTable_.*">/',
+                            $html, $matches);
+                        if (is_array($matches) && count($matches) >= 1) {
+                            $html = str_ireplace($matches[0], $matches[0] . $actions_html, $html);
+                        } else {
+                            $html = $actions_html . $html;
+                        }
+
+                        return ["mode" => self::REPLACE, "html" => $html];
+                    }
+                }
+            }
         }
 
         return parent::getHTML($a_comp, $a_part, $a_par);

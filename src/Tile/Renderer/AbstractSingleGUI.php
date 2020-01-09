@@ -369,7 +369,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
      */
     public function getActionAsyncUrl() : string
     {
-        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, ROOT_FOLDER_ID);
+        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, (ilSrTileUIHookGUI::filterRefId() ?: 1));
         self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", $this->tile->getObjRefId());
 
         $async_url = self::dic()->ctrl()->getLinkTargetByClass([
