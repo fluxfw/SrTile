@@ -372,6 +372,10 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, (ilSrTileUIHookGUI::filterRefId() ?: 1));
         self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", $this->tile->getObjRefId());
 
+        if (!empty(ilSrTileUIHookGUI::filterRefId())) {
+            self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_RENDER_EDIT_TILE_ACTION, 1);
+        }
+
         $async_url = self::dic()->ctrl()->getLinkTargetByClass([
             ilRepositoryGUI::class,
             ilObjRootFolderGUI::class
@@ -379,6 +383,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
         self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, null);
         self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", null);
+        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_RENDER_EDIT_TILE_ACTION, null);
 
         return $async_url;
     }
