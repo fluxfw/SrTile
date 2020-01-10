@@ -35,7 +35,7 @@ class ContainerCollection extends AbstractCollection
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initObjRefIds() /*: void*/
     {

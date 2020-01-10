@@ -48,7 +48,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected final function initAction()/*: void*/
     {
@@ -57,7 +57,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initCommands()/*: void*/
     {
@@ -70,7 +70,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initFields()/*: void*/
     {
@@ -92,7 +92,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected final function initId()/*: void*/
     {
@@ -101,7 +101,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected final function initTitle()/*: void*/
     {

@@ -24,7 +24,7 @@ class TemplateFormGUI extends TileFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initCommands()/*: void*/
     {

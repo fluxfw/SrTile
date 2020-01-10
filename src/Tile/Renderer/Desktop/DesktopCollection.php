@@ -36,7 +36,7 @@ class DesktopCollection extends AbstractCollection
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initObjRefIds() /*: void*/
     {

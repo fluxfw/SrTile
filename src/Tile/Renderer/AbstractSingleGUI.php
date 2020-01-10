@@ -56,7 +56,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function render() : string
     {
@@ -342,7 +342,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getActions(array $object_links = []) : string
     {
@@ -365,7 +365,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getActionAsyncUrl() : string
     {

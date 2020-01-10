@@ -20,8 +20,8 @@ class ConfigFormGUI extends ConfigPropertyFormGUI
 
     use SrTileTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-    const LANG_MODULE = ilSrTileConfigGUI::LANG_MODULE;
     const CONFIG_CLASS_NAME = Config::class;
+    const LANG_MODULE = ilSrTileConfigGUI::LANG_MODULE;
 
 
     /**
@@ -36,7 +36,7 @@ class ConfigFormGUI extends ConfigPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initCommands()/*: void*/
     {
@@ -45,7 +45,7 @@ class ConfigFormGUI extends ConfigPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initFields()/*: void*/
     {
@@ -78,7 +78,7 @@ class ConfigFormGUI extends ConfigPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initTitle()/*: void*/
     {

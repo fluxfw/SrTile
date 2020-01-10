@@ -51,7 +51,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function render() : string
     {
@@ -93,7 +93,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function hideOriginalRowsOfTiles() /*: void*/
     {

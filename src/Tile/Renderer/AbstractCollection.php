@@ -40,7 +40,7 @@ abstract class AbstractCollection implements CollectionInterface
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function addTile(Tile $tile)/*: void*/
     {
@@ -49,7 +49,7 @@ abstract class AbstractCollection implements CollectionInterface
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function removeTile(int $tile_id)/*: void*/
     {
@@ -60,7 +60,7 @@ abstract class AbstractCollection implements CollectionInterface
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getTiles() : array
     {
