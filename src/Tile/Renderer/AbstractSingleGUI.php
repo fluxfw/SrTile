@@ -157,7 +157,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
             ) {
                 $tpl_rating = self::plugin()->template("Rating/rating.html");
 
-                if (self::srTile()->rating(self::dic()->user())->hasLike($this->tile->getObjRefId())) {
+                if (self::srTile()->ratings(self::dic()->user())->hasLike($this->tile->getObjRefId())) {
                     $tpl_rating->setVariable("RATING_LINK", self::dic()->ctrl()->getLinkTargetByClass([
                         ilUIPluginRouterGUI::class,
                         RatingGUI::class
@@ -174,7 +174,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                 }
 
                 if ($this->tile->getShowLikesCount() === Tile::SHOW_TRUE) {
-                    $likes_count = self::srTile()->rating(self::dic()->user())->getLikesCount($this->tile->getObjRefId());
+                    $likes_count = self::srTile()->ratings(self::dic()->user())->getLikesCount($this->tile->getObjRefId());
 
                     if ($likes_count > 0) {
                         $tpl_likes_count = self::plugin()->template("Rating/likes_count.html");

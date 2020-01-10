@@ -143,7 +143,7 @@ class RecommendGUI
     {
         $message = null;
 
-        $form = self::srTile()->recommend()->factory()->newFormInstance($this, $this->tile);
+        $form = self::srTile()->recommends()->factory()->newFormInstance($this, $this->tile);
 
         $this->show($message, $form);
     }
@@ -156,7 +156,7 @@ class RecommendGUI
     {
         $message = null;
 
-        $form = self::srTile()->recommend()->factory()->newFormInstance($this, $this->tile);
+        $form = self::srTile()->recommends()->factory()->newFormInstance($this, $this->tile);
 
         if (!$form->storeForm()) {
             $this->show($message, $form);

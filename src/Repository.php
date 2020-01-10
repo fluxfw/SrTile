@@ -7,19 +7,19 @@ use ilObjUser;
 use ilSrTilePlugin;
 use ilUtil;
 use srag\DIC\SrTile\DICTrait;
-use srag\Notifications4Plugin\SrTile\RepositoryInterface as NotificationRepositoryInterface;
+use srag\Notifications4Plugin\SrTile\RepositoryInterface as Notifications4PluginRepositoryInterface;
 use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
 use srag\Plugins\SrTile\Access\Access;
 use srag\Plugins\SrTile\Access\Ilias;
-use srag\Plugins\SrTile\ColorThiefCache\Repository as ColorThiefCacheRepository;
+use srag\Plugins\SrTile\ColorThiefCache\Repository as ColorThiefCachesRepository;
 use srag\Plugins\SrTile\Config\Config;
-use srag\Plugins\SrTile\Favorite\Repository as FavoriteRepository;
-use srag\Plugins\SrTile\LearningProgress\Repository as LearningProgressFilterRepository;
-use srag\Plugins\SrTile\ObjectLink\Repository as ObjectLinkRepository;
-use srag\Plugins\SrTile\Rating\Repository as RatingRepository;
-use srag\Plugins\SrTile\Recommend\Repository as RecommendRepository;
-use srag\Plugins\SrTile\Template\Repository as TemplateRepository;
-use srag\Plugins\SrTile\Tile\Repository as TileRepository;
+use srag\Plugins\SrTile\Favorite\Repository as FavoritesRepository;
+use srag\Plugins\SrTile\LearningProgress\Repository as LearningProgressFiltersRepository;
+use srag\Plugins\SrTile\ObjectLink\Repository as ObjectLinksRepository;
+use srag\Plugins\SrTile\Rating\Repository as RatingsRepository;
+use srag\Plugins\SrTile\Recommend\Repository as RecommendsRepository;
+use srag\Plugins\SrTile\Template\Repository as TemplatesRepository;
+use srag\Plugins\SrTile\Tile\Repository as TilesRepository;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -81,11 +81,11 @@ final class Repository
 
 
     /**
-     * @return ColorThiefCacheRepository
+     * @return ColorThiefCachesRepository
      */
-    public function colorThiefCaches() : ColorThiefCacheRepository
+    public function colorThiefCaches() : ColorThiefCachesRepository
     {
-        return ColorThiefCacheRepository::getInstance();
+        return ColorThiefCachesRepository::getInstance();
     }
 
 
@@ -101,8 +101,8 @@ final class Repository
         $this->learningProgressFilters(self::dic()->user())->dropTables();
         $this->notifications4plugin()->dropTables();
         $this->objectLinks()->dropTables();
-        $this->rating(self::dic()->user())->dropTables();
-        $this->recommend()->dropTables();
+        $this->ratings(self::dic()->user())->dropTables();
+        $this->recommends()->dropTables();
         $this->templates()->dropTables();
         $this->tiles()->dropTables();
     }
@@ -111,11 +111,11 @@ final class Repository
     /**
      * @param ilObjUser $user
      *
-     * @return FavoriteRepository
+     * @return FavoritesRepository
      */
-    public function favorites(ilObjUser $user) : FavoriteRepository
+    public function favorites(ilObjUser $user) : FavoritesRepository
     {
-        return FavoriteRepository::getInstance($user);
+        return FavoritesRepository::getInstance($user);
     }
 
 
@@ -139,8 +139,8 @@ final class Repository
         $this->learningProgressFilters(self::dic()->user())->installTables();
         $this->notifications4plugin()->installTables();
         $this->objectLinks()->installTables();
-        $this->rating(self::dic()->user())->installTables();
-        $this->recommend()->installTables();
+        $this->ratings(self::dic()->user())->installTables();
+        $this->recommends()->installTables();
         $this->templates()->installTables();
         $this->tiles()->installTables();
     }
@@ -149,66 +149,66 @@ final class Repository
     /**
      * @param ilObjUser $user
      *
-     * @return LearningProgressFilterRepository
+     * @return LearningProgressFiltersRepository
      */
-    public function learningProgressFilters(ilObjUser $user) : LearningProgressFilterRepository
+    public function learningProgressFilters(ilObjUser $user) : LearningProgressFiltersRepository
     {
-        return LearningProgressFilterRepository::getInstance($user);
+        return LearningProgressFiltersRepository::getInstance($user);
     }
 
 
     /**
      * @inheritDoc
      */
-    public function notifications4plugin() : NotificationRepositoryInterface
+    public function notifications4plugin() : Notifications4PluginRepositoryInterface
     {
         return self::_notifications4plugin();
     }
 
 
     /**
-     * @return ObjectLinkRepository
+     * @return ObjectLinksRepository
      */
-    public function objectLinks() : ObjectLinkRepository
+    public function objectLinks() : ObjectLinksRepository
     {
-        return ObjectLinkRepository::getInstance();
+        return ObjectLinksRepository::getInstance();
     }
 
 
     /**
      * @param ilObjUser $user
      *
-     * @return RatingRepository
+     * @return RatingsRepository
      */
-    public function rating(ilObjUser $user) : RatingRepository
+    public function ratings(ilObjUser $user) : RatingsRepository
     {
-        return RatingRepository::getInstance($user);
+        return RatingsRepository::getInstance($user);
     }
 
 
     /**
-     * @return RecommendRepository
+     * @return RecommendsRepository
      */
-    public function recommend() : RecommendRepository
+    public function recommends() : RecommendsRepository
     {
-        return RecommendRepository::getInstance();
+        return RecommendsRepository::getInstance();
     }
 
 
     /**
-     * @return TemplateRepository
+     * @return TemplatesRepository
      */
-    public function templates() : TemplateRepository
+    public function templates() : TemplatesRepository
     {
-        return TemplateRepository::getInstance();
+        return TemplatesRepository::getInstance();
     }
 
 
     /**
-     * @return TileRepository
+     * @return TilesRepository
      */
-    public function tiles() : TileRepository
+    public function tiles() : TilesRepository
     {
-        return TileRepository::getInstance();
+        return TilesRepository::getInstance();
     }
 }

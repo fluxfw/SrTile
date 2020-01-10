@@ -43,7 +43,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
     {
         $this->tile = $tile;
 
-        parent::__construct($parent, self::srTile()->recommend()->factory()->newInstance($this->tile), false);
+        parent::__construct($parent, self::srTile()->recommends()->factory()->newInstance($this->tile), false);
     }
 
 
