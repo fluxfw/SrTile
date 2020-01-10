@@ -85,13 +85,10 @@ class LearningProgressFilter extends ActiveRecord
 
 
     /**
-     * @param string $field_name
-     *
-     * @return mixed|null
+     * @inheritDoc
      */
-    public function sleep(/*string*/
-        $field_name
-    ) {
+    public function sleep(/*string*/ $field_name)
+    {
         $field_filter = $this->{$field_name};
 
         switch ($field_name) {
@@ -105,23 +102,18 @@ class LearningProgressFilter extends ActiveRecord
 
 
     /**
-     * @param string $field_name
-     * @param mixed  $field_filter
-     *
-     * @return mixed|null
+     * @inheritDoc
      */
-    public function wakeUp(/*string*/
-        $field_name,
-        $field_filter
-    ) {
+    public function wakeUp(/*string*/ $field_name, $field_value)
+    {
         switch ($field_name) {
             case "filter_id":
             case "obj_ref_id":
             case "user_id":
-                return intval($field_filter);
+                return intval($field_value);
 
             case "filter":
-                return json_decode($field_filter);
+                return json_decode($field_value);
 
             default:
                 return null;
