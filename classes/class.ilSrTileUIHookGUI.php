@@ -79,17 +79,10 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
 
     /**
-     * @param string $a_comp
-     * @param string $a_part
-     * @param array  $a_par
-     *
-     * @return array
+     * @inheritDoc
      */
-    public function getHTML(/*string*/
-        $a_comp, /*string*/
-        $a_part,
-        $a_par = []
-    ) : array {
+    public function getHTML(/*string*/ $a_comp, /*string*/ $a_part, $a_par = []) : array
+    {
 
         if ($this->matchRepository($a_part, $a_par)) {
 
@@ -161,15 +154,9 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
 
     /**
-     * @param string $a_comp
-     * @param string $a_part
-     * @param array  $a_par
+     * @inheritDoc
      */
-    public function modifyGUI(/*string*/
-        $a_comp, /*string*/
-        $a_part, /*array*/
-        $a_par = []
-    )/*: void*/
+    public function modifyGUI(/*string*/ $a_comp, /*string*/ $a_part, /*array*/ $a_par = [])/*: void*/
     {
         $obj_ref_id = self::filterRefId();
 
