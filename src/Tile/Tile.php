@@ -172,6 +172,26 @@ class Tile extends ActiveRecord
 
 
     /**
+     * @return string
+     */
+    public function getConnectorContainerName() : string
+    {
+        return static::TABLE_NAME;
+    }
+
+
+    /**
+     * @return string
+     *
+     * @deprecated
+     */
+    public static function returnDbTableName() : string
+    {
+        return self::TABLE_NAME;
+    }
+
+
+    /**
      * @param int|null $obj_ref_id
      *
      * @return int|null
@@ -562,15 +582,6 @@ class Tile extends ActiveRecord
     public function __construct(/*int*/ $primary_key_value = 0, arConnector $connector = null)
     {
         parent::__construct($primary_key_value, $connector);
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getConnectorContainerName() : string
-    {
-        return static::TABLE_NAME;
     }
 
 

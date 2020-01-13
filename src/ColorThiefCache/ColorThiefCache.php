@@ -22,6 +22,28 @@ class ColorThiefCache extends ActiveRecord
     use SrTileTrait;
     const TABLE_NAME = "ui_uihk_srtile_c_t_c";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
+
+    /**
+     * @return string
+     */
+    public function getConnectorContainerName() : string
+    {
+        return static::TABLE_NAME;
+    }
+
+
+    /**
+     * @return string
+     *
+     * @deprecated
+     */
+    public static function returnDbTableName() : string
+    {
+        return self::TABLE_NAME;
+    }
+
+
     /**
      * @var string
      *
@@ -53,15 +75,6 @@ class ColorThiefCache extends ActiveRecord
         arConnector $connector = null
     ) {
         parent::__construct($primary_key_value, $connector);
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getConnectorContainerName() : string
-    {
-        return self::TABLE_NAME;
     }
 
 

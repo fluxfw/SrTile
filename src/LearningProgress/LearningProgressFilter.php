@@ -22,6 +22,28 @@ class LearningProgressFilter extends ActiveRecord
     use SrTileTrait;
     const TABLE_NAME = "ui_uihk_srtile_lp_fil";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
+
+    /**
+     * @return string
+     */
+    public function getConnectorContainerName() : string
+    {
+        return static::TABLE_NAME;
+    }
+
+
+    /**
+     * @return string
+     *
+     * @deprecated
+     */
+    public static function returnDbTableName() : string
+    {
+        return self::TABLE_NAME;
+    }
+
+
     /**
      * @var int
      *
@@ -72,15 +94,6 @@ class LearningProgressFilter extends ActiveRecord
         arConnector $connector = null
     ) {
         parent::__construct($primary_key_filter, $connector);
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getConnectorContainerName() : string
-    {
-        return self::TABLE_NAME;
     }
 
 
