@@ -52,11 +52,11 @@ class ObjectLinksGUI
      */
     public function executeCommand()/*: void*/
     {
+        $this->group = self::srTile()->objectLinks()->getGroupByObject($this->parent->getTile()->getObjRefId());
+
         if (!Config::getField(Config::KEY_ENABLED_OBJECT_LINKS)) {
             die();
         }
-
-        $this->group = self::srTile()->objectLinks()->getGroupByObject($this->parent->getTile()->getObjRefId());
 
         self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_GROUP_ID);
 
