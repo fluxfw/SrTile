@@ -4,7 +4,8 @@ namespace srag\Plugins\SrTile\ObjectLink;
 
 use ilSelectInputGUI;
 use ilSrTilePlugin;
-use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\Items\Items;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -14,7 +15,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class ObjectLinkFormGUI extends ObjectPropertyFormGUI
+class ObjectLinkFormGUI extends PropertyFormGUI
 {
 
     use SrTileTrait;
@@ -23,18 +24,20 @@ class ObjectLinkFormGUI extends ObjectPropertyFormGUI
     /**
      * @var ObjectLink
      */
-    protected $object;
+    protected $object_link;
 
 
     /**
      * ObjectLinkFormGUI constructor
      *
      * @param ObjectLinkGUI $parent
-     * @param ObjectLink    $object
+     * @param ObjectLink    $object_link
      */
-    public function __construct(ObjectLinkGUI $parent, ObjectLink $object)
+    public function __construct(ObjectLinkGUI $parent, ObjectLink $object_link)
     {
-        parent::__construct($parent, $object, false);
+        $this->object_link = $object_link;
+
+        parent::__construct($parent);
     }
 
 
@@ -45,7 +48,7 @@ class ObjectLinkFormGUI extends ObjectPropertyFormGUI
     {
         switch ($key) {
             default:
-                return parent::getValue($key);
+                return Items::getter($this->object_link, $key);
         }
     }
 
@@ -69,7 +72,7 @@ class ObjectLinkFormGUI extends ObjectPropertyFormGUI
             "obj_ref_id" => [
                 self::PROPERTY_CLASS    => ilSelectInputGUI::class,
                 self::PROPERTY_REQUIRED => true,
-                self::PROPERTY_OPTIONS  => ["" => ""] + self::srTile()->objectLinks()->getSelectableObjects($this->object->getGroupId(),
+                self::PROPERTY_OPTIONS  => ["" => ""] + self::srTile()->objectLinks()->getSelectableObjects($this->object_link->getGroupId(),
                         $this->parent->getParent()->getParent()->getTile()->getObjRefId()),
                 "setTitle"              => $this->txt("object")
             ]
@@ -102,7 +105,7 @@ class ObjectLinkFormGUI extends ObjectPropertyFormGUI
     {
         switch ($key) {
             default:
-                parent::storeValue($key, $value);
+                Items::setter($this->object_link, $key, $value);
                 break;
         }
     }
@@ -117,7 +120,7 @@ class ObjectLinkFormGUI extends ObjectPropertyFormGUI
             return false;
         }
 
-        self::srTile()->objectLinks()->storeObjectLink($this->object);
+        self::srTile()->objectLinks()->storeObjectLink($this->object_link);
 
         return true;
     }

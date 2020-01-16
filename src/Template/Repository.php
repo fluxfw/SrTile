@@ -97,6 +97,17 @@ final class Repository
 
 
     /**
+     * @param Template $template
+     *
+     * @return Template
+     */
+    protected function cloneTemplate(Template $template) : Template
+    {
+        return $template->copy();
+    }
+
+
+    /**
      * @internal
      */
     public function dropTables()/*:void*/
@@ -142,7 +153,7 @@ final class Repository
 
         if ($template === null) {
             if ($object_type !== self::TYPE_OTHER) {
-                $template = $this->getByObjectType(self::TYPE_OTHER)->copy();
+                $template = $template - $this->cloneTemplate($this->getByObjectType(self::TYPE_OTHER));
             } else {
                 $template = $this->factory()->newInstance();
             }

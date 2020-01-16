@@ -115,4 +115,13 @@ class Recommend
     {
         $this->message = $message;
     }
+
+
+    /**
+     * @return Tile
+     */
+    public function getTile() : Tile
+    {
+        return $this->tile;
+    }
 }

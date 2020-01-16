@@ -28,9 +28,9 @@ class RecommendGUI
     const GET_PARAM_REF_ID = "ref_id";
     const LANG_MODULE = "recommendation";
     /**
-     * @var Tile
+     * @var Recommend
      */
-    protected $tile;
+    protected $recommend;
 
 
     /**
@@ -47,11 +47,11 @@ class RecommendGUI
      */
     public function executeCommand()/*: void*/
     {
-        $this->tile = self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID)));
+        $this->recommend = self::srTile()->recommends()->factory()->newInstance(self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID))));
 
-        if (!($this->tile->getShowRecommendIcon() === Tile::SHOW_TRUE
-            && !empty($this->tile->getRecommendMailTemplate())
-            && self::srTile()->access()->hasReadAccess($this->tile->getObjRefId()))
+        if (!($this->recommend->getTile()->getShowRecommendIcon() === Tile::SHOW_TRUE
+            && !empty($this->recommend->getTile()->getRecommendMailTemplate())
+            && self::srTile()->access()->hasReadAccess($this->recommend->getTile()->getObjRefId()))
         ) {
             die();
         }
@@ -143,7 +143,7 @@ class RecommendGUI
     {
         $message = null;
 
-        $form = self::srTile()->recommends()->factory()->newFormInstance($this, $this->tile);
+        $form = self::srTile()->recommends()->factory()->newFormInstance($this, $this->recommend);
 
         $this->show($message, $form);
     }
@@ -156,7 +156,7 @@ class RecommendGUI
     {
         $message = null;
 
-        $form = self::srTile()->recommends()->factory()->newFormInstance($this, $this->tile);
+        $form = self::srTile()->recommends()->factory()->newFormInstance($this, $this->recommend);
 
         if (!$form->storeForm()) {
             $this->show($message, $form);
@@ -164,9 +164,7 @@ class RecommendGUI
             return;
         }
 
-        $recommend = $form->getObject();
-
-        if ($recommend->send()) {
+        if ($this->recommend->send()) {
             if (self::version()->is54()) {
                 $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->success(self::plugin()
                     ->translate("sent_success", self::LANG_MODULE)));
