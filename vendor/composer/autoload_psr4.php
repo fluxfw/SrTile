@@ -12,6 +12,6 @@ return array(
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
     'srag\\DIC\\SrTile\\' => array($vendorDir . '/srag/dic/src'),
     'srag\\CustomInputGUIs\\SrTile\\' => array($vendorDir . '/srag/custominputguis/src'),
-    'srag\\ActiveRecordConfig\\SrTile\\' => array($vendorDir . '/srag/activerecordconfig/src'),
+    'srag\\ActiveRecordConfig\\' => array($vendorDir . '/srag/activerecordconfig/src'),
     'ColorThief\\' => array($vendorDir . '/ksubileau/color-thief-php/lib/ColorThief'),
 );

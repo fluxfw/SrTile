@@ -15,7 +15,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\SrTile\\' => 16,
             'srag\\CustomInputGUIs\\SrTile\\' => 28,
-            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
+            'srag\\ActiveRecordConfig\\' => 24,
         ),
         'C' => 
         array (
@@ -48,7 +48,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\SrTile\\' => 
+        'srag\\ActiveRecordConfig\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -264,7 +264,11 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordConfigGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigGUI.php',
         'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordConfigTableGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigTableGUI.php',
         'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordObjectFormGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordObjectFormGUI.php',
+        'srag\\ActiveRecordConfig\\SrTile\\Config\\Config' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Config/Config.php',
+        'srag\\ActiveRecordConfig\\SrTile\\Config\\Factory' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Config/Factory.php',
+        'srag\\ActiveRecordConfig\\SrTile\\Config\\Repository' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Config/Repository.php',
         'srag\\ActiveRecordConfig\\SrTile\\Exception\\ActiveRecordConfigException' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Exception/ActiveRecordConfigException.php',
+        'srag\\ActiveRecordConfig\\SrTile\\Utils\\ConfigTrait' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Utils/ConfigTrait.php',
         'srag\\CustomInputGUIs\\SrTile\\CheckboxInputGUI\\CheckboxInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/CheckboxInputGUI/CheckboxInputGUI.php',
         'srag\\CustomInputGUIs\\SrTile\\CustomInputGUIs' => __DIR__ . '/..' . '/srag/custominputguis/src/CustomInputGUIs.php',
         'srag\\CustomInputGUIs\\SrTile\\CustomInputGUIsTrait' => __DIR__ . '/..' . '/srag/custominputguis/src/CustomInputGUIsTrait.php',
