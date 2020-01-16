@@ -332,7 +332,6 @@ return array(
     'srag\\Plugins\\SrTile\\ColorThiefCache\\ColorThiefCache' => $baseDir . '/src/ColorThiefCache/ColorThiefCache.php',
     'srag\\Plugins\\SrTile\\ColorThiefCache\\Factory' => $baseDir . '/src/ColorThiefCache/Factory.php',
     'srag\\Plugins\\SrTile\\ColorThiefCache\\Repository' => $baseDir . '/src/ColorThiefCache/Repository.php',
-    'srag\\Plugins\\SrTile\\Config\\Config' => $baseDir . '/src/Config/Config.php',
     'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => $baseDir . '/src/Config/ConfigFormGUI.php',
     'srag\\Plugins\\SrTile\\Favorite\\Factory' => $baseDir . '/src/Favorite/Factory.php',
     'srag\\Plugins\\SrTile\\Favorite\\FavoritesGUI' => $baseDir . '/src/Favorite/class.FavoritesGUI.php',

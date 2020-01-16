@@ -395,7 +395,6 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\ColorThiefCache\\ColorThiefCache' => __DIR__ . '/../..' . '/src/ColorThiefCache/ColorThiefCache.php',
         'srag\\Plugins\\SrTile\\ColorThiefCache\\Factory' => __DIR__ . '/../..' . '/src/ColorThiefCache/Factory.php',
         'srag\\Plugins\\SrTile\\ColorThiefCache\\Repository' => __DIR__ . '/../..' . '/src/ColorThiefCache/Repository.php',
-        'srag\\Plugins\\SrTile\\Config\\Config' => __DIR__ . '/../..' . '/src/Config/Config.php',
         'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => __DIR__ . '/../..' . '/src/Config/ConfigFormGUI.php',
         'srag\\Plugins\\SrTile\\Favorite\\Factory' => __DIR__ . '/../..' . '/src/Favorite/Factory.php',
         'srag\\Plugins\\SrTile\\Favorite\\FavoritesGUI' => __DIR__ . '/../..' . '/src/Favorite/class.FavoritesGUI.php',

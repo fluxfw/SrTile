@@ -13,7 +13,7 @@ use ilUIPluginRouterGUI;
 use srag\CustomInputGUIs\SrTile\CustomInputGUIsTrait;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Certificate\CertificateGUI;
-use srag\Plugins\SrTile\Config\Config;
+use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Favorite\FavoritesGUI;
 use srag\Plugins\SrTile\ObjectLink\ObjectLink;
 use srag\Plugins\SrTile\ObjectLink\ObjectLinksGUI;
@@ -106,7 +106,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                     self::srTile()->tiles()->getInstanceForObjRefId($object_link->getObjRefId())->_getAdvancedLink(true));
             }, $object_links);
 
-            if (Config::getField(Config::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
+            if (self::srTile()->config()->getField(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
                 if (!self::srTile()->access()->hasWriteAccess($this->tile->getObjRefId())) {
                     $message = self::plugin()->translate("can_not_be_changed_anymore", ObjectLinksGUI::LANG_MODULE);
                     if (self::version()->is54()) {

@@ -3,7 +3,7 @@
 namespace srag\Plugins\SrTile\Tile\Renderer;
 
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Config\Config;
+use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -75,7 +75,7 @@ abstract class AbstractCollection implements CollectionInterface
     {
         $this->initObjRefIds();
 
-        if (Config::getField(Config::KEY_ENABLED_OBJECT_LINKS)) {
+        if (self::srTile()->config()->getField(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
             $this->obj_ref_ids = array_filter($this->obj_ref_ids, [self::srTile()->objectLinks(), "shouldShowObjectLink"]);
         }
 
