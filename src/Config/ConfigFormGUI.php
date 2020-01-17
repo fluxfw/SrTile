@@ -45,7 +45,7 @@ class ConfigFormGUI extends PropertyFormGUI
     {
         switch ($key) {
             default:
-                return self::srTile()->config()->getField($key);
+                return self::srTile()->config()->getValue($key);
         }
     }
 
@@ -108,7 +108,7 @@ class ConfigFormGUI extends PropertyFormGUI
     {
         switch ($key) {
             default:
-                self::srTile()->config()->setField($key, $value);
+                self::srTile()->config()->setValue($key, $value);
                 break;
         }
     }

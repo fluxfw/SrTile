@@ -217,7 +217,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && $a_part === self::TEMPLATE_GET
             && $a_par["tpl_id"] === self::TEMPLATE_ID_REPOSITORY
             && (self::$load[self::REPOSITORY_LOADER] = true)
-            && self::srTile()->config()->getField(ConfigFormGUI::KEY_ENABLED_ON_REPOSITORY)
+            && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_REPOSITORY)
             && !in_array(self::dic()->ctrl()->getCmd(), ["editOrder"])
             && !in_array(self::dic()->ctrl()->getCallHistory()[0]["cmd"], ["editOrder"])
             && !$_SESSION["il_cont_admin_panel"]
@@ -241,7 +241,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && $a_part === self::TEMPLATE_GET
             && $a_par["tpl_id"] === self::TEMPLATE_ID_FAVORITES
             && (self::$load[self::FAVORITES_LOADER] = true)
-            && self::srTile()->config()->getField(ConfigFormGUI::KEY_ENABLED_ON_FAVORITES));
+            && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_FAVORITES));
     }
 
 

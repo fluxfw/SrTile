@@ -75,7 +75,7 @@ abstract class AbstractCollection implements CollectionInterface
     {
         $this->initObjRefIds();
 
-        if (self::srTile()->config()->getField(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
+        if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
             $this->obj_ref_ids = array_filter($this->obj_ref_ids, [self::srTile()->objectLinks(), "shouldShowObjectLink"]);
         }
 

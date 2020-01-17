@@ -15,7 +15,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\SrTile\\' => 16,
             'srag\\CustomInputGUIs\\SrTile\\' => 28,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
         array (
@@ -48,7 +48,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -260,15 +260,16 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'ilSrTilePlugin' => __DIR__ . '/../..' . '/classes/class.ilSrTilePlugin.php',
         'ilSrTileUIHookGUI' => __DIR__ . '/../..' . '/classes/class.ilSrTileUIHookGUI.php',
         'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordConfig' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfig.php',
+        'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordConfigFactory' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfig.php',
         'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordConfigFormGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigFormGUI.php',
         'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordConfigGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigGUI.php',
+        'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordConfigRepository' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfig.php',
         'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordConfigTableGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigTableGUI.php',
         'srag\\ActiveRecordConfig\\SrTile\\ActiveRecordObjectFormGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordObjectFormGUI.php',
+        'srag\\ActiveRecordConfig\\SrTile\\Config\\AbstractFactory' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Config/AbstractFactory.php',
+        'srag\\ActiveRecordConfig\\SrTile\\Config\\AbstractRepository' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Config/AbstractRepository.php',
         'srag\\ActiveRecordConfig\\SrTile\\Config\\Config' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Config/Config.php',
-        'srag\\ActiveRecordConfig\\SrTile\\Config\\Factory' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Config/Factory.php',
-        'srag\\ActiveRecordConfig\\SrTile\\Config\\Repository' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Config/Repository.php',
         'srag\\ActiveRecordConfig\\SrTile\\Exception\\ActiveRecordConfigException' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Exception/ActiveRecordConfigException.php',
-        'srag\\ActiveRecordConfig\\SrTile\\Utils\\ConfigTrait' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Utils/ConfigTrait.php',
         'srag\\CustomInputGUIs\\SrTile\\CheckboxInputGUI\\CheckboxInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/CheckboxInputGUI/CheckboxInputGUI.php',
         'srag\\CustomInputGUIs\\SrTile\\CustomInputGUIs' => __DIR__ . '/..' . '/srag/custominputguis/src/CustomInputGUIs.php',
         'srag\\CustomInputGUIs\\SrTile\\CustomInputGUIsTrait' => __DIR__ . '/..' . '/srag/custominputguis/src/CustomInputGUIsTrait.php',
@@ -396,6 +397,8 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\ColorThiefCache\\Factory' => __DIR__ . '/../..' . '/src/ColorThiefCache/Factory.php',
         'srag\\Plugins\\SrTile\\ColorThiefCache\\Repository' => __DIR__ . '/../..' . '/src/ColorThiefCache/Repository.php',
         'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => __DIR__ . '/../..' . '/src/Config/ConfigFormGUI.php',
+        'srag\\Plugins\\SrTile\\Config\\Factory' => __DIR__ . '/../..' . '/src/Config/Factory.php',
+        'srag\\Plugins\\SrTile\\Config\\Repository' => __DIR__ . '/../..' . '/src/Config/Repository.php',
         'srag\\Plugins\\SrTile\\Favorite\\Factory' => __DIR__ . '/../..' . '/src/Favorite/Factory.php',
         'srag\\Plugins\\SrTile\\Favorite\\FavoritesGUI' => __DIR__ . '/../..' . '/src/Favorite/class.FavoritesGUI.php',
         'srag\\Plugins\\SrTile\\Favorite\\Repository' => __DIR__ . '/../..' . '/src/Favorite/Repository.php',

@@ -106,7 +106,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                     self::srTile()->tiles()->getInstanceForObjRefId($object_link->getObjRefId())->_getAdvancedLink(true));
             }, $object_links);
 
-            if (self::srTile()->config()->getField(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
+            if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
                 if (!self::srTile()->access()->hasWriteAccess($this->tile->getObjRefId())) {
                     $message = self::plugin()->translate("can_not_be_changed_anymore", ObjectLinksGUI::LANG_MODULE);
                     if (self::version()->is54()) {

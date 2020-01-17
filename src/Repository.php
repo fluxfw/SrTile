@@ -6,16 +6,13 @@ use ilObject;
 use ilObjUser;
 use ilSrTilePlugin;
 use ilUtil;
-use srag\ActiveRecordConfig\SrTile\Config\Config;
-use srag\ActiveRecordConfig\SrTile\Config\Repository as ConfigRepository;
-use srag\ActiveRecordConfig\SrTile\Utils\ConfigTrait;
 use srag\DIC\SrTile\DICTrait;
 use srag\Notifications4Plugin\SrTile\RepositoryInterface as Notifications4PluginRepositoryInterface;
 use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
 use srag\Plugins\SrTile\Access\Access;
 use srag\Plugins\SrTile\Access\Ilias;
 use srag\Plugins\SrTile\ColorThiefCache\Repository as ColorThiefCachesRepository;
-use srag\Plugins\SrTile\Config\ConfigFormGUI;
+use srag\Plugins\SrTile\Config\Repository as ConfigRepository;
 use srag\Plugins\SrTile\Favorite\Repository as FavoritesRepository;
 use srag\Plugins\SrTile\LearningProgress\Repository as LearningProgressFiltersRepository;
 use srag\Plugins\SrTile\ObjectLink\Repository as ObjectLinksRepository;
@@ -37,9 +34,6 @@ final class Repository
 
     use DICTrait;
     use SrTileTrait;
-    use ConfigTrait {
-        config as protected _config;
-    }
     use Notifications4PluginTrait {
         notifications4plugin as protected _notifications4plugin;
     }
@@ -68,13 +62,6 @@ final class Repository
      */
     private function __construct()
     {
-        $this->config()->withTableName("ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_config")->withFields([
-            ConfigFormGUI::KEY_ENABLED_ON_FAVORITES             => [Config::TYPE_BOOLEAN, true],
-            ConfigFormGUI::KEY_ENABLED_ON_REPOSITORY            => [Config::TYPE_BOOLEAN, true],
-            ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS             => [Config::TYPE_BOOLEAN, false],
-            ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT => [Config::TYPE_BOOLEAN, false]
-        ]);
-
         $this->notifications4plugin()->withTableNamePrefix("ui_uihk_" . ilSrTilePlugin::PLUGIN_ID)->withPlugin(self::plugin())->withPlaceholderTypes([
             "link"    => "string",
             "message" => "string",
@@ -103,11 +90,11 @@ final class Repository
 
 
     /**
-     * @inheritDoc
+     * @return ConfigRepository
      */
     public function config() : ConfigRepository
     {
-        return self::_config();
+        return ConfigRepository::getInstance();
     }
 
 

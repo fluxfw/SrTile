@@ -54,7 +54,7 @@ class ObjectLinksGUI
     {
         $this->group = self::srTile()->objectLinks()->getGroupByObject($this->parent->getTile()->getObjRefId());
 
-        if (!self::srTile()->config()->getField(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
+        if (!self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
             die();
         }
 
@@ -90,7 +90,7 @@ class ObjectLinksGUI
      */
     public static function addTabs()/*:void*/
     {
-        if (self::srTile()->config()->getField(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
+        if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
             self::dic()->tabs()->addTab(self::TAB_LIST_OBJECT_LINKS, self::plugin()->translate("object_links", self::LANG_MODULE), self::dic()->ctrl()->getLinkTargetByClass([
                 ilUIPluginRouterGUI::class,
                 TileGUI::class,
