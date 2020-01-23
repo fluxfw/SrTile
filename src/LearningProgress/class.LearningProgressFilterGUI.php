@@ -8,7 +8,7 @@ use ilPersonalDesktopGUI;
 use ilSrTilePlugin;
 use ilSubmitButton;
 use ilUIPluginRouterGUI;
-use srag\CustomInputGUIs\SrTile\MultiSelectSearchInputGUI\MultiSelectSearchInputGUI;
+use srag\CustomInputGUIs\SrTile\MultiSelectSearchNewInputGUI\MultiSelectSearchNewInputGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\TileGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -89,7 +89,7 @@ class LearningProgressFilterGUI
 
         self::dic()->toolbar()->addText(self::plugin()->translate("learning_progress", TileGUI::LANG_MODULE));
 
-        $filter = new MultiSelectSearchInputGUI("", self::POST_VAR);
+        $filter = new MultiSelectSearchNewInputGUI("", self::POST_VAR);
         $filter->setOptions(array_map(function (string $txt) : string {
             return self::dic()->language()->txt("trac_" . $txt);
         }, [
