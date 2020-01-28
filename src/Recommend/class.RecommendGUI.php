@@ -94,7 +94,7 @@ class RecommendGUI
      */
     public function getModal() : string
     {
-        self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/js/recommend.min.js");
+        self::dic()->ui()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/js/recommend.min.js");
 
         $modal = self::output()->getHTML(self::dic()->ui()->factory()->modal()->roundtrip("", self::dic()->ui()->factory()->legacy("")));
 
@@ -169,7 +169,7 @@ class RecommendGUI
                 $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->success(self::plugin()
                     ->translate("sent_success", self::LANG_MODULE)));
             } else {
-                $message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
+                $message = self::dic()->ui()->mainTemplate()->getMessageHTML(self::plugin()
                     ->translate("sent_success", self::LANG_MODULE), "success");
             }
         } else {
@@ -177,7 +177,7 @@ class RecommendGUI
                 $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->failure(self::plugin()
                     ->translate("sent_failure", self::LANG_MODULE)));
             } else {
-                $message = self::dic()->mainTemplate()->getMessageHTML(self::plugin()
+                $message = self::dic()->ui()->mainTemplate()->getMessageHTML(self::plugin()
                     ->translate("sent_failure", self::LANG_MODULE), "failure");
             }
         }

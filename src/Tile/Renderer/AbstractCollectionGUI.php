@@ -46,7 +46,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
      */
     protected function initJS()/*: void*/
     {
-        self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
+        self::dic()->ui()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
     }
 
 
@@ -63,7 +63,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
 
             $parent_tile = self::srTile()->tiles()->getInstanceForObjRefId(ilSrTileUIHookGUI::filterRefId() ?? ROOT_FOLDER_ID);
 
-            self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
+            self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
 
             $tpl = self::plugin()->template("TileCollection/collection.html");
 
@@ -142,6 +142,6 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
             }
         }
 
-        self::dic()->mainTemplate()->addInlineCss($css);
+        self::dic()->ui()->mainTemplate()->addInlineCss($css);
     }
 }

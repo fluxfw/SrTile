@@ -46,11 +46,11 @@ class TemplatesTableGUI extends TableGUI
     ) : string {
         switch ($column) {
             case "object_type":
-                $column = $template->_getTitle();
+                $column = htmlspecialchars($template->_getTitle());
                 break;
 
             default:
-                $column = Items::getter($template, $column);
+                $column = htmlspecialchars(Items::getter($template, $column));
                 break;
         }
 

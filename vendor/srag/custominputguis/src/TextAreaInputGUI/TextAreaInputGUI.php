@@ -2,8 +2,8 @@
 
 namespace srag\CustomInputGUIs\SrTile\TextAreaInputGUI;
 
-use ilTemplate;
 use ilTextAreaInputGUI;
+use srag\CustomInputGUIs\SrTile\Template\Template;
 use srag\DIC\SrTile\DICTrait;
 
 /**
@@ -68,7 +68,7 @@ class TextAreaInputGUI extends ilTextAreaInputGUI
      */
     public function render()/*: string*/
     {
-        $tpl = new ilTemplate(__DIR__ . '/templates/tpl.text_area_helper.html', false, false);
+        $tpl = new Template(__DIR__ . '/templates/tpl.text_area_helper.html', false, false);
         $this->insert($tpl);
         $tpl->setVariable('INLINE_STYLE', $this->getInlineStyle());
 

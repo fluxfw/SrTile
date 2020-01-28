@@ -112,7 +112,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                     if (self::version()->is54()) {
                         $message = self::dic()->ui()->factory()->messageBox()->info($message);
                     } else {
-                        $message = self::dic()->ui()->factory()->legacy(self::dic()->mainTemplate()->getMessageHTML($message, "info"));
+                        $message = self::dic()->ui()->factory()->legacy(self::dic()->ui()->mainTemplate()->getMessageHTML($message, "info"));
                     }
 
                     array_unshift($items, $message);

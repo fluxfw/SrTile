@@ -88,7 +88,7 @@ class Metadata
             "en" => "gb"
         ];
 
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/vendor/components/flag-icon-css/css/flag-icon.min.css");
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . "/vendor/components/flag-icon-css/css/flag-icon.min.css");
 
         $language_code = $this->getLanguageCode();
 
