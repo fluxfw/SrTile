@@ -60,9 +60,9 @@ class CertificateGUI
 
         $tpl = self::plugin()->template("Certificate/certificate.html");
 
-        $tpl->setVariable("CERTIFICATE_LINK", $link);
-        $tpl->setVariable("CERTIFICATE_TEXT", self::plugin()->translate("download_certificate", TileGUI::LANG_MODULE));
-        $tpl->setVariable("CERTIFICATE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/certificate.svg");
+        $tpl->setVariableEscaped("CERTIFICATE_LINK", $link);
+        $tpl->setVariableEscaped("CERTIFICATE_TEXT", self::plugin()->translate("download_certificate", TileGUI::LANG_MODULE));
+        $tpl->setVariableEscaped("CERTIFICATE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/certificate.svg");
 
         return self::output()->getHTML($tpl);
     }

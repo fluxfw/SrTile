@@ -67,7 +67,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
 
             $tpl = self::plugin()->template("TileCollection/collection.html");
 
-            $tpl->setVariable("VIEW", $parent_tile->getView());
+            $tpl->setVariableEscaped("VIEW", $parent_tile->getView());
 
             $tile_html = self::output()->getHTML(array_map(function (Tile $tile) : SingleGUIInterface {
                 return self::srTile()->tiles()->renderer()->factory()->newSingleGUIInstance($this, $tile);

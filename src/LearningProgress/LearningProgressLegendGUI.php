@@ -50,8 +50,8 @@ class LearningProgressLegendGUI
                 //"failed" => "failed"
             ] as $img => $txt
         ) {
-            $tpl_legend->setVariable("IMG_STATUS", self::plugin()->directory() . "/templates/images/LearningProgress/" . $img . ".svg");
-            $tpl_legend->setVariable("TXT_STATUS", self::dic()->language()->txt("trac_" . $txt));
+            $tpl_legend->setVariableEscaped("IMG_STATUS", self::plugin()->directory() . "/templates/images/LearningProgress/" . $img . ".svg");
+            $tpl_legend->setVariableEscaped("TXT_STATUS", self::dic()->language()->txt("trac_" . $txt));
             $tpl_legend->parseCurrentBlock();
         }
 

@@ -82,15 +82,15 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         $tpl = self::plugin()->template("TileSingle/single.html");
         $tpl->setCurrentBlock("tile");
 
-        $tpl->setVariable("TILE_ID", $this->tile->getTileId());
+        $tpl->setVariableEscaped("TILE_ID", $this->tile->getTileId());
 
-        $tpl->setVariable("OBJECT_TYPE", ($this->tile->_getIlObject() !== null ? $this->tile->_getIlObject()->getType() : ""));
+        $tpl->setVariableEscaped("OBJECT_TYPE", ($this->tile->_getIlObject() !== null ? $this->tile->_getIlObject()->getType() : ""));
 
         if ($this->tile->getShowTitle() === Tile::SHOW_TRUE) {
-            $tpl->setVariable("TITLE", $this->tile->_getTitle());
+            $tpl->setVariableEscaped("TITLE", $this->tile->_getTitle());
         }
-        $tpl->setVariable("TITLE_HORIZONTAL_ALIGN", $this->tile->getLabelHorizontalAlign());
-        $tpl->setVariable("TITLE_VERTICAL_ALIGN", $this->tile->getLabelVerticalAlign());
+        $tpl->setVariableEscaped("TITLE_HORIZONTAL_ALIGN", $this->tile->getLabelHorizontalAlign());
+        $tpl->setVariableEscaped("TITLE_VERTICAL_ALIGN", $this->tile->getLabelVerticalAlign());
 
         $object_links = self::srTile()->objectLinks()->getShouldShowObjectLinks($this->tile->getObjRefId());
 
@@ -137,16 +137,16 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                         ilUIPluginRouterGUI::class,
                         FavoritesGUI::class
                     ], FavoritesGUI::CMD_REMOVE_FROM_FAVORITES));
-                    $tpl_favorite->setVariable("FAVORITE_TEXT", self::plugin()
+                    $tpl_favorite->setVariableEscaped("FAVORITE_TEXT", self::plugin()
                         ->translate("remove_from_favorites", FavoritesGUI::LANG_MODULE));
-                    $tpl_favorite->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
+                    $tpl_favorite->setVariableEscaped("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/favorite.svg");
                 } else {
                     $tpl_favorite->setVariable("FAVORITE_LINK", self::dic()->ctrl()->getLinkTargetByClass([
                         ilUIPluginRouterGUI::class,
                         FavoritesGUI::class
                     ], FavoritesGUI::CMD_ADD_TO_FAVORITES));
-                    $tpl_favorite->setVariable("FAVORITE_TEXT", self::plugin()->translate("add_to_favorites", FavoritesGUI::LANG_MODULE));
-                    $tpl_favorite->setVariable("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
+                    $tpl_favorite->setVariableEscaped("FAVORITE_TEXT", self::plugin()->translate("add_to_favorites", FavoritesGUI::LANG_MODULE));
+                    $tpl_favorite->setVariableEscaped("FAVORITE_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unfavorite.svg");
                 }
 
                 $tpl->setVariable("FAVORITE", self::output()->getHTML($tpl_favorite));
@@ -162,15 +162,15 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                         ilUIPluginRouterGUI::class,
                         RatingGUI::class
                     ], RatingGUI::CMD_UNLIKE));
-                    $tpl_rating->setVariable("RATING_TEXT", self::plugin()->translate("unlike", RatingGUI::LANG_MODULE));
-                    $tpl_rating->setVariable("RATING_IMAGE_PATH", self::plugin()->directory() . "/templates/images/like.svg");
+                    $tpl_rating->setVariableEscaped("RATING_TEXT", self::plugin()->translate("unlike", RatingGUI::LANG_MODULE));
+                    $tpl_rating->setVariableEscaped("RATING_IMAGE_PATH", self::plugin()->directory() . "/templates/images/like.svg");
                 } else {
                     $tpl_rating->setVariable("RATING_LINK", self::dic()->ctrl()->getLinkTargetByClass([
                         ilUIPluginRouterGUI::class,
                         RatingGUI::class
                     ], RatingGUI::CMD_LIKE));
-                    $tpl_rating->setVariable("RATING_TEXT", self::plugin()->translate("like", RatingGUI::LANG_MODULE));
-                    $tpl_rating->setVariable("RATING_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unlike.svg");
+                    $tpl_rating->setVariableEscaped("RATING_TEXT", self::plugin()->translate("like", RatingGUI::LANG_MODULE));
+                    $tpl_rating->setVariableEscaped("RATING_IMAGE_PATH", self::plugin()->directory() . "/templates/images/unlike.svg");
                 }
 
                 if ($this->tile->getShowLikesCount() === Tile::SHOW_TRUE) {
@@ -178,7 +178,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
                     if ($likes_count > 0) {
                         $tpl_likes_count = self::plugin()->template("Rating/likes_count.html");
-                        $tpl_likes_count->setVariable("LIKES_COUNT", $likes_count);
+                        $tpl_likes_count->setVariableEscaped("LIKES_COUNT", $likes_count);
                         $tpl_rating->setVariable("LIKES_COUNT", self::output()->getHTML($tpl_likes_count));
                     }
                 }
@@ -196,8 +196,8 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                     ilUIPluginRouterGUI::class,
                     RecommendGUI::class
                 ], RecommendGUI::CMD_ADD_RECOMMEND, "", true));
-                $tpl_recommend->setVariable("RECOMMEND_TEXT", self::plugin()->translate("recommend", RecommendGUI::LANG_MODULE));
-                $tpl_recommend->setVariable("RECOMMEND_IMAGE_PATH", self::plugin()->directory() . "/templates/images/recommend.svg");
+                $tpl_recommend->setVariableEscaped("RECOMMEND_TEXT", self::plugin()->translate("recommend", RecommendGUI::LANG_MODULE));
+                $tpl_recommend->setVariableEscaped("RECOMMEND_IMAGE_PATH", self::plugin()->directory() . "/templates/images/recommend.svg");
 
                 $tpl->setVariable("RECOMMEND", self::output()->getHTML($tpl_recommend));
             }
@@ -212,9 +212,9 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                         $tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::dic()->ui()->factory()->image()
                             ->standard($icon, "")));
 
-                        $tpl_learning_progress->setVariable("LEARNING_PROGRESS_POSITION", $this->tile->getLearningProgressPosition());
+                        $tpl_learning_progress->setVariableEscaped("LEARNING_PROGRESS_POSITION", $this->tile->getLearningProgressPosition());
 
-                        $tpl_learning_progress->setVariable("LEARNING_PROGRESS_TEXT", self::srTile()->ilias()->learningProgress(self::dic()->user())
+                        $tpl_learning_progress->setVariableEscaped("LEARNING_PROGRESS_TEXT", self::srTile()->ilias()->learningProgress(self::dic()->user())
                             ->getText($this->tile->getObjRefId()));
 
                         if ($this->tile->getLearningProgressPosition() === Tile::POSITION_ON_THE_ICONS) {
@@ -232,9 +232,9 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                         $tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::customInputGUIs()->progressMeter()
                             ->mini($learning_progress_bar->getTotalObjects(), $learning_progress_bar->getCompletedObjects())));
 
-                        $tpl_learning_progress->setVariable("LEARNING_PROGRESS_POSITION", $this->tile->getLearningProgressPosition());
+                        $tpl_learning_progress->setVariableEscaped("LEARNING_PROGRESS_POSITION", $this->tile->getLearningProgressPosition());
 
-                        $tpl_learning_progress->setVariable("LEARNING_PROGRESS_TEXT", self::srTile()->ilias()->learningProgress(self::dic()->user())
+                        $tpl_learning_progress->setVariableEscaped("LEARNING_PROGRESS_TEXT", self::srTile()->ilias()->learningProgress(self::dic()->user())
                             ->getText($this->tile->getObjRefId()));
 
                         if ($this->tile->getLearningProgressPosition() === Tile::POSITION_ON_THE_ICONS) {
@@ -254,7 +254,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
                 $tpl_language_flag->setVariable("LANGUAGE_FLAG", self::srTile()->ilias()->metadata($this->tile->_getIlObject())->getLanguageImage());
 
-                $tpl_language_flag->setVariable("LANGUAGE_FLAG_POSITION", $this->tile->getLanguageFlagPosition());
+                $tpl_language_flag->setVariableEscaped("LANGUAGE_FLAG_POSITION", $this->tile->getLanguageFlagPosition());
 
                 $tpl->setVariable("LANGUAGE_FLAG", self::output()->getHTML($tpl_language_flag));
             }
@@ -262,11 +262,11 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
         $image = $this->tile->getImagePathWithCheck();
         $tpl_image = self::plugin()->template("TileSingle/image.html");
-        $tpl_image->setVariable("IMAGE", (!empty($image) ? "./" . $image : ""));
+        $tpl_image->setVariableEscaped("IMAGE", (!empty($image) ? "./" . $image : ""));
         $tpl->setVariable("IMAGE", self::output()->getHTML($tpl_image));
 
-        $tpl->setVariable("IMAGE_POSITION", $this->tile->getImagePosition());
-        $tpl->setVariable("IMAGE_SHOW_AS_BACKGROUND", $this->tile->getShowImageAsBackground());
+        $tpl->setVariableEscaped("IMAGE_POSITION", $this->tile->getImagePosition());
+        $tpl->setVariableEscaped("IMAGE_SHOW_AS_BACKGROUND", $this->tile->getShowImageAsBackground());
 
         switch ($this->tile->getShowActions()) {
             case Tile::SHOW_ACTIONS_ALWAYS:
@@ -283,8 +283,8 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
             default:
                 break;
         }
-        $tpl->setVariable("ACTIONS_POSITION", $this->tile->getActionsPosition());
-        $tpl->setVariable("ACTIONS_VERTICAL_ALIGN", $this->tile->getActionsVerticalAlign());
+        $tpl->setVariableEscaped("ACTIONS_POSITION", $this->tile->getActionsPosition());
+        $tpl->setVariableEscaped("ACTIONS_VERTICAL_ALIGN", $this->tile->getActionsVerticalAlign());
 
         if ($this->tile->getObjectIconPosition() !== Tile::POSITION_NONE) {
             $icon = ilObject::_getIcon(($this->tile->_getIlObject() !== null ? $this->tile->_getIlObject()->getId() : null), "small");
@@ -293,7 +293,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
                 $tpl_object_icon->setVariable("OBJECT_ICON", self::output()->getHTML(self::dic()->ui()->factory()->image()->standard($icon, "")));
 
-                $tpl_object_icon->setVariable("OBJECT_ICON_POSITION", $this->tile->getObjectIconPosition());
+                $tpl_object_icon->setVariableEscaped("OBJECT_ICON_POSITION", $this->tile->getObjectIconPosition());
 
                 $tpl->setVariable("OBJECT_ICON", self::output()->getHTML($tpl_object_icon));
             }
@@ -303,8 +303,8 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
             if (count(self::srTile()->ilias()->courses()->getPreconditions($this->tile->getObjRefId())) > 0) {
                 $tpl_preconditions = self::plugin()->template("Preconditions/preconditions.html");
 
-                $tpl_preconditions->setVariable("PRECONDITIONS_TEXT", self::plugin()->translate("preconditions", TileGUI::LANG_MODULE));
-                $tpl_preconditions->setVariable("PRECONDITIONS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/preconditions.svg");
+                $tpl_preconditions->setVariableEscaped("PRECONDITIONS_TEXT", self::plugin()->translate("preconditions", TileGUI::LANG_MODULE));
+                $tpl_preconditions->setVariableEscaped("PRECONDITIONS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/preconditions.svg");
 
                 self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_REF_ID, $this->tile->getObjRefId());
                 $popover = self::dic()->ui()->factory()->popover()->standard(self::dic()->ui()->factory()->legacy(""))
@@ -320,7 +320,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
                 preg_match('/id="([a-z0-9_]+)"/', $button_html, $button_id);
                 if (is_array($button_id) && count($button_id) > 1) {
                     $button_id = $button_id[1];
-                    $tpl_preconditions->setVariable("BUTTON_ID", $button_id);
+                    $tpl_preconditions->setVariableEscaped("BUTTON_ID", $button_id);
                 }
 
                 $tpl->setVariable("PRECONDITIONS", self::output()->getHTML([$tpl_preconditions, $popover]));
@@ -333,7 +333,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
             $tpl->setVariable("CERTIFICATE", self::output()->getHTML(new CertificateGUI(self::dic()->user(), $this->tile)));
         }
 
-        $tpl->setVariable("SHADOW", $this->tile->getShadow());
+        $tpl->setVariableEscaped("SHADOW", $this->tile->getShadow());
 
         $tpl->parseCurrentBlock();
 
