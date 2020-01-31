@@ -13,9 +13,9 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
             'srag\\Plugins\\SrTile\\' => 20,
             'srag\\Notifications4Plugin\\' => 26,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
+            'srag\\DIC\\SrTile\\' => 16,
             'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
+            'srag\\ActiveRecordConfig\\' => 24,
         ),
         'C' => 
         array (
@@ -40,7 +40,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
@@ -48,7 +48,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\SrTile\\' => 
+        'srag\\ActiveRecordConfig\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
