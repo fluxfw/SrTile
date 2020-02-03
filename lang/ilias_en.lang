@@ -26,8 +26,8 @@ onlinestatus_offline#:#Offline
 onlinestatus_online#:#Online
 onlinestatus_set_offline#:#Set offline
 onlinestatus_set_online#:#Set online
-onlinestatus_setted_offline#:#Setted offline
-onlinestatus_setted_online#:#Setted online
+onlinestatus_setted_offline#:#Set offline
+onlinestatus_setted_online#:#Set online
 rating_like#:#Like
 rating_liked#:#Liked
 rating_unlike#:#Unlike
