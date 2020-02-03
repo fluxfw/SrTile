@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.0]
+- Show online/offline icon
+
 ## [1.7.0]
 - Object links
 - New and more language flags

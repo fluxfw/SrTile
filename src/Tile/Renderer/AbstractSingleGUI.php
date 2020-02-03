@@ -17,6 +17,7 @@ use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Favorite\FavoritesGUI;
 use srag\Plugins\SrTile\ObjectLink\ObjectLink;
 use srag\Plugins\SrTile\ObjectLink\ObjectLinksGUI;
+use srag\Plugins\SrTile\OnlineStatus\OnlineStatusGUI;
 use srag\Plugins\SrTile\Rating\RatingGUI;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
@@ -75,6 +76,8 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
         self::dic()->ctrl()->setParameterByClass(FavoritesGUI::class, FavoritesGUI::GET_PARAM_PARENT_REF_ID, ilSrTileUIHookGUI::filterRefId());
         self::dic()->ctrl()->setParameterByClass(FavoritesGUI::class, FavoritesGUI::GET_PARAM_REF_ID, $this->tile->getObjRefId());
+        self::dic()->ctrl()->setParameterByClass(OnlineStatusGUI::class, FavoritesGUI::GET_PARAM_PARENT_REF_ID, ilSrTileUIHookGUI::filterRefId());
+        self::dic()->ctrl()->setParameterByClass(OnlineStatusGUI::class, FavoritesGUI::GET_PARAM_REF_ID, $this->tile->getObjRefId());
         self::dic()->ctrl()->setParameterByClass(RatingGUI::class, RatingGUI::GET_PARAM_PARENT_REF_ID, ilSrTileUIHookGUI::filterRefId());
         self::dic()->ctrl()->setParameterByClass(RatingGUI::class, RatingGUI::GET_PARAM_REF_ID, $this->tile->getObjRefId());
         self::dic()->ctrl()->setParameterByClass(RecommendGUI::class, RecommendGUI::GET_PARAM_REF_ID, $this->tile->getObjRefId());
@@ -126,6 +129,53 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         }
 
         if (self::srTile()->access()->hasOpenAccess($this->tile)) {
+
+            if ($this->tile->getShowOnlineStatusIcon() === Tile::SHOW_TRUE) {
+                if (self::srTile()->access()->hasWriteAccess($this->tile->getObjRefId())) {
+
+                    if (self::srTile()->onlineStatus()->supportsWriteOnline($this->tile->getObjRefId())) {
+
+                        $tpl_online_status = self::plugin()->template("OnlineStatus/online_status.html");
+
+                        if (self::srTile()->onlineStatus()->isOnline($this->tile->getObjRefId())) {
+                            $tpl_online_status->setVariable("ONLINE_STATUS_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+                                ilUIPluginRouterGUI::class,
+                                OnlineStatusGUI::class
+                            ], OnlineStatusGUI::CMD_SET_OFFLINE));
+                            $tpl_online_status->setVariableEscaped("ONLINE_STATUS_TEXT", self::plugin()
+                                ->translate("set_offline", OnlineStatusGUI::LANG_MODULE));
+                            $tpl_online_status->setVariableEscaped("ONLINE_STATUS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/online.svg");
+                        } else {
+                            $tpl_online_status->setVariable("ONLINE_STATUS_LINK", self::dic()->ctrl()->getLinkTargetByClass([
+                                ilUIPluginRouterGUI::class,
+                                OnlineStatusGUI::class
+                            ], OnlineStatusGUI::CMD_SET_ONLINE));
+                            $tpl_online_status->setVariableEscaped("ONLINE_STATUS_TEXT", self::plugin()
+                                ->translate("set_online", OnlineStatusGUI::LANG_MODULE));
+                            $tpl_online_status->setVariableEscaped("ONLINE_STATUS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/offline.svg");
+                        }
+
+                        $tpl->setVariable("ONLINE_STATUS", self::output()->getHTML($tpl_online_status));
+                    } else {
+                        if (self::srTile()->onlineStatus()->supportsReadOnline($this->tile->getObjRefId())) {
+
+                            $tpl_online_status = self::plugin()->template("OnlineStatus/online_status_readonly.html");
+
+                            if (self::srTile()->onlineStatus()->isOnline($this->tile->getObjRefId())) {
+                                $tpl_online_status->setVariableEscaped("ONLINE_STATUS_TEXT", self::plugin()
+                                    ->translate("online", OnlineStatusGUI::LANG_MODULE));
+                                $tpl_online_status->setVariableEscaped("ONLINE_STATUS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/online.svg");
+                            } else {
+                                $tpl_online_status->setVariableEscaped("ONLINE_STATUS_TEXT", self::plugin()
+                                    ->translate("offline", OnlineStatusGUI::LANG_MODULE));
+                                $tpl_online_status->setVariableEscaped("ONLINE_STATUS_IMAGE_PATH", self::plugin()->directory() . "/templates/images/offline.svg");
+                            }
+
+                            $tpl->setVariable("ONLINE_STATUS", self::output()->getHTML($tpl_online_status));
+                        }
+                    }
+                }
+            }
 
             if (self::srTile()->favorites(self::dic()->user())->enabled()
                 && $this->tile->getShowFavoritesIcon() === Tile::SHOW_TRUE

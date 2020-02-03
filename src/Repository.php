@@ -16,6 +16,7 @@ use srag\Plugins\SrTile\Config\Repository as ConfigRepository;
 use srag\Plugins\SrTile\Favorite\Repository as FavoritesRepository;
 use srag\Plugins\SrTile\LearningProgress\Repository as LearningProgressFiltersRepository;
 use srag\Plugins\SrTile\ObjectLink\Repository as ObjectLinksRepository;
+use srag\Plugins\SrTile\OnlineStatus\Repository as OnlineStatusRepository;
 use srag\Plugins\SrTile\Rating\Repository as RatingsRepository;
 use srag\Plugins\SrTile\Recommend\Repository as RecommendsRepository;
 use srag\Plugins\SrTile\Template\Repository as TemplatesRepository;
@@ -110,6 +111,7 @@ final class Repository
         $this->learningProgressFilters(self::dic()->user())->dropTables();
         $this->notifications4plugin()->dropTables();
         $this->objectLinks()->dropTables();
+        $this->onlineStatus()->dropTables();
         $this->ratings(self::dic()->user())->dropTables();
         $this->recommends()->dropTables();
         $this->templates()->dropTables();
@@ -148,6 +150,7 @@ final class Repository
         $this->learningProgressFilters(self::dic()->user())->installTables();
         $this->notifications4plugin()->installTables();
         $this->objectLinks()->installTables();
+        $this->onlineStatus()->installTables();
         $this->ratings(self::dic()->user())->installTables();
         $this->recommends()->installTables();
         $this->templates()->installTables();
@@ -181,6 +184,15 @@ final class Repository
     public function objectLinks() : ObjectLinksRepository
     {
         return ObjectLinksRepository::getInstance();
+    }
+
+
+    /**
+     * @return OnlineStatusRepository
+     */
+    public function onlineStatus() : OnlineStatusRepository
+    {
+        return OnlineStatusRepository::getInstance();
     }
 
 

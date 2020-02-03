@@ -27,7 +27,7 @@ class DesktopCollection extends AbstractCollection
      *
      * @param ilObjUser $user
      */
-    public function __construct(ilObjUser $user) /*: void*/
+    public function __construct(ilObjUser $user)
     {
         $this->user = $user;
 

@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Tile\Renderer\Desktop;
 
+use ilObjUser;
 use srag\Plugins\SrTile\Tile\Renderer\AbstractCollectionGUI;
 
 /**
@@ -15,4 +16,11 @@ use srag\Plugins\SrTile\Tile\Renderer\AbstractCollectionGUI;
 class DesktopCollectionGUI extends AbstractCollectionGUI
 {
 
+    /**
+     * @inheritDoc
+     */
+    public function __construct(ilObjUser $user)
+    {
+        parent::__construct($user);
+    }
 }

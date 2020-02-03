@@ -17,6 +17,7 @@ use srag\CustomInputGUIs\SrTile\PropertyFormGUI\Items\Items;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationInterface;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl;
+use srag\Plugins\SrTile\Template\Template;
 use srag\Plugins\SrTile\Template\TemplateConfigGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -500,6 +501,24 @@ class TileFormGUI extends PropertyFormGUI
                         "setTitle"           => $this->txt("show_only_write_permissions")
                     ],
                     Tile::SHOW_ACTIONS_ALWAYS                      => [
+                        self::PROPERTY_CLASS => ilRadioOption::class,
+                        "setTitle"           => $this->txt("show_true")
+                    ]
+                ]
+            ],
+
+            "online_status"           => [
+                self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+            ],
+            "show_online_status_icon" => [
+                self::PROPERTY_CLASS    => ilRadioGroupInputGUI::class,
+                self::PROPERTY_REQUIRED => false,
+                self::PROPERTY_SUBITEMS => [
+                    Tile::SHOW_FALSE => [
+                        self::PROPERTY_CLASS => ilRadioOption::class,
+                        "setTitle"           => $this->txt("show_false")
+                    ],
+                    Tile::SHOW_TRUE  => [
                         self::PROPERTY_CLASS => ilRadioOption::class,
                         "setTitle"           => $this->txt("show_true")
                     ]

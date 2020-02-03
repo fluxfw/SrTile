@@ -126,20 +126,26 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
                             self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_REF_ID, $obj_ref_id);
 
-                            $edit_tile_html = '<li>' . self::output()->getHTML(self::dic()->ui()->factory()->link()->standard('<span class="xsmall">' . self::plugin()
-                                        ->translate("edit_tile", TileGUI::LANG_MODULE) . '</span>',
-                                    self::dic()->ctrl()->getLinkTargetByClass([
-                                        ilUIPluginRouterGUI::class,
-                                        TileGUI::class
-                                    ], TileGUI::CMD_EDIT_TILE))) . '</li>';
+                            $actions = [
+                                [TileGUI::LANG_MODULE, "edit_tile", TileGUI::class, TileGUI::CMD_EDIT_TILE]
+                            ];
+
+                            $actions_html = self::output()->getHTML(array_map(function (array $action) : string {
+                                return '<li>' . self::output()->getHTML(self::dic()->ui()->factory()->link()->standard('<span class="xsmall">' . self::plugin()
+                                            ->translate($action[1], $action[0]) . '</span>',
+                                        self::dic()->ctrl()->getLinkTargetByClass([
+                                            ilUIPluginRouterGUI::class,
+                                            $action[2]
+                                        ], $action[3]))) . '</li>';
+                            }, $actions));
 
                             $matches = [];
-                            preg_match('/<ul class="dropdown-menu pull-right" role="menu" id="ilAdvSelListTable_.*">/',
+                            preg_match('/<ul\s+class="dropdown-menu pull-right"\s+role="menu"\s+id="ilAdvSelListTable_.*"\s*>/',
                                 $html, $matches);
                             if (is_array($matches) && count($matches) >= 1) {
-                                $html = str_ireplace($matches[0], $matches[0] . $edit_tile_html, $html);
+                                $html = str_ireplace($matches[0], $matches[0] . $actions_html, $html);
                             } else {
-                                $html = $edit_tile_html . $html;
+                                $html = $actions_html . $html;
                             }
 
                             return ["mode" => self::REPLACE, "html" => $html];

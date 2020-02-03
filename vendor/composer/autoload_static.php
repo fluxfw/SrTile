@@ -11,11 +11,11 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             'srag\\RemovePluginDataConfirm\\SrTile\\' => 36,
             'srag\\Plugins\\SrTile\\' => 20,
-            'srag\\Notifications4Plugin\\' => 26,
+            'srag\\Notifications4Plugin\\SrTile\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\SrTile\\' => 16,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
+            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
         array (
@@ -32,7 +32,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'srag\\Notifications4Plugin\\' => 
+        'srag\\Notifications4Plugin\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/notifications4plugin/src',
         ),
@@ -44,11 +44,11 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -419,6 +419,9 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\ObjectLink\\ObjectLinksGUI' => __DIR__ . '/../..' . '/src/ObjectLink/class.ObjectLinksGUI.php',
         'srag\\Plugins\\SrTile\\ObjectLink\\ObjectLinksTableGUI' => __DIR__ . '/../..' . '/src/ObjectLink/ObjectLinksTableGUI.php',
         'srag\\Plugins\\SrTile\\ObjectLink\\Repository' => __DIR__ . '/../..' . '/src/ObjectLink/Repository.php',
+        'srag\\Plugins\\SrTile\\OnlineStatus\\Factory' => __DIR__ . '/../..' . '/src/OnlineStatus/Factory.php',
+        'srag\\Plugins\\SrTile\\OnlineStatus\\OnlineStatusGUI' => __DIR__ . '/../..' . '/src/OnlineStatus/class.OnlineStatusGUI.php',
+        'srag\\Plugins\\SrTile\\OnlineStatus\\Repository' => __DIR__ . '/../..' . '/src/OnlineStatus/Repository.php',
         'srag\\Plugins\\SrTile\\Rating\\Factory' => __DIR__ . '/../..' . '/src/Rating/Factory.php',
         'srag\\Plugins\\SrTile\\Rating\\Rating' => __DIR__ . '/../..' . '/src/Rating/Rating.php',
         'srag\\Plugins\\SrTile\\Rating\\RatingGUI' => __DIR__ . '/../..' . '/src/Rating/class.RatingGUI.php',

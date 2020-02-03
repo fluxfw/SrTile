@@ -15,4 +15,11 @@ use srag\Plugins\SrTile\Tile\Renderer\AbstractCollectionGUI;
 class FixedCollectionGUI extends AbstractCollectionGUI
 {
 
+    /**
+     * @inheritDoc
+     */
+    public function __construct(array $obj_ref_ids)
+    {
+        parent::__construct($obj_ref_ids);
+    }
 }

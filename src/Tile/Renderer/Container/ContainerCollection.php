@@ -26,7 +26,7 @@ class ContainerCollection extends AbstractCollection
      *
      * @param string $html
      */
-    public function __construct(string $html) /*: void*/
+    public function __construct(string $html)
     {
         $this->html = $html;
 
