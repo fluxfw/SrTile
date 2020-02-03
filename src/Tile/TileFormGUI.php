@@ -17,7 +17,6 @@ use srag\CustomInputGUIs\SrTile\PropertyFormGUI\Items\Items;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationInterface;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl;
-use srag\Plugins\SrTile\Template\Template;
 use srag\Plugins\SrTile\Template\TemplateConfigGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 

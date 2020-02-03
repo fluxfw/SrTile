@@ -131,6 +131,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         if (self::srTile()->access()->hasOpenAccess($this->tile)) {
 
             if ($this->tile->getShowOnlineStatusIcon() === Tile::SHOW_TRUE) {
+
                 if (self::srTile()->access()->hasWriteAccess($this->tile->getObjRefId())) {
 
                     if (self::srTile()->onlineStatus()->supportsWriteOnline($this->tile->getObjRefId())) {
