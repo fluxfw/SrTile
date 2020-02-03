@@ -65,7 +65,7 @@ final class Factory
      *
      * @return TileFormGUI
      */
-    public function newFormInstance($parent, Tile $tile) : TileFormGUI
+    public function newFormInstance(TileGUI $parent, Tile $tile) : TileFormGUI
     {
         $form = new TileFormGUI($parent, $tile);
 
