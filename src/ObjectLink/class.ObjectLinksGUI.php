@@ -5,7 +5,7 @@ namespace srag\Plugins\SrTile\ObjectLink;
 use ilSrTilePlugin;
 use ilUIPluginRouterGUI;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Config\Config;
+use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Tile\TileGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -52,11 +52,11 @@ class ObjectLinksGUI
      */
     public function executeCommand()/*: void*/
     {
-        if (!Config::getField(Config::KEY_ENABLED_OBJECT_LINKS)) {
+        $this->group = self::srTile()->objectLinks()->getGroupByObject($this->parent->getTile()->getObjRefId());
+
+        if (!self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
             die();
         }
-
-        $this->group = self::srTile()->objectLinks()->getGroupByObject($this->parent->getTile()->getObjRefId());
 
         self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_GROUP_ID);
 
@@ -90,7 +90,7 @@ class ObjectLinksGUI
      */
     public static function addTabs()/*:void*/
     {
-        if (Config::getField(Config::KEY_ENABLED_OBJECT_LINKS)) {
+        if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
             self::dic()->tabs()->addTab(self::TAB_LIST_OBJECT_LINKS, self::plugin()->translate("object_links", self::LANG_MODULE), self::dic()->ctrl()->getLinkTargetByClass([
                 ilUIPluginRouterGUI::class,
                 TileGUI::class,

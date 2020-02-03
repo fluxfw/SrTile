@@ -6,8 +6,8 @@ use ilEMailInputGUI;
 use ilNonEditableValueGUI;
 use ilSrTilePlugin;
 use ilTextAreaInputGUI;
-use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
-use srag\Plugins\SrTile\Tile\Tile;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\Items\Items;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -17,7 +17,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class RecommendFormGUI extends ObjectPropertyFormGUI
+class RecommendFormGUI extends PropertyFormGUI
 {
 
     use SrTileTrait;
@@ -26,29 +26,37 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
     /**
      * @var Recommend
      */
-    protected $object;
-    /**
-     * @var Tile
-     */
-    protected $tile;
+    protected $recommend;
 
 
     /**
      * RecommendFormGUI constructor
      *
      * @param RecommendGUI $parent
-     * @param Tile         $tile
+     * @param Recommend    $recommend
      */
-    public function __construct(RecommendGUI $parent, Tile $tile)
+    public function __construct(RecommendGUI $parent, Recommend $recommend)
     {
-        $this->tile = $tile;
+        $this->recommend = $recommend;
 
-        parent::__construct($parent, self::srTile()->recommend()->factory()->newInstance($this->tile), false);
+        parent::__construct($parent);
     }
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     */
+    protected function getValue(/*string*/ $key)
+    {
+        switch ($key) {
+            default:
+                return Items::getter($this->recommend, $key);
+        }
+    }
+
+
+    /**
+     * @inheritDoc
      */
     protected final function initAction()/*: void*/
     {
@@ -57,7 +65,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initCommands()/*: void*/
     {
@@ -70,7 +78,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initFields()/*: void*/
     {
@@ -92,7 +100,7 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected final function initId()/*: void*/
     {
@@ -101,12 +109,25 @@ class RecommendFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected final function initTitle()/*: void*/
     {
         $this->setTitle(self::plugin()->translate("recommendation", self::LANG_MODULE, [
-            $this->tile->_getTitle()
+            $this->recommend->getTile()->_getTitle()
         ]));
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    protected function storeValue(/*string*/ $key, $value)/*: void*/
+    {
+        switch ($key) {
+            default:
+                Items::setter($this->recommend, $key, $value);
+                break;
+        }
     }
 }

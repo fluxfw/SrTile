@@ -15,4 +15,11 @@ use srag\Plugins\SrTile\Tile\Renderer\AbstractCollectionGUI;
 class ContainerCollectionGUI extends AbstractCollectionGUI
 {
 
+    /**
+     * @inheritDoc
+     */
+    public function __construct(string $html)
+    {
+        parent::__construct($html);
+    }
 }

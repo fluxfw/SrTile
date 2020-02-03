@@ -45,7 +45,7 @@ class ObjectLinksTableGUI extends TableGUI
     {
         switch ($column) {
             case "title":
-                $column = $object_link->getObject()->getTitle();
+                $column = htmlspecialchars($object_link->getObject()->getTitle());
                 break;
 
             case "language":
@@ -54,11 +54,11 @@ class ObjectLinksTableGUI extends TableGUI
                     $language_flag = self::srTile()->ilias()->metadata($object_link->getObject())->getLanguageImage();
                 }
 
-                $column = $language_flag . self::srTile()->ilias()->metadata($object_link->getObject())->getLanguageText();
+                $column = $language_flag . htmlspecialchars(self::srTile()->ilias()->metadata($object_link->getObject())->getLanguageText());
                 break;
 
             default:
-                $column = Items::getter($object_link, $column);
+                $column = htmlspecialchars(Items::getter($object_link, $column));
                 break;
         }
 

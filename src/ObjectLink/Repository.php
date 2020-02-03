@@ -6,7 +6,7 @@ use ilObjectFactory;
 use ilSrTilePlugin;
 use ilUtil;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Config\Config;
+use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -219,7 +219,7 @@ final class Repository
      */
     public function getShouldShowObjectLinks(int $obj_ref_id) : array
     {
-        if (!Config::getField(Config::KEY_ENABLED_OBJECT_LINKS)) {
+        if (!self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
             return [];
         }
 
@@ -229,7 +229,7 @@ final class Repository
             return [];
         }
 
-        if (Config::getField(Config::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
+        if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
             if (!self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
                 if (!empty(array_filter($object_links, function (ObjectLink $object_link) : bool {
                     return (!empty(self::srTile()->ilias()->learningProgress(self::dic()->user())->getStatus($object_link->getObjRefId())));
@@ -312,7 +312,7 @@ final class Repository
         }
 
         $object_links2 = [];
-        if (Config::getField(Config::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
+        if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
             if (!self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
                 $object_links2 = array_filter($object_links, function (ObjectLink $object_link) : bool {
                     return (!empty(self::srTile()->ilias()->learningProgress(self::dic()->user())->getStatus($object_link->getObjRefId())));

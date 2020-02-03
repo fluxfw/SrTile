@@ -88,14 +88,14 @@ class Metadata
             "en" => "gb"
         ];
 
-        self::dic()->mainTemplate()->addCss(self::plugin()->directory() . "/vendor/components/flag-icon-css/css/flag-icon.min.css");
+        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . "/vendor/components/flag-icon-css/css/flag-icon.min.css");
 
         $language_code = $this->getLanguageCode();
 
         if (!empty($language_code)) {
             $language_code = $mapping[$language_code] ?: $language_code;
 
-            return '<span class="flag-icon flag-icon-' . $language_code . '"></span> ';
+            return '<span class="flag-icon flag-icon-' . htmlspecialchars($language_code) . '"></span> ';
         }
 
         return "";

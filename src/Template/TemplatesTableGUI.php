@@ -35,7 +35,7 @@ class TemplatesTableGUI extends TableGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * @param Template $template
      */
@@ -46,11 +46,11 @@ class TemplatesTableGUI extends TableGUI
     ) : string {
         switch ($column) {
             case "object_type":
-                $column = $template->_getTitle();
+                $column = htmlspecialchars($template->_getTitle());
                 break;
 
             default:
-                $column = Items::getter($template, $column);
+                $column = htmlspecialchars(Items::getter($template, $column));
                 break;
         }
 
@@ -59,7 +59,7 @@ class TemplatesTableGUI extends TableGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function getSelectableColumns2() : array
     {
@@ -76,7 +76,7 @@ class TemplatesTableGUI extends TableGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initColumns()/*: void*/
     {
@@ -87,7 +87,7 @@ class TemplatesTableGUI extends TableGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initData()/*: void*/
     {
@@ -99,7 +99,7 @@ class TemplatesTableGUI extends TableGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initFilterFields()/*: void*/
     {
@@ -108,7 +108,7 @@ class TemplatesTableGUI extends TableGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initId()/*: void*/
     {
@@ -117,7 +117,7 @@ class TemplatesTableGUI extends TableGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initTitle()/*: void*/
     {

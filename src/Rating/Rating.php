@@ -22,6 +22,28 @@ class Rating extends ActiveRecord
     use SrTileTrait;
     const TABLE_NAME = "ui_uihk_srtile_rating";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getConnectorContainerName() : string
+    {
+        return static::TABLE_NAME;
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated
+     */
+    public static function returnDbTableName() : string
+    {
+        return self::TABLE_NAME;
+    }
+
+
     /**
      * @var int
      *
@@ -68,22 +90,10 @@ class Rating extends ActiveRecord
 
 
     /**
-     * @return string
+     * @inheritDoc
      */
-    public function getConnectorContainerName() : string
+    public function sleep(/*string*/ $field_name)
     {
-        return self::TABLE_NAME;
-    }
-
-
-    /**
-     * @param string $field_name
-     *
-     * @return mixed|null
-     */
-    public function sleep(/*string*/
-        $field_name
-    ) {
         $field_value = $this->{$field_name};
 
         switch ($field_name) {
@@ -94,15 +104,10 @@ class Rating extends ActiveRecord
 
 
     /**
-     * @param string $field_name
-     * @param mixed  $field_value
-     *
-     * @return mixed|null
+     * @inheritDoc
      */
-    public function wakeUp(/*string*/
-        $field_name,
-        $field_value
-    ) {
+    public function wakeUp(/*string*/ $field_name, $field_value)
+    {
         switch ($field_name) {
             case "obj_id":
             case "rating_id":

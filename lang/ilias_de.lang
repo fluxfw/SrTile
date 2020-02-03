@@ -22,6 +22,12 @@ object_links_object_links#:#Objekt-Verknüpfungen
 object_links_open#:#Öffnen
 object_links_remove_object_link#:#Objekt-Verknüpfung entfernen
 object_links_removed_object_link#:#Objekt-Verknüpfung entfernt
+onlinestatus_offline#:#Offline
+onlinestatus_online#:#Online
+onlinestatus_set_offline#:#Offline setzen
+onlinestatus_set_online#:#Online setzen
+onlinestatus_setted_offline#:#Offline gesetzt
+onlinestatus_setted_online#:#Online gesetzt
 rating_like#:#Like
 rating_liked#:#Liked
 rating_unlike#:#Unlike
@@ -81,6 +87,7 @@ tile_learning_progress#:#Lernfortschritt
 tile_learning_progress_position#:#Position
 tile_margin#:#Abstand
 tile_object_icon_position#:#Objekt-Icon
+tile_online_status#:#Online/Offline-Status
 tile_open_false#:#Nicht öffnen
 tile_open_obj_with_one_child_direct#:#Öffne Objekt mit nur einem Kind direkt
 tile_open_true#:#Öffnen
@@ -116,6 +123,7 @@ tile_show_learning_progress_meter#:#Progress-Meter
 tile_show_likes_count#:#Likes-Zähler anzeigen
 tile_show_none#:#Nicht anzeigen
 tile_show_object_tabs#:#Objekt-Tabs anzeigen (Leserechte)
+tile_show_online_status_icon#:#Online/Offline-Status-Icon anzeigen (Schreibrechte)
 tile_show_only_write_permissions#:#Nur mit Schreibrechte anzeigen
 tile_show_preconditions#:#Vorbedingungen anzeigen
 tile_show_recommend_icon#:#Empfehlen-Icon anzeigen

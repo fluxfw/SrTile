@@ -22,6 +22,12 @@ object_links_object_links#:#Object links
 object_links_open#:#Open
 object_links_remove_object_link#:#Remove object link
 object_links_removed_object_link#:#Removed object link
+onlinestatus_offline#:#Offline
+onlinestatus_online#:#Online
+onlinestatus_set_offline#:#Set offline
+onlinestatus_set_online#:#Set online
+onlinestatus_setted_offline#:#Set offline
+onlinestatus_setted_online#:#Set online
 rating_like#:#Like
 rating_liked#:#Liked
 rating_unlike#:#Unlike
@@ -81,6 +87,7 @@ tile_learning_progress#:#Learning progress
 tile_learning_progress_position#:#Position
 tile_margin#:#Margin
 tile_object_icon_position#:#Object icon
+tile_online_status#:#Online/offline status
 tile_open_false#:#Not open
 tile_open_obj_with_one_child_direct#:#Open object with one child direct
 tile_open_true#:#Open
@@ -116,6 +123,7 @@ tile_show_learning_progress_meter#:#Progress meter
 tile_show_likes_count#:#Show likes count
 tile_show_none#:#Not show
 tile_show_object_tabs#:#Show object tabs (Read permissions)
+tile_show_online_status_icon#:#Show online/offline status icon (Write permissions)
 tile_show_only_write_permissions#:#Show only with write permissions
 tile_show_preconditions#:#Show preconditions (Experimental)
 tile_show_recommend_icon#:#Show recommend icon

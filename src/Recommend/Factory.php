@@ -63,13 +63,13 @@ final class Factory
 
     /**
      * @param RecommendGUI $parent
-     * @param Tile         $tile
+     * @param Recommend    $recommend
      *
      * @return RecommendFormGUI
      */
-    public function newFormInstance(RecommendGUI $parent, Tile $tile) : RecommendFormGUI
+    public function newFormInstance(RecommendGUI $parent, Recommend $recommend) : RecommendFormGUI
     {
-        $form = new RecommendFormGUI($parent, $tile);
+        $form = new RecommendFormGUI($parent, $recommend);
 
         return $form;
     }

@@ -22,6 +22,28 @@ class ColorThiefCache extends ActiveRecord
     use SrTileTrait;
     const TABLE_NAME = "ui_uihk_srtile_c_t_c";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getConnectorContainerName() : string
+    {
+        return static::TABLE_NAME;
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated
+     */
+    public static function returnDbTableName() : string
+    {
+        return self::TABLE_NAME;
+    }
+
+
     /**
      * @var string
      *
@@ -57,22 +79,10 @@ class ColorThiefCache extends ActiveRecord
 
 
     /**
-     * @return string
+     * @inheritDoc
      */
-    public function getConnectorContainerName() : string
+    public function sleep(/*string*/ $field_name)
     {
-        return self::TABLE_NAME;
-    }
-
-
-    /**
-     * @param string $field_name
-     *
-     * @return mixed|null
-     */
-    public function sleep(/*string*/
-        $field_name
-    ) {
         $field_value = $this->{$field_name};
 
         switch ($field_name) {
@@ -83,15 +93,10 @@ class ColorThiefCache extends ActiveRecord
 
 
     /**
-     * @param string $field_name
-     * @param mixed  $field_value
-     *
-     * @return mixed|null
+     * @inheritDoc
      */
-    public function wakeUp(/*string*/
-        $field_name,
-        $field_value
-    ) {
+    public function wakeUp(/*string*/ $field_name, $field_value)
+    {
         switch ($field_name) {
             default:
                 return null;

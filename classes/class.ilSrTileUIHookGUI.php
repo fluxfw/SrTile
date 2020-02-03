@@ -1,7 +1,7 @@
 <?php
 
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Config\Config;
+use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Tile\TileGUI;
@@ -79,17 +79,10 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
 
     /**
-     * @param string $a_comp
-     * @param string $a_part
-     * @param array  $a_par
-     *
-     * @return array
+     * @inheritDoc
      */
-    public function getHTML(/*string*/
-        $a_comp, /*string*/
-        $a_part,
-        $a_par = []
-    ) : array {
+    public function getHTML(/*string*/ $a_comp, /*string*/ $a_part, $a_par = []) : array
+    {
 
         if ($this->matchRepository($a_part, $a_par)) {
 
@@ -133,20 +126,26 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
                             self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_REF_ID, $obj_ref_id);
 
-                            $edit_tile_html = '<li>' . self::output()->getHTML(self::dic()->ui()->factory()->link()->standard('<span class="xsmall">' . self::plugin()
-                                        ->translate("edit_tile", TileGUI::LANG_MODULE) . '</span>',
-                                    self::dic()->ctrl()->getLinkTargetByClass([
-                                        ilUIPluginRouterGUI::class,
-                                        TileGUI::class
-                                    ], TileGUI::CMD_EDIT_TILE))) . '</li>';
+                            $actions = [
+                                [TileGUI::LANG_MODULE, "edit_tile", TileGUI::class, TileGUI::CMD_EDIT_TILE]
+                            ];
+
+                            $actions_html = self::output()->getHTML(array_map(function (array $action) : string {
+                                return '<li>' . self::output()->getHTML(self::dic()->ui()->factory()->link()->standard('<span class="xsmall">' . self::plugin()
+                                            ->translate($action[1], $action[0]) . '</span>',
+                                        self::dic()->ctrl()->getLinkTargetByClass([
+                                            ilUIPluginRouterGUI::class,
+                                            $action[2]
+                                        ], $action[3]))) . '</li>';
+                            }, $actions));
 
                             $matches = [];
-                            preg_match('/<ul class="dropdown-menu pull-right" role="menu" id="ilAdvSelListTable_.*">/',
+                            preg_match('/<ul\s+class="dropdown-menu pull-right"\s+role="menu"\s+id="ilAdvSelListTable_.*"\s*>/',
                                 $html, $matches);
                             if (is_array($matches) && count($matches) >= 1) {
-                                $html = str_ireplace($matches[0], $matches[0] . $edit_tile_html, $html);
+                                $html = str_ireplace($matches[0], $matches[0] . $actions_html, $html);
                             } else {
-                                $html = $edit_tile_html . $html;
+                                $html = $actions_html . $html;
                             }
 
                             return ["mode" => self::REPLACE, "html" => $html];
@@ -161,15 +160,9 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
 
     /**
-     * @param string $a_comp
-     * @param string $a_part
-     * @param array  $a_par
+     * @inheritDoc
      */
-    public function modifyGUI(/*string*/
-        $a_comp, /*string*/
-        $a_part, /*array*/
-        $a_par = []
-    )/*: void*/
+    public function modifyGUI(/*string*/ $a_comp, /*string*/ $a_part, /*array*/ $a_par = [])/*: void*/
     {
         $obj_ref_id = self::filterRefId();
 
@@ -230,7 +223,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && $a_part === self::TEMPLATE_GET
             && $a_par["tpl_id"] === self::TEMPLATE_ID_REPOSITORY
             && (self::$load[self::REPOSITORY_LOADER] = true)
-            && Config::getField(Config::KEY_ENABLED_ON_REPOSITORY)
+            && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_REPOSITORY)
             && !in_array(self::dic()->ctrl()->getCmd(), ["editOrder"])
             && !in_array(self::dic()->ctrl()->getCallHistory()[0]["cmd"], ["editOrder"])
             && !$_SESSION["il_cont_admin_panel"]
@@ -254,7 +247,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && $a_part === self::TEMPLATE_GET
             && $a_par["tpl_id"] === self::TEMPLATE_ID_FAVORITES
             && (self::$load[self::FAVORITES_LOADER] = true)
-            && Config::getField(Config::KEY_ENABLED_ON_FAVORITES));
+            && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_FAVORITES));
     }
 
 

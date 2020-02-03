@@ -5,7 +5,6 @@ if (file_exists(__DIR__ . "/../../Certificate/vendor/autoload.php")) {
     require_once __DIR__ . "/../../Certificate/vendor/autoload.php";
 }
 
-use srag\DIC\SrTile\Util\LibraryLanguageInstaller;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\RemovePluginDataConfirm\SrTile\PluginUninstallTrait;
 
@@ -54,7 +53,7 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
 
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getPluginName() : string
     {
@@ -63,21 +62,20 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function updateLanguages($a_lang_keys = null)
+    public function updateLanguages(/*?array*/ $a_lang_keys = null)/*:void*/
     {
         parent::updateLanguages($a_lang_keys);
 
-        LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
-            . "/../vendor/srag/removeplugindataconfirm/lang")->updateLanguages();
+        $this->installRemovePluginDataConfirmLanguages();
 
         self::srTile()->notifications4plugin()->installLanguages();
     }
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function deleteData()/*: void*/
     {

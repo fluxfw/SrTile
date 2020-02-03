@@ -20,7 +20,7 @@ class FixedCollection extends AbstractCollection
      *
      * @param array $obj_ref_ids
      */
-    public function __construct(array $obj_ref_ids) /*: void*/
+    public function __construct(array $obj_ref_ids)
     {
         $this->obj_ref_ids = $obj_ref_ids;
 
@@ -29,7 +29,7 @@ class FixedCollection extends AbstractCollection
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initObjRefIds() /*: void*/
     {

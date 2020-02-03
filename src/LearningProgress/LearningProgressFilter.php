@@ -22,6 +22,28 @@ class LearningProgressFilter extends ActiveRecord
     use SrTileTrait;
     const TABLE_NAME = "ui_uihk_srtile_lp_fil";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getConnectorContainerName() : string
+    {
+        return static::TABLE_NAME;
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated
+     */
+    public static function returnDbTableName() : string
+    {
+        return self::TABLE_NAME;
+    }
+
+
     /**
      * @var int
      *
@@ -76,22 +98,10 @@ class LearningProgressFilter extends ActiveRecord
 
 
     /**
-     * @return string
+     * @inheritDoc
      */
-    public function getConnectorContainerName() : string
+    public function sleep(/*string*/ $field_name)
     {
-        return self::TABLE_NAME;
-    }
-
-
-    /**
-     * @param string $field_name
-     *
-     * @return mixed|null
-     */
-    public function sleep(/*string*/
-        $field_name
-    ) {
         $field_filter = $this->{$field_name};
 
         switch ($field_name) {
@@ -105,23 +115,18 @@ class LearningProgressFilter extends ActiveRecord
 
 
     /**
-     * @param string $field_name
-     * @param mixed  $field_filter
-     *
-     * @return mixed|null
+     * @inheritDoc
      */
-    public function wakeUp(/*string*/
-        $field_name,
-        $field_filter
-    ) {
+    public function wakeUp(/*string*/ $field_name, $field_value)
+    {
         switch ($field_name) {
             case "filter_id":
             case "obj_ref_id":
             case "user_id":
-                return intval($field_filter);
+                return intval($field_value);
 
             case "filter":
-                return json_decode($field_filter);
+                return json_decode($field_value);
 
             default:
                 return null;

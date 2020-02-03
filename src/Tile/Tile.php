@@ -161,6 +161,7 @@ class Tile extends ActiveRecord
     const DEFAULT_SHOW_LEARNING_PROGRESS_FILTER = Tile::SHOW_FALSE;
     const DEFAULT_SHOW_LEARNING_PROGRESS_LEGEND = Tile::SHOW_FALSE;
     const DEFAULT_SHOW_LIKES_COUNT = Tile::SHOW_FALSE;
+    const DEFAULT_SHOW_ONLINE_STATUS_ICON = Tile::SHOW_FALSE;
     const DEFAULT_SHOW_PRECONDITIONS = Tile::SHOW_FALSE;
     const DEFAULT_SHOW_RECOMMEND_ICON = Tile::SHOW_FALSE;
     const DEFAULT_SHOW_OBJECT_TABS = Tile::SHOW_TRUE;
@@ -169,6 +170,26 @@ class Tile extends ActiveRecord
     const SHOW_ACTIONS_NONE = 1;
     const SHOW_ACTIONS_ONLY_WITH_WRITE_PERMISSIONS = 2;
     const SHOW_ACTIONS_ALWAYS = 3;
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getConnectorContainerName() : string
+    {
+        return static::TABLE_NAME;
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated
+     */
+    public static function returnDbTableName() : string
+    {
+        return self::TABLE_NAME;
+    }
 
 
     /**
@@ -327,6 +348,14 @@ class Tile extends ActiveRecord
      * @con_is_notnull  true
      */
     protected $object_icon_position = self::DEFAULT_OBJECT_ICON_POSITION;
+    /**
+     * @var int
+     *
+     * @con_has_field   true
+     * @con_fieldtype   integer
+     * @con_is_notnull  true
+     */
+    protected $show_online_status_icon = self::DEFAULT_SHOW_ONLINE_STATUS_ICON;
     /**
      * @var int
      *
@@ -566,18 +595,7 @@ class Tile extends ActiveRecord
 
 
     /**
-     * @return string
-     */
-    public function getConnectorContainerName() : string
-    {
-        return static::TABLE_NAME;
-    }
-
-
-    /**
-     * @param string $field_name
-     *
-     * @return mixed|null
+     * @inheritDoc
      */
     public function sleep(/*string*/ $field_name)
     {
@@ -591,10 +609,7 @@ class Tile extends ActiveRecord
 
 
     /**
-     * @param string $field_name
-     * @param mixed  $field_value
-     *
-     * @return mixed|null
+     * @inheritDoc
      */
     public function wakeUp(/*string*/ $field_name, $field_value)
     {
@@ -634,6 +649,7 @@ class Tile extends ActiveRecord
             case "show_learning_progress_filter":
             case "show_learning_progress_legend":
             case "show_object_tabs":
+            case "show_online_status_icon":
             case "show_preconditions":
             case "show_recommend_icon":
             case "show_title":
@@ -951,6 +967,24 @@ class Tile extends ActiveRecord
     public function setObjectIconPosition(int $object_icon_position)/*: void*/
     {
         $this->object_icon_position = $object_icon_position;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getShowOnlineStatusIcon() : int
+    {
+        return $this->show_online_status_icon;
+    }
+
+
+    /**
+     * @param int $show_online_status_icon
+     */
+    public function setShowOnlineStatusIcon(int $show_online_status_icon)/*: void*/
+    {
+        $this->show_online_status_icon = $show_online_status_icon;
     }
 
 

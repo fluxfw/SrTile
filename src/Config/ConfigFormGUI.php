@@ -5,7 +5,7 @@ namespace srag\Plugins\SrTile\Config;
 use ilCheckboxInputGUI;
 use ilSrTileConfigGUI;
 use ilSrTilePlugin;
-use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ConfigPropertyFormGUI;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -15,13 +15,16 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class ConfigFormGUI extends ConfigPropertyFormGUI
+class ConfigFormGUI extends PropertyFormGUI
 {
 
     use SrTileTrait;
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    const KEY_ENABLED_OBJECT_LINKS = "enabled_object_links";
+    const KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT = "enabled_object_links_once_select";
+    const KEY_ENABLED_ON_FAVORITES = "enabled_on_favorites";
+    const KEY_ENABLED_ON_REPOSITORY = "enabled_on_repository";
     const LANG_MODULE = ilSrTileConfigGUI::LANG_MODULE;
-    const CONFIG_CLASS_NAME = Config::class;
 
 
     /**
@@ -36,7 +39,19 @@ class ConfigFormGUI extends ConfigPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
+     */
+    protected function getValue(/*string*/ $key)
+    {
+        switch ($key) {
+            default:
+                return self::srTile()->config()->getValue($key);
+        }
+    }
+
+
+    /**
+     * @inheritDoc
      */
     protected function initCommands()/*: void*/
     {
@@ -45,21 +60,21 @@ class ConfigFormGUI extends ConfigPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initFields()/*: void*/
     {
         $this->fields = [
-            Config::KEY_ENABLED_ON_REPOSITORY => [
+            self::KEY_ENABLED_ON_REPOSITORY => [
                 self::PROPERTY_CLASS => ilCheckboxInputGUI::class
             ],
-            Config::KEY_ENABLED_ON_FAVORITES  => [
+            self::KEY_ENABLED_ON_FAVORITES  => [
                 self::PROPERTY_CLASS => ilCheckboxInputGUI::class
             ],
-            Config::KEY_ENABLED_OBJECT_LINKS  => [
+            self::KEY_ENABLED_OBJECT_LINKS  => [
                 self::PROPERTY_CLASS    => ilCheckboxInputGUI::class,
                 self::PROPERTY_SUBITEMS => [
-                    Config::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT => [
+                    self::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT => [
                         self::PROPERTY_CLASS => ilCheckboxInputGUI::class
                     ]
                 ]
@@ -78,10 +93,23 @@ class ConfigFormGUI extends ConfigPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initTitle()/*: void*/
     {
         $this->setTitle($this->txt("configuration"));
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    protected function storeValue(/*string*/ $key, $value)/*: void*/
+    {
+        switch ($key) {
+            default:
+                self::srTile()->config()->setValue($key, $value);
+                break;
+        }
     }
 }

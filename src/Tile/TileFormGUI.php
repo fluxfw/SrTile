@@ -13,7 +13,8 @@ use ilRadioGroupInputGUI;
 use ilRadioOption;
 use ilSelectInputGUI;
 use ilSrTilePlugin;
-use srag\CustomInputGUIs\SrTile\PropertyFormGUI\ObjectPropertyFormGUI;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\Items\Items;
+use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationInterface;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl;
 use srag\Plugins\SrTile\Template\TemplateConfigGUI;
@@ -26,7 +27,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class TileFormGUI extends ObjectPropertyFormGUI
+class TileFormGUI extends PropertyFormGUI
 {
 
     use SrTileTrait;
@@ -35,47 +36,49 @@ class TileFormGUI extends ObjectPropertyFormGUI
     /**
      * @var Tile
      */
-    protected $object;
+    protected $tile;
 
 
     /**
      * TileFormGUI constructor
      *
      * @param TileGUI|TemplateConfigGUI $parent
-     * @param Tile                      $object
+     * @param Tile                      $tile
      */
-    public function __construct($parent, Tile $object)
+    public function __construct($parent, Tile $tile)
     {
-        parent::__construct($parent, $object);
+        $this->tile = $tile;
+
+        parent::__construct($parent);
     }
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function getValue(/*string*/ $key)
     {
         switch ($key) {
             case "columns_count":
-                if ($this->object->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
-                    return parent::getValue("columns");
+                if ($this->tile->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
+                    return Items::getter($this->tile, "columns");
                 }
                 break;
 
             case "columns_fix_width":
-                if ($this->object->getColumnsType() === Tile::SIZE_TYPE_PX) {
-                    return parent::getValue("columns");
+                if ($this->tile->getColumnsType() === Tile::SIZE_TYPE_PX) {
+                    return Items::getter($this->tile, "columns");
                 }
                 break;
 
             case "image":
-                if (!empty(parent::getValue($key))) {
-                    return "./" . $this->object->getImagePath();
+                if (!empty(Items::getter($this->tile, $key))) {
+                    return "./" . $this->tile->getImagePath();
                 }
                 break;
 
             default:
-                return parent::getValue($key);
+                return Items::getter($this->tile, $key);
         }
 
         return null;
@@ -83,7 +86,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initCommands()/*: void*/
     {
@@ -92,7 +95,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initFields()/*: void*/
     {
@@ -503,6 +506,24 @@ class TileFormGUI extends ObjectPropertyFormGUI
                 ]
             ],
 
+            "online_status"           => [
+                self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
+            ],
+            "show_online_status_icon" => [
+                self::PROPERTY_CLASS    => ilRadioGroupInputGUI::class,
+                self::PROPERTY_REQUIRED => false,
+                self::PROPERTY_SUBITEMS => [
+                    Tile::SHOW_FALSE => [
+                        self::PROPERTY_CLASS => ilRadioOption::class,
+                        "setTitle"           => $this->txt("show_false")
+                    ],
+                    Tile::SHOW_TRUE  => [
+                        self::PROPERTY_CLASS => ilRadioOption::class,
+                        "setTitle"           => $this->txt("show_true")
+                    ]
+                ]
+            ],
+
             "favorites"               => [
                 self::PROPERTY_CLASS => ilFormSectionHeaderGUI::class
             ],
@@ -714,7 +735,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
             "certificate_hint"          => [
                 self::PROPERTY_CLASS   => ilNonEditableValueGUI::class,
                 self::PROPERTY_VALUE   => $this->txt("disabled_hint"),
-                self::PROPERTY_NOT_ADD => self::srTile()->ilias()->certificates(self::dic()->user(), $this->object)->enabled(),
+                self::PROPERTY_NOT_ADD => self::srTile()->ilias()->certificates(self::dic()->user(), $this->tile)->enabled(),
                 "setTitle"             => ""
             ],
             "show_download_certificate" => [
@@ -730,7 +751,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
                         "setTitle"           => $this->txt("show_true")
                     ]
                 ],
-                self::PROPERTY_NOT_ADD  => (!self::srTile()->ilias()->certificates(self::dic()->user(), $this->object)->enabled())
+                self::PROPERTY_NOT_ADD  => (!self::srTile()->ilias()->certificates(self::dic()->user(), $this->tile)->enabled())
             ],
 
             "language"               => [
@@ -778,7 +799,7 @@ class TileFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initId()/*: void*/
     {
@@ -787,29 +808,35 @@ class TileFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function initTitle()/*: void*/
     {
-        $this->setTitle($this->object->_getTitle());
+        $this->setTitle($this->tile->_getTitle());
     }
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function storeForm() : bool
     {
-        if (empty($this->object->getTileId())) {
-            $this->object->store();
+        if (empty($this->tile->getTileId())) {
+            self::srTile()->tiles()->storeTile($this->tile);
         }
 
-        return parent::storeForm();
+        if (!parent::storeForm()) {
+            return false;
+        }
+
+        self::srTile()->tiles()->storeTile($this->tile);
+
+        return true;
     }
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function checkInput() : bool
     {
@@ -825,20 +852,20 @@ class TileFormGUI extends ObjectPropertyFormGUI
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     protected function storeValue(/*string*/ $key, $value)/*: void*/
     {
         switch ($key) {
             case "columns_count":
-                if ($this->object->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
-                    parent::storeValue("columns", $value);
+                if ($this->tile->getColumnsType() === Tile::SIZE_TYPE_COUNT) {
+                    Items::setter($this->tile, "columns", $value);
                 }
                 break;
 
             case "columns_fix_width":
-                if ($this->object->getColumnsType() === Tile::SIZE_TYPE_PX) {
-                    parent::storeValue("columns", $value);
+                if ($this->tile->getColumnsType() === Tile::SIZE_TYPE_PX) {
+                    Items::setter($this->tile, "columns", $value);
                 }
                 break;
 
@@ -851,24 +878,24 @@ class TileFormGUI extends ObjectPropertyFormGUI
                 $result = array_pop(self::dic()->upload()->getResults());
 
                 if ($this->getInput("image_delete") || $result->getSize() > 0) {
-                    $this->object->applyNewImage("");
+                    $this->tile->applyNewImage("");
                 }
 
                 if (intval($result->getSize()) === 0) {
                     break;
                 }
 
-                $file_name = $this->object->getTileId() . "." . pathinfo($result->getName(), PATHINFO_EXTENSION);
+                $file_name = $this->tile->getTileId() . "." . pathinfo($result->getName(), PATHINFO_EXTENSION);
 
-                self::dic()->upload()->moveOneFileTo($result, $this->object->getImagePathAsRelative(false), Location::WEB, $file_name, true);
+                self::dic()->upload()->moveOneFileTo($result, $this->tile->getImagePathAsRelative(false), Location::WEB, $file_name, true);
 
-                parent::storeValue($key, $file_name);
+                Items::setter($this->tile, $key, $file_name);
 
-                $this->object->_getImageDominantColor();
+                $this->tile->_getImageDominantColor();
                 break;
 
             default:
-                parent::storeValue($key, $value);
+                Items::setter($this->tile, $key, $value);
                 break;
         }
     }

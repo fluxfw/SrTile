@@ -54,7 +54,7 @@ class Template extends Tile
 
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function _getTitle() : string
     {

@@ -102,7 +102,7 @@ class RatingGUI
      */
     protected function like()/*: void*/
     {
-        self::srTile()->rating(self::dic()->user())->like($this->tile->getObjRefId());
+        self::srTile()->ratings(self::dic()->user())->like($this->tile->getObjRefId());
 
         ilSrTileUIHookGUI::askAndDisplayAlertMessage("liked", self::LANG_MODULE);
 
@@ -119,7 +119,7 @@ class RatingGUI
      */
     protected function unlike()/*: void*/
     {
-        self::srTile()->rating(self::dic()->user())->unlike($this->tile->getObjRefId());
+        self::srTile()->ratings(self::dic()->user())->unlike($this->tile->getObjRefId());
 
         ilSrTileUIHookGUI::askAndDisplayAlertMessage("unliked", self::LANG_MODULE);
 

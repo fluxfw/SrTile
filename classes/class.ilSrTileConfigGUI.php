@@ -4,7 +4,6 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use srag\DIC\SrTile\DICTrait;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl;
-use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Template\TemplatesConfigGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -92,24 +91,13 @@ class ilSrTileConfigGUI extends ilPluginConfigGUI
 
 
     /**
-     * @return ConfigFormGUI
-     */
-    protected function getConfigForm() : ConfigFormGUI
-    {
-        $form = new ConfigFormGUI($this);
-
-        return $form;
-    }
-
-
-    /**
      *
      */
     protected function configure()/*: void*/
     {
         self::dic()->tabs()->activateTab(self::TAB_CONFIGURATION);
 
-        $form = $this->getConfigForm();
+        $form = self::srTile()->config()->factory()->newFormInstance($this);
 
         self::output()->output($form);
     }
@@ -122,7 +110,7 @@ class ilSrTileConfigGUI extends ilPluginConfigGUI
     {
         self::dic()->tabs()->activateTab(self::TAB_CONFIGURATION);
 
-        $form = $this->getConfigForm();
+        $form = self::srTile()->config()->factory()->newFormInstance($this);
 
         if (!$form->storeForm()) {
             self::output()->output($form);
