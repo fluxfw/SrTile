@@ -137,7 +137,7 @@ class TileGUI
         $parent = self::srTile()->tiles()->getParentTile($this->tile);
 
         if (self::srTile()->tiles()->isObject($parent->getObjRefId())) {
-            $this->dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent->getObjRefId()));
+            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent->getObjRefId()));
         }
     }
 
@@ -147,7 +147,7 @@ class TileGUI
      */
     protected function backToObject()/*: void*/
     {
-        $this->dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->tile->getObjRefId()));
+        self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->tile->getObjRefId()));
     }
 
 
