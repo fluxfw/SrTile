@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.1]
+- Show offline icon also with visible permissions only
+
 ## [1.8.0]
 - Show online/offline icon
 
