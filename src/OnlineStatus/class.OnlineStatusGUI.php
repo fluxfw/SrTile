@@ -7,7 +7,8 @@ use ilPersonalDesktopGUI;
 use ilSrTilePlugin;
 use ilSrTileUIHookGUI;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Tile\Tile;
+use srag\Plugins\SrTile\Config\ConfigFormGUI;
+use srag\Plugins\SrTile\ObjectLink\ObjectLink;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -35,9 +36,9 @@ class OnlineStatusGUI
      */
     protected $parent_ref_id;
     /**
-     * @var Tile
+     * @var int[]
      */
-    protected $tile;
+    protected $object_ref_ids = [];
 
 
     /**
@@ -55,11 +56,17 @@ class OnlineStatusGUI
     public function executeCommand()/*: void*/
     {
         $this->parent_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_PARENT_REF_ID));
-        $this->tile = self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID)));
 
-        if (!self::srTile()->access()->hasWriteAccess($this->tile->getObjRefId()) || !self::srTile()->onlineStatus()->supportsWriteOnline($this->tile->getObjRefId())) {
-            die();
+        if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
+            $this->object_ref_ids = array_map(function (ObjectLink $object_link) : int {
+                return $object_link->getObjRefId();
+            }, self::srTile()->objectLinks()->getObjectLinks(self::srTile()->objectLinks()->getGroupByObject(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID)))->getGroupId()));
+        } else {
+            $this->object_ref_ids = [intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID))];
         }
+        $this->object_ref_ids = array_filter($this->object_ref_ids, function (int $object_ref_id) : bool {
+            return (self::srTile()->access()->hasWriteAccess($object_ref_id) && self::srTile()->onlineStatus()->supportsWriteOnline($object_ref_id));
+        });
 
         self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_PARENT_REF_ID);
         self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_REF_ID);
@@ -100,9 +107,13 @@ class OnlineStatusGUI
      */
     protected function setOffline()/*: void*/
     {
-        self::srTile()->onlineStatus()->setOnline($this->tile->getObjRefId(), false);
+        if (!empty($this->object_ref_ids)) {
+            foreach ($this->object_ref_ids as $object_ref_id) {
+                self::srTile()->onlineStatus()->setOnline($object_ref_id, false);
 
-        ilSrTileUIHookGUI::askAndDisplayAlertMessage("setted_offline", self::LANG_MODULE);
+                ilSrTileUIHookGUI::askAndDisplayAlertMessage("setted_offline", self::LANG_MODULE);
+            }
+        }
 
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
@@ -117,9 +128,13 @@ class OnlineStatusGUI
      */
     protected function setOnline()/*: void*/
     {
-        self::srTile()->onlineStatus()->setOnline($this->tile->getObjRefId(), true);
+        if (!empty($this->object_ref_ids)) {
+            foreach ($this->object_ref_ids as $object_ref_id) {
+                self::srTile()->onlineStatus()->setOnline($object_ref_id, true);
 
-        ilSrTileUIHookGUI::askAndDisplayAlertMessage("setted_online", self::LANG_MODULE);
+                ilSrTileUIHookGUI::askAndDisplayAlertMessage("setted_online", self::LANG_MODULE);
+            }
+        }
 
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));

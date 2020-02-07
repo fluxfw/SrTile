@@ -3,7 +3,7 @@
 namespace srag\Plugins\SrTile\Tile\Renderer;
 
 use ilAdvancedSelectionListGUI;
-use ILIAS\UI\Component\Link\Standard as StandardLink;
+use ILIAS\UI\Component\Legacy\Legacy;
 use ilObject;
 use ilObjRootFolderGUI;
 use ilRepositoryGUI;
@@ -98,15 +98,18 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         $object_links = self::srTile()->objectLinks()->getShouldShowObjectLinks($this->tile->getObjRefId());
 
         if (!empty($object_links)) {
-            $items = array_map(function (ObjectLink $object_link) : StandardLink {
+            $items = array_map(function (ObjectLink $object_link) : Legacy {
+                $tpl_object_link = self::plugin()->template("ObjectLink/object_link.html");
 
-                $language_flag = "";
                 if ($this->tile->getShowLanguageFlag() === Tile::SHOW_TRUE) {
-                    $language_flag = self::srTile()->ilias()->metadata($object_link->getObject())->getLanguageImage();
+                    $tpl_object_link->setVariable("LANGUAGE_FLAG", self::srTile()->ilias()->metadata($object_link->getObject())->getLanguageImage());
                 }
 
-                return self::dic()->ui()->factory()->link()->standard($language_flag . $object_link->getObject()->getTitle(),
-                    self::srTile()->tiles()->getInstanceForObjRefId($object_link->getObjRefId())->_getAdvancedLink(true));
+                $tpl_object_link->setVariableEscaped("TITLE", $object_link->getObject()->getTitle());
+
+                $tpl_object_link->setVariable("LINK", self::srTile()->tiles()->getInstanceForObjRefId($object_link->getObjRefId())->_getAdvancedLink());
+
+                return self::dic()->ui()->factory()->legacy(self::output()->getHTML($tpl_object_link));
             }, $object_links);
 
             if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {

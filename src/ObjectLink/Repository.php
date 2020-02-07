@@ -225,6 +225,10 @@ final class Repository
 
         $object_links = $this->getObjectLinks($this->getGroupByObject($obj_ref_id)->getGroupId());
 
+        $object_links = array_filter($object_links, function (ObjectLink $object_link) : bool {
+            return self::srTile()->access()->hasVisibleAccess($object_link->getObjRefId());
+        });
+
         if (count($object_links) < 2) {
             return [];
         }
@@ -306,6 +310,10 @@ final class Repository
     public function shouldShowObjectLink(int $obj_ref_id) : bool
     {
         $object_links = $this->getObjectLinks($this->getGroupByObject($obj_ref_id)->getGroupId());
+
+        $object_links = array_filter($object_links, function (ObjectLink $object_link) : bool {
+            return self::srTile()->access()->hasVisibleAccess($object_link->getObjRefId());
+        });
 
         if (count($object_links) < 2) {
             return true;
