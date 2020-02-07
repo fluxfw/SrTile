@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.2]
+- Object links:
+    - Fix check visible permission
+    - Set online/offline for whole object link group
+    - Fix open scorms
+
 ## [1.8.1]
 - Show offline icon also with visible permissions only
 
