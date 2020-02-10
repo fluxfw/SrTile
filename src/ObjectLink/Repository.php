@@ -370,10 +370,10 @@ final class Repository
                 foreach ($this->getObjectLinks($object_link->getGroupId()) as $object_link__) {
                     if ($object_link__->getGroupId() !== $object_link_->getGroupId()) {
                         $object_link__->setGroupId($object_link_->getGroupId());
-                        $this->storeObjectLink($object_link__);
                     } else {
                         $delete_group = false;
                     }
+                    $this->storeObjectLink($object_link__);
                 }
 
                 if ($delete_group) {
