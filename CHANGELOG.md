@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.3]
+- `cloneTile`
+
 ## [1.8.2]
 - Object links:
     - Fix check visible permission
