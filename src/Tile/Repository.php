@@ -106,6 +106,8 @@ final class Repository
     public function deleteTile(Tile $title)/*:void*/
     {
         $title->delete();
+
+        unset(self::$instances_by_ref_id[$title->getObjRefId()]);
     }
 
 
