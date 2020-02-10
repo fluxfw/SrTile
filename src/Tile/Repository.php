@@ -73,6 +73,43 @@ final class Repository
 
 
     /**
+     * @param Tile $tile
+     * @param int  $new_obj_ref_id
+     *
+     * @return Tile
+     */
+    public function cloneTile(Tile $tile, int $new_obj_ref_id) : Tile
+    {
+        $old_tile = $this->getInstanceForObjRefId($new_obj_ref_id);
+        if ($old_tile !== null) {
+            $this->deleteTile($old_tile);
+        }
+
+        /**
+         * @var Tile $cloned_tile
+         */
+        $cloned_tile = $tile->copy();
+
+        $cloned_tile->setObjRefId($new_obj_ref_id);
+
+        $this->storeTile($cloned_tile);
+
+        $cloned_tile->applyNewImage($tile->getImagePathWithCheck());
+
+        return $cloned_tile;
+    }
+
+
+    /**
+     * @param Tile $title
+     */
+    public function deleteTile(Tile $title)/*:void*/
+    {
+        $title->delete();
+    }
+
+
+    /**
      * @internal
      */
     public function dropTables()/*:void*/
