@@ -366,12 +366,19 @@ final class Repository
         if (empty($object_link->getObjectLinkId())) {
             $object_link_ = $this->getObjectLinkByObjRefId($object_link->getObjRefId());
             if ($object_link_ !== null) {
+                $delete_group = true;
                 foreach ($this->getObjectLinks($object_link->getGroupId()) as $object_link__) {
-                    $object_link__->setGroupId($object_link_->getGroupId());
+                    if ($object_link__->getGroupId() !== $object_link_->getGroupId()) {
+                        $object_link__->setGroupId($object_link_->getGroupId());
+                    } else {
+                        $delete_group = false;
+                    }
                     $this->storeObjectLink($object_link__);
                 }
 
-                $this->deleteGroup($this->getGroupById($object_link->getGroupId()));
+                if ($delete_group) {
+                    $this->deleteGroup($this->getGroupById($object_link->getGroupId()));
+                }
 
                 $this->reSortObjectLinks($object_link_->getGroupId());
 
