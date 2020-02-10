@@ -140,7 +140,7 @@ final class Repository
      *
      * @return ObjectLink[]
      */
-    public function getObjectLinksByObjRefId(int $obj_ref_id)/*:?ObjectLink*/
+    public function getObjectLinksByObjRefId(int $obj_ref_id) : array
     {
         return ObjectLink::where([
             "obj_ref_id" => $obj_ref_id
