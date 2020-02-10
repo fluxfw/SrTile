@@ -91,10 +91,13 @@ final class Repository
         $cloned_tile = $tile->copy();
 
         $cloned_tile->setObjRefId($new_obj_ref_id);
+        $cloned_tile->setImage("");
 
         $this->storeTile($cloned_tile);
 
         $cloned_tile->applyNewImage($tile->getImagePathWithCheck());
+
+        $this->storeTile($cloned_tile);
 
         return $cloned_tile;
     }
