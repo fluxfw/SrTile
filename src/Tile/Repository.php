@@ -111,6 +111,10 @@ final class Repository
         $title->delete();
 
         unset(self::$instances_by_ref_id[$title->getObjRefId()]);
+
+        foreach (self::srTile()->objectLinks()->getObjectLinksByObjRefId($title->getObjRefId()) as $object_link) {
+            self::srTile()->objectLinks()->deleteObjectLink($object_link);
+        }
     }
 
 

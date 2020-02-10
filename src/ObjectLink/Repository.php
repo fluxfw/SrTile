@@ -138,6 +138,19 @@ final class Repository
     /**
      * @param int $obj_ref_id
      *
+     * @return ObjectLink[]
+     */
+    public function getObjectLinksByObjRefId(int $obj_ref_id)/*:?ObjectLink*/
+    {
+        return ObjectLink::where([
+            "obj_ref_id" => $obj_ref_id
+        ])->get();
+    }
+
+
+    /**
+     * @param int $obj_ref_id
+     *
      * @return ObjectLink|null
      */
     protected function getObjectLinkByObjRefId(int $obj_ref_id)/*:?ObjectLink*/
