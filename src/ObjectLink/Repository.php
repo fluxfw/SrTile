@@ -368,11 +368,10 @@ final class Repository
             if ($object_link_ !== null) {
                 $delete_group = true;
                 foreach ($this->getObjectLinks($object_link->getGroupId()) as $object_link__) {
-                    if ($object_link__->getGroupId() !== $object_link_->getGroupId()) {
-                        $object_link__->setGroupId($object_link_->getGroupId());
-                    } else {
+                    if ($object_link__->getGroupId() === $object_link_->getGroupId()) {
                         $delete_group = false;
                     }
+                    $object_link__->setGroupId($object_link_->getGroupId());
                     $this->storeObjectLink($object_link__);
                 }
 
