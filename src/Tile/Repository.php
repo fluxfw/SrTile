@@ -2,11 +2,13 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
+use Closure;
 use ilContainerReference;
 use ilObjectFactory;
 use ilObjOrgUnit;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\Plugins\SrTile\Template\Template;
 use srag\Plugins\SrTile\Tile\Renderer\Repository as RendererRepository;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use Throwable;
@@ -73,48 +75,41 @@ final class Repository
 
 
     /**
-     * @param Tile $tile
-     * @param int  $new_obj_ref_id
+     * @param int $old_obj_ref_id
+     * @param int $new_obj_ref_id
      *
      * @return Tile
      */
-    public function cloneTile(Tile $tile, int $new_obj_ref_id) : Tile
+    public function cloneTile(int $old_obj_ref_id, int $new_obj_ref_id) : Tile
     {
-        $old_tile = $this->getInstanceForObjRefId($new_obj_ref_id);
-        if ($old_tile !== null) {
-            $this->deleteTile($old_tile);
+        $old_tile = $this->getInstanceForObjRefId($old_obj_ref_id);
+
+        $new_tile = $this->getInstanceForObjRefId($new_obj_ref_id);
+
+        $properties = Closure::bind(function () : array {
+            return get_object_vars($this);
+        }, $old_tile, Template::class)();
+        $properties = array_filter($properties, function (string $property) : bool {
+            return ($property !== "tile_id" && $property !== "obj_ref_id" && $property !== "object_type" && $property !== "il_object"
+                && $property !== "ar_safe_read"
+                && $property !== "connector_container_name");
+        }, ARRAY_FILTER_USE_KEY);
+
+        // Delete old image
+        $new_tile->applyNewImage("");
+
+        foreach ($properties as $key => $value) {
+            Closure::bind(function ($key, $value)/*:void*/ {
+                $this->{$key} = $value;
+            }, $new_tile, Tile::class)($key, $value);
         }
 
-        /**
-         * @var Tile $cloned_tile
-         */
-        $cloned_tile = $tile->copy();
+        // Copy template image
+        $new_tile->applyNewImage($old_tile->getImagePathWithCheck());
 
-        $cloned_tile->setObjRefId($new_obj_ref_id);
-        $cloned_tile->setImage("");
+        $this->storeTile($new_tile);
 
-        $this->storeTile($cloned_tile);
-
-        $cloned_tile->applyNewImage($tile->getImagePathWithCheck());
-
-        $this->storeTile($cloned_tile);
-
-        return $cloned_tile;
-    }
-
-
-    /**
-     * @param Tile $title
-     */
-    public function deleteTile(Tile $title)/*:void*/
-    {
-        $title->delete();
-
-        unset(self::$instances_by_ref_id[$title->getObjRefId()]);
-
-        /*foreach (self::srTile()->objectLinks()->getObjectLinksByObjRefId($title->getObjRefId()) as $object_link) {
-            self::srTile()->objectLinks()->deleteObjectLink($object_link);
-        }*/
+        return $new_tile;
     }
 
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.4]
+- Clone tile by object clone
+
 ## [1.8.3]
 - `cloneTile`
 

@@ -64,6 +64,28 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
     /**
      * @inheritDoc
      */
+    public function handleEvent(/*string*/ $a_component, /*string*/ $a_event, /*array*/ $a_parameter) : void
+    {
+        switch ($a_component) {
+            case "Services/Object":
+                switch ($a_event) {
+                    case "cloneObject":
+                        self::srTile()->tiles()->cloneTile($a_parameter["cloned_from_object"]->getRefId(), $a_parameter["object"]->getRefId());
+                        break;
+                    default:
+                        break;
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function updateLanguages(/*?array*/ $a_lang_keys = null)/*:void*/
     {
         parent::updateLanguages($a_lang_keys);
