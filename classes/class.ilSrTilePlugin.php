@@ -64,7 +64,7 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
     /**
      * @inheritDoc
      */
-    public function handleEvent(/*string*/ $a_component, /*string*/ $a_event, /*array*/ $a_parameter) : void
+    public function handleEvent(/*string*/ $a_component, /*string*/ $a_event, /*array*/ $a_parameter)/* : void*/
     {
         switch ($a_component) {
             case "Services/Object":
