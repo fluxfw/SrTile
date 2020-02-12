@@ -128,20 +128,26 @@ final class Repository
                     continue;
                 }
 
-                foreach ($this->clone_tile_cache[$org_object_link->getObjRefId()] as $old_clone_obj_ref_id) {
-                    if (self::dic()->tree()->getParentId($old_clone_obj_ref_id) === self::dic()->tree()->getParentId($clone_obj_ref_id)) {
-                        $clone_object_link = self::srTile()->objectLinks()->factory()->newObjectLinkInstance();
-
-                        $clone_object_link->setGroupId(self::srTile()->objectLinks()->getGroupByObject($old_clone_obj_ref_id)->getGroupId());
-
-                        $clone_object_link->setObjRefId($clone_obj_ref_id);
-
-                        $clone_object_link->setSort($org_object_link->getSort());
-
-                        self::srTile()->objectLinks()->storeObjectLink($clone_object_link, false);
-
-                        break;
+                foreach ($this->clone_tile_cache[$org_object_link->getObjRefId()] as $clone_old_obj_ref_id) {
+                    if ($clone_old_obj_ref_id === $clone_obj_ref_id) {
+                        continue;
                     }
+
+                    if (self::dic()->tree()->getParentId($clone_old_obj_ref_id) !== self::dic()->tree()->getParentId($clone_obj_ref_id)) {
+                        continue;
+                    }
+
+                    $clone_object_link = self::srTile()->objectLinks()->factory()->newObjectLinkInstance();
+
+                    $clone_object_link->setGroupId(self::srTile()->objectLinks()->getGroupByObject($clone_old_obj_ref_id)->getGroupId());
+
+                    $clone_object_link->setObjRefId($clone_obj_ref_id);
+
+                    $clone_object_link->setSort($org_object_link->getSort());
+
+                    self::srTile()->objectLinks()->storeObjectLink($clone_object_link, false);
+
+                    break;
                 }
             }
         }
