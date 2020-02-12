@@ -138,19 +138,6 @@ final class Repository
     /**
      * @param int $obj_ref_id
      *
-     * @return ObjectLink[]
-     */
-    public function getObjectLinksByObjRefId(int $obj_ref_id) : array
-    {
-        return ObjectLink::where([
-            "obj_ref_id" => $obj_ref_id
-        ])->get();
-    }
-
-
-    /**
-     * @param int $obj_ref_id
-     *
      * @return ObjectLink|null
      */
     protected function getObjectLinkByObjRefId(int $obj_ref_id)/*:?ObjectLink*/
@@ -360,8 +347,9 @@ final class Repository
 
     /**
      * @param ObjectLink $object_link
+     * @param bool       $re_sort
      */
-    public function storeObjectLink(ObjectLink $object_link)/*:void*/
+    public function storeObjectLink(ObjectLink $object_link, bool $re_sort = true)/*:void*/
     {
         if (empty($object_link->getObjectLinkId())) {
             $object_link_ = $this->getObjectLinkByObjRefId($object_link->getObjRefId());
@@ -373,7 +361,9 @@ final class Repository
 
                 //$this->deleteGroup($this->getGroupById($object_link->getGroupId()));
 
-                $this->reSortObjectLinks($object_link_->getGroupId());
+                if ($re_sort) {
+                    $this->reSortObjectLinks($object_link_->getGroupId());
+                }
 
                 ilUtil::sendInfo(self::plugin()->translate("merged", ObjectLinksGUI::LANG_MODULE), true);
 

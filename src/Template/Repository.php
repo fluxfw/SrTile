@@ -75,7 +75,10 @@ final class Repository
             return get_object_vars($this);
         }, $template, Template::class)();
         $properties = array_filter($properties, function (string $property) : bool {
-            return ($property !== "tile_id" && $property !== "obj_ref_id" && $property !== "object_type" && $property !== "il_object"
+            return ($property !== "tile_id"
+                && $property !== "obj_ref_id"
+                && $property !== "object_type"
+                && $property !== "il_object"
                 && $property !== "ar_safe_read"
                 && $property !== "connector_container_name");
         }, ARRAY_FILTER_USE_KEY);

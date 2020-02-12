@@ -8,7 +8,7 @@ use ilObjectFactory;
 use ilObjOrgUnit;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
-use srag\Plugins\SrTile\Template\Template;
+use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Tile\Renderer\Repository as RendererRepository;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use Throwable;
@@ -63,6 +63,10 @@ final class Repository
      * @deprecated
      */
     protected static $is_object_cache = [];
+    /**
+     * @var int[]
+     */
+    protected $clone_tile_cache = [];
 
 
     /**
@@ -75,41 +79,63 @@ final class Repository
 
 
     /**
-     * @param int $old_obj_ref_id
-     * @param int $new_obj_ref_id
-     *
-     * @return Tile
+     * @param int $org_obj_ref_id
+     * @param int $clone_obj_ref_id
      */
-    public function cloneTile(int $old_obj_ref_id, int $new_obj_ref_id) : Tile
+    public function cloneTile(int $org_obj_ref_id, int $clone_obj_ref_id)/*:void*/
     {
-        $old_tile = $this->getInstanceForObjRefId($old_obj_ref_id);
+        $org_tile = $this->getInstanceForObjRefId($org_obj_ref_id);
 
-        $new_tile = $this->getInstanceForObjRefId($new_obj_ref_id);
+        $clone_tile = $this->getInstanceForObjRefId($clone_obj_ref_id);
 
         $properties = Closure::bind(function () : array {
             return get_object_vars($this);
-        }, $old_tile, Template::class)();
+        }, $org_tile, Tile::class)();
         $properties = array_filter($properties, function (string $property) : bool {
-            return ($property !== "tile_id" && $property !== "obj_ref_id" && $property !== "object_type" && $property !== "il_object"
+            return ($property !== "tile_id"
+                && $property !== "obj_ref_id"
+                && $property !== "il_object"
                 && $property !== "ar_safe_read"
                 && $property !== "connector_container_name");
         }, ARRAY_FILTER_USE_KEY);
 
         // Delete old image
-        $new_tile->applyNewImage("");
+        $clone_tile->applyNewImage("");
 
         foreach ($properties as $key => $value) {
             Closure::bind(function ($key, $value)/*:void*/ {
                 $this->{$key} = $value;
-            }, $new_tile, Tile::class)($key, $value);
+            }, $clone_tile, Tile::class)($key, $value);
         }
 
         // Copy template image
-        $new_tile->applyNewImage($old_tile->getImagePathWithCheck());
+        $clone_tile->applyNewImage($org_tile->getImagePathWithCheck());
 
-        $this->storeTile($new_tile);
+        $this->storeTile($clone_tile);
 
-        return $new_tile;
+        if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
+            $this->clone_tile_cache[$org_obj_ref_id] = $clone_obj_ref_id;
+
+            foreach (self::srTile()->objectLinks()->getObjectLinks(self::srTile()->objectLinks()->getGroupByObject($org_obj_ref_id)->getGroupId()) as $org_object_link) {
+                if ($org_object_link->getObjRefId() === $org_obj_ref_id) {
+                    continue;
+                }
+
+                if (!isset($this->clone_tile_cache[$org_object_link->getObjRefId()])) {
+                    continue;
+                }
+
+                $clone_object_link = self::srTile()->objectLinks()->factory()->newObjectLinkInstance();
+
+                $clone_object_link->setGroupId(self::srTile()->objectLinks()->getGroupByObject($this->clone_tile_cache[$org_object_link->getObjRefId()])->getGroupId());
+
+                $clone_object_link->setObjRefId($clone_obj_ref_id);
+
+                $clone_object_link->setSort($org_object_link->getSort());
+
+                self::srTile()->objectLinks()->storeObjectLink($clone_object_link, false);
+            }
+        }
     }
 
 

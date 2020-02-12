@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.5]
+- Clone also object links on object clone
+
 ## [1.8.4]
 - Clone tile on object clone
 
