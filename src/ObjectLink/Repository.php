@@ -374,5 +374,7 @@ final class Repository
                 $object_link->setSort(((count($this->getObjectLinks($object_link->getGroupId())) + 1) * 10));
             }
         }
+
+        $object_link->store();
     }
 }
