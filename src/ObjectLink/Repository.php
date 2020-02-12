@@ -347,32 +347,32 @@ final class Repository
 
     /**
      * @param ObjectLink $object_link
-     * @param bool       $re_sort
+     * @param bool       $merge
      */
-    public function storeObjectLink(ObjectLink $object_link, bool $re_sort = true)/*:void*/
+    public function storeObjectLink(ObjectLink $object_link, bool $merge = true)/*:void*/
     {
         if (empty($object_link->getObjectLinkId())) {
-            $object_link_ = $this->getObjectLinkByObjRefId($object_link->getObjRefId());
-            if ($object_link_ !== null) {
-                foreach ($this->getObjectLinks($object_link->getGroupId()) as $object_link__) {
-                    $object_link__->setGroupId($object_link_->getGroupId());
-                    $this->storeObjectLink($object_link__);
-                }
+            if ($merge) {
+                $object_link_ = $this->getObjectLinkByObjRefId($object_link->getObjRefId());
+                if ($object_link_ !== null) {
+                    foreach ($this->getObjectLinks($object_link->getGroupId()) as $object_link__) {
+                        $object_link__->setGroupId($object_link_->getGroupId());
+                        $this->storeObjectLink($object_link__);
+                    }
 
-                //$this->deleteGroup($this->getGroupById($object_link->getGroupId()));
+                    //$this->deleteGroup($this->getGroupById($object_link->getGroupId()));
 
-                if ($re_sort) {
                     $this->reSortObjectLinks($object_link_->getGroupId());
+
+                    ilUtil::sendInfo(self::plugin()->translate("merged", ObjectLinksGUI::LANG_MODULE), true);
+
+                    return;
                 }
-
-                ilUtil::sendInfo(self::plugin()->translate("merged", ObjectLinksGUI::LANG_MODULE), true);
-
-                return;
             }
 
-            $object_link->setSort(((count($this->getObjectLinks($object_link->getGroupId())) + 1) * 10));
+            if (empty($object_link->getSort())) {
+                $object_link->setSort(((count($this->getObjectLinks($object_link->getGroupId())) + 1) * 10));
+            }
         }
-
-        $object_link->store();
     }
 }
