@@ -129,10 +129,6 @@ final class Repository
                 }
 
                 foreach ($this->clone_tile_cache[$org_object_link->getObjRefId()] as $clone_old_obj_ref_id) {
-                    if ($clone_old_obj_ref_id === $clone_obj_ref_id) {
-                        continue;
-                    }
-
                     if (self::dic()->tree()->getParentId($clone_old_obj_ref_id) !== self::dic()->tree()->getParentId($clone_obj_ref_id)) {
                         continue;
                     }
@@ -147,7 +143,7 @@ final class Repository
 
                     self::srTile()->objectLinks()->storeObjectLink($clone_object_link, false);
 
-                    break;
+                    break 2;
                 }
             }
         }
