@@ -47,7 +47,7 @@ class ilSrTileConfigGUI extends ilPluginConfigGUI
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
         switch (strtolower($next_class)) {
-            case strtolower(NotificationsCtrl::class);
+            case strtolower(NotificationsCtrl::class):
                 self::dic()->tabs()->activateTab(NotificationsCtrl::TAB_NOTIFICATIONS);
                 self::dic()->ctrl()->forwardCommand(new NotificationsCtrl());
                 break;
