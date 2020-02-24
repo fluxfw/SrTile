@@ -23,7 +23,7 @@ final class Repository
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const TYPE_OTHER = "_other";
     /**
-     * @var self
+     * @var self|null
      */
     protected static $instance = null;
     /**
