@@ -112,7 +112,7 @@ class TemplatesTableGUI extends TableGUI
      */
     protected function initId()/*: void*/
     {
-        $this->setId("srtile_templates");
+        $this->setId(ilSrTilePlugin::PLUGIN_ID . "_templates");
     }
 
 
