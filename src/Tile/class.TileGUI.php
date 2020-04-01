@@ -77,7 +77,7 @@ class TileGUI
                     case self::CMD_BACK_TO_OBJECT:
                     case self::CMD_BACK_TO_PARENT:
                     case self::CMD_EDIT_TILE:
-                    case self::CMD_GET_PRECONDITIONS;
+                    case self::CMD_GET_PRECONDITIONS:
                     case self::CMD_UPDATE_TILE:
                         $this->{$cmd}();
                         break;

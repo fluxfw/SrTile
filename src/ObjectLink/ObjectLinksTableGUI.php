@@ -139,7 +139,7 @@ class ObjectLinksTableGUI extends TableGUI
      */
     protected function initId()/*: void*/
     {
-        $this->setId("srtile_object_links");
+        $this->setId(ilSrTilePlugin::PLUGIN_ID . "_object_links");
     }
 
 

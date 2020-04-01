@@ -20,7 +20,7 @@ class Group extends ActiveRecord
 
     use DICTrait;
     use SrTileTrait;
-    const TABLE_NAME = "ui_uihk_srtile_oblngr";
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_oblngr";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 
 

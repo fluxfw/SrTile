@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Template;
 
+use ilSrTilePlugin;
 use srag\Plugins\SrTile\Tile\Tile;
 
 /**
@@ -14,7 +15,7 @@ use srag\Plugins\SrTile\Tile\Tile;
 class Template extends Tile
 {
 
-    const TABLE_NAME = "ui_uihk_srtile_tmpl";
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_tmpl";
     const IMAGE_PREFIX = "template_";
     /**
      * @var int

@@ -20,7 +20,7 @@ class ColorThiefCache extends ActiveRecord
 
     use DICTrait;
     use SrTileTrait;
-    const TABLE_NAME = "ui_uihk_srtile_c_t_c";
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_c_t_c";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 
 

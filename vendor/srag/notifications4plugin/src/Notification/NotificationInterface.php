@@ -14,6 +14,12 @@ use ilDateTime;
 interface NotificationInterface
 {
 
+    const DEFAULT_PARSER_OPTIONS
+        = [
+            "autoescape" => false
+        ];
+
+
     /**
      * @return string
      */
@@ -29,7 +35,7 @@ interface NotificationInterface
     /**
      * @param int $id
      */
-    public function setId(int $id)/*: void*/ ;
+    public function setId(int $id)/* : void*/;
 
 
     /**
@@ -41,7 +47,7 @@ interface NotificationInterface
     /**
      * @param string $name
      */
-    public function setName(string $name)/*: void*/ ;
+    public function setName(string $name)/* : void*/;
 
 
     /**
@@ -53,7 +59,7 @@ interface NotificationInterface
     /**
      * @param string $title
      */
-    public function setTitle(string $title)/*: void*/ ;
+    public function setTitle(string $title)/* : void*/;
 
 
     /**
@@ -65,7 +71,7 @@ interface NotificationInterface
     /**
      * @param string $description
      */
-    public function setDescription(string $description)/*: void*/ ;
+    public function setDescription(string $description)/* : void*/;
 
 
     /**
@@ -77,7 +83,36 @@ interface NotificationInterface
     /**
      * @param string $parser
      */
-    public function setParser(string $parser)/*: void*/ ;
+    public function setParser(string $parser)/* : void*/;
+
+
+    /**
+     * @return array
+     */
+    public function getParserOptions() : array;
+
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getParserOption(string $key);
+
+
+    /**
+     * @param array $parser_options
+     */
+    public function setParserOptions(array $parser_options = self::DEFAULT_PARSER_OPTIONS)/* : void*/;
+
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return mixed
+     */
+    public function setParserOption(string $key, $value)/* : void*/;
 
 
     /**
@@ -89,7 +124,7 @@ interface NotificationInterface
     /**
      * @param ilDateTime $created_at
      */
-    public function setCreatedAt(ilDateTime $created_at)/*: void*/ ;
+    public function setCreatedAt(ilDateTime $created_at)/* : void*/;
 
 
     /**
@@ -101,7 +136,7 @@ interface NotificationInterface
     /**
      * @param ilDateTime $updated_at
      */
-    public function setUpdatedAt(ilDateTime $updated_at)/*: void*/ ;
+    public function setUpdatedAt(ilDateTime $updated_at)/* : void*/;
 
 
     /**
@@ -116,20 +151,20 @@ interface NotificationInterface
      *
      * @return string
      */
-    public function getSubject(/*?*/ string $lang_key = null, bool $use_default_if_not_set = true) : string;
+    public function getSubject(/*?string*/ $lang_key = null, bool $use_default_if_not_set = true) : string;
 
 
     /**
      * @param array $subjects
      */
-    public function setSubjects(array $subjects)/* : void*/ ;
+    public function setSubjects(array $subjects)/* : void*/;
 
 
     /**
      * @param string $subject
      * @param string $lang_key
      */
-    public function setSubject(string $subject, string $lang_key)/*: void*/ ;
+    public function setSubject(string $subject, string $lang_key)/* : void*/;
 
 
     /**
@@ -144,18 +179,18 @@ interface NotificationInterface
      *
      * @return string
      */
-    public function getText(/*?*/ string $lang_key = null, bool $use_default_if_not_set = true) : string;
+    public function getText(/*?string*/ $lang_key = null, bool $use_default_if_not_set = true) : string;
 
 
     /**
      * @param array $texts
      */
-    public function setTexts(array $texts)/* : void*/ ;
+    public function setTexts(array $texts)/* : void*/;
 
 
     /**
      * @param string $text
      * @param string $lang_key
      */
-    public function setText(string $text, string $lang_key)/*: void*/ ;
+    public function setText(string $text, string $lang_key)/* : void*/;
 }

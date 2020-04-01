@@ -34,14 +34,14 @@ class NotificationsCtrl
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand()/* : void*/
     {
         $this->setTabs();
 
         $next_class = self::dic()->ctrl()->getNextClass($this);
 
         switch (strtolower($next_class)) {
-            case strtolower(NotificationCtrl::class);
+            case strtolower(NotificationCtrl::class):
                 self::dic()->ctrl()->forwardCommand(new NotificationCtrl($this));
                 break;
 
@@ -64,7 +64,7 @@ class NotificationsCtrl
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs()/* : void*/
     {
 
     }
@@ -73,7 +73,7 @@ class NotificationsCtrl
     /**
      *
      */
-    protected function listNotifications()/*: void*/
+    protected function listNotifications()/* : void*/
     {
         $table = self::notifications4plugin()->notifications()->factory()->newTableInstance($this);
 
