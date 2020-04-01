@@ -156,7 +156,7 @@ final class Repository
 
         if ($template === null) {
             if ($object_type !== self::TYPE_OTHER) {
-                $template = $template - $this->cloneTemplate($this->getByObjectType(self::TYPE_OTHER));
+                $template = $this->cloneTemplate($this->getByObjectType(self::TYPE_OTHER));
             } else {
                 $template = $this->factory()->newInstance();
             }

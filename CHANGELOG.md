@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.7]
+- Fix first templates use
+
 ## [1.8.6]
 - Fix clone also object links on object clone
 
