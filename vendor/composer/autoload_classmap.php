@@ -343,6 +343,7 @@ return array(
     'srag\\Plugins\\SrTile\\ColorThiefCache\\ColorThiefCache' => $baseDir . '/src/ColorThiefCache/ColorThiefCache.php',
     'srag\\Plugins\\SrTile\\ColorThiefCache\\Factory' => $baseDir . '/src/ColorThiefCache/Factory.php',
     'srag\\Plugins\\SrTile\\ColorThiefCache\\Repository' => $baseDir . '/src/ColorThiefCache/Repository.php',
+    'srag\\Plugins\\SrTile\\Config\\ConfigCtrl' => $baseDir . '/src/Config/class.ConfigCtrl.php',
     'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => $baseDir . '/src/Config/ConfigFormGUI.php',
     'srag\\Plugins\\SrTile\\Config\\Factory' => $baseDir . '/src/Config/Factory.php',
     'srag\\Plugins\\SrTile\\Config\\Repository' => $baseDir . '/src/Config/Repository.php',

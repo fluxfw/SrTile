@@ -3,7 +3,6 @@
 namespace srag\Plugins\SrTile\Config;
 
 use ilCheckboxInputGUI;
-use ilSrTileConfigGUI;
 use ilSrTilePlugin;
 use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -24,15 +23,15 @@ class ConfigFormGUI extends PropertyFormGUI
     const KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT = "enabled_object_links_once_select";
     const KEY_ENABLED_ON_FAVORITES = "enabled_on_favorites";
     const KEY_ENABLED_ON_REPOSITORY = "enabled_on_repository";
-    const LANG_MODULE = ilSrTileConfigGUI::LANG_MODULE;
+    const LANG_MODULE = ConfigCtrl::LANG_MODULE;
 
 
     /**
      * ConfigFormGUI constructor
      *
-     * @param ilSrTileConfigGUI $parent
+     * @param ConfigCtrl $parent
      */
-    public function __construct(ilSrTileConfigGUI $parent)
+    public function __construct(ConfigCtrl $parent)
     {
         parent::__construct($parent);
     }
@@ -55,7 +54,7 @@ class ConfigFormGUI extends PropertyFormGUI
      */
     protected function initCommands()/*: void*/
     {
-        $this->addCommandButton(ilSrTileConfigGUI::CMD_UPDATE_CONFIGURE, $this->txt("save"));
+        $this->addCommandButton(ConfigCtrl::CMD_UPDATE_CONFIGURE, $this->txt("save"));
     }
 
 

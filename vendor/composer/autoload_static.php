@@ -11,11 +11,11 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             'srag\\RemovePluginDataConfirm\\SrTile\\' => 36,
             'srag\\Plugins\\SrTile\\' => 20,
-            'srag\\Notifications4Plugin\\' => 26,
+            'srag\\Notifications4Plugin\\SrTile\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\DIC\\SrTile\\' => 16,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
+            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
         array (
@@ -32,7 +32,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'srag\\Notifications4Plugin\\' => 
+        'srag\\Notifications4Plugin\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/notifications4plugin/src',
         ),
@@ -40,15 +40,15 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -406,6 +406,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\Plugins\\SrTile\\ColorThiefCache\\ColorThiefCache' => __DIR__ . '/../..' . '/src/ColorThiefCache/ColorThiefCache.php',
         'srag\\Plugins\\SrTile\\ColorThiefCache\\Factory' => __DIR__ . '/../..' . '/src/ColorThiefCache/Factory.php',
         'srag\\Plugins\\SrTile\\ColorThiefCache\\Repository' => __DIR__ . '/../..' . '/src/ColorThiefCache/Repository.php',
+        'srag\\Plugins\\SrTile\\Config\\ConfigCtrl' => __DIR__ . '/../..' . '/src/Config/class.ConfigCtrl.php',
         'srag\\Plugins\\SrTile\\Config\\ConfigFormGUI' => __DIR__ . '/../..' . '/src/Config/ConfigFormGUI.php',
         'srag\\Plugins\\SrTile\\Config\\Factory' => __DIR__ . '/../..' . '/src/Config/Factory.php',
         'srag\\Plugins\\SrTile\\Config\\Repository' => __DIR__ . '/../..' . '/src/Config/Repository.php',

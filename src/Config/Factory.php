@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Config;
 
-use ilSrTileConfigGUI;
 use ilSrTilePlugin;
 use srag\ActiveRecordConfig\SrTile\Config\AbstractFactory;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -48,11 +47,11 @@ final class Factory extends AbstractFactory
 
 
     /**
-     * @param ilSrTileConfigGUI $parent
+     * @param ConfigCtrl $parent
      *
      * @return ConfigFormGUI
      */
-    public function newFormInstance(ilSrTileConfigGUI $parent) : ConfigFormGUI
+    public function newFormInstance(ConfigCtrl $parent) : ConfigFormGUI
     {
         $form = new ConfigFormGUI($parent);
 
