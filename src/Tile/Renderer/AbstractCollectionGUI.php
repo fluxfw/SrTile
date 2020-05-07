@@ -23,6 +23,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
 
     use SrTileTrait;
     use DICTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var CollectionInterface $collection

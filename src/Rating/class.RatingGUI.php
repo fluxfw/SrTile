@@ -24,6 +24,7 @@ class RatingGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_LIKE = "like";
     const CMD_UNLIKE = "unlike";

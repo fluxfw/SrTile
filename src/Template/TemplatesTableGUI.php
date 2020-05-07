@@ -18,6 +18,7 @@ class TemplatesTableGUI extends TableGUI
 {
 
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const LANG_MODULE = TemplatesConfigGUI::LANG_MODULE;
 

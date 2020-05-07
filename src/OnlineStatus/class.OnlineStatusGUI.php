@@ -25,6 +25,7 @@ class OnlineStatusGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_SET_OFFLINE = "setOffline";
     const CMD_SET_ONLINE = "setOnline";

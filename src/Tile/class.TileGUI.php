@@ -24,6 +24,7 @@ class TileGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_BACK_TO_OBJECT = "backToObject";
     const CMD_BACK_TO_PARENT = "backToParent";

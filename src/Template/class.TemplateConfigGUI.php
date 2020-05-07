@@ -23,6 +23,7 @@ class TemplateConfigGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_BACK = "back";
     const CMD_CONFIRM_OVERRIDE = "confirmOverride";

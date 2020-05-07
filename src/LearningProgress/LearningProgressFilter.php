@@ -20,6 +20,7 @@ class LearningProgressFilter extends ActiveRecord
 
     use DICTrait;
     use SrTileTrait;
+
     const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_lp_fil";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 

@@ -23,6 +23,7 @@ class ObjectLinksGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_LIST_OBJECT_LINKS = "listObjectLinks";
     const GET_PARAM_GROUP_ID = "group_id";

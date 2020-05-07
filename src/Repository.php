@@ -38,6 +38,7 @@ final class Repository
     use Notifications4PluginTrait {
         notifications4plugin as protected _notifications4plugin;
     }
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null

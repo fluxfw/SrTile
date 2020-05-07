@@ -18,6 +18,7 @@ class ConfigFormGUI extends PropertyFormGUI
 {
 
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const KEY_ENABLED_OBJECT_LINKS = "enabled_object_links";
     const KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT = "enabled_object_links_once_select";

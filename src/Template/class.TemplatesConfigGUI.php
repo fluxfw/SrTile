@@ -20,6 +20,7 @@ class TemplatesConfigGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_LIST_TEMPLATES = "listTemplates";
     const LANG_MODULE = "template";

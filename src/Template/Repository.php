@@ -20,6 +20,7 @@ final class Repository
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const TYPE_OTHER = "_other";
     /**

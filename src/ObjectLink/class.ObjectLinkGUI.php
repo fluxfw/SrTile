@@ -21,6 +21,7 @@ class ObjectLinkGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_ADD_OBJECT_LINK = "addObjectLink";
     const CMD_BACK = "back";

@@ -22,6 +22,7 @@ class RecommendGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_ADD_RECOMMEND = "addRecommend";
     const CMD_NEW_RECOMMEND = "newRecommend";

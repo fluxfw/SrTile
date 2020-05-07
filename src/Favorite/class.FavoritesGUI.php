@@ -24,6 +24,7 @@ class FavoritesGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_ADD_TO_FAVORITES = "addToFavorites";
     const CMD_REMOVE_FROM_FAVORITES = "removeFromFavorites";

@@ -27,6 +27,7 @@ class LearningProgressFilterGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_SET_FILTER = "setFilter";
     const GET_PARAM_REF_ID = "ref_id";

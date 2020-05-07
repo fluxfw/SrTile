@@ -38,6 +38,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
     use DICTrait;
     use SrTileTrait;
     use CustomInputGUIsTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var Tile

@@ -19,6 +19,7 @@ class ObjectLinkFormGUI extends PropertyFormGUI
 {
 
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const LANG_MODULE = ObjectLinksGUI::LANG_MODULE;
     /**

@@ -17,6 +17,7 @@ final class Factory extends AbstractFactory
 {
 
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null

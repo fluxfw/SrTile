@@ -20,6 +20,7 @@ class ObjectLinksTableGUI extends TableGUI
 {
 
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const LANG_MODULE = ObjectLinksGUI::LANG_MODULE;
 

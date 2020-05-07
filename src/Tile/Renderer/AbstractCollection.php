@@ -20,6 +20,7 @@ abstract class AbstractCollection implements CollectionInterface
 
     use DICTrait;
     use SrTileTrait;
+
     /**
      * @var array
      */

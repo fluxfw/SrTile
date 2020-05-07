@@ -20,6 +20,7 @@ class ilSrTileConfigGUI extends ilPluginConfigGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_CONFIGURE = "configure";
 
