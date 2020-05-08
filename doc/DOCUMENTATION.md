@@ -1,1 +1,1 @@
-## SrTile Documentation
+# SrTile ILIAS Plugin Documentation
