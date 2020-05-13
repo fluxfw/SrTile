@@ -3,6 +3,7 @@
 namespace srag\Notifications4Plugin\SrTile;
 
 use LogicException;
+use srag\DataTableUI\SrTile\Implementation\Utils\DataTableUITrait;
 use srag\DIC\SrTile\DICTrait;
 use srag\DIC\SrTile\Plugin\PluginInterface;
 use srag\DIC\SrTile\Util\LibraryLanguageInstaller;
@@ -12,6 +13,7 @@ use srag\Notifications4Plugin\SrTile\Parser\Repository as ParserRepository;
 use srag\Notifications4Plugin\SrTile\Parser\RepositoryInterface as ParserRepositoryInterface;
 use srag\Notifications4Plugin\SrTile\Sender\Repository as SenderRepository;
 use srag\Notifications4Plugin\SrTile\Sender\RepositoryInterface as SenderRepositoryInterface;
+use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
 
 /**
  * Class Repository
@@ -24,6 +26,8 @@ final class Repository implements RepositoryInterface
 {
 
     use DICTrait;
+    use Notifications4PluginTrait;
+    use DataTableUITrait;
     /**
      * @var RepositoryInterface|null
      */
@@ -123,6 +127,8 @@ final class Repository implements RepositoryInterface
     {
         LibraryLanguageInstaller::getInstance()->withPlugin($this->getPlugin())->withLibraryLanguageDirectory(__DIR__
             . "/../lang")->updateLanguages();
+
+        self::dataTableUI()->installLanguages($this->plugin);
     }
 
 

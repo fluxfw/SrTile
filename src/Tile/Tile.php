@@ -1776,7 +1776,7 @@ class Tile extends ActiveRecord
                 case ($this->il_object->getType() === "grp"):
                 case ($this->il_object->getType() === "fold"):
                 case ($this instanceof TileReference):
-                    $childs = self::dic()->tree()->getChilds($this->getObjRefId());
+                    $childs = self::dic()->repositoryTree()->getChilds($this->getObjRefId());
 
                     $childs = array_filter($childs, function (array $child) : bool {
                         return self::srTile()->access()->hasReadAccess($child["child"]);

@@ -15,6 +15,7 @@ abstract class AbstractAjaxAutoCompleteCtrl
 {
 
     use DICTrait;
+
     const CMD_AJAX_AUTO_COMPLETE = "ajaxAutoComplete";
 
 
@@ -93,7 +94,7 @@ abstract class AbstractAjaxAutoCompleteCtrl
     /**
      * @param array $ids
      *
-     * @return bool
+     * @return array
      */
     public abstract function fillOptions(array $ids) : array;
 }

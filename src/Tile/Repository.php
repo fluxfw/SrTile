@@ -130,7 +130,7 @@ final class Repository
                 }
 
                 foreach ($this->clone_tile_cache[$org_object_link->getObjRefId()] as $clone_old_obj_ref_id) {
-                    if (self::dic()->tree()->getParentId($clone_old_obj_ref_id) !== self::dic()->tree()->getParentId($clone_obj_ref_id)) {
+                    if (self::dic()->repositoryTree()->getParentId($clone_old_obj_ref_id) !== self::dic()->repositoryTree()->getParentId($clone_obj_ref_id)) {
                         continue;
                     }
 
@@ -236,7 +236,7 @@ final class Repository
     {
         if (!isset(self::$parent_tile_cache[$tile->getObjRefId()])) {
             try {
-                self::$parent_tile_cache[$tile->getObjRefId()] = $this->getInstanceForObjRefId(self::dic()->tree()
+                self::$parent_tile_cache[$tile->getObjRefId()] = $this->getInstanceForObjRefId(self::dic()->repositoryTree()
                     ->getParentId($tile->getObjRefId()));
             } catch (Throwable $ex) {
                 // Fix No node_id given!
