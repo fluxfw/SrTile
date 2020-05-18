@@ -1,18 +1,18 @@
 <?php
 
-namespace srag\Plugins\SrTile\Tile\Renderer\Desktop;
+namespace srag\Plugins\SrTile\Tile\Renderer\Favorites;
 
 use srag\Plugins\SrTile\Tile\Renderer\AbstractSingleGUI;
 
 /**
- * Class DesktopSingleGUI
+ * Class FavoritesSingleGUI
  *
- * @package srag\Plugins\SrTile\Tile\Renderer\Desktop
+ * @package srag\Plugins\SrTile\Tile\Renderer\Favorites
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  studer + raimann ag - Martin Studer <ms@studer-raimann.ch>
  */
-class DesktopSingleGUI extends AbstractSingleGUI
+class FavoritesSingleGUI extends AbstractSingleGUI
 {
 
 }

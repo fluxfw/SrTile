@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\OnlineStatus;
 
+use ilDashboardGUI;
 use ilLink;
 use ilPersonalDesktopGUI;
 use ilSrTilePlugin;
@@ -119,7 +120,11 @@ class OnlineStatusGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            if (self::version()->is6()) {
+                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
+            } else {
+                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            }
         }
     }
 
@@ -140,7 +145,11 @@ class OnlineStatusGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            if (self::version()->is6()) {
+                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
+            } else {
+                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            }
         }
     }
 }

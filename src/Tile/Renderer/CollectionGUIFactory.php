@@ -6,7 +6,7 @@ use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Renderer\Container\ContainerCollectionGUI;
-use srag\Plugins\SrTile\Tile\Renderer\Desktop\DesktopCollectionGUI;
+use srag\Plugins\SrTile\Tile\Renderer\Favorites\FavoritesCollectionGUI;
 use srag\Plugins\SrTile\Tile\Renderer\Fixed\FixedCollectionGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -68,11 +68,11 @@ final class CollectionGUIFactory
     /**
      * @param ilObjUser $user
      *
-     * @return DesktopCollectionGUI
+     * @return FavoritesCollectionGUI
      */
-    public function desktop(ilObjUser $user) : DesktopCollectionGUI
+    public function favorites(ilObjUser $user) : FavoritesCollectionGUI
     {
-        $collection_gui = new DesktopCollectionGUI($user);
+        $collection_gui = new FavoritesCollectionGUI($user);
 
         return $collection_gui;
     }

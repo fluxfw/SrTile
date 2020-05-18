@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\LearningProgress;
 
+use ilDashboardGUI;
 use ilLink;
 use ilLPStatus;
 use ilPersonalDesktopGUI;
@@ -137,7 +138,11 @@ class LearningProgressFilterGUI
         if (!empty($this->obj_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->obj_ref_id));
         } else {
-            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            if (self::version()->is6()) {
+                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
+            } else {
+                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            }
         }
     }
 }
