@@ -124,8 +124,9 @@ class FormBuilder extends AbstractFormBuilder
 
         if (self::version()->is6()) {
             $parser = self::dic()->ui()->factory()->input()->field()->switchableGroup(array_map(function (Parser $parser) : Group {
-                return self::dic()->ui()->factory()->input()->field()->group($parser->getOptionsFields(), $parser->getName())->withByline(self::output()->getHTML(self::dic()->ui()->factory()->link()
-                    ->standard($parser->getDocLink(), $parser->getDocLink())->withOpenInNewViewport(true)));
+                return self::dic()->ui()->factory()->input()->field()->group($parser->getOptionsFields(), $parser->getName() . "<br>" . self::output()->getHTML(self::dic()->ui()->factory()->link()
+                        ->standard($parser->getDocLink(), $parser->getDocLink())->withOpenInNewViewport(true)))->withByline(self::output()->getHTML(self::dic()->ui()->factory()->link()
+                    ->standard($parser->getDocLink(), $parser->getDocLink())->withOpenInNewViewport(true))); // TODO `withByline` not work in ILIAS 6 group (radio), so temporary in label
             }, self::notifications4plugin()->parser()->getPossibleParsers()), self::notifications4plugin()->getPlugin()->translate("parser", NotificationsCtrl::LANG_MODULE))->withRequired(true);
         } else {
             $parser = array_reduce(self::notifications4plugin()->parser()->getPossibleParsers(), function (Radio $radio, Parser $parser) : Radio {
