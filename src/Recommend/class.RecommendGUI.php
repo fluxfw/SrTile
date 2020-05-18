@@ -166,21 +166,11 @@ class RecommendGUI
         }
 
         if ($this->recommend->send()) {
-            if (self::version()->is54()) {
-                $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->success(self::plugin()
-                    ->translate("sent_success", self::LANG_MODULE)));
-            } else {
-                $message = self::dic()->ui()->mainTemplate()->getMessageHTML(self::plugin()
-                    ->translate("sent_success", self::LANG_MODULE), "success");
-            }
+            $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->success(self::plugin()
+                ->translate("sent_success", self::LANG_MODULE)));
         } else {
-            if (self::version()->is54()) {
-                $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->failure(self::plugin()
-                    ->translate("sent_failure", self::LANG_MODULE)));
-            } else {
-                $message = self::dic()->ui()->mainTemplate()->getMessageHTML(self::plugin()
-                    ->translate("sent_failure", self::LANG_MODULE), "failure");
-            }
+            $message = self::output()->getHTML(self::dic()->ui()->factory()->messageBox()->failure(self::plugin()
+                ->translate("sent_failure", self::LANG_MODULE)));
         }
 
         $this->show($message, $form);
