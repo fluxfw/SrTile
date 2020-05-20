@@ -60,5 +60,9 @@
 ?>
 <#16>
 <?php
+//
+?>
+<#17>
+<?php
 \srag\Plugins\SrTile\Repository::getInstance()->installTables();
 ?>
