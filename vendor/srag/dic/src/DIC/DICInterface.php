@@ -9,6 +9,7 @@ use ilAsqFactory;
 use ilAuthSession;
 use ilBenchmark;
 use ilBookingManagerService;
+use ilBookingReservationDBRepositoryFactory;
 use ilBrowser;
 use ilCertificateActiveValidator;
 use ilComponentLogger;
@@ -40,11 +41,13 @@ use ilLoggerFactory;
 use ilMailMimeSenderFactory;
 use ilMailMimeTransportFactory;
 use ilMainMenuGUI;
+use ilMMItemRepository;
 use ilNavigationHistory;
 use ilNewsService;
 use ilObjectDataCache;
 use ilObjectDefinition;
 use ilObjectService;
+use ilObjUseBookDBRepository;
 use ilObjUser;
 use ilPluginAdmin;
 use ilRbacAdmin;
@@ -121,21 +124,41 @@ interface DICInterface
 
 
     /**
+     * @return ilObjUseBookDBRepository
+     *
+     * @throws DICException ilObjUseBookDBRepository not exists in ILIAS 5.4 or below!
+     *
+     * @since ILIAS 6
+     */
+    public function bookingObjUseBook() : ilObjUseBookDBRepository;
+
+
+    /**
+     * @return ilBookingReservationDBRepositoryFactory
+     *
+     * @throws DICException ilBookingReservationDBRepositoryFactory not exists in ILIAS 5.4 or below!
+     *
+     * @since ILIAS 6
+     */
+    public function bookingReservation() : ilBookingReservationDBRepositoryFactory;
+
+
+    /**
      * @return ilBrowser
      */
     public function browser() : ilBrowser;
 
 
     /**
-     * @return ilIniFile
-     */
-    public function clientIni() : ilIniFile;
-
-
-    /**
      * @return ilCertificateActiveValidator
      */
     public function certificateActiveValidator() : ilCertificateActiveValidator;
+
+
+    /**
+     * @return ilIniFile
+     */
+    public function clientIni() : ilIniFile;
 
 
     /**
@@ -298,6 +321,12 @@ interface DICInterface
      * @return ilMainMenuGUI
      */
     public function mainMenu() : ilMainMenuGUI;
+
+
+    /**
+     * @return ilMMItemRepository
+     */
+    public function mainMenuItem() : ilMMItemRepository;
 
 
     /**

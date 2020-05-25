@@ -9,6 +9,7 @@ use ilAsqFactory;
 use ilAuthSession;
 use ilBenchmark;
 use ilBookingManagerService;
+use ilBookingReservationDBRepositoryFactory;
 use ilBrowser;
 use ilCertificateActiveValidator;
 use ilComponentLogger;
@@ -40,11 +41,13 @@ use ilLoggerFactory;
 use ilMailMimeSenderFactory;
 use ilMailMimeTransportFactory;
 use ilMainMenuGUI;
+use ilMMItemRepository;
 use ilNavigationHistory;
 use ilNewsService;
 use ilObjectDataCache;
 use ilObjectDefinition;
 use ilObjectService;
+use ilObjUseBookDBRepository;
 use ilObjUser;
 use ilPluginAdmin;
 use ilRbacAdmin;
@@ -121,6 +124,24 @@ final class ILIAS60DIC extends AbstractDIC
     public function bookingManager() : ilBookingManagerService
     {
         return $this->dic->bookingManager();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function bookingObjUseBook() : ilObjUseBookDBRepository
+    {
+        return new ilObjUseBookDBRepository($this->database());
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function bookingReservation() : ilBookingReservationDBRepositoryFactory
+    {
+        return new ilBookingReservationDBRepositoryFactory();
     }
 
 
@@ -364,6 +385,15 @@ final class ILIAS60DIC extends AbstractDIC
     public function mainMenu() : ilMainMenuGUI
     {
         return $this->dic["ilMainMenu"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function mainMenuItem() : ilMMItemRepository
+    {
+        return new ilMMItemRepository();
     }
 
 

@@ -1,7 +1,10 @@
 # Changelog
 
-## [x]
+## [0.24.0]
 - `ilCertificateActiveValidator`
+- `ilObjUseBookDBRepository`
+- `ilBookingReservationDBRepositoryFactory`
+- `ilMMItemRepository`
 
 ## [0.23.0]
 - `createOrUpdateTable`

@@ -9,6 +9,7 @@ use ilAsqFactory;
 use ilAuthSession;
 use ilBenchmark;
 use ilBookingManagerService;
+use ilBookingReservationDBRepositoryFactory;
 use ilBrowser;
 use ilCertificateActiveValidator;
 use ilComponentLogger;
@@ -39,11 +40,13 @@ use ilLoggerFactory;
 use ilMailMimeSenderFactory;
 use ilMailMimeTransportFactory;
 use ilMainMenuGUI;
+use ilMMItemRepository;
 use ilNavigationHistory;
 use ilNewsService;
 use ilObjectDataCache;
 use ilObjectDefinition;
 use ilObjectService;
+use ilObjUseBookDBRepository;
 use ilObjUser;
 use ilPluginAdmin;
 use ilRbacAdmin;
@@ -122,6 +125,24 @@ final class ILIAS54DIC extends AbstractDIC
     public function bookingManager() : ilBookingManagerService
     {
         throw new DICException("ilBookingManagerService not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function bookingObjUseBook() : ilObjUseBookDBRepository
+    {
+        throw new DICException("ilObjUseBookDBRepository not exists in ILIAS 5.4 or below!");
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function bookingReservation() : ilBookingReservationDBRepositoryFactory
+    {
+        throw new DICException("ilBookingReservationDBRepositoryFactory not exists in ILIAS 5.4 or below!");
     }
 
 
@@ -365,6 +386,15 @@ final class ILIAS54DIC extends AbstractDIC
     public function mainMenu() : ilMainMenuGUI
     {
         return $this->dic["ilMainMenu"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function mainMenuItem() : ilMMItemRepository
+    {
+        return new ilMMItemRepository();
     }
 
 
