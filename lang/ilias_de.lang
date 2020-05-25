@@ -1,6 +1,6 @@
 config_configuration#:#Konfiguration
 config_configuration_saved#:#Konfiguration gespeichert
-config_enabled_on_favorites#:#In Favoriten aktivieren
+config_enabled_on_favorites#:#In Dashboard aktivieren
 config_enabled_object_links#:#Objekt-Verknüpfungen aktivieren
 config_enabled_object_links_once_select#:#Benutzer kann nur einmal auswählen
 config_enabled_on_repository#:#Im Magazin aktivieren

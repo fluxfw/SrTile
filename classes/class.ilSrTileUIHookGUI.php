@@ -23,7 +23,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     const TEMPLATE_GET = "template_get";
     const TOOLBAR_LOADER = "tile_toolbar_loader";
     const REPOSITORY_LOADER = "tile_repository_loader";
-    const FAVORITES_LOADER = "tile_favorites_loader";
+    const DASHBOARD_LOADER = "tile_dashboard_loader";
     const RECOMMEND_MODAL_LOADER = "tile_recommend_modal";
     const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
     const TEMPLATE_ID_DASHBOARD = "src/UI/templates/default/Item/tpl.group.html";
@@ -41,7 +41,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
         = [
             self::TOOLBAR_LOADER         => false,
             self::REPOSITORY_LOADER      => false,
-            self::FAVORITES_LOADER       => false,
+            self::DASHBOARD_LOADER       => false,
             self::RECOMMEND_MODAL_LOADER => false
         ];
 
@@ -94,11 +94,11 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             ];
         }
 
-        if ($this->matchFavorites($a_part, $a_par)) {
+        if ($this->matchDashboard($a_part, $a_par)) {
 
             return [
                 "mode" => self::REPLACE,
-                "html" => self::output()->getHTML(self::version()->is6() ? self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->containerFavorites($a_par["html"])
+                "html" => self::output()->getHTML(self::version()->is6() ? self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->dashboard($a_par["html"])
                     : self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->favorites(self::dic()->user()))
             ];
         }
@@ -241,16 +241,16 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
      *
      * @return bool
      */
-    protected function matchFavorites(string $a_part, array $a_par) : bool
+    protected function matchDashboard(string $a_part, array $a_par) : bool
     {
         $baseClass = strtolower(filter_input(INPUT_GET, "baseClass"));
 
-        return (!self::$load[self::FAVORITES_LOADER]
+        return (!self::$load[self::DASHBOARD_LOADER]
             && ($baseClass === strtolower(ilDashboardGUI::class) || $baseClass === strtolower(ilPersonalDesktopGUI::class))
             && $a_part === self::TEMPLATE_GET
             && ($a_par["tpl_id"] === self::TEMPLATE_ID_DASHBOARD || $a_par["tpl_id"] === self::TEMPLATE_ID_PERSONAL_DESKTOP)
-            //&& (self::$load[self::FAVORITES_LOADER] = true)
-            && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_FAVORITES));
+            && (self::version()->is6() ? true : (self::$load[self::DASHBOARD_LOADER] = true))
+            && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_DASHBOARD));
     }
 
 

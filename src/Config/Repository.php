@@ -75,7 +75,7 @@ final class Repository extends AbstractRepository
     protected function getFields() : array
     {
         return [
-            ConfigFormGUI::KEY_ENABLED_ON_FAVORITES             => [Config::TYPE_BOOLEAN, true],
+            ConfigFormGUI::KEY_ENABLED_ON_DASHBOARD             => [Config::TYPE_BOOLEAN, true],
             ConfigFormGUI::KEY_ENABLED_ON_REPOSITORY            => [Config::TYPE_BOOLEAN, true],
             ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS             => [Config::TYPE_BOOLEAN, false],
             ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT => [Config::TYPE_BOOLEAN, false]

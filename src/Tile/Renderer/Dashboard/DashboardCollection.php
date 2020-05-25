@@ -1,17 +1,17 @@
 <?php
 
-namespace srag\Plugins\SrTile\Tile\Renderer\ContainerFavorites;
+namespace srag\Plugins\SrTile\Tile\Renderer\Dashboard;
 
 use srag\Plugins\SrTile\Tile\Renderer\Container\ContainerCollection;
 
 /**
- * Class ContainerFavoritesCollection
+ * Class DashboardCollection
  *
- * @package srag\Plugins\SrTile\Tile\Renderer\ContainerFavorites
+ * @package srag\Plugins\SrTile\Tile\Renderer\Dashboard
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-class ContainerFavoritesCollection extends ContainerCollection
+class DashboardCollection extends ContainerCollection
 {
 
     /**
