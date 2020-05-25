@@ -1,5 +1,8 @@
 # Changelog
 
+## [x]
+- `ilCertificateActiveValidator`
+
 ## [0.23.0]
 - `createOrUpdateTable`
 - `multipleInsert`

@@ -10,6 +10,7 @@ use ilAuthSession;
 use ilBenchmark;
 use ilBookingManagerService;
 use ilBrowser;
+use ilCertificateActiveValidator;
 use ilComponentLogger;
 use ilConditionService;
 use ilCtrl;
@@ -129,6 +130,12 @@ interface DICInterface
      * @return ilIniFile
      */
     public function clientIni() : ilIniFile;
+
+
+    /**
+     * @return ilCertificateActiveValidator
+     */
+    public function certificateActiveValidator() : ilCertificateActiveValidator;
 
 
     /**

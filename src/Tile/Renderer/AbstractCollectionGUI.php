@@ -143,6 +143,10 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
             }
         }
 
-        self::dic()->ui()->mainTemplate()->addInlineCss($css);
+        if (self::version()->is6()) {
+            self::dic()->ui()->mainTemplate()->addCss("data:text/css;base64," . base64_encode($css));
+        } else {
+            self::dic()->ui()->mainTemplate()->addInlineCss($css);
+        }
     }
 }

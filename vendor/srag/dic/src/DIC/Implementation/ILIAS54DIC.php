@@ -10,6 +10,7 @@ use ilAuthSession;
 use ilBenchmark;
 use ilBookingManagerService;
 use ilBrowser;
+use ilCertificateActiveValidator;
 use ilComponentLogger;
 use ilConditionService;
 use ilCtrl;
@@ -130,6 +131,15 @@ final class ILIAS54DIC extends AbstractDIC
     public function browser() : ilBrowser
     {
         return $this->dic["ilBrowser"];
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function certificateActiveValidator() : ilCertificateActiveValidator
+    {
+        return new ilCertificateActiveValidator();
     }
 
 

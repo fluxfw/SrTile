@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Certificate;
 
-use ilCertificate;
 use ilCertificatePlugin;
 use ilCourseParticipants;
 use ilLPStatus;
@@ -93,7 +92,7 @@ class Certificates
      */
     public function enabled_core() : bool
     {
-        return ilCertificate::isActive();
+        return self::dic()->certificateActiveValidator()->validate();
     }
 
 
