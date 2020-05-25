@@ -26,7 +26,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     const FAVORITES_LOADER = "tile_favorites_loader";
     const RECOMMEND_MODAL_LOADER = "tile_recommend_modal";
     const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
-    const TEMPLATE_ID_DASHBOARD = "Services/Dashboard/tpl.dashboard_list_block.html";
+    const TEMPLATE_ID_DASHBOARD = "src/UI/templates/default/Panel/tpl.listing_standard.html";
     const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
     const TAB_PERM_ID = "perm";
     const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
