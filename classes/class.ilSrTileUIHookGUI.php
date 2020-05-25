@@ -99,7 +99,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             return [
                 "mode" => self::REPLACE,
                 "html" => self::output()->getHTML(self::version()->is6() ? self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->containerFavorites($a_par["html"])
-                    : self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->favorites(self::dic()->user()->getId()))
+                    : self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->favorites(self::dic()->user()))
             ];
         }
 
