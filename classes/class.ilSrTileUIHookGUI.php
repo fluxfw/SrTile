@@ -26,7 +26,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     const FAVORITES_LOADER = "tile_favorites_loader";
     const RECOMMEND_MODAL_LOADER = "tile_recommend_modal";
     const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
-    const TEMPLATE_ID_DASHBOARD = "src/UI/templates/default/Panel/tpl.listing_standard.html";
+    const TEMPLATE_ID_DASHBOARD = "src/UI/templates/default/Item/tpl.group.html";
     const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
     const TAB_PERM_ID = "perm";
     const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
@@ -98,7 +98,8 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
             return [
                 "mode" => self::REPLACE,
-                "html" => self::output()->getHTML(self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->favorites(self::dic()->user()))
+                "html" => self::output()->getHTML(self::version()->is6() ? self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->containerFavorites($a_par["html"])
+                    : self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->favorites(self::dic()->user()->getId()))
             ];
         }
 
@@ -248,7 +249,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && ($baseClass === strtolower(ilDashboardGUI::class) || $baseClass === strtolower(ilPersonalDesktopGUI::class))
             && $a_part === self::TEMPLATE_GET
             && ($a_par["tpl_id"] === self::TEMPLATE_ID_DASHBOARD || $a_par["tpl_id"] === self::TEMPLATE_ID_PERSONAL_DESKTOP)
-            && (self::$load[self::FAVORITES_LOADER] = true)
+            //&& (self::$load[self::FAVORITES_LOADER] = true)
             && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_FAVORITES));
     }
 

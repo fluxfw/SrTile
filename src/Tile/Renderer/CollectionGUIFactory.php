@@ -6,6 +6,7 @@ use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Renderer\Container\ContainerCollectionGUI;
+use srag\Plugins\SrTile\Tile\Renderer\ContainerFavorites\ContainerFavoritesCollectionGUI;
 use srag\Plugins\SrTile\Tile\Renderer\Favorites\FavoritesCollectionGUI;
 use srag\Plugins\SrTile\Tile\Renderer\Fixed\FixedCollectionGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
@@ -60,6 +61,19 @@ final class CollectionGUIFactory
     public function container(string $html) : ContainerCollectionGUI
     {
         $collection_gui = new ContainerCollectionGUI($html);
+
+        return $collection_gui;
+    }
+
+
+    /**
+     * @param string $html
+     *
+     * @return ContainerFavoritesCollectionGUI
+     */
+    public function containerFavorites(string $html) : ContainerFavoritesCollectionGUI
+    {
+        $collection_gui = new ContainerFavoritesCollectionGUI($html);
 
         return $collection_gui;
     }
