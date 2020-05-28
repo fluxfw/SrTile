@@ -5,6 +5,8 @@ if (file_exists(__DIR__ . "/../../Certificate/vendor/autoload.php")) {
     require_once __DIR__ . "/../../Certificate/vendor/autoload.php";
 }
 
+use ILIAS\DI\Container;
+use srag\CustomInputGUIs\SrTile\Loader\CustomInputGUIsLoaderDetector;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\RemovePluginDataConfirm\SrTile\PluginUninstallTrait;
 
@@ -103,5 +105,14 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
     protected function deleteData()/*: void*/
     {
         self::srTile()->dropTables();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function exchangeUIRendererAfterInitialization(Container $dic) : Closure
+    {
+        return CustomInputGUIsLoaderDetector::exchangeUIRendererAfterInitialization();
     }
 }
