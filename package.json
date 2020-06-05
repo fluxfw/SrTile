@@ -13,7 +13,7 @@
     "url": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLSRTILE"
   },
   "dependencies": {
-    "@iconfu/svg-inject": "^1.2.3"
+    "@iconfu/svg-inject": "1.2.3"
   },
   "private": true
 }
