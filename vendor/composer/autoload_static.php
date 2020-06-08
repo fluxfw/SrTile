@@ -6,17 +6,21 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
 {
+    public static $files = array (
+        'c681cc01b16720d29e29d7ffd2def068' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
             'srag\\RemovePluginDataConfirm\\SrTile\\' => 36,
             'srag\\Plugins\\SrTile\\' => 20,
-            'srag\\Notifications4Plugin\\' => 26,
+            'srag\\Notifications4Plugin\\SrTile\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DataTableUI\\' => 17,
+            'srag\\DataTableUI\\SrTile\\' => 24,
             'srag\\DIC\\SrTile\\' => 16,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
+            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
         array (
@@ -33,7 +37,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'srag\\Notifications4Plugin\\' => 
+        'srag\\Notifications4Plugin\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/notifications4plugin/src',
         ),
@@ -41,7 +45,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DataTableUI\\' => 
+        'srag\\DataTableUI\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/datatable/src',
         ),
@@ -49,11 +53,11 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -434,6 +438,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\DataTableUI\\SrTile\\Implementation\\Table' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Table.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Utils\\AbstractTableBuilder' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Utils/AbstractTableBuilder.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Utils\\DataTableUITrait' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Utils/DataTableUITrait.php',
+        'srag\\LibrariesNamespaceChanger\\GeneratePluginPhp' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/GeneratePluginPhp.php',
         'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
         'srag\\LibrariesNamespaceChanger\\PHP72Backport' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/PHP72Backport.php',
         'srag\\LibrariesNamespaceChanger\\PHP7Backport' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/PHP7Backport.php',

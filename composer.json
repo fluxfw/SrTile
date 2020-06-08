@@ -1,6 +1,26 @@
 {
   "name": "srag/plugins/srtile",
   "description": "",
+  "version": "1.8.7",
+  "ilias_plugin": {
+    "id": "srtile",
+    "ilias_min_version": "5.4.0",
+    "ilias_max_version": "6.999",
+    "events": [
+      {
+        "type": "listen",
+        "id": "Services/Object"
+      },
+      {
+        "type": "raise",
+        "id": "change_title_before_render"
+      },
+      {
+        "type": "raise",
+        "id": "should_not_display_alert_message"
+      }
+    ]
+  },
   "type": "project",
   "keywords": [
     "ILIAS",
@@ -36,6 +56,9 @@
     },
     "classmap": [
       "classes/"
+    ],
+    "files": [
+      "vendor/srag/dic/src/PHPVersionChecker.php"
     ]
   },
   "config": {
@@ -46,7 +69,8 @@
   "scripts": {
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
-      "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport"
+      "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport",
+      "srag\\LibrariesNamespaceChanger\\GeneratePluginPhp::generatePluginPhp"
     ]
   }
 }
