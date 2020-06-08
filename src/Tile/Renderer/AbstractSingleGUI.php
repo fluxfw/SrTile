@@ -281,7 +281,11 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
                         $tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress.html");
 
-                        $tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::customInputGUIs()->progressMeter()
+                        $tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::dic()
+                            ->ui()
+                            ->factory()
+                            ->chart()
+                            ->progressMeter()
                             ->mini($learning_progress_bar->getTotalObjects(), $learning_progress_bar->getCompletedObjects())));
 
                         $tpl_learning_progress->setVariableEscaped("LEARNING_PROGRESS_POSITION", $this->tile->getLearningProgressPosition());

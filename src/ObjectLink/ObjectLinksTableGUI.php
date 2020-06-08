@@ -42,7 +42,7 @@ class ObjectLinksTableGUI extends TableGUI
      *
      * @param ObjectLink $object_link
      */
-    protected function getColumnValue(/*string*/ $column, /*ObjectLink*/ $object_link, /*int*/ $format = self::DEFAULT_FORMAT) : string
+    protected function getColumnValue(string $column, /*ObjectLink*/ $object_link, int $format = self::DEFAULT_FORMAT) : string
     {
         switch ($column) {
             case "title":

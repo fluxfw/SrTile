@@ -40,11 +40,8 @@ class TemplatesTableGUI extends TableGUI
      *
      * @param Template $template
      */
-    protected function getColumnValue(/*string*/
-        $column, /*Template*/
-        $template, /*int*/
-        $format = self::DEFAULT_FORMAT
-    ) : string {
+    protected function getColumnValue(string $column, /*Template*/ $template, int $format = self::DEFAULT_FORMAT) : string
+    {
         switch ($column) {
             case "object_type":
                 $column = htmlspecialchars($template->_getTitle());
