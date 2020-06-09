@@ -8,16 +8,16 @@
     "ilias_max_version": "6.999",
     "events": [
       {
-        "type": "listen",
-        "id": "Services/Object"
+        "id": "Services/Object",
+        "type": "listen"
       },
       {
-        "type": "raise",
-        "id": "change_title_before_render"
+        "id": "change_title_before_render",
+        "type": "raise"
       },
       {
-        "type": "raise",
-        "id": "should_not_display_alert_message"
+        "id": "should_not_display_alert_message",
+        "type": "raise"
       }
     ]
   },
