@@ -20,8 +20,8 @@ class ObjectLinkFormGUI extends PropertyFormGUI
 
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const LANG_MODULE = ObjectLinksGUI::LANG_MODULE;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var ObjectLink
      */
@@ -39,6 +39,21 @@ class ObjectLinkFormGUI extends PropertyFormGUI
         $this->object_link = $object_link;
 
         parent::__construct($parent);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function storeForm() : bool
+    {
+        if (!parent::storeForm()) {
+            return false;
+        }
+
+        self::srTile()->objectLinks()->storeObjectLink($this->object_link);
+
+        return true;
     }
 
 
@@ -109,20 +124,5 @@ class ObjectLinkFormGUI extends PropertyFormGUI
                 Items::setter($this->object_link, $key, $value);
                 break;
         }
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function storeForm() : bool
-    {
-        if (!parent::storeForm()) {
-            return false;
-        }
-
-        self::srTile()->objectLinks()->storeObjectLink($this->object_link);
-
-        return true;
     }
 }

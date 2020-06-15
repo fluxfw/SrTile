@@ -37,6 +37,27 @@ class Certificates
      * @var self[]
      */
     protected static $instances = [];
+    /**
+     * @var Tile
+     */
+    protected $tile;
+    /**
+     * @var ilObjUser
+     */
+    protected $user;
+
+
+    /**
+     * Certificates constructor
+     *
+     * @param ilObjUser $user
+     * @param Tile      $tile
+     */
+    private function __construct(ilObjUser $user, Tile $tile)
+    {
+        $this->user = $user;
+        $this->tile = $tile;
+    }
 
 
     /**
@@ -52,29 +73,6 @@ class Certificates
         }
 
         return self::$instances[$user->getId() . "_" . $tile->getTileId()];
-    }
-
-
-    /**
-     * @var ilObjUser
-     */
-    protected $user;
-    /**
-     * @var Tile
-     */
-    protected $tile;
-
-
-    /**
-     * Certificates constructor
-     *
-     * @param ilObjUser $user
-     * @param Tile      $tile
-     */
-    private function __construct(ilObjUser $user, Tile $tile)
-    {
-        $this->user = $user;
-        $this->tile = $tile;
     }
 
 

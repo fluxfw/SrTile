@@ -21,16 +21,25 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
     use PluginUninstallTrait;
     use SrTileTrait;
 
-    const PLUGIN_ID = "srtile";
-    const PLUGIN_NAME = "SrTile";
-    const PLUGIN_CLASS_NAME = self::class;
-    const WEB_DATA_FOLDER = self::PLUGIN_ID . "_data";
     const EVENT_CHANGE_TILE_BEFORE_RENDER = "change_title_before_render";
     const EVENT_SHOULD_NOT_DISPLAY_ALERT_MESSAGE = "should_not_display_alert_message";
+    const PLUGIN_CLASS_NAME = self::class;
+    const PLUGIN_ID = "srtile";
+    const PLUGIN_NAME = "SrTile";
+    const WEB_DATA_FOLDER = self::PLUGIN_ID . "_data";
     /**
      * @var self|null
      */
     protected static $instance = null;
+
+
+    /**
+     * ilSrTilePlugin constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
 
     /**
@@ -47,11 +56,11 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
 
 
     /**
-     * ilSrTilePlugin constructor
+     * @inheritDoc
      */
-    public function __construct()
+    public function exchangeUIRendererAfterInitialization(Container $dic) : Closure
     {
-        parent::__construct();
+        return CustomInputGUIsLoaderDetector::exchangeUIRendererAfterInitialization();
     }
 
 
@@ -89,15 +98,6 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
     /**
      * @inheritDoc
      */
-    protected function shouldUseOneUpdateStepOnly() : bool
-    {
-        return true;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
     public function updateLanguages(/*?array*/ $a_lang_keys = null)/*:void*/
     {
         parent::updateLanguages($a_lang_keys);
@@ -120,8 +120,8 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
     /**
      * @inheritDoc
      */
-    public function exchangeUIRendererAfterInitialization(Container $dic) : Closure
+    protected function shouldUseOneUpdateStepOnly() : bool
     {
-        return CustomInputGUIsLoaderDetector::exchangeUIRendererAfterInitialization();
+        return true;
     }
 }

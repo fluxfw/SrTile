@@ -28,6 +28,15 @@ final class Courses
 
 
     /**
+     * Courses constructor
+     */
+    private function __construct()
+    {
+
+    }
+
+
+    /**
      * @return self
      */
     public static function getInstance() : self
@@ -37,15 +46,6 @@ final class Courses
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * Courses constructor
-     */
-    private function __construct()
-    {
-
     }
 
 

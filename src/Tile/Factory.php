@@ -28,19 +28,6 @@ final class Factory
 
 
     /**
-     * @return self
-     */
-    public static function getInstance() : self
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-
-    /**
      * Factory constructor
      */
     private function __construct()
@@ -50,13 +37,15 @@ final class Factory
 
 
     /**
-     * @return Tile
+     * @return self
      */
-    public function newInstance() : Tile
+    public static function getInstance() : self
     {
-        $tile = new Tile();
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
 
-        return $tile;
+        return self::$instance;
     }
 
 
@@ -71,5 +60,16 @@ final class Factory
         $form = new TileFormGUI($parent, $tile);
 
         return $form;
+    }
+
+
+    /**
+     * @return Tile
+     */
+    public function newInstance() : Tile
+    {
+        $tile = new Tile();
+
+        return $tile;
     }
 }

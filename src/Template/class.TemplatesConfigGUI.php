@@ -21,9 +21,9 @@ class TemplatesConfigGUI
     use DICTrait;
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_LIST_TEMPLATES = "listTemplates";
     const LANG_MODULE = "template";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const TAB_LIST_TEMPLATES = "list_templates";
 
 
@@ -33,6 +33,16 @@ class TemplatesConfigGUI
     public function __construct()
     {
 
+    }
+
+
+    /**
+     *
+     */
+    public static function addTabs()/*: void*/
+    {
+        self::dic()->tabs()->addTab(self::TAB_LIST_TEMPLATES, self::plugin()->translate("templates", self::LANG_MODULE), self::dic()->ctrl()
+            ->getLinkTargetByClass(self::class, self::CMD_LIST_TEMPLATES));
     }
 
 
@@ -69,10 +79,13 @@ class TemplatesConfigGUI
     /**
      *
      */
-    public static function addTabs()/*: void*/
+    protected function listTemplates()/*: void*/
     {
-        self::dic()->tabs()->addTab(self::TAB_LIST_TEMPLATES, self::plugin()->translate("templates", self::LANG_MODULE), self::dic()->ctrl()
-            ->getLinkTargetByClass(self::class, self::CMD_LIST_TEMPLATES));
+        self::dic()->tabs()->activateTab(self::TAB_LIST_TEMPLATES);
+
+        $table = self::srTile()->templates()->factory()->newTableInstance($this);
+
+        self::output()->output($table);
     }
 
 
@@ -82,18 +95,5 @@ class TemplatesConfigGUI
     protected function setTabs()/*: void*/
     {
 
-    }
-
-
-    /**
-     *
-     */
-    protected function listTemplates()/*: void*/
-    {
-        self::dic()->tabs()->activateTab(self::TAB_LIST_TEMPLATES);
-
-        $table = self::srTile()->templates()->factory()->newTableInstance($this);
-
-        self::output()->output($table);
     }
 }

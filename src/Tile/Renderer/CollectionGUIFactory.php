@@ -32,6 +32,15 @@ final class CollectionGUIFactory
 
 
     /**
+     * CollectionGUIFactory constructor
+     */
+    private function __construct()
+    {
+
+    }
+
+
+    /**
      * @return self
      */
     public static function getInstance() : self
@@ -41,15 +50,6 @@ final class CollectionGUIFactory
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * CollectionGUIFactory constructor
-     */
-    private function __construct()
-    {
-
     }
 
 

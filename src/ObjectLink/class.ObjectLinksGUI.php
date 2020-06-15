@@ -24,19 +24,19 @@ class ObjectLinksGUI
     use DICTrait;
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_LIST_OBJECT_LINKS = "listObjectLinks";
     const GET_PARAM_GROUP_ID = "group_id";
     const LANG_MODULE = "object_links";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const TAB_LIST_OBJECT_LINKS = "list_object_links";
-    /**
-     * @var TileGUI
-     */
-    protected $parent;
     /**
      * @var Group
      */
     protected $group;
+    /**
+     * @var TileGUI
+     */
+    protected $parent;
 
 
     /**
@@ -45,6 +45,21 @@ class ObjectLinksGUI
     public function __construct(TileGUI $parent)
     {
         $this->parent = $parent;
+    }
+
+
+    /**
+     *
+     */
+    public static function addTabs()/*:void*/
+    {
+        if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
+            self::dic()->tabs()->addTab(self::TAB_LIST_OBJECT_LINKS, self::plugin()->translate("object_links", self::LANG_MODULE), self::dic()->ctrl()->getLinkTargetByClass([
+                ilUIPluginRouterGUI::class,
+                TileGUI::class,
+                self::class
+            ], self::CMD_LIST_OBJECT_LINKS));
+        }
     }
 
 
@@ -87,26 +102,20 @@ class ObjectLinksGUI
 
 
     /**
-     *
+     * @return Group
      */
-    public static function addTabs()/*:void*/
+    public function getGroup() : Group
     {
-        if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
-            self::dic()->tabs()->addTab(self::TAB_LIST_OBJECT_LINKS, self::plugin()->translate("object_links", self::LANG_MODULE), self::dic()->ctrl()->getLinkTargetByClass([
-                ilUIPluginRouterGUI::class,
-                TileGUI::class,
-                self::class
-            ], self::CMD_LIST_OBJECT_LINKS));
-        }
+        return $this->group;
     }
 
 
     /**
-     *
+     * @return TileGUI
      */
-    protected function setTabs()/*: void*/
+    public function getParent() : TileGUI
     {
-
+        return $this->parent;
     }
 
 
@@ -124,19 +133,10 @@ class ObjectLinksGUI
 
 
     /**
-     * @return Group
+     *
      */
-    public function getGroup() : Group
+    protected function setTabs()/*: void*/
     {
-        return $this->group;
-    }
 
-
-    /**
-     * @return TileGUI
-     */
-    public function getParent() : TileGUI
-    {
-        return $this->parent;
     }
 }

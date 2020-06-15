@@ -18,22 +18,22 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     use DICTrait;
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-    const PAR_TABS = "tabs";
-    const TEMPLATE_GET = "template_get";
-    const TOOLBAR_LOADER = "tile_toolbar_loader";
-    const REPOSITORY_LOADER = "tile_repository_loader";
-    const DASHBOARD_LOADER = "tile_dashboard_loader";
-    const RECOMMEND_MODAL_LOADER = "tile_recommend_modal";
-    const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
-    const TEMPLATE_ID_DASHBOARD = "src/UI/templates/default/Item/tpl.group.html";
-    const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
-    const TAB_PERM_ID = "perm";
-    const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
     const ACTIONS_MENU_TEMPLATE = "Services/UIComponent/AdvancedSelectionList/tpl.adv_selection_list.html";
+    const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
+    const DASHBOARD_LOADER = "tile_dashboard_loader";
     const GET_PARAM_REF_ID = "ref_id";
     const GET_PARAM_TARGET = "target";
     const GET_RENDER_EDIT_TILE_ACTION = "render_edit_tile_action";
+    const PAR_TABS = "tabs";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    const RECOMMEND_MODAL_LOADER = "tile_recommend_modal";
+    const REPOSITORY_LOADER = "tile_repository_loader";
+    const TAB_PERM_ID = "perm";
+    const TEMPLATE_GET = "template_get";
+    const TEMPLATE_ID_DASHBOARD = "src/UI/templates/default/Item/tpl.group.html";
+    const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
+    const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
+    const TOOLBAR_LOADER = "tile_toolbar_loader";
     /**
      * @var bool[]
      */
@@ -44,6 +44,38 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             self::DASHBOARD_LOADER       => false,
             self::RECOMMEND_MODAL_LOADER => false
         ];
+
+
+    /**
+     * ilSrTileUIHookGUI constructor
+     */
+    public function __construct()
+    {
+
+    }
+
+
+    /**
+     * @param string $key
+     * @param string $module
+     * @param string $alert_type
+     * @param bool   $keep
+     */
+    public static function askAndDisplayAlertMessage(string $key, string $module, string $alert_type = "success", bool $keep = true)/*: void*/
+    {
+        $should_not_display = [];
+
+        self::dic()->appEventHandler()->raise(IL_COMP_PLUGIN . "/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_SHOULD_NOT_DISPLAY_ALERT_MESSAGE, [
+            "lang_module"        => $module,
+            "lang_key"           => $key,
+            "alert_type"         => $alert_type,
+            "should_not_display" => &$should_not_display // Unfortunately ILIAS Raise Event System not supports return results so use a referenced variable
+        ]);
+
+        if (empty($should_not_display)) {
+            ilUtil::{"send" . ucfirst($alert_type)}(self::plugin()->translate($key, $module), $keep);
+        }
+    }
 
 
     /**
@@ -68,15 +100,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
         } else {
             return null;
         }
-    }
-
-
-    /**
-     * ilSrTileUIHookGUI constructor
-     */
-    public function __construct()
-    {
-
     }
 
 
@@ -196,47 +219,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
     /**
      * @param string $a_part
-     *
-     * @return bool
-     */
-    protected function matchToolbar(string $a_part) : bool
-    {
-        $baseClass = strtolower(filter_input(INPUT_GET, "baseClass"));
-        $obj_ref_id = self::filterRefId();
-
-        return (!self::$load[self::TOOLBAR_LOADER]
-            && $baseClass !== strtolower(ilAdministrationGUI::class)
-            && $a_part === self::PAR_TABS
-            && (self::$load[self::TOOLBAR_LOADER] = true)
-            && self::srTile()->tiles()->isObject($obj_ref_id));
-    }
-
-
-    /**
-     * @param string $a_part
-     * @param array  $a_par
-     *
-     * @return bool
-     */
-    protected function matchRepository(string $a_part, array $a_par) : bool
-    {
-        $obj_ref_id = self::filterRefId();
-
-        return (!self::$load[self::REPOSITORY_LOADER]
-            && $a_part === self::TEMPLATE_GET
-            && $a_par["tpl_id"] === self::TEMPLATE_ID_REPOSITORY
-            && (self::$load[self::REPOSITORY_LOADER] = true)
-            && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_REPOSITORY)
-            && !in_array(self::dic()->ctrl()->getCmd(), ["editOrder"])
-            && !in_array(self::dic()->ctrl()->getCallHistory()[0]["cmd"], ["editOrder"])
-            && !$_SESSION["il_cont_admin_panel"]
-            && self::srTile()->tiles()->isObject($obj_ref_id)
-            && self::srTile()->tiles()->getInstanceForObjRefId($obj_ref_id)->getView() !== Tile::VIEW_DISABLED);
-    }
-
-
-    /**
-     * @param string $a_part
      * @param array  $a_par
      *
      * @return bool
@@ -269,24 +251,42 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
 
     /**
-     * @param string $key
-     * @param string $module
-     * @param string $alert_type
-     * @param bool   $keep
+     * @param string $a_part
+     * @param array  $a_par
+     *
+     * @return bool
      */
-    public static function askAndDisplayAlertMessage(string $key, string $module, string $alert_type = "success", bool $keep = true)/*: void*/
+    protected function matchRepository(string $a_part, array $a_par) : bool
     {
-        $should_not_display = [];
+        $obj_ref_id = self::filterRefId();
 
-        self::dic()->appEventHandler()->raise(IL_COMP_PLUGIN . "/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_SHOULD_NOT_DISPLAY_ALERT_MESSAGE, [
-            "lang_module"        => $module,
-            "lang_key"           => $key,
-            "alert_type"         => $alert_type,
-            "should_not_display" => &$should_not_display // Unfortunately ILIAS Raise Event System not supports return results so use a referenced variable
-        ]);
+        return (!self::$load[self::REPOSITORY_LOADER]
+            && $a_part === self::TEMPLATE_GET
+            && $a_par["tpl_id"] === self::TEMPLATE_ID_REPOSITORY
+            && (self::$load[self::REPOSITORY_LOADER] = true)
+            && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_REPOSITORY)
+            && !in_array(self::dic()->ctrl()->getCmd(), ["editOrder"])
+            && !in_array(self::dic()->ctrl()->getCallHistory()[0]["cmd"], ["editOrder"])
+            && !$_SESSION["il_cont_admin_panel"]
+            && self::srTile()->tiles()->isObject($obj_ref_id)
+            && self::srTile()->tiles()->getInstanceForObjRefId($obj_ref_id)->getView() !== Tile::VIEW_DISABLED);
+    }
 
-        if (empty($should_not_display)) {
-            ilUtil::{"send" . ucfirst($alert_type)}(self::plugin()->translate($key, $module), $keep);
-        }
+
+    /**
+     * @param string $a_part
+     *
+     * @return bool
+     */
+    protected function matchToolbar(string $a_part) : bool
+    {
+        $baseClass = strtolower(filter_input(INPUT_GET, "baseClass"));
+        $obj_ref_id = self::filterRefId();
+
+        return (!self::$load[self::TOOLBAR_LOADER]
+            && $baseClass !== strtolower(ilAdministrationGUI::class)
+            && $a_part === self::PAR_TABS
+            && (self::$load[self::TOOLBAR_LOADER] = true)
+            && self::srTile()->tiles()->isObject($obj_ref_id));
     }
 }

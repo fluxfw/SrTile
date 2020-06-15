@@ -42,6 +42,15 @@ final class Repository
 
 
     /**
+     * Repository constructor
+     */
+    private function __construct()
+    {
+
+    }
+
+
+    /**
      * @return self
      */
     public static function getInstance() : self
@@ -51,15 +60,6 @@ final class Repository
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * Repository constructor
-     */
-    private function __construct()
-    {
-
     }
 
 
@@ -97,17 +97,6 @@ final class Repository
         $tile->applyNewImage($template->getImagePathWithCheck());
 
         self::srTile()->tiles()->storeTile($tile);
-    }
-
-
-    /**
-     * @param Template $template
-     *
-     * @return Template
-     */
-    protected function cloneTemplate(Template $template) : Template
-    {
-        return $template->copy();
     }
 
 
@@ -211,5 +200,16 @@ final class Repository
         foreach ($tiles as $tile) {
             $this->applyToTile($tile);
         }
+    }
+
+
+    /**
+     * @param Template $template
+     *
+     * @return Template
+     */
+    protected function cloneTemplate(Template $template) : Template
+    {
+        return $template->copy();
     }
 }

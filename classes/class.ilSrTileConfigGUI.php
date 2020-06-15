@@ -21,8 +21,8 @@ class ilSrTileConfigGUI extends ilPluginConfigGUI
     use DICTrait;
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_CONFIGURE = "configure";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 
 
     /**
@@ -78,6 +78,15 @@ class ilSrTileConfigGUI extends ilPluginConfigGUI
     /**
      *
      */
+    protected function configure()/*: void*/
+    {
+        self::dic()->ctrl()->redirectByClass(ConfigCtrl::class, ConfigCtrl::CMD_CONFIGURE);
+    }
+
+
+    /**
+     *
+     */
     protected function setTabs()/*: void*/
     {
         ConfigCtrl::addTabs();
@@ -88,14 +97,5 @@ class ilSrTileConfigGUI extends ilPluginConfigGUI
             ->getLinkTargetByClass(NotificationsCtrl::class, NotificationsCtrl::CMD_LIST_NOTIFICATIONS));
 
         self::dic()->locator()->addItem(ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTarget($this, self::CMD_CONFIGURE));
-    }
-
-
-    /**
-     *
-     */
-    protected function configure()/*: void*/
-    {
-        self::dic()->ctrl()->redirectByClass(ConfigCtrl::class, ConfigCtrl::CMD_CONFIGURE);
     }
 }

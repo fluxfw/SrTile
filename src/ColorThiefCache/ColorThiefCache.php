@@ -21,16 +21,39 @@ class ColorThiefCache extends ActiveRecord
     use DICTrait;
     use SrTileTrait;
 
-    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_c_t_c";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_c_t_c";
+    /**
+     * @var string
+     *
+     * @con_has_field   true
+     * @con_fieldtype   text
+     * @con_is_notnull  true
+     */
+    protected $color = "";
+    /**
+     * @var string
+     *
+     * @con_has_field    true
+     * @con_fieldtype    text
+     * @con_length       255
+     * @con_is_notnull   true
+     * @con_is_primary   true
+     */
+    protected $image_path = "";
 
 
     /**
-     * @inheritDoc
+     * ColorThiefCache constructor
+     *
+     * @param int              $primary_key_value
+     * @param arConnector|null $connector
      */
-    public function getConnectorContainerName() : string
-    {
-        return static::TABLE_NAME;
+    public function __construct(/*int*/
+        $primary_key_value = 0,
+        arConnector $connector = null
+    ) {
+        parent::__construct($primary_key_value, $connector);
     }
 
 
@@ -46,36 +69,47 @@ class ColorThiefCache extends ActiveRecord
 
 
     /**
-     * @var string
-     *
-     * @con_has_field    true
-     * @con_fieldtype    text
-     * @con_length       255
-     * @con_is_notnull   true
-     * @con_is_primary   true
+     * @return string
      */
-    protected $image_path = "";
-    /**
-     * @var string
-     *
-     * @con_has_field   true
-     * @con_fieldtype   text
-     * @con_is_notnull  true
-     */
-    protected $color = "";
+    public function getColor() : string
+    {
+        return $this->color;
+    }
 
 
     /**
-     * ColorThiefCache constructor
-     *
-     * @param int              $primary_key_value
-     * @param arConnector|null $connector
+     * @param string $color
      */
-    public function __construct(/*int*/
-        $primary_key_value = 0,
-        arConnector $connector = null
-    ) {
-        parent::__construct($primary_key_value, $connector);
+    public function setColor(string $color)/*: void*/
+    {
+        $this->color = $color;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getConnectorContainerName() : string
+    {
+        return static::TABLE_NAME;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getImagePath() : string
+    {
+        return $this->image_path;
+    }
+
+
+    /**
+     * @param string $image_path
+     */
+    public function setImagePath(string $image_path)/*: void*/
+    {
+        $this->image_path = $image_path;
     }
 
 
@@ -102,41 +136,5 @@ class ColorThiefCache extends ActiveRecord
             default:
                 return parent::wakeUp($field_name, $field_value);
         }
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getImagePath() : string
-    {
-        return $this->image_path;
-    }
-
-
-    /**
-     * @param string $image_path
-     */
-    public function setImagePath(string $image_path)/*: void*/
-    {
-        $this->image_path = $image_path;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getColor() : string
-    {
-        return $this->color;
-    }
-
-
-    /**
-     * @param string $color
-     */
-    public function setColor(string $color)/*: void*/
-    {
-        $this->color = $color;
     }
 }

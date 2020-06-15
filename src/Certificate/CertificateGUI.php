@@ -24,13 +24,13 @@ class CertificateGUI
 
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
-     * @var ilObjUser
-     */
-    protected $user;
-    /**
      * @var Tile
      */
     protected $tile;
+    /**
+     * @var ilObjUser
+     */
+    protected $user;
 
 
     /**

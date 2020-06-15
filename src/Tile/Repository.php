@@ -31,21 +31,6 @@ final class Repository
      * @var self|null
      */
     protected static $instance = null;
-
-
-    /**
-     * @return self
-     */
-    public static function getInstance() : self
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-
     /**
      * @var Tile[]
      *
@@ -53,17 +38,17 @@ final class Repository
      */
     protected static $instances_by_ref_id = [];
     /**
-     * @var Tile[]
-     *
-     * @deprecated
-     */
-    protected static $parent_tile_cache = [];
-    /**
      * @var bool[]
      *
      * @deprecated
      */
     protected static $is_object_cache = [];
+    /**
+     * @var Tile[]
+     *
+     * @deprecated
+     */
+    protected static $parent_tile_cache = [];
     /**
      * @var array
      */
@@ -76,6 +61,19 @@ final class Repository
     private function __construct()
     {
 
+    }
+
+
+    /**
+     * @return self
+     */
+    public static function getInstance() : self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
 
@@ -170,15 +168,6 @@ final class Repository
 
 
     /**
-     * @return Tile[]
-     */
-    public function getTiles() : array
-    {
-        return Tile::get();
-    }
-
-
-    /**
      * @param int|null $obj_ref_id
      *
      * @return Tile
@@ -245,6 +234,15 @@ final class Repository
         }
 
         return self::$parent_tile_cache[$tile->getObjRefId()];
+    }
+
+
+    /**
+     * @return Tile[]
+     */
+    public function getTiles() : array
+    {
+        return Tile::get();
     }
 
 

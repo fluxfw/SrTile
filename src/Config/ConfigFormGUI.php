@@ -19,12 +19,12 @@ class ConfigFormGUI extends PropertyFormGUI
 
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const KEY_ENABLED_OBJECT_LINKS = "enabled_object_links";
     const KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT = "enabled_object_links_once_select";
     const KEY_ENABLED_ON_DASHBOARD = "enabled_on_favorites";
     const KEY_ENABLED_ON_REPOSITORY = "enabled_on_repository";
     const LANG_MODULE = ConfigCtrl::LANG_MODULE;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 
 
     /**
@@ -68,7 +68,7 @@ class ConfigFormGUI extends PropertyFormGUI
             self::KEY_ENABLED_ON_REPOSITORY => [
                 self::PROPERTY_CLASS => ilCheckboxInputGUI::class
             ],
-            self::KEY_ENABLED_ON_DASHBOARD => [
+            self::KEY_ENABLED_ON_DASHBOARD  => [
                 self::PROPERTY_CLASS => ilCheckboxInputGUI::class
             ],
             self::KEY_ENABLED_OBJECT_LINKS  => [

@@ -32,8 +32,8 @@ class TileFormGUI extends PropertyFormGUI
 
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const LANG_MODULE = TileGUI::LANG_MODULE;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var Tile
      */
@@ -51,6 +51,41 @@ class TileFormGUI extends PropertyFormGUI
         $this->tile = $tile;
 
         parent::__construct($parent);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function checkInput() : bool
+    {
+        if (intval(filter_input(INPUT_POST, "view") === Tile::VIEW_DISABLED)) {
+            // Allows incomplete configuration if the tile is disabled
+            parent::checkInput();
+
+            return true;
+        } else {
+            return parent::checkInput();
+        }
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function storeForm() : bool
+    {
+        if (empty($this->tile->getTileId())) {
+            self::srTile()->tiles()->storeTile($this->tile);
+        }
+
+        if (!parent::storeForm()) {
+            return false;
+        }
+
+        self::srTile()->tiles()->storeTile($this->tile);
+
+        return true;
     }
 
 
@@ -814,41 +849,6 @@ class TileFormGUI extends PropertyFormGUI
     protected function initTitle()/*: void*/
     {
         $this->setTitle($this->tile->_getTitle());
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function storeForm() : bool
-    {
-        if (empty($this->tile->getTileId())) {
-            self::srTile()->tiles()->storeTile($this->tile);
-        }
-
-        if (!parent::storeForm()) {
-            return false;
-        }
-
-        self::srTile()->tiles()->storeTile($this->tile);
-
-        return true;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function checkInput() : bool
-    {
-        if (intval(filter_input(INPUT_POST, "view") === Tile::VIEW_DISABLED)) {
-            // Allows incomplete configuration if the tile is disabled
-            parent::checkInput();
-
-            return true;
-        } else {
-            return parent::checkInput();
-        }
     }
 
 

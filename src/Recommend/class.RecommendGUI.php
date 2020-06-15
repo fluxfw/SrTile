@@ -23,11 +23,11 @@ class RecommendGUI
     use DICTrait;
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_ADD_RECOMMEND = "addRecommend";
     const CMD_NEW_RECOMMEND = "newRecommend";
     const GET_PARAM_REF_ID = "ref_id";
     const LANG_MODULE = "recommendation";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var Recommend
      */
@@ -82,15 +82,6 @@ class RecommendGUI
 
 
     /**
-     *
-     */
-    protected function setTabs()/*:void*/
-    {
-
-    }
-
-
-    /**
      * @return string
      */
     public function getModal() : string
@@ -111,29 +102,6 @@ class RecommendGUI
         $modal = str_replace('<div class="modal-footer">', '<div class="modal-footer" style="display:none;">', $modal);
 
         return $modal;
-    }
-
-
-    /**
-     * @param string|null       $message
-     * @param ilPropertyFormGUI $form
-     */
-    protected function show(/*?string*/
-        $message,
-        ilPropertyFormGUI $form
-    )/*: void*/
-    {
-        $tpl = self::plugin()->template("Recommend/recommend_modal.html");
-
-        if ($message !== null) {
-            $tpl->setCurrentBlock("recommend_message");
-            $tpl->setVariable("MESSAGE", $message);
-        }
-
-        $tpl->setCurrentBlock("recommend_form");
-        $tpl->setVariable("FORM", self::output()->getHTML($form));
-
-        self::output()->output($tpl, true);
     }
 
 
@@ -174,5 +142,37 @@ class RecommendGUI
         }
 
         $this->show($message, $form);
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*:void*/
+    {
+
+    }
+
+
+    /**
+     * @param string|null       $message
+     * @param ilPropertyFormGUI $form
+     */
+    protected function show(/*?string*/
+        $message,
+        ilPropertyFormGUI $form
+    )/*: void*/
+    {
+        $tpl = self::plugin()->template("Recommend/recommend_modal.html");
+
+        if ($message !== null) {
+            $tpl->setCurrentBlock("recommend_message");
+            $tpl->setVariable("MESSAGE", $message);
+        }
+
+        $tpl->setCurrentBlock("recommend_form");
+        $tpl->setVariable("FORM", self::output()->getHTML($form));
+
+        self::output()->output($tpl, true);
     }
 }

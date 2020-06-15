@@ -20,15 +20,13 @@ interface CollectionInterface
      */
     public function addTile(Tile $tile)/*: void*/ ;
 
+    /**
+     * @return Tile[]
+     */
+    public function getTiles() : array;
 
     /**
      * @param int $tile_id
      */
     public function removeTile(int $tile_id)/*: void*/ ;
-
-
-    /**
-     * @return Tile[]
-     */
-    public function getTiles() : array;
 }

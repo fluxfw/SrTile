@@ -27,6 +27,15 @@ final class Factory
 
 
     /**
+     * Factory constructor
+     */
+    private function __construct()
+    {
+
+    }
+
+
+    /**
      * @return self
      */
     public static function getInstance() : self
@@ -40,11 +49,16 @@ final class Factory
 
 
     /**
-     * Factory constructor
+     * @param TemplateConfigGUI $parent
+     * @param Template          $template
+     *
+     * @return TemplateFormGUI
      */
-    private function __construct()
+    public function newFormInstance(TemplateConfigGUI $parent, Template $template) : TemplateFormGUI
     {
+        $form = new TemplateFormGUI($parent, $template);
 
+        return $form;
     }
 
 
@@ -70,19 +84,5 @@ final class Factory
         $table = new TemplatesTableGUI($parent, $cmd);
 
         return $table;
-    }
-
-
-    /**
-     * @param TemplateConfigGUI $parent
-     * @param Template          $template
-     *
-     * @return TemplateFormGUI
-     */
-    public function newFormInstance(TemplateConfigGUI $parent, Template $template) : TemplateFormGUI
-    {
-        $form = new TemplateFormGUI($parent, $template);
-
-        return $form;
     }
 }

@@ -19,8 +19,8 @@ class TemplatesTableGUI extends TableGUI
 
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const LANG_MODULE = TemplatesConfigGUI::LANG_MODULE;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 
 
     /**
@@ -32,6 +32,39 @@ class TemplatesTableGUI extends TableGUI
     public function __construct(TemplatesConfigGUI $parent, string $parent_cmd)
     {
         parent::__construct($parent, $parent_cmd);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getSelectableColumns2() : array
+    {
+        $columns = [
+            "object_type" => [
+                "id"      => "object_type",
+                "default" => true,
+                "sort"    => true
+            ]
+        ];
+
+        return $columns;
+    }
+
+
+    /**
+     * @param Template $template
+     */
+    protected function fillRow(/*Template*/ $template)/*: void*/
+    {
+        self::dic()->ctrl()->setParameterByClass(TemplateConfigGUI::class, TemplateConfigGUI::GET_PARAM_OBJECT_TYPE, $template->getObjectType());
+
+        parent::fillRow($template);
+
+        $this->tpl->setVariable("COLUMN", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
+            self::dic()->ui()->factory()->link()->standard($this->txt("edit_template"), self::dic()->ctrl()
+                ->getLinkTargetByClass(TemplateConfigGUI::class, TemplateConfigGUI::CMD_EDIT_TEMPLATE))
+        ])->withLabel($this->txt("actions"))));
     }
 
 
@@ -53,23 +86,6 @@ class TemplatesTableGUI extends TableGUI
         }
 
         return strval($column);
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function getSelectableColumns2() : array
-    {
-        $columns = [
-            "object_type" => [
-                "id"      => "object_type",
-                "default" => true,
-                "sort"    => true
-            ]
-        ];
-
-        return $columns;
     }
 
 
@@ -120,21 +136,5 @@ class TemplatesTableGUI extends TableGUI
     protected function initTitle()/*: void*/
     {
         $this->setTitle($this->txt("templates"));
-    }
-
-
-    /**
-     * @param Template $template
-     */
-    protected function fillRow(/*Template*/ $template)/*: void*/
-    {
-        self::dic()->ctrl()->setParameterByClass(TemplateConfigGUI::class, TemplateConfigGUI::GET_PARAM_OBJECT_TYPE, $template->getObjectType());
-
-        parent::fillRow($template);
-
-        $this->tpl->setVariable("COLUMN", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
-            self::dic()->ui()->factory()->link()->standard($this->txt("edit_template"), self::dic()->ctrl()
-                ->getLinkTargetByClass(TemplateConfigGUI::class, TemplateConfigGUI::CMD_EDIT_TEMPLATE))
-        ])->withLabel($this->txt("actions"))));
     }
 }

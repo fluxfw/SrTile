@@ -26,25 +26,6 @@ final class Access
 
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
-     * @var self|null
-     */
-    protected static $instance = null;
-
-
-    /**
-     * @return self
-     */
-    public static function getInstance() : self
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-
-    /**
      * @var bool[]
      */
     protected static $has_open_access = [];
@@ -60,6 +41,10 @@ final class Access
      * @var bool[]
      */
     protected static $has_write_access = [];
+    /**
+     * @var self|null
+     */
+    protected static $instance = null;
 
 
     /**
@@ -68,6 +53,19 @@ final class Access
     private function __construct()
     {
 
+    }
+
+
+    /**
+     * @return self
+     */
+    public static function getInstance() : self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
 

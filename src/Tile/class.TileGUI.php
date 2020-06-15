@@ -25,7 +25,6 @@ class TileGUI
     use DICTrait;
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_BACK_TO_OBJECT = "backToObject";
     const CMD_BACK_TO_PARENT = "backToParent";
     const CMD_EDIT_TILE = "editTile";
@@ -33,6 +32,7 @@ class TileGUI
     const CMD_UPDATE_TILE = "updateTile";
     const GET_PARAM_REF_ID = "ref_id";
     const LANG_MODULE = "tile";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const TAB_TILE = "tile";
     /**
      * @var Tile
@@ -46,6 +46,20 @@ class TileGUI
     public function __construct()
     {
 
+    }
+
+
+    /**
+     * @param int $obj_ref_id
+     */
+    public static function addTabs(int $obj_ref_id)/*:void*/
+    {
+        self::dic()->ctrl()->setParameterByClass(self::class, self::GET_PARAM_REF_ID, $obj_ref_id);
+
+        self::dic()->tabs()->addTab(self::TAB_TILE, ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTargetByClass([
+            ilUIPluginRouterGUI::class,
+            self::class
+        ], self::CMD_EDIT_TILE));
     }
 
 
@@ -92,16 +106,57 @@ class TileGUI
 
 
     /**
-     * @param int $obj_ref_id
+     * @return Tile
      */
-    public static function addTabs(int $obj_ref_id)/*:void*/
+    public function getTile() : Tile
     {
-        self::dic()->ctrl()->setParameterByClass(self::class, self::GET_PARAM_REF_ID, $obj_ref_id);
+        return $this->tile;
+    }
 
-        self::dic()->tabs()->addTab(self::TAB_TILE, ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTargetByClass([
-            ilUIPluginRouterGUI::class,
-            self::class
-        ], self::CMD_EDIT_TILE));
+
+    /**
+     *
+     */
+    protected function backToObject()/*: void*/
+    {
+        self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->tile->getObjRefId()));
+    }
+
+
+    /**
+     *
+     */
+    protected function backToParent()/*: void*/
+    {
+        $parent = self::srTile()->tiles()->getParentTile($this->tile);
+
+        if (self::srTile()->tiles()->isObject($parent->getObjRefId())) {
+            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent->getObjRefId()));
+        }
+    }
+
+
+    /**
+     *
+     */
+    protected function editTile()/*: void*/
+    {
+        self::dic()->tabs()->activateTab(self::TAB_TILE);
+
+        $form = self::srTile()->tiles()->factory()->newFormInstance($this, $this->tile);
+
+        self::output()->output($form, true);
+    }
+
+
+    /**
+     *
+     */
+    protected function getPreconditions()/*: void*/
+    {
+        $preconditions = self::srTile()->ilias()->courses()->getPreconditions($this->tile->getObjRefId());
+
+        self::output()->output(self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->fixed($preconditions));
     }
 
 
@@ -133,41 +188,6 @@ class TileGUI
     /**
      *
      */
-    protected function backToParent()/*: void*/
-    {
-        $parent = self::srTile()->tiles()->getParentTile($this->tile);
-
-        if (self::srTile()->tiles()->isObject($parent->getObjRefId())) {
-            self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($parent->getObjRefId()));
-        }
-    }
-
-
-    /**
-     *
-     */
-    protected function backToObject()/*: void*/
-    {
-        self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->tile->getObjRefId()));
-    }
-
-
-    /**
-     *
-     */
-    protected function editTile()/*: void*/
-    {
-        self::dic()->tabs()->activateTab(self::TAB_TILE);
-
-        $form = self::srTile()->tiles()->factory()->newFormInstance($this, $this->tile);
-
-        self::output()->output($form, true);
-    }
-
-
-    /**
-     *
-     */
     protected function updateTile()/*: void*/
     {
         self::dic()->tabs()->activateTab(self::TAB_TILE);
@@ -183,25 +203,5 @@ class TileGUI
         ilUtil::sendSuccess(self::plugin()->translate("saved", self::LANG_MODULE), true);
 
         self::dic()->ctrl()->redirect($this, self::CMD_EDIT_TILE);
-    }
-
-
-    /**
-     *
-     */
-    protected function getPreconditions()/*: void*/
-    {
-        $preconditions = self::srTile()->ilias()->courses()->getPreconditions($this->tile->getObjRefId());
-
-        self::output()->output(self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->fixed($preconditions));
-    }
-
-
-    /**
-     * @return Tile
-     */
-    public function getTile() : Tile
-    {
-        return $this->tile;
     }
 }

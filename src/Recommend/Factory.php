@@ -28,19 +28,6 @@ final class Factory
 
 
     /**
-     * @return self
-     */
-    public static function getInstance() : self
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-
-    /**
      * Factory constructor
      */
     private function __construct()
@@ -50,15 +37,15 @@ final class Factory
 
 
     /**
-     * @param Tile $tile
-     *
-     * @return Recommend
+     * @return self
      */
-    public function newInstance(Tile $tile) : Recommend
+    public static function getInstance() : self
     {
-        $recommend = new Recommend($tile);
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
 
-        return $recommend;
+        return self::$instance;
     }
 
 
@@ -73,5 +60,18 @@ final class Factory
         $form = new RecommendFormGUI($parent, $recommend);
 
         return $form;
+    }
+
+
+    /**
+     * @param Tile $tile
+     *
+     * @return Recommend
+     */
+    public function newInstance(Tile $tile) : Recommend
+    {
+        $recommend = new Recommend($tile);
+
+        return $recommend;
     }
 }

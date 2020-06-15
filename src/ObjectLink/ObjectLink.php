@@ -23,41 +23,8 @@ class ObjectLink extends ActiveRecord
     use DICTrait;
     use SrTileTrait;
 
-    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_obln";
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-
-
-    /**
-     * @inheritDoc
-     */
-    public function getConnectorContainerName() : string
-    {
-        return self::TABLE_NAME;
-    }
-
-
-    /**
-     * @inheritDoc
-     *
-     * @deprecated
-     */
-    public static function returnDbTableName() : string
-    {
-        return self::TABLE_NAME;
-    }
-
-
-    /**
-     * @var int
-     *
-     * @con_has_field    true
-     * @con_fieldtype    integer
-     * @con_length       8
-     * @con_is_notnull   true
-     * @con_is_primary   true
-     * @con_sequence     true
-     */
-    protected $object_link_id;
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_obln";
     /**
      * @var int
      *
@@ -83,6 +50,17 @@ class ObjectLink extends ActiveRecord
      * @con_fieldtype    integer
      * @con_length       8
      * @con_is_notnull   true
+     * @con_is_primary   true
+     * @con_sequence     true
+     */
+    protected $object_link_id;
+    /**
+     * @var int
+     *
+     * @con_has_field    true
+     * @con_fieldtype    integer
+     * @con_length       8
+     * @con_is_notnull   true
      */
     protected $sort = 0;
 
@@ -100,29 +78,22 @@ class ObjectLink extends ActiveRecord
 
 
     /**
-     * @return ilObject
+     * @inheritDoc
+     *
+     * @deprecated
      */
-    public function getObject() : ilObject
+    public static function returnDbTableName() : string
     {
-        return ilObjectFactory::getInstanceByRefId($this->obj_ref_id, false);
+        return self::TABLE_NAME;
     }
 
 
     /**
-     * @return int
+     * @inheritDoc
      */
-    public function getObjectLinkId() : int
+    public function getConnectorContainerName() : string
     {
-        return $this->object_link_id;
-    }
-
-
-    /**
-     * @param int $object_link_id
-     */
-    public function setObjectLinkId(int $object_link_id)/*:void*/
-    {
-        $this->object_link_id = $object_link_id;
+        return self::TABLE_NAME;
     }
 
 
@@ -159,6 +130,33 @@ class ObjectLink extends ActiveRecord
     public function setObjRefId(int $obj_ref_id)/*:void*/
     {
         $this->obj_ref_id = $obj_ref_id;
+    }
+
+
+    /**
+     * @return ilObject
+     */
+    public function getObject() : ilObject
+    {
+        return ilObjectFactory::getInstanceByRefId($this->obj_ref_id, false);
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getObjectLinkId() : int
+    {
+        return $this->object_link_id;
+    }
+
+
+    /**
+     * @param int $object_link_id
+     */
+    public function setObjectLinkId(int $object_link_id)/*:void*/
+    {
+        $this->object_link_id = $object_link_id;
     }
 
 

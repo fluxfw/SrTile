@@ -43,57 +43,6 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
 
 
     /**
-     *
-     */
-    protected function initJS()/*: void*/
-    {
-        self::dic()->ui()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function render() : string
-    {
-        $this->initJS();
-
-        $collection_html = "";
-
-        if (count($this->collection->getTiles()) > 0) {
-
-            $parent_tile = self::srTile()->tiles()->getInstanceForObjRefId(ilSrTileUIHookGUI::filterRefId() ?? ROOT_FOLDER_ID);
-
-            self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
-
-            $tpl = self::plugin()->template("TileCollection/collection.html");
-
-            $tpl->setVariableEscaped("VIEW", $parent_tile->getView());
-
-            $tile_html = self::output()->getHTML(array_map(function (Tile $tile) : SingleGUIInterface {
-                return self::srTile()->tiles()->renderer()->factory()->newSingleGUIInstance($this, $tile);
-            }, $this->collection->getTiles()));
-
-            $tpl->setVariable("TILES", $tile_html);
-
-            if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
-                LearningProgressFilterGUI::initToolbar(intval(ilSrTileUIHookGUI::filterRefId()));
-            }
-
-            if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressLegend() === Tile::SHOW_TRUE) {
-                $tpl->setVariable("LP_LEGEND", self::output()->getHTML(new LearningProgressLegendGUI()));
-            }
-
-            $collection_html = self::output()->getHTML($tpl);
-
-            $this->hideOriginalRowsOfTiles();
-        }
-
-        return $collection_html;
-    }
-
-
-    /**
      * @inheritDoc
      */
     public function hideOriginalRowsOfTiles() /*: void*/
@@ -148,5 +97,56 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
         } else {
             self::dic()->ui()->mainTemplate()->addInlineCss($css);
         }
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function render() : string
+    {
+        $this->initJS();
+
+        $collection_html = "";
+
+        if (count($this->collection->getTiles()) > 0) {
+
+            $parent_tile = self::srTile()->tiles()->getInstanceForObjRefId(ilSrTileUIHookGUI::filterRefId() ?? ROOT_FOLDER_ID);
+
+            self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
+
+            $tpl = self::plugin()->template("TileCollection/collection.html");
+
+            $tpl->setVariableEscaped("VIEW", $parent_tile->getView());
+
+            $tile_html = self::output()->getHTML(array_map(function (Tile $tile) : SingleGUIInterface {
+                return self::srTile()->tiles()->renderer()->factory()->newSingleGUIInstance($this, $tile);
+            }, $this->collection->getTiles()));
+
+            $tpl->setVariable("TILES", $tile_html);
+
+            if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressFilter() === Tile::SHOW_TRUE) {
+                LearningProgressFilterGUI::initToolbar(intval(ilSrTileUIHookGUI::filterRefId()));
+            }
+
+            if (!self::dic()->ctrl()->isAsynch() && $parent_tile->getShowLearningProgressLegend() === Tile::SHOW_TRUE) {
+                $tpl->setVariable("LP_LEGEND", self::output()->getHTML(new LearningProgressLegendGUI()));
+            }
+
+            $collection_html = self::output()->getHTML($tpl);
+
+            $this->hideOriginalRowsOfTiles();
+        }
+
+        return $collection_html;
+    }
+
+
+    /**
+     *
+     */
+    protected function initJS()/*: void*/
+    {
+        self::dic()->ui()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
     }
 }

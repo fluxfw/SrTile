@@ -29,9 +29,9 @@ class LearningProgressFilterGUI
     use DICTrait;
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const CMD_SET_FILTER = "setFilter";
     const GET_PARAM_REF_ID = "ref_id";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const POST_VAR = "lp_filter";
     /**
      * @var int
@@ -45,36 +45,6 @@ class LearningProgressFilterGUI
     public function __construct()
     {
 
-    }
-
-
-    /**
-     *
-     */
-    public function executeCommand()/*: void*/
-    {
-        $this->obj_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID));
-
-        $this->setTabs();
-
-        self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_REF_ID);
-
-        $next_class = self::dic()->ctrl()->getNextClass($this);
-
-        switch ($next_class) {
-            default:
-                $cmd = self::dic()->ctrl()->getCmd();
-
-                switch ($cmd) {
-                    case self::CMD_SET_FILTER:
-                        $this->{$cmd}();
-                        break;
-
-                    default:
-                        break;
-                }
-                break;
-        }
     }
 
 
@@ -113,9 +83,30 @@ class LearningProgressFilterGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
+    public function executeCommand()/*: void*/
     {
+        $this->obj_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID));
 
+        $this->setTabs();
+
+        self::dic()->ctrl()->saveParameter($this, self::GET_PARAM_REF_ID);
+
+        $next_class = self::dic()->ctrl()->getNextClass($this);
+
+        switch ($next_class) {
+            default:
+                $cmd = self::dic()->ctrl()->getCmd();
+
+                switch ($cmd) {
+                    case self::CMD_SET_FILTER:
+                        $this->{$cmd}();
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+        }
     }
 
 
@@ -147,5 +138,14 @@ class LearningProgressFilterGUI
                 self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
             }
         }
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*:void*/
+    {
+
     }
 }

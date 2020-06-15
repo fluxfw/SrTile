@@ -22,8 +22,8 @@ class RecommendFormGUI extends PropertyFormGUI
 
     use SrTileTrait;
 
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const LANG_MODULE = RecommendGUI::LANG_MODULE;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var Recommend
      */

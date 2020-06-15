@@ -27,6 +27,15 @@ final class Repository
 
 
     /**
+     * Repository constructor
+     */
+    private function __construct()
+    {
+
+    }
+
+
+    /**
      * @return self
      */
     public static function getInstance() : self
@@ -36,15 +45,6 @@ final class Repository
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * Repository constructor
-     */
-    private function __construct()
-    {
-
     }
 
 
@@ -68,11 +68,20 @@ final class Repository
 
 
     /**
-     * @param ColorThiefCache $colorThiefCache
+     * @internal
      */
-    protected function deleteColorThiefCache(ColorThiefCache $colorThiefCache)/*:void*/
+    public function dropTables()/*:void*/
     {
-        $colorThiefCache->delete();
+        self::dic()->database()->dropTable(ColorThiefCache::TABLE_NAME, false);
+    }
+
+
+    /**
+     * @return Factory
+     */
+    public function factory() : Factory
+    {
+        return Factory::getInstance();
     }
 
 
@@ -104,24 +113,6 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/*:void*/
-    {
-        self::dic()->database()->dropTable(ColorThiefCache::TABLE_NAME, false);
-    }
-
-
-    /**
-     * @return Factory
-     */
-    public function factory() : Factory
-    {
-        return Factory::getInstance();
-    }
-
-
-    /**
-     * @internal
-     */
     public function installTables()/*:void*/
     {
         ColorThiefCache::updateDB();
@@ -134,5 +125,14 @@ final class Repository
     public function storeColorThiefCache(ColorThiefCache $colorThiefCache)/*:void*/
     {
         $colorThiefCache->store();
+    }
+
+
+    /**
+     * @param ColorThiefCache $colorThiefCache
+     */
+    protected function deleteColorThiefCache(ColorThiefCache $colorThiefCache)/*:void*/
+    {
+        $colorThiefCache->delete();
     }
 }
