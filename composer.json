@@ -1,6 +1,26 @@
 {
   "name": "srag/plugins/srtile",
   "description": "",
+  "version": "1.9.0",
+  "ilias_plugin": {
+    "id": "srtile",
+    "ilias_min_version": "5.4.0",
+    "ilias_max_version": "6.999",
+    "events": [
+      {
+        "id": "Services/Object",
+        "type": "listen"
+      },
+      {
+        "id": "change_title_before_render",
+        "type": "raise"
+      },
+      {
+        "id": "should_not_display_alert_message",
+        "type": "raise"
+      }
+    ]
+  },
   "type": "project",
   "keywords": [
     "ILIAS",
@@ -21,8 +41,8 @@
   },
   "require": {
     "php": ">=7.0",
-    "components/flag-icon-css": "^3.4",
-    "ksubileau/color-thief-php": "^1.4",
+    "components/flag-icon-css": "3.4.6",
+    "ksubileau/color-thief-php": "1.4.1",
     "srag/activerecordconfig": ">=0.1.0",
     "srag/custominputguis": ">=0.1.0",
     "srag/dic": ">=0.1.0",
@@ -36,6 +56,9 @@
     },
     "classmap": [
       "classes/"
+    ],
+    "files": [
+      "vendor/srag/dic/src/PHPVersionChecker.php"
     ]
   },
   "config": {
@@ -46,7 +69,9 @@
   "scripts": {
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
-      "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport"
+      "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport",
+      "srag\\LibrariesNamespaceChanger\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
+      "srag\\LibrariesNamespaceChanger\\UpdatePluginReadme::updatePluginReadme"
     ]
   }
 }

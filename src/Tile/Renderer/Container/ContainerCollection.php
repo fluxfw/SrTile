@@ -41,11 +41,11 @@ class ContainerCollection extends AbstractCollection
     {
         $obj_ref_ids = [];
 
-        preg_match_all('/\\s+id\\s*=\\s*["\']{1}lg_div_([0-9]+)/', $this->html, $obj_ref_ids);
+        preg_match_all('/\\s+(data-list-item-)?id\\s*=\\s*["\']{1}lg_div_([0-9]+)/', $this->html, $obj_ref_ids);
 
-        if (is_array($obj_ref_ids) && count($obj_ref_ids) > 1 && is_array($obj_ref_ids[1]) && count($obj_ref_ids[1]) > 0) {
+        if (is_array($obj_ref_ids) && count($obj_ref_ids) > 2 && is_array($obj_ref_ids[2]) && count($obj_ref_ids[2]) > 0) {
 
-            $this->obj_ref_ids = array_map("intval", $obj_ref_ids[1]);
+            $this->obj_ref_ids = array_map("intval", $obj_ref_ids[2]);
         }
     }
 }

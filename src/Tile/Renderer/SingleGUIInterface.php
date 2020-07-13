@@ -18,7 +18,7 @@ interface SingleGUIInterface
     /**
      * @return string
      */
-    public function render() : string;
+    public function getActionAsyncUrl() : string;
 
 
     /**
@@ -32,5 +32,5 @@ interface SingleGUIInterface
     /**
      * @return string
      */
-    public function getActionAsyncUrl() : string;
+    public function render() : string;
 }

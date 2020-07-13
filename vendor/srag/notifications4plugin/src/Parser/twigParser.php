@@ -2,8 +2,6 @@
 
 namespace srag\Notifications4Plugin\SrTile\Parser;
 
-use ilCheckboxInputGUI;
-use srag\CustomInputGUIs\SrTile\PropertyFormGUI\PropertyFormGUI;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl;
 use Twig_Environment;
 use Twig_Error;
@@ -20,8 +18,8 @@ use Twig_Loader_String;
 class twigParser extends AbstractParser
 {
 
-    const NAME = "twig";
     const DOC_LINK = "https://twig.symfony.com/doc/1.x/templates.html";
+    const NAME = "twig";
 
 
     /**
@@ -41,14 +39,18 @@ class twigParser extends AbstractParser
     public function getOptionsFields() : array
     {
         return [
-            "autoescape" => [
-                PropertyFormGUI::PROPERTY_CLASS => ilCheckboxInputGUI::class,
-                "setInfo"                       => nl2br(implode("\n", [
+            "autoescape" => self::dic()
+                ->ui()
+                ->factory()
+                ->input()
+                ->field()
+                ->checkbox(self::notifications4plugin()->getPlugin()->translate("parser_option_autoescape", NotificationsCtrl::LANG_MODULE))
+                ->withByline(nl2br(implode("\n", [
                     self::notifications4plugin()->getPlugin()->translate("parser_option_autoescape_info_1", NotificationsCtrl::LANG_MODULE, ["|raw"]),
                     self::notifications4plugin()->getPlugin()->translate("parser_option_autoescape_info_2", NotificationsCtrl::LANG_MODULE, ["|e"]),
-                    "<b>" . self::notifications4plugin()->getPlugin()->translate("parser_option_autoescape_info_3", NotificationsCtrl::LANG_MODULE) . "</b>"
-                ]), false)
-            ]
+                    "<b>" . self::notifications4plugin()->getPlugin()->translate("parser_option_autoescape_info_3", NotificationsCtrl::LANG_MODULE) . "</b>",
+                    self::notifications4plugin()->getPlugin()->translate("parser_option_autoescape_info_4", NotificationsCtrl::LANG_MODULE)
+                ]), false))
         ];
     }
 
@@ -66,6 +68,6 @@ class twigParser extends AbstractParser
             "autoescape" => boolval($options["autoescape"])
         ]);
 
-        return $twig->render($text, $placeholders);
+        return $this->fixLineBreaks($twig->render($text, $placeholders));
     }
 }

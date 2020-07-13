@@ -19,28 +19,12 @@ final class Repository
 
     use SrTileTrait;
     use DICTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self[]
      */
     protected static $instances = [];
-
-
-    /**
-     * @param ilObjUser $user
-     *
-     * @return self
-     */
-    public static function getInstance(ilObjUser $user) : self
-    {
-        if (!isset(self::$instances[$user->getId()])) {
-            self::$instances[$user->getId()] = new self($user);
-        }
-
-        return self::$instances[$user->getId()];
-    }
-
-
     /**
      * @var ilObjUser
      */
@@ -59,11 +43,30 @@ final class Repository
 
 
     /**
+     * @param ilObjUser $user
+     *
+     * @return self
+     */
+    public static function getInstance(ilObjUser $user) : self
+    {
+        if (!isset(self::$instances[$user->getId()])) {
+            self::$instances[$user->getId()] = new self($user);
+        }
+
+        return self::$instances[$user->getId()];
+    }
+
+
+    /**
      * @param int $obj_ref_id
      */
     public function addToFavorites(int $obj_ref_id)/*: void*/
     {
-        $this->user->addDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
+        if (self::version()->is6()) {
+            self::dic()->favourites()->add($this->user->getId(), $obj_ref_id);
+        } else {
+            $this->user->addDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
+        }
     }
 
 
@@ -99,7 +102,11 @@ final class Repository
      */
     public function getFavorites() : array
     {
-        $favorites = $this->user->getDesktopItems();
+        if (self::version()->is6()) {
+            $favorites = self::dic()->favourites()->getFavouritesOfUser($this->user->getId());
+        } else {
+            $favorites = $this->user->getDesktopItems();
+        }
 
         $children = array_map(function (array $favorite) : array {
             return [
@@ -124,8 +131,12 @@ final class Repository
      */
     public function hasFavorite(int $obj_ref_id) : bool
     {
-        return boolval($this->user->isDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()
-            ->lookupObjId($obj_ref_id))));
+        if (self::version()->is6()) {
+            return boolval(self::dic()->favourites()->ifIsFavourite($this->user->getId(), $obj_ref_id));
+        } else {
+            return boolval($this->user->isDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()
+                ->lookupObjId($obj_ref_id))));
+        }
     }
 
 
@@ -143,6 +154,10 @@ final class Repository
      */
     public function removeFromFavorites(int $obj_ref_id)/*: void*/
     {
-        $this->user->dropDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
+        if (self::version()->is6()) {
+            self::dic()->favourites()->remove($this->user->getId(), $obj_ref_id);
+        } else {
+            $this->user->dropDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
+        }
     }
 }

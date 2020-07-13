@@ -19,6 +19,7 @@ class LearningProgressLegendGUI
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
 
 

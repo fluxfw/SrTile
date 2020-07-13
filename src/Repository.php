@@ -38,24 +38,12 @@ final class Repository
     use Notifications4PluginTrait {
         notifications4plugin as protected _notifications4plugin;
     }
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
-
-
-    /**
-     * @return self
-     */
-    public static function getInstance() : self
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
 
 
     /**
@@ -69,6 +57,19 @@ final class Repository
             "object"  => "object " . ilObject::class,
             "user"    => "object " . ilObjUser::class
         ]);
+    }
+
+
+    /**
+     * @return self
+     */
+    public static function getInstance() : self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
 

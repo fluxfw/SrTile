@@ -23,13 +23,14 @@ class TemplateConfigGUI
 
     use DICTrait;
     use SrTileTrait;
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
     const CMD_BACK = "back";
     const CMD_CONFIRM_OVERRIDE = "confirmOverride";
     const CMD_EDIT_TEMPLATE = "editTemplate";
     const CMD_OVERRIDE = "override";
     const CMD_UPDATE_TEMPLATE = "updateTemplate";
     const GET_PARAM_OBJECT_TYPE = "object_type";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const TAB_EDIT_TEMPLATE = "edit_template";
     /**
      * @var Template
@@ -83,54 +84,9 @@ class TemplateConfigGUI
     /**
      *
      */
-    protected function setTabs()/*: void*/
-    {
-        self::dic()->tabs()->clearTargets();
-
-        self::dic()->tabs()->setBackTarget(self::plugin()->translate("templates", TemplatesConfigGUI::LANG_MODULE), self::dic()->ctrl()
-            ->getLinkTarget($this, self::CMD_BACK));
-
-        self::dic()->tabs()->addTab(self::TAB_EDIT_TEMPLATE, self::plugin()->translate("edit_template", TemplatesConfigGUI::LANG_MODULE), self::dic()->ctrl()
-            ->getLinkTarget($this, self::CMD_EDIT_TEMPLATE));
-    }
-
-
-    /**
-     *
-     */
     protected function back()/*: void*/
     {
         self::dic()->ctrl()->redirectByClass(TemplatesConfigGUI::class, TemplatesConfigGUI::CMD_LIST_TEMPLATES);
-    }
-
-
-    /**
-     *
-     */
-    protected function editTemplate()/*: void*/
-    {
-        $form = self::srTile()->templates()->factory()->newFormInstance($this, $this->template);
-
-        self::output()->output($form);
-    }
-
-
-    /**
-     *
-     */
-    protected function updateTemplate()/*: void*/
-    {
-        $form = self::srTile()->templates()->factory()->newFormInstance($this, $this->template);
-
-        if (!$form->storeForm()) {
-            self::output()->output($form);
-
-            return;
-        }
-
-        ilUtil::sendSuccess(self::plugin()->translate("saved", TileGUI::LANG_MODULE), true);
-
-        self::dic()->ctrl()->redirect($this, self::CMD_CONFIRM_OVERRIDE);
     }
 
 
@@ -155,6 +111,17 @@ class TemplateConfigGUI
     /**
      *
      */
+    protected function editTemplate()/*: void*/
+    {
+        $form = self::srTile()->templates()->factory()->newFormInstance($this, $this->template);
+
+        self::output()->output($form);
+    }
+
+
+    /**
+     *
+     */
     protected function override()/*: void*/
     {
         self::srTile()->templates()->overrideTilesWithObjectType($this->template->getObjectType());
@@ -162,5 +129,39 @@ class TemplateConfigGUI
         ilUtil::sendSuccess(self::plugin()->translate("overrided", TemplatesConfigGUI::LANG_MODULE), true);
 
         self::dic()->ctrl()->redirect($this, self::CMD_BACK);
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*: void*/
+    {
+        self::dic()->tabs()->clearTargets();
+
+        self::dic()->tabs()->setBackTarget(self::plugin()->translate("templates", TemplatesConfigGUI::LANG_MODULE), self::dic()->ctrl()
+            ->getLinkTarget($this, self::CMD_BACK));
+
+        self::dic()->tabs()->addTab(self::TAB_EDIT_TEMPLATE, self::plugin()->translate("edit_template", TemplatesConfigGUI::LANG_MODULE), self::dic()->ctrl()
+            ->getLinkTarget($this, self::CMD_EDIT_TEMPLATE));
+    }
+
+
+    /**
+     *
+     */
+    protected function updateTemplate()/*: void*/
+    {
+        $form = self::srTile()->templates()->factory()->newFormInstance($this, $this->template);
+
+        if (!$form->storeForm()) {
+            self::output()->output($form);
+
+            return;
+        }
+
+        ilUtil::sendSuccess(self::plugin()->translate("saved", TileGUI::LANG_MODULE), true);
+
+        self::dic()->ctrl()->redirect($this, self::CMD_CONFIRM_OVERRIDE);
     }
 }

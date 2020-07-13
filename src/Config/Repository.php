@@ -19,11 +19,21 @@ final class Repository extends AbstractRepository
 {
 
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
+
+
+    /**
+     * Repository constructor
+     */
+    protected function __construct()
+    {
+        parent::__construct();
+    }
 
 
     /**
@@ -36,15 +46,6 @@ final class Repository extends AbstractRepository
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * Repository constructor
-     */
-    protected function __construct()
-    {
-        parent::__construct();
     }
 
 
@@ -62,22 +63,22 @@ final class Repository extends AbstractRepository
     /**
      * @inheritDoc
      */
-    protected function getTableName() : string
+    protected function getFields() : array
     {
-        return "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_config";
+        return [
+            ConfigFormGUI::KEY_ENABLED_ON_DASHBOARD             => [Config::TYPE_BOOLEAN, true],
+            ConfigFormGUI::KEY_ENABLED_ON_REPOSITORY            => [Config::TYPE_BOOLEAN, true],
+            ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS             => [Config::TYPE_BOOLEAN, false],
+            ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT => [Config::TYPE_BOOLEAN, false]
+        ];
     }
 
 
     /**
      * @inheritDoc
      */
-    protected function getFields() : array
+    protected function getTableName() : string
     {
-        return [
-            ConfigFormGUI::KEY_ENABLED_ON_FAVORITES             => [Config::TYPE_BOOLEAN, true],
-            ConfigFormGUI::KEY_ENABLED_ON_REPOSITORY            => [Config::TYPE_BOOLEAN, true],
-            ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS             => [Config::TYPE_BOOLEAN, false],
-            ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT => [Config::TYPE_BOOLEAN, false]
-        ];
+        return "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_config";
     }
 }

@@ -19,28 +19,12 @@ final class Repository
 
     use SrTileTrait;
     use DICTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self[]
      */
     protected static $instances = [];
-
-
-    /**
-     * @param ilObjUser $user
-     *
-     * @return self
-     */
-    public static function getInstance(ilObjUser $user) : self
-    {
-        if (!isset(self::$instances[$user->getId()])) {
-            self::$instances[$user->getId()] = new self($user);
-        }
-
-        return self::$instances[$user->getId()];
-    }
-
-
     /**
      * @var ilObjUser
      */
@@ -55,6 +39,21 @@ final class Repository
     private function __construct(ilObjUser $user)
     {
         $this->user = $user;
+    }
+
+
+    /**
+     * @param ilObjUser $user
+     *
+     * @return self
+     */
+    public static function getInstance(ilObjUser $user) : self
+    {
+        if (!isset(self::$instances[$user->getId()])) {
+            self::$instances[$user->getId()] = new self($user);
+        }
+
+        return self::$instances[$user->getId()];
     }
 
 

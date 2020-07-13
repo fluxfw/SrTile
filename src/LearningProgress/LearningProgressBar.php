@@ -20,11 +20,43 @@ class LearningProgressBar
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self[]
      */
     protected static $instances = [];
+    /**
+     * @var int
+     */
+    protected $completed_objects = 0;
+    /**
+     * @var int
+     */
+    protected $obj_ref_id;
+    /**
+     * @var int
+     */
+    protected $total_objects = 1;
+    /**
+     * @var ilObjUser
+     */
+    protected $user;
+
+
+    /**
+     * LearningProgressBar constructor
+     *
+     * @param ilObjUser $user
+     * @param int       $obj_ref_id
+     */
+    private function __construct(ilObjUser $user, int $obj_ref_id)
+    {
+        $this->user = $user;
+        $this->obj_ref_id = $obj_ref_id;
+
+        $this->read();
+    }
 
 
     /**
@@ -44,35 +76,38 @@ class LearningProgressBar
 
 
     /**
-     * @var ilObjUser
+     * @return int
      */
-    protected $user;
-    /**
-     * @var int
-     */
-    protected $obj_ref_id;
-    /**
-     * @var int
-     */
-    protected $total_objects = 1;
-    /**
-     * @var int
-     */
-    protected $completed_objects = 0;
-
-
-    /**
-     * LearningProgressBar constructor
-     *
-     * @param ilObjUser $user
-     * @param int       $obj_ref_id
-     */
-    private function __construct(ilObjUser $user, int $obj_ref_id)
+    public function getCompletedObjects() : int
     {
-        $this->user = $user;
-        $this->obj_ref_id = $obj_ref_id;
+        return $this->completed_objects;
+    }
 
-        $this->read();
+
+    /**
+     * @param int $completed_objects
+     */
+    public function setCompletedObjects(int $completed_objects)
+    {
+        $this->completed_objects = $completed_objects;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getTotalObjects() : int
+    {
+        return $this->total_objects;
+    }
+
+
+    /**
+     * @param int $total_objects
+     */
+    public function setTotalObjects(int $total_objects)
+    {
+        $this->total_objects = $total_objects;
     }
 
 
@@ -96,41 +131,5 @@ class LearningProgressBar
             }
             $this->setCompletedObjects(intval($row['completed']));
         }
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getTotalObjects() : int
-    {
-        return $this->total_objects;
-    }
-
-
-    /**
-     * @param int $total_objects
-     */
-    public function setTotalObjects(int $total_objects)
-    {
-        $this->total_objects = $total_objects;
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getCompletedObjects() : int
-    {
-        return $this->completed_objects;
-    }
-
-
-    /**
-     * @param int $completed_objects
-     */
-    public function setCompletedObjects(int $completed_objects)
-    {
-        $this->completed_objects = $completed_objects;
     }
 }

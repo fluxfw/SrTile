@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Rating;
 
+use ilDashboardGUI;
 use ilLink;
 use ilPersonalDesktopGUI;
 use ilSrTilePlugin;
@@ -24,12 +25,13 @@ class RatingGUI
 
     use DICTrait;
     use SrTileTrait;
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
     const CMD_LIKE = "like";
     const CMD_UNLIKE = "unlike";
     const GET_PARAM_PARENT_REF_ID = "parent_ref_id";
     const GET_PARAM_REF_ID = "ref_id";
     const LANG_MODULE = "rating";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var int
      */
@@ -91,15 +93,6 @@ class RatingGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
-    {
-
-    }
-
-
-    /**
-     *
-     */
     protected function like()/*: void*/
     {
         self::srTile()->ratings(self::dic()->user())->like($this->tile->getObjRefId());
@@ -109,8 +102,21 @@ class RatingGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            if (self::version()->is6()) {
+                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
+            } else {
+                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            }
         }
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*:void*/
+    {
+
     }
 
 
@@ -126,7 +132,11 @@ class RatingGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            if (self::version()->is6()) {
+                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
+            } else {
+                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            }
         }
     }
 }

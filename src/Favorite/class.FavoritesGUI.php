@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\Favorite;
 
+use ilDashboardGUI;
 use ilLink;
 use ilPersonalDesktopGUI;
 use ilSrTilePlugin;
@@ -24,12 +25,13 @@ class FavoritesGUI
 
     use DICTrait;
     use SrTileTrait;
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
     const CMD_ADD_TO_FAVORITES = "addToFavorites";
     const CMD_REMOVE_FROM_FAVORITES = "removeFromFavorites";
     const GET_PARAM_PARENT_REF_ID = "parent_ref_id";
     const GET_PARAM_REF_ID = "ref_id";
     const LANG_MODULE = "favorites";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var int
      */
@@ -89,15 +91,6 @@ class FavoritesGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
-    {
-
-    }
-
-
-    /**
-     *
-     */
     protected function addToFavorites()/*: void*/
     {
         self::srTile()->favorites(self::dic()->user())->addToFavorites($this->tile->getObjRefId());
@@ -107,7 +100,11 @@ class FavoritesGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            if (self::version()->is6()) {
+                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
+            } else {
+                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            }
         }
     }
 
@@ -124,7 +121,20 @@ class FavoritesGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            if (self::version()->is6()) {
+                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
+            } else {
+                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            }
         }
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*:void*/
+    {
+
     }
 }

@@ -3,13 +3,11 @@
 namespace srag\CustomInputGUIs\SrTile;
 
 use ILIAS\Data\Color;
-use ILIAS\UI\Implementation\Component\Chart\ProgressMeter\Factory as ProgressMeterFactoryCore;
 use srag\CustomInputGUIs\SrTile\LearningProgressPieUI\LearningProgressPieUI;
 use srag\CustomInputGUIs\SrTile\PieChart\Component\PieChart as PieChartInterface;
 use srag\CustomInputGUIs\SrTile\PieChart\Component\PieChartItem as PieChartItemInterface;
 use srag\CustomInputGUIs\SrTile\PieChart\Implementation\PieChart;
 use srag\CustomInputGUIs\SrTile\PieChart\Implementation\PieChartItem;
-use srag\CustomInputGUIs\SrTile\ProgressMeter\Implementation\Factory as ProgressMeterFactory;
 use srag\CustomInputGUIs\SrTile\ViewControlModeUI\ViewControlModeUI;
 use srag\DIC\SrTile\DICTrait;
 
@@ -29,23 +27,11 @@ final class CustomInputGUIs
 {
 
     use DICTrait;
+
     /**
      * @var self|null
      */
     protected static $instance = null;
-
-
-    /**
-     * @return self
-     */
-    public static function getInstance()/*: self*/
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
 
 
     /**
@@ -58,9 +44,22 @@ final class CustomInputGUIs
 
 
     /**
+     * @return self
+     */
+    public static function getInstance() : self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+
+    /**
      * @return LearningProgressPieUI
      */
-    public function learningProgressPie()
+    public function learningProgressPie() : LearningProgressPieUI
     {
         return new LearningProgressPieUI();
     }
@@ -75,7 +74,7 @@ final class CustomInputGUIs
      */
     public function pieChart(array $pieChartItems)
     {
-        /*if (self::version()->is60()) {
+        /*if (self::version()->is6()) {
             return new PieChartCore($pieChartItems);
         } else {*/
         return new PieChart($pieChartItems);
@@ -95,7 +94,7 @@ final class CustomInputGUIs
      */
     public function pieChartItem(string $name, float $value, Color $color, /*?*/ Color $textColor = null)
     {
-        /*if (self::version()->is60()) {
+        /*if (self::version()->is6()) {
             return new PieChartItemCore($name, $value, $color, $textColor);
         } else {*/
         return new PieChartItem($name, $value, $color, $textColor);
@@ -104,24 +103,9 @@ final class CustomInputGUIs
 
 
     /**
-     * @return ProgressMeterFactoryCore|ProgressMeterFactory
-     *
-     * @since ILIAS 5.4
-     */
-    public function progressMeter()
-    {
-        if (self::version()->is54()) {
-            return new ProgressMeterFactoryCore();
-        } else {
-            return new ProgressMeterFactory();
-        }
-    }
-
-
-    /**
      * @return ViewControlModeUI
      */
-    public function viewControlMode()
+    public function viewControlMode() : ViewControlModeUI
     {
         return new ViewControlModeUI();
     }

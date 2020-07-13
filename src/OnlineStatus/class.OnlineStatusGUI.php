@@ -2,6 +2,7 @@
 
 namespace srag\Plugins\SrTile\OnlineStatus;
 
+use ilDashboardGUI;
 use ilLink;
 use ilPersonalDesktopGUI;
 use ilSrTilePlugin;
@@ -25,20 +26,21 @@ class OnlineStatusGUI
 
     use DICTrait;
     use SrTileTrait;
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
     const CMD_SET_OFFLINE = "setOffline";
     const CMD_SET_ONLINE = "setOnline";
     const GET_PARAM_PARENT_REF_ID = "parent_ref_id";
     const GET_PARAM_REF_ID = "ref_id";
     const LANG_MODULE = "onlinestatus";
-    /**
-     * @var int
-     */
-    protected $parent_ref_id;
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var int[]
      */
     protected $object_ref_ids = [];
+    /**
+     * @var int
+     */
+    protected $parent_ref_id;
 
 
     /**
@@ -96,15 +98,6 @@ class OnlineStatusGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
-    {
-
-    }
-
-
-    /**
-     *
-     */
     protected function setOffline()/*: void*/
     {
         if (!empty($this->object_ref_ids)) {
@@ -118,7 +111,11 @@ class OnlineStatusGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            if (self::version()->is6()) {
+                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
+            } else {
+                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            }
         }
     }
 
@@ -139,7 +136,20 @@ class OnlineStatusGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            if (self::version()->is6()) {
+                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
+            } else {
+                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
+            }
         }
+    }
+
+
+    /**
+     *
+     */
+    protected function setTabs()/*:void*/
+    {
+
     }
 }

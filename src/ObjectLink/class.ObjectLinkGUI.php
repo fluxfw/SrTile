@@ -21,7 +21,7 @@ class ObjectLinkGUI
 
     use DICTrait;
     use SrTileTrait;
-    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
+
     const CMD_ADD_OBJECT_LINK = "addObjectLink";
     const CMD_BACK = "back";
     const CMD_CREATE_OBJECT_LINK = "createObjectLink";
@@ -29,15 +29,16 @@ class ObjectLinkGUI
     const CMD_MOVE_OBJECT_LINK_UP = "moveObjectLinkUp";
     const CMD_REMOVE_OBJECT_LINK = "removeObjectLink";
     const GET_PARAM_OBJ_REF_ID = "obj_ref_id";
+    const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     const TAB_EDIT_OBJECT_LINK = "edit_object_link";
-    /**
-     * @var ObjectLinksGUI
-     */
-    protected $parent;
     /**
      * @var ObjectLink
      */
     protected $object_link;
+    /**
+     * @var ObjectLinksGUI
+     */
+    protected $parent;
 
 
     /**
@@ -85,22 +86,22 @@ class ObjectLinkGUI
 
 
     /**
+     * @return ObjectLinksGUI
+     */
+    public function getParent() : ObjectLinksGUI
+    {
+        return $this->parent;
+    }
+
+
+    /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function addObjectLink()/*: void*/
     {
-        self::dic()->tabs()->clearTargets();
+        $form = self::srTile()->objectLinks()->factory()->newFormInstance($this, $this->object_link);
 
-        self::dic()->tabs()->setBackTarget(self::plugin()->translate("object_links", ObjectLinksGUI::LANG_MODULE), self::dic()->ctrl()
-            ->getLinkTarget($this, self::CMD_BACK));
-
-        if ($this->object_link === null) {
-            $this->object_link = self::srTile()->objectLinks()->factory()->newObjectLinkInstance();
-            $this->object_link->setGroupId($this->parent->getGroup()->getGroupId());
-
-            self::dic()->tabs()->addTab(self::TAB_EDIT_OBJECT_LINK, self::plugin()->translate("add_object_link", ObjectLinksGUI::LANG_MODULE), self::dic()->ctrl()
-                ->getLinkTarget($this, self::CMD_ADD_OBJECT_LINK));
-        }
+        self::output()->output($form, true);
     }
 
 
@@ -110,6 +111,25 @@ class ObjectLinkGUI
     protected function back()/*: void*/
     {
         self::dic()->ctrl()->redirectByClass(ObjectLinksGUI::class, ObjectLinksGUI::CMD_LIST_OBJECT_LINKS);
+    }
+
+
+    /**
+     *
+     */
+    protected function createObjectLink()/*: void*/
+    {
+        $form = self::srTile()->objectLinks()->factory()->newFormInstance($this, $this->object_link);
+
+        if (!$form->storeForm()) {
+            self::output()->output($form, true);
+
+            return;
+        }
+
+        ilUtil::sendSuccess(self::plugin()->translate("added_object_link", ObjectLinksGUI::LANG_MODULE), true);
+
+        self::dic()->ctrl()->redirect($this, self::CMD_BACK);
     }
 
 
@@ -138,36 +158,6 @@ class ObjectLinkGUI
     /**
      *
      */
-    protected function addObjectLink()/*: void*/
-    {
-        $form = self::srTile()->objectLinks()->factory()->newFormInstance($this, $this->object_link);
-
-        self::output()->output($form, true);
-    }
-
-
-    /**
-     *
-     */
-    protected function createObjectLink()/*: void*/
-    {
-        $form = self::srTile()->objectLinks()->factory()->newFormInstance($this, $this->object_link);
-
-        if (!$form->storeForm()) {
-            self::output()->output($form, true);
-
-            return;
-        }
-
-        ilUtil::sendSuccess(self::plugin()->translate("added_object_link", ObjectLinksGUI::LANG_MODULE), true);
-
-        self::dic()->ctrl()->redirect($this, self::CMD_BACK);
-    }
-
-
-    /**
-     *
-     */
     protected function removeObjectLink()/*: void*/
     {
         if ($this->object_link->getObjRefId() !== $this->parent->getParent()->getTile()->getObjRefId()) {
@@ -181,10 +171,21 @@ class ObjectLinkGUI
 
 
     /**
-     * @return ObjectLinksGUI
+     *
      */
-    public function getParent() : ObjectLinksGUI
+    protected function setTabs()/*: void*/
     {
-        return $this->parent;
+        self::dic()->tabs()->clearTargets();
+
+        self::dic()->tabs()->setBackTarget(self::plugin()->translate("object_links", ObjectLinksGUI::LANG_MODULE), self::dic()->ctrl()
+            ->getLinkTarget($this, self::CMD_BACK));
+
+        if ($this->object_link === null) {
+            $this->object_link = self::srTile()->objectLinks()->factory()->newObjectLinkInstance();
+            $this->object_link->setGroupId($this->parent->getGroup()->getGroupId());
+
+            self::dic()->tabs()->addTab(self::TAB_EDIT_OBJECT_LINK, self::plugin()->translate("add_object_link", ObjectLinksGUI::LANG_MODULE), self::dic()->ctrl()
+                ->getLinkTarget($this, self::CMD_ADD_OBJECT_LINK));
+        }
     }
 }

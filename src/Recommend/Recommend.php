@@ -20,19 +20,20 @@ class Recommend
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
-     * @var Tile
+     * @var string
      */
-    protected $tile;
+    protected $message = "";
     /**
      * @var string
      */
     protected $recommended_to = "";
     /**
-     * @var string
+     * @var Tile
      */
-    protected $message = "";
+    protected $tile;
 
 
     /**
@@ -41,6 +42,60 @@ class Recommend
     public function __construct(Tile $tile)
     {
         $this->tile = $tile;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getLink() : string
+    {
+        return $this->tile->_getAdvancedLink(true);
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getMessage() : string
+    {
+        return $this->message;
+    }
+
+
+    /**
+     * @param string $message
+     */
+    public function setMessage(string $message)/*: void*/
+    {
+        $this->message = $message;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getRecommendedTo() : string
+    {
+        return $this->recommended_to;
+    }
+
+
+    /**
+     * @param string $recommended_to
+     */
+    public function setRecommendedTo(string $recommended_to)/*: void*/
+    {
+        $this->recommended_to = $recommended_to;
+    }
+
+
+    /**
+     * @return Tile
+     */
+    public function getTile() : Tile
+    {
+        return $this->tile;
     }
 
 
@@ -69,59 +124,5 @@ class Recommend
         } catch (Throwable $ex) {
             return false;
         }
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getLink() : string
-    {
-        return $this->tile->_getAdvancedLink(true);
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getRecommendedTo() : string
-    {
-        return $this->recommended_to;
-    }
-
-
-    /**
-     * @param string $recommended_to
-     */
-    public function setRecommendedTo(string $recommended_to)/*: void*/
-    {
-        $this->recommended_to = $recommended_to;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getMessage() : string
-    {
-        return $this->message;
-    }
-
-
-    /**
-     * @param string $message
-     */
-    public function setMessage(string $message)/*: void*/
-    {
-        $this->message = $message;
-    }
-
-
-    /**
-     * @return Tile
-     */
-    public function getTile() : Tile
-    {
-        return $this->tile;
     }
 }

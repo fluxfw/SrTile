@@ -21,24 +21,12 @@ final class Repository
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
-
-
-    /**
-     * @return self
-     */
-    public static function getInstance() : self
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
 
 
     /**
@@ -51,15 +39,15 @@ final class Repository
 
 
     /**
-     * @param Group $group
+     * @return self
      */
-    protected function deleteGroup(Group $group)/*:void*/
+    public static function getInstance() : self
     {
-        $group->delete();
-
-        foreach ($this->getObjectLinks($group->getGroupId()) as $object_link) {
-            $this->deleteObjectLink($object_link);
+        if (self::$instance === null) {
+            self::$instance = new self();
         }
+
+        return self::$instance;
     }
 
 
@@ -92,25 +80,6 @@ final class Repository
 
 
     /**
-     * @param int $group_id
-     *
-     * @return Group|null
-     */
-    protected function getGroupById(int $group_id)/*:?Group*/
-    {
-        /**
-         * @var Group|null $group
-         */
-
-        $group = Group::where([
-            "group_id" => $group_id
-        ])->first();
-
-        return $group;
-    }
-
-
-    /**
      * @param int $obj_ref_id
      *
      * @return Group
@@ -132,25 +101,6 @@ final class Repository
         $this->storeObjectLink($object_link);
 
         return $group;
-    }
-
-
-    /**
-     * @param int $obj_ref_id
-     *
-     * @return ObjectLink|null
-     */
-    protected function getObjectLinkByObjRefId(int $obj_ref_id)/*:?ObjectLink*/
-    {
-        /**
-         * @var ObjectLink|null $object_link
-         */
-
-        $object_link = ObjectLink::where([
-            "obj_ref_id" => $obj_ref_id
-        ])->first();
-
-        return $object_link;
     }
 
 
@@ -196,7 +146,7 @@ final class Repository
      */
     public function getSelectableObjects(int $group_id, int $obj_ref_id) : array
     {
-        return array_reduce(array_filter(self::dic()->tree()->getChildsByType(self::dic()->tree()->getParentId($obj_ref_id),
+        return array_reduce(array_filter(self::dic()->repositoryTree()->getChildsByType(self::dic()->repositoryTree()->getParentId($obj_ref_id),
             self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id))), function (array $child) use ($group_id): bool {
             return ($this->getObjectLink($group_id, $child["child"]) === null);
         }), function (array $childs, array $child) : array {
@@ -261,19 +211,6 @@ final class Repository
     /**
      * @param ObjectLink $object_link
      */
-    public function moveObjectLinkUp(ObjectLink $object_link)/*: void*/
-    {
-        $object_link->setSort($object_link->getSort() - 15);
-
-        $this->storeObjectLink($object_link);
-
-        $this->reSortObjectLinks($object_link->getGroupId());
-    }
-
-
-    /**
-     * @param ObjectLink $object_link
-     */
     public function moveObjectLinkDown(ObjectLink $object_link)/*: void*/
     {
         $object_link->setSort($object_link->getSort() + 15);
@@ -285,20 +222,15 @@ final class Repository
 
 
     /**
-     * @param int $group_id
+     * @param ObjectLink $object_link
      */
-    protected function reSortObjectLinks(int $group_id)/*: void*/
+    public function moveObjectLinkUp(ObjectLink $object_link)/*: void*/
     {
-        $object_links = $this->getObjectLinks($group_id);
+        $object_link->setSort($object_link->getSort() - 15);
 
-        $i = 1;
-        foreach ($object_links as $object_link) {
-            $object_link->setSort($i * 10);
+        $this->storeObjectLink($object_link);
 
-            $this->storeObjectLink($object_link);
-
-            $i++;
-        }
+        $this->reSortObjectLinks($object_link->getGroupId());
     }
 
 
@@ -337,15 +269,6 @@ final class Repository
 
 
     /**
-     * @param Group $group
-     */
-    protected function storeGroup(Group $group)/*:void*/
-    {
-        $group->store();
-    }
-
-
-    /**
      * @param ObjectLink $object_link
      * @param bool       $merge
      */
@@ -376,5 +299,83 @@ final class Repository
         }
 
         $object_link->store();
+    }
+
+
+    /**
+     * @param Group $group
+     */
+    protected function deleteGroup(Group $group)/*:void*/
+    {
+        $group->delete();
+
+        foreach ($this->getObjectLinks($group->getGroupId()) as $object_link) {
+            $this->deleteObjectLink($object_link);
+        }
+    }
+
+
+    /**
+     * @param int $group_id
+     *
+     * @return Group|null
+     */
+    protected function getGroupById(int $group_id)/*:?Group*/
+    {
+        /**
+         * @var Group|null $group
+         */
+
+        $group = Group::where([
+            "group_id" => $group_id
+        ])->first();
+
+        return $group;
+    }
+
+
+    /**
+     * @param int $obj_ref_id
+     *
+     * @return ObjectLink|null
+     */
+    protected function getObjectLinkByObjRefId(int $obj_ref_id)/*:?ObjectLink*/
+    {
+        /**
+         * @var ObjectLink|null $object_link
+         */
+
+        $object_link = ObjectLink::where([
+            "obj_ref_id" => $obj_ref_id
+        ])->first();
+
+        return $object_link;
+    }
+
+
+    /**
+     * @param int $group_id
+     */
+    protected function reSortObjectLinks(int $group_id)/*: void*/
+    {
+        $object_links = $this->getObjectLinks($group_id);
+
+        $i = 1;
+        foreach ($object_links as $object_link) {
+            $object_link->setSort($i * 10);
+
+            $this->storeObjectLink($object_link);
+
+            $i++;
+        }
+    }
+
+
+    /**
+     * @param Group $group
+     */
+    protected function storeGroup(Group $group)/*:void*/
+    {
+        $group->store();
     }
 }

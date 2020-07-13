@@ -20,30 +20,18 @@ class Rating extends ActiveRecord
 
     use DICTrait;
     use SrTileTrait;
-    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_rating";
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-
-
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_rating";
     /**
-     * @inheritDoc
-     */
-    public function getConnectorContainerName() : string
-    {
-        return static::TABLE_NAME;
-    }
-
-
-    /**
-     * @inheritDoc
+     * @var int
      *
-     * @deprecated
+     * @con_has_field   true
+     * @con_fieldtype   integer
+     * @con_length      8
+     * @con_is_notnull  true
      */
-    public static function returnDbTableName() : string
-    {
-        return self::TABLE_NAME;
-    }
-
-
+    protected $obj_id;
     /**
      * @var int
      *
@@ -55,15 +43,6 @@ class Rating extends ActiveRecord
      * @con_sequence     true
      */
     protected $rating_id;
-    /**
-     * @var int
-     *
-     * @con_has_field   true
-     * @con_fieldtype   integer
-     * @con_length      8
-     * @con_is_notnull  true
-     */
-    protected $obj_id;
     /**
      * @var int
      *
@@ -91,50 +70,21 @@ class Rating extends ActiveRecord
 
     /**
      * @inheritDoc
+     *
+     * @deprecated
      */
-    public function sleep(/*string*/ $field_name)
+    public static function returnDbTableName() : string
     {
-        $field_value = $this->{$field_name};
-
-        switch ($field_name) {
-            default:
-                return null;
-        }
+        return self::TABLE_NAME;
     }
 
 
     /**
      * @inheritDoc
      */
-    public function wakeUp(/*string*/ $field_name, $field_value)
+    public function getConnectorContainerName() : string
     {
-        switch ($field_name) {
-            case "obj_id":
-            case "rating_id":
-            case "user_id":
-                return intval($field_value);
-
-            default:
-                return null;
-        }
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getRatingId() : int
-    {
-        return $this->rating_id;
-    }
-
-
-    /**
-     * @param int $rating_id
-     */
-    public function setRatingId(int $rating_id)/*: void*/
-    {
-        $this->rating_id = $rating_id;
+        return static::TABLE_NAME;
     }
 
 
@@ -159,6 +109,24 @@ class Rating extends ActiveRecord
     /**
      * @return int
      */
+    public function getRatingId() : int
+    {
+        return $this->rating_id;
+    }
+
+
+    /**
+     * @param int $rating_id
+     */
+    public function setRatingId(int $rating_id)/*: void*/
+    {
+        $this->rating_id = $rating_id;
+    }
+
+
+    /**
+     * @return int
+     */
     public function getUserId() : int
     {
         return $this->user_id;
@@ -171,5 +139,36 @@ class Rating extends ActiveRecord
     public function setUserId(int $user_id)/*: void*/
     {
         $this->user_id = $user_id;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function sleep(/*string*/ $field_name)
+    {
+        $field_value = $this->{$field_name};
+
+        switch ($field_name) {
+            default:
+                return parent::sleep($field_name);
+        }
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function wakeUp(/*string*/ $field_name, $field_value)
+    {
+        switch ($field_name) {
+            case "obj_id":
+            case "rating_id":
+            case "user_id":
+                return intval($field_value);
+
+            default:
+                return parent::wakeUp($field_name, $field_value);
+        }
     }
 }

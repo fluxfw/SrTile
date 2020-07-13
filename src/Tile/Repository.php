@@ -25,26 +25,12 @@ final class Repository
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
-
-
-    /**
-     * @return self
-     */
-    public static function getInstance() : self
-    {
-        if (self::$instance === null) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
-    }
-
-
     /**
      * @var Tile[]
      *
@@ -52,17 +38,17 @@ final class Repository
      */
     protected static $instances_by_ref_id = [];
     /**
-     * @var Tile[]
-     *
-     * @deprecated
-     */
-    protected static $parent_tile_cache = [];
-    /**
      * @var bool[]
      *
      * @deprecated
      */
     protected static $is_object_cache = [];
+    /**
+     * @var Tile[]
+     *
+     * @deprecated
+     */
+    protected static $parent_tile_cache = [];
     /**
      * @var array
      */
@@ -75,6 +61,19 @@ final class Repository
     private function __construct()
     {
 
+    }
+
+
+    /**
+     * @return self
+     */
+    public static function getInstance() : self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
 
@@ -129,7 +128,7 @@ final class Repository
                 }
 
                 foreach ($this->clone_tile_cache[$org_object_link->getObjRefId()] as $clone_old_obj_ref_id) {
-                    if (self::dic()->tree()->getParentId($clone_old_obj_ref_id) !== self::dic()->tree()->getParentId($clone_obj_ref_id)) {
+                    if (self::dic()->repositoryTree()->getParentId($clone_old_obj_ref_id) !== self::dic()->repositoryTree()->getParentId($clone_obj_ref_id)) {
                         continue;
                     }
 
@@ -165,15 +164,6 @@ final class Repository
     public function factory() : Factory
     {
         return Factory::getInstance();
-    }
-
-
-    /**
-     * @return Tile[]
-     */
-    public function getTiles() : array
-    {
-        return Tile::get();
     }
 
 
@@ -235,7 +225,7 @@ final class Repository
     {
         if (!isset(self::$parent_tile_cache[$tile->getObjRefId()])) {
             try {
-                self::$parent_tile_cache[$tile->getObjRefId()] = $this->getInstanceForObjRefId(self::dic()->tree()
+                self::$parent_tile_cache[$tile->getObjRefId()] = $this->getInstanceForObjRefId(self::dic()->repositoryTree()
                     ->getParentId($tile->getObjRefId()));
             } catch (Throwable $ex) {
                 // Fix No node_id given!
@@ -244,6 +234,15 @@ final class Repository
         }
 
         return self::$parent_tile_cache[$tile->getObjRefId()];
+    }
+
+
+    /**
+     * @return Tile[]
+     */
+    public function getTiles() : array
+    {
+        return Tile::get();
     }
 
 

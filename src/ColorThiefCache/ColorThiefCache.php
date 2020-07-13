@@ -20,30 +20,17 @@ class ColorThiefCache extends ActiveRecord
 
     use DICTrait;
     use SrTileTrait;
-    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_c_t_c";
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-
-
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_c_t_c";
     /**
-     * @inheritDoc
-     */
-    public function getConnectorContainerName() : string
-    {
-        return static::TABLE_NAME;
-    }
-
-
-    /**
-     * @inheritDoc
+     * @var string
      *
-     * @deprecated
+     * @con_has_field   true
+     * @con_fieldtype   text
+     * @con_is_notnull  true
      */
-    public static function returnDbTableName() : string
-    {
-        return self::TABLE_NAME;
-    }
-
-
+    protected $color = "";
     /**
      * @var string
      *
@@ -54,14 +41,6 @@ class ColorThiefCache extends ActiveRecord
      * @con_is_primary   true
      */
     protected $image_path = "";
-    /**
-     * @var string
-     *
-     * @con_has_field   true
-     * @con_fieldtype   text
-     * @con_is_notnull  true
-     */
-    protected $color = "";
 
 
     /**
@@ -80,27 +59,39 @@ class ColorThiefCache extends ActiveRecord
 
     /**
      * @inheritDoc
+     *
+     * @deprecated
      */
-    public function sleep(/*string*/ $field_name)
+    public static function returnDbTableName() : string
     {
-        $field_value = $this->{$field_name};
+        return self::TABLE_NAME;
+    }
 
-        switch ($field_name) {
-            default:
-                return null;
-        }
+
+    /**
+     * @return string
+     */
+    public function getColor() : string
+    {
+        return $this->color;
+    }
+
+
+    /**
+     * @param string $color
+     */
+    public function setColor(string $color)/*: void*/
+    {
+        $this->color = $color;
     }
 
 
     /**
      * @inheritDoc
      */
-    public function wakeUp(/*string*/ $field_name, $field_value)
+    public function getConnectorContainerName() : string
     {
-        switch ($field_name) {
-            default:
-                return null;
-        }
+        return static::TABLE_NAME;
     }
 
 
@@ -123,19 +114,27 @@ class ColorThiefCache extends ActiveRecord
 
 
     /**
-     * @return string
+     * @inheritDoc
      */
-    public function getColor() : string
+    public function sleep(/*string*/ $field_name)
     {
-        return $this->color;
+        $field_value = $this->{$field_name};
+
+        switch ($field_name) {
+            default:
+                return parent::sleep($field_name);
+        }
     }
 
 
     /**
-     * @param string $color
+     * @inheritDoc
      */
-    public function setColor(string $color)/*: void*/
+    public function wakeUp(/*string*/ $field_name, $field_value)
     {
-        $this->color = $color;
+        switch ($field_name) {
+            default:
+                return parent::wakeUp($field_name, $field_value);
+        }
     }
 }

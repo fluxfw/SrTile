@@ -20,30 +20,9 @@ class Group extends ActiveRecord
 
     use DICTrait;
     use SrTileTrait;
-    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_oblngr";
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-
-
-    /**
-     * @inheritDoc
-     */
-    public function getConnectorContainerName() : string
-    {
-        return self::TABLE_NAME;
-    }
-
-
-    /**
-     * @inheritDoc
-     *
-     * @deprecated
-     */
-    public static function returnDbTableName() : string
-    {
-        return self::TABLE_NAME;
-    }
-
-
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_oblngr";
     /**
      * @var int
      *
@@ -66,6 +45,26 @@ class Group extends ActiveRecord
     public function __construct(/*int*/ $primary_key_value = 0, arConnector $connector = null)
     {
         parent::__construct($primary_key_value, $connector);
+    }
+
+
+    /**
+     * @inheritDoc
+     *
+     * @deprecated
+     */
+    public static function returnDbTableName() : string
+    {
+        return self::TABLE_NAME;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getConnectorContainerName() : string
+    {
+        return self::TABLE_NAME;
     }
 
 

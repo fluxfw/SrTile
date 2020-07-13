@@ -18,11 +18,21 @@ final class Repository
 
     use SrTileTrait;
     use DICTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
+
+
+    /**
+     * Repository constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
     /**
@@ -35,15 +45,6 @@ final class Repository
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * Repository constructor
-     */
-    private function __construct()
-    {
-
     }
 
 

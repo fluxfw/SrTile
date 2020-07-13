@@ -18,11 +18,21 @@ final class Factory
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
+
+
+    /**
+     * Factory constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
     /**
@@ -35,14 +45,5 @@ final class Factory
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * Factory constructor
-     */
-    private function __construct()
-    {
-
     }
 }

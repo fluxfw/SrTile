@@ -18,10 +18,20 @@ final class Repository implements RepositoryInterface
 
     use DICTrait;
     use Notifications4PluginTrait;
+
     /**
      * @var RepositoryInterface|null
      */
     protected static $instance = null;
+
+
+    /**
+     * Repository constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
     /**
@@ -34,15 +44,6 @@ final class Repository implements RepositoryInterface
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * Repository constructor
-     */
-    private function __construct()
-    {
-
     }
 
 

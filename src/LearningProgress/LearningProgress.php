@@ -23,36 +23,20 @@ class LearningProgress
 
     use SrTileTrait;
     use DICTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-    /**
-     * @var self[]
-     */
-    protected static $instances = [];
-
-
-    /**
-     * @param ilObjUser $user
-     *
-     * @return self
-     */
-    public static function getInstance(ilObjUser $user) : self
-    {
-        if (!isset(self::$instances[$user->getId()])) {
-            self::$instances[$user->getId()] = new self($user);
-        }
-
-        return self::$instances[$user->getId()];
-    }
-
-
-    /**
-     * @var int[]
-     */
-    protected static $status_cache = [];
     /**
      * @var bool[]
      */
     protected static $has_learning_progress = [];
+    /**
+     * @var self[]
+     */
+    protected static $instances = [];
+    /**
+     * @var int[]
+     */
+    protected static $status_cache = [];
     /**
      * @var ilObjUser
      */
@@ -67,6 +51,21 @@ class LearningProgress
     private function __construct(ilObjUser $user)
     {
         $this->user = $user;
+    }
+
+
+    /**
+     * @param ilObjUser $user
+     *
+     * @return self
+     */
+    public static function getInstance(ilObjUser $user) : self
+    {
+        if (!isset(self::$instances[$user->getId()])) {
+            self::$instances[$user->getId()] = new self($user);
+        }
+
+        return self::$instances[$user->getId()];
     }
 
 

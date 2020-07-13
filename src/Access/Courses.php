@@ -19,11 +19,21 @@ final class Courses
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
+
+
+    /**
+     * Courses constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
     /**
@@ -40,15 +50,6 @@ final class Courses
 
 
     /**
-     * Courses constructor
-     */
-    private function __construct()
-    {
-
-    }
-
-
-    /**
      * @param int $obj_ref_id
      *
      * @return array
@@ -57,10 +58,6 @@ final class Courses
     {
         return array_map(function (array $precondition) : int {
             return intval($precondition["trigger_ref_id"]);
-        }, self::version()->is54()
-            ? ilConditionHandler::_getPersistedConditionsOfTarget($obj_ref_id, self::dic()->objDataCache()
-                ->lookupObjId($obj_ref_id))
-            : ilConditionHandler::_getConditionsOfTarget($obj_ref_id, self::dic()->objDataCache()
-                ->lookupObjId($obj_ref_id)));
+        }, ilConditionHandler::_getPersistedConditionsOfTarget($obj_ref_id, self::dic()->objDataCache()->lookupObjId($obj_ref_id));
     }
 }

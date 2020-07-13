@@ -38,6 +38,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
     use DICTrait;
     use SrTileTrait;
     use CustomInputGUIsTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var Tile
@@ -53,6 +54,54 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
     public function __construct(Tile $tile)
     {
         $this->tile = $tile;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getActionAsyncUrl() : string
+    {
+        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, (ilSrTileUIHookGUI::filterRefId() ?: 1));
+        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", $this->tile->getObjRefId());
+
+        if (!empty(ilSrTileUIHookGUI::filterRefId())) {
+            self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_RENDER_EDIT_TILE_ACTION, 1);
+        }
+
+        $async_url = self::dic()->ctrl()->getLinkTargetByClass([
+            ilRepositoryGUI::class,
+            ilObjRootFolderGUI::class
+        ], "getAsynchItemList", "", true, false);
+
+        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, null);
+        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", null);
+        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_RENDER_EDIT_TILE_ACTION, null);
+
+        return $async_url;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getActions(array $object_links = []) : string
+    {
+        if (self::dic()->ctrl()->isAsynch()) {
+            // Hide because not work for asynch asynch load (Preconditions) - Some missing javascript int call on asynch
+            return "";
+        }
+
+        $advanced_selection_list = new ilAdvancedSelectionListGUI();
+        $advanced_selection_list->setAsynch(true);
+        $advanced_selection_list->setId("act_" . $this->tile->getObjRefId() . "_tile_" . $this->tile->getTileId());
+        $advanced_selection_list->setAsynchUrl($this->getActionAsyncUrl());
+
+        if (!empty($object_links)) {
+            $advanced_selection_list->setListTitle(self::plugin()->translate("actions", TileGUI::LANG_MODULE));
+        }
+
+        return self::output()->getHTML($advanced_selection_list);
     }
 
 
@@ -115,11 +164,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
             if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS_ONCE_SELECT)) {
                 if (!self::srTile()->access()->hasWriteAccess($this->tile->getObjRefId())) {
                     $message = self::plugin()->translate("can_not_be_changed_anymore", ObjectLinksGUI::LANG_MODULE);
-                    if (self::version()->is54()) {
-                        $message = self::dic()->ui()->factory()->messageBox()->info($message);
-                    } else {
-                        $message = self::dic()->ui()->factory()->legacy(self::dic()->ui()->mainTemplate()->getMessageHTML($message, "info"));
-                    }
+                    $message = self::dic()->ui()->factory()->messageBox()->info($message);
 
                     array_unshift($items, $message);
                 }
@@ -284,7 +329,11 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
 
                         $tpl_learning_progress = self::plugin()->template("LearningProgress/learning_progress.html");
 
-                        $tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::customInputGUIs()->progressMeter()
+                        $tpl_learning_progress->setVariable("LEARNING_PROGRESS", self::output()->getHTML(self::dic()
+                            ->ui()
+                            ->factory()
+                            ->chart()
+                            ->progressMeter()
                             ->mini($learning_progress_bar->getTotalObjects(), $learning_progress_bar->getCompletedObjects())));
 
                         $tpl_learning_progress->setVariableEscaped("LEARNING_PROGRESS_POSITION", $this->tile->getLearningProgressPosition());
@@ -393,53 +442,5 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         $tpl->parseCurrentBlock();
 
         return self::output()->getHTML($tpl);
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function getActions(array $object_links = []) : string
-    {
-        if (self::dic()->ctrl()->isAsynch()) {
-            // Hide because not work for asynch asynch load (Preconditions) - Some missing javascript int call on asynch
-            return "";
-        }
-
-        $advanced_selection_list = new ilAdvancedSelectionListGUI();
-        $advanced_selection_list->setAsynch(true);
-        $advanced_selection_list->setId("act_" . $this->tile->getObjRefId() . "_tile_" . $this->tile->getTileId());
-        $advanced_selection_list->setAsynchUrl($this->getActionAsyncUrl());
-
-        if (!empty($object_links)) {
-            $advanced_selection_list->setListTitle(self::plugin()->translate("actions", TileGUI::LANG_MODULE));
-        }
-
-        return self::output()->getHTML($advanced_selection_list);
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function getActionAsyncUrl() : string
-    {
-        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, (ilSrTileUIHookGUI::filterRefId() ?: 1));
-        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", $this->tile->getObjRefId());
-
-        if (!empty(ilSrTileUIHookGUI::filterRefId())) {
-            self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_RENDER_EDIT_TILE_ACTION, 1);
-        }
-
-        $async_url = self::dic()->ctrl()->getLinkTargetByClass([
-            ilRepositoryGUI::class,
-            ilObjRootFolderGUI::class
-        ], "getAsynchItemList", "", true, false);
-
-        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, null);
-        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, "cmdrefid", null);
-        self::dic()->ctrl()->setParameterByClass(ilObjRootFolderGUI::class, ilSrTileUIHookGUI::GET_RENDER_EDIT_TILE_ACTION, null);
-
-        return $async_url;
     }
 }

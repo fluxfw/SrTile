@@ -1,6 +1,6 @@
 config_configuration#:#Configuration
 config_configuration_saved#:#Configuration saved
-config_enabled_on_favorites#:#Enabled on favorites
+config_enabled_on_favorites#:#Enabled on dashboard
 config_enabled_object_links#:#Enable object links
 config_enabled_object_links_once_select#:#User can only select once
 config_enabled_on_repository#:#Enabled on repository

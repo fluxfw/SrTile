@@ -14,13 +14,13 @@ interface CollectionGUIInterface
 {
 
     /**
-     * @return string
-     */
-    public function render() : string;
-
-
-    /**
      *
      */
     public function hideOriginalRowsOfTiles() /*: void*/ ;
+
+
+    /**
+     * @return string
+     */
+    public function render() : string;
 }

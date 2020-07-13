@@ -20,30 +20,17 @@ class LearningProgressFilter extends ActiveRecord
 
     use DICTrait;
     use SrTileTrait;
-    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_lp_fil";
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
-
-
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_lp_fil";
     /**
-     * @inheritDoc
-     */
-    public function getConnectorContainerName() : string
-    {
-        return static::TABLE_NAME;
-    }
-
-
-    /**
-     * @inheritDoc
+     * @var array
      *
-     * @deprecated
+     * @con_has_field   true
+     * @con_fieldtype   text
+     * @con_is_notnull  true
      */
-    public static function returnDbTableName() : string
-    {
-        return self::TABLE_NAME;
-    }
-
-
+    protected $filter = [];
     /**
      * @var int
      *
@@ -73,14 +60,6 @@ class LearningProgressFilter extends ActiveRecord
      * @con_is_notnull  true
      */
     protected $user_id;
-    /**
-     * @var array
-     *
-     * @con_has_field   true
-     * @con_fieldtype   text
-     * @con_is_notnull  true
-     */
-    protected $filter = [];
 
 
     /**
@@ -99,38 +78,39 @@ class LearningProgressFilter extends ActiveRecord
 
     /**
      * @inheritDoc
+     *
+     * @deprecated
      */
-    public function sleep(/*string*/ $field_name)
+    public static function returnDbTableName() : string
     {
-        $field_filter = $this->{$field_name};
-
-        switch ($field_name) {
-            case "filter":
-                return json_encode($field_filter);
-
-            default:
-                return null;
-        }
+        return self::TABLE_NAME;
     }
 
 
     /**
      * @inheritDoc
      */
-    public function wakeUp(/*string*/ $field_name, $field_value)
+    public function getConnectorContainerName() : string
     {
-        switch ($field_name) {
-            case "filter_id":
-            case "obj_ref_id":
-            case "user_id":
-                return intval($field_value);
+        return static::TABLE_NAME;
+    }
 
-            case "filter":
-                return json_decode($field_value);
 
-            default:
-                return null;
-        }
+    /**
+     * @return array
+     */
+    public function getFilter() : array
+    {
+        return $this->filter;
+    }
+
+
+    /**
+     * @param array $filter
+     */
+    public function setFilter(array $filter) /*: void*/
+    {
+        $this->filter = $filter;
     }
 
 
@@ -189,19 +169,38 @@ class LearningProgressFilter extends ActiveRecord
 
 
     /**
-     * @return array
+     * @inheritDoc
      */
-    public function getFilter() : array
+    public function sleep(/*string*/ $field_name)
     {
-        return $this->filter;
+        $field_filter = $this->{$field_name};
+
+        switch ($field_name) {
+            case "filter":
+                return json_encode($field_filter);
+
+            default:
+                return parent::sleep($field_name);
+        }
     }
 
 
     /**
-     * @param array $filter
+     * @inheritDoc
      */
-    public function setFilter(array $filter) /*: void*/
+    public function wakeUp(/*string*/ $field_name, $field_value)
     {
-        $this->filter = $filter;
+        switch ($field_name) {
+            case "filter_id":
+            case "obj_ref_id":
+            case "user_id":
+                return intval($field_value);
+
+            case "filter":
+                return json_decode($field_value);
+
+            default:
+                return parent::wakeUp($field_name, $field_value);
+        }
     }
 }

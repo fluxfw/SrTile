@@ -20,28 +20,12 @@ class Metadata
 
     use SrTileTrait;
     use DICTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self[]
      */
     protected static $instances = [];
-
-
-    /**
-     * @param ilObject $il_object
-     *
-     * @return self
-     */
-    public static function getInstance(ilObject $il_object) : self
-    {
-        if (!isset(self::$instances[$il_object->getId()])) {
-            self::$instances[$il_object->getId()] = new self($il_object);
-        }
-
-        return self::$instances[$il_object->getId()];
-    }
-
-
     /**
      * @var ilObject
      */
@@ -56,6 +40,21 @@ class Metadata
     private function __construct(ilObject $il_object)
     {
         $this->il_object = $il_object;
+    }
+
+
+    /**
+     * @param ilObject $il_object
+     *
+     * @return self
+     */
+    public static function getInstance(ilObject $il_object) : self
+    {
+        if (!isset(self::$instances[$il_object->getId()])) {
+            self::$instances[$il_object->getId()] = new self($il_object);
+        }
+
+        return self::$instances[$il_object->getId()];
     }
 
 

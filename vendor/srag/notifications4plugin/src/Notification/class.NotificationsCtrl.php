@@ -17,6 +17,7 @@ class NotificationsCtrl
 
     use DICTrait;
     use Notifications4PluginTrait;
+
     const CMD_LIST_NOTIFICATIONS = "listNotifications";
     const LANG_MODULE = "notifications4plugin";
     const TAB_NOTIFICATIONS = "notifications";
@@ -64,19 +65,19 @@ class NotificationsCtrl
     /**
      *
      */
-    protected function setTabs()/* : void*/
+    protected function listNotifications()/* : void*/
     {
+        $table = self::notifications4plugin()->notifications()->factory()->newTableBuilderInstance($this);
 
+        self::output()->output($table);
     }
 
 
     /**
      *
      */
-    protected function listNotifications()/* : void*/
+    protected function setTabs()/* : void*/
     {
-        $table = self::notifications4plugin()->notifications()->factory()->newTableInstance($this);
 
-        self::output()->output($table);
     }
 }

@@ -15,8 +15,8 @@ use srag\Plugins\SrTile\Tile\Tile;
 class Template extends Tile
 {
 
-    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_tmpl";
     const IMAGE_PREFIX = "template_";
+    const TABLE_NAME = "ui_uihk_" . ilSrTilePlugin::PLUGIN_ID . "_tmpl";
     /**
      * @var int
      *
@@ -37,6 +37,19 @@ class Template extends Tile
 
 
     /**
+     * @inheritDoc
+     */
+    public function _getTitle() : string
+    {
+        if ($this->object_type !== Repository::TYPE_OTHER) {
+            return self::dic()->language()->txt("obj_" . $this->object_type);
+        } else {
+            return self::plugin()->translate(substr($this->object_type, 1), TemplatesConfigGUI::LANG_MODULE);
+        }
+    }
+
+
+    /**
      * @return string
      */
     public function getObjectType() : string
@@ -51,18 +64,5 @@ class Template extends Tile
     public function setObjectType(string $object_type)/*: void*/
     {
         $this->object_type = $object_type;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function _getTitle() : string
-    {
-        if ($this->object_type !== Repository::TYPE_OTHER) {
-            return self::dic()->language()->txt("obj_" . $this->object_type);
-        } else {
-            return self::plugin()->translate(substr($this->object_type, 1), TemplatesConfigGUI::LANG_MODULE);
-        }
     }
 }

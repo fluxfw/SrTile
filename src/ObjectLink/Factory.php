@@ -18,11 +18,21 @@ final class Factory
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
+
+
+    /**
+     * Factory constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
     /**
@@ -39,11 +49,16 @@ final class Factory
 
 
     /**
-     * Factory constructor
+     * @param ObjectLinkGUI $parent
+     * @param ObjectLink    $object_link
+     *
+     * @return ObjectLinkFormGUI
      */
-    private function __construct()
+    public function newFormInstance(ObjectLinkGUI $parent, ObjectLink $object_link) : ObjectLinkFormGUI
     {
+        $form = new ObjectLinkFormGUI($parent, $object_link);
 
+        return $form;
     }
 
 
@@ -80,19 +95,5 @@ final class Factory
         $table = new ObjectLinksTableGUI($parent, $parent_cmd);
 
         return $table;
-    }
-
-
-    /**
-     * @param ObjectLinkGUI $parent
-     * @param ObjectLink    $object_link
-     *
-     * @return ObjectLinkFormGUI
-     */
-    public function newFormInstance(ObjectLinkGUI $parent, ObjectLink $object_link) : ObjectLinkFormGUI
-    {
-        $form = new ObjectLinkFormGUI($parent, $object_link);
-
-        return $form;
     }
 }

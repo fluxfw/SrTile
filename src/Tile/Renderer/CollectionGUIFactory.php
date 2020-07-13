@@ -6,7 +6,8 @@ use ilObjUser;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Tile\Renderer\Container\ContainerCollectionGUI;
-use srag\Plugins\SrTile\Tile\Renderer\Desktop\DesktopCollectionGUI;
+use srag\Plugins\SrTile\Tile\Renderer\Dashboard\DashboardCollectionGUI;
+use srag\Plugins\SrTile\Tile\Renderer\Favorites\FavoritesCollectionGUI;
 use srag\Plugins\SrTile\Tile\Renderer\Fixed\FixedCollectionGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -22,11 +23,21 @@ final class CollectionGUIFactory
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
+
+
+    /**
+     * CollectionGUIFactory constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
     /**
@@ -39,15 +50,6 @@ final class CollectionGUIFactory
         }
 
         return self::$instance;
-    }
-
-
-    /**
-     * CollectionGUIFactory constructor
-     */
-    private function __construct()
-    {
-
     }
 
 
@@ -65,13 +67,26 @@ final class CollectionGUIFactory
 
 
     /**
+     * @param string $html
+     *
+     * @return DashboardCollectionGUI
+     */
+    public function dashboard(string $html) : DashboardCollectionGUI
+    {
+        $collection_gui = new DashboardCollectionGUI($html);
+
+        return $collection_gui;
+    }
+
+
+    /**
      * @param ilObjUser $user
      *
-     * @return DesktopCollectionGUI
+     * @return FavoritesCollectionGUI
      */
-    public function desktop(ilObjUser $user) : DesktopCollectionGUI
+    public function favorites(ilObjUser $user) : FavoritesCollectionGUI
     {
-        $collection_gui = new DesktopCollectionGUI($user);
+        $collection_gui = new FavoritesCollectionGUI($user);
 
         return $collection_gui;
     }

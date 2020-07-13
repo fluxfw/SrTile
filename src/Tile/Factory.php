@@ -19,11 +19,21 @@ final class Factory
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
+
+
+    /**
+     * Factory constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
     /**
@@ -40,11 +50,16 @@ final class Factory
 
 
     /**
-     * Factory constructor
+     * @param TileGUI|TemplatesConfigGUI $parent
+     * @param Tile                       $tile
+     *
+     * @return TileFormGUI
      */
-    private function __construct()
+    public function newFormInstance(TileGUI $parent, Tile $tile) : TileFormGUI
     {
+        $form = new TileFormGUI($parent, $tile);
 
+        return $form;
     }
 
 
@@ -56,19 +71,5 @@ final class Factory
         $tile = new Tile();
 
         return $tile;
-    }
-
-
-    /**
-     * @param TileGUI|TemplatesConfigGUI $parent
-     * @param Tile                       $tile
-     *
-     * @return TileFormGUI
-     */
-    public function newFormInstance(TileGUI $parent, Tile $tile) : TileFormGUI
-    {
-        $form = new TileFormGUI($parent, $tile);
-
-        return $form;
     }
 }

@@ -20,6 +20,7 @@ abstract class AbstractCollection implements CollectionInterface
 
     use DICTrait;
     use SrTileTrait;
+
     /**
      * @var array
      */
@@ -51,6 +52,15 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      * @inheritDoc
      */
+    public function getTiles() : array
+    {
+        return $this->tiles;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function removeTile(int $tile_id)/*: void*/
     {
         if (isset($this->tiles[$tile_id])) {
@@ -60,12 +70,10 @@ abstract class AbstractCollection implements CollectionInterface
 
 
     /**
-     * @inheritDoc
+     *
      */
-    public function getTiles() : array
-    {
-        return $this->tiles;
-    }
+    protected abstract function initObjRefIds() /*: void*/
+    ;
 
 
     /**
@@ -88,11 +96,4 @@ abstract class AbstractCollection implements CollectionInterface
             }
         }
     }
-
-
-    /**
-     *
-     */
-    protected abstract function initObjRefIds() /*: void*/
-    ;
 }

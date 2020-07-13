@@ -19,11 +19,21 @@ final class Factory
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self|null
      */
     protected static $instance = null;
+
+
+    /**
+     * Factory constructor
+     */
+    private function __construct()
+    {
+
+    }
 
 
     /**
@@ -40,11 +50,16 @@ final class Factory
 
 
     /**
-     * Factory constructor
+     * @param RecommendGUI $parent
+     * @param Recommend    $recommend
+     *
+     * @return RecommendFormGUI
      */
-    private function __construct()
+    public function newFormInstance(RecommendGUI $parent, Recommend $recommend) : RecommendFormGUI
     {
+        $form = new RecommendFormGUI($parent, $recommend);
 
+        return $form;
     }
 
 
@@ -58,19 +73,5 @@ final class Factory
         $recommend = new Recommend($tile);
 
         return $recommend;
-    }
-
-
-    /**
-     * @param RecommendGUI $parent
-     * @param Recommend    $recommend
-     *
-     * @return RecommendFormGUI
-     */
-    public function newFormInstance(RecommendGUI $parent, Recommend $recommend) : RecommendFormGUI
-    {
-        $form = new RecommendFormGUI($parent, $recommend);
-
-        return $form;
     }
 }

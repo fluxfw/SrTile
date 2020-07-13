@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\SrTile\Certificate;
 
-use ilCertificate;
 use ilCertificatePlugin;
 use ilCourseParticipants;
 use ilLPStatus;
@@ -32,11 +31,33 @@ class Certificates
 
     use DICTrait;
     use SrTileTrait;
+
     const PLUGIN_CLASS_NAME = ilSrTilePlugin::class;
     /**
      * @var self[]
      */
     protected static $instances = [];
+    /**
+     * @var Tile
+     */
+    protected $tile;
+    /**
+     * @var ilObjUser
+     */
+    protected $user;
+
+
+    /**
+     * Certificates constructor
+     *
+     * @param ilObjUser $user
+     * @param Tile      $tile
+     */
+    private function __construct(ilObjUser $user, Tile $tile)
+    {
+        $this->user = $user;
+        $this->tile = $tile;
+    }
 
 
     /**
@@ -56,29 +77,6 @@ class Certificates
 
 
     /**
-     * @var ilObjUser
-     */
-    protected $user;
-    /**
-     * @var Tile
-     */
-    protected $tile;
-
-
-    /**
-     * Certificates constructor
-     *
-     * @param ilObjUser $user
-     * @param Tile      $tile
-     */
-    private function __construct(ilObjUser $user, Tile $tile)
-    {
-        $this->user = $user;
-        $this->tile = $tile;
-    }
-
-
-    /**
      * @return bool
      */
     public function enabled() : bool
@@ -92,7 +90,7 @@ class Certificates
      */
     public function enabled_core() : bool
     {
-        return ilCertificate::isActive();
+        return self::dic()->certificateActiveValidator()->validate();
     }
 
 
