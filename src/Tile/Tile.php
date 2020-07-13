@@ -725,6 +725,44 @@ class Tile extends ActiveRecord
 
 
     /**
+     * @return string
+     */
+    public function _getColumns() : string
+    {
+        switch ($this->getColumnsType()) {
+            case Tile::SIZE_TYPE_COUNT:
+                return "calc(100% / " . $this->getColumns() . ")";
+
+            case Tile::SIZE_TYPE_PX:
+                return $this->getColumns() . "px";
+
+            default:
+                break;
+        }
+
+        return "";
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getColumns() : int
+    {
+        return $this->columns;
+    }
+
+
+    /**
+     * @param int $columns
+     */
+    public function setColumns(int $columns)/*: void*/
+    {
+        $this->columns = $columns;
+    }
+
+
+    /**
      * @return ilObject|null
      */
     public function _getIlObject()/*: ?ilObject*/
@@ -1090,44 +1128,6 @@ class Tile extends ActiveRecord
     public function setBorderSizeType(int $border_size_type)/*: void*/
     {
         $this->border_size_type = $border_size_type;
-    }
-
-
-    /**
-     * @return int
-     */
-    public function getColumns() : int
-    {
-        return $this->columns;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function _getColumns() : string
-    {
-        switch ($this->getColumnsType()) {
-            case Tile::SIZE_TYPE_COUNT:
-                return "calc(100% / " . $this->getColumns() . ")";
-
-            case Tile::SIZE_TYPE_PX:
-                return $this->getColumns() . "px";
-
-            default:
-                break;
-        }
-
-        return "";
-    }
-
-
-    /**
-     * @param int $columns
-     */
-    public function setColumns(int $columns)/*: void*/
-    {
-        $this->columns = $columns;
     }
 
 

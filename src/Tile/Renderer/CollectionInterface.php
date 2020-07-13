@@ -20,10 +20,12 @@ interface CollectionInterface
      */
     public function addTile(Tile $tile)/*: void*/ ;
 
+
     /**
      * @return Tile[]
      */
     public function getTiles() : array;
+
 
     /**
      * @param int $tile_id

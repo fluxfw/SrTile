@@ -1,7 +1,7 @@
 {
   "name": "srag/plugins/srtile",
   "description": "",
-  "version": "1.8.7",
+  "version": "1.9.0",
   "ilias_plugin": {
     "id": "srtile",
     "ilias_min_version": "5.4.0",

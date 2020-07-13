@@ -20,12 +20,14 @@ interface SingleGUIInterface
      */
     public function getActionAsyncUrl() : string;
 
+
     /**
      * @param ObjectLink[] $object_links
      *
      * @return string
      */
     public function getActions(array $object_links = []) : string;
+
 
     /**
      * @return string
