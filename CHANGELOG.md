@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.9.1]
+- Fix PHP 7.0
+
 ## [1.9.0]
 - ILIAS 6 support
 - Remove ILIAS 5.3 support
