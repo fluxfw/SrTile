@@ -123,7 +123,7 @@ class RecommendFormGUI extends PropertyFormGUI
     /**
      * @inheritdoc
      */
-    protected function storeValue(/*string*/ $key, $value)/*: void*/
+    protected function storeValue(string $key, $value)/*: void*/
     {
         switch ($key) {
             default:
