@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.10.0]
+- Improve recommend link of learning module by using custom plugin target link
+- Fix open inline learning module has no mouse pointer
+
 ## [1.9.1]
 - Fix PHP 7.0
 
