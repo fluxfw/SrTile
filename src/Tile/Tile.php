@@ -10,7 +10,6 @@ use ilLinkResourceItems;
 use ilObject;
 use ilObjectFactory;
 use ilObjSAHSLearningModule;
-use ilObjSCORMLearningModuleGUI;
 use ilSAHSPresentationGUI;
 use ilSrTilePlugin;
 use ilSrTileUIHookGUI;
@@ -604,31 +603,16 @@ class Tile extends ActiveRecord
 
         switch (true) {
             case ($tile->il_object->getType() === "sahs"):
-                self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
-
                 if ($only_link) {
-                    return ILIAS_HTTP_PATH . '/goto.php?target=cat_' . $this->getObjRefId() . '_opensahs_' . $tile->getObjRefId() . '&client_id='
-                        . CLIENT_ID;
+                    return ILIAS_HTTP_PATH . '/goto.php?target=uihk_' . ilSrTilePlugin::PLUGIN_ID . '_sahs_' . $tile->getObjRefId() . '&client_id=' . CLIENT_ID;
                 } else {
-                    $slm_gui = new ilObjSCORMLearningModuleGUI("", $tile->getObjRefId(), true, false);
+                    $start_sahs = $this->_getAdvancedLinkStartSahs($tile);
 
-                    $sahs_obj = new ilObjSAHSLearningModule($tile->getObjRefId());
-                    $om = $sahs_obj->getOpenMode();
-                    $width = $sahs_obj->getWidth();
-                    $height = $sahs_obj->getHeight();
-
-                    if (($om == 5 || $om == 1) && $width > 0 && $height > 0) {
-                        $om++;
-                    } else {
-                        if ($om == 0) {
-                            return ' href="' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . '" target="ilContObj' . $slm_gui->object->getId() . '"';
-                        }
+                    if (isset($start_sahs["link"])) {
+                        return ' href="' . $start_sahs["link"] . '" target="' . $start_sahs["target"] . '"';
                     }
 
-                    self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
-
-                    return ' onclick="startSAHS(\'' . self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, '') . "','ilContObj"
-                        . $slm_gui->object->getId() . "'," . $om . "," . $width . "," . $height . ');"';
+                    return ' onclick="' . $start_sahs["onclick"] . '"';
                 }
 
             case ($tile->il_object->getType() === "webr"):
@@ -652,6 +636,45 @@ class Tile extends ActiveRecord
         } else {
             return ' href="' . htmlspecialchars($tile->_getSimpleLink()) . '"';
         }
+    }
+
+
+    /**
+     * @param Tile $tile
+     *
+     * @return array
+     */
+    public function _getAdvancedLinkStartSahs(Tile $tile) : array
+    {
+        self::dic()->ctrl()->setParameterByClass(ilSAHSPresentationGUI::class, ilSrTileUIHookGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
+
+        $link = self::dic()->ctrl()->getLinkTargetByClass(ilSAHSPresentationGUI::class, "", "", false, false);
+
+        $target = "ilContObj" . $tile->_getIlObject()->getId();
+
+        $sahs_obj = new ilObjSAHSLearningModule($tile->getObjRefId());
+
+        $om = intval($sahs_obj->getOpenMode());
+        if (($om === 5 || $om === 1) && $sahs_obj->getWidth() > 0 && $sahs_obj->getHeight() > 0) {
+            $om++;
+        } else {
+            if (empty($om)) {
+                return [
+                    "link"   => $link,
+                    "target" => $target
+                ];
+            }
+        }
+
+        return [
+            "onclick" => 'startSAHS(' . implode(",", [
+                    "'" . $link . "'",
+                    "'" . $target . "'",
+                    $om,
+                    $sahs_obj->getWidth(),
+                    $sahs_obj->getHeight()
+                ]) . ');'
+        ];
     }
 
 

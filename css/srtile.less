@@ -68,7 +68,7 @@
 	  position: relative;
 	  width: 100%;
 
-	  &:not([href]) {
+	  &:not([href]):not([onclick]) {
 		cursor: default;
 	  }
 
@@ -215,7 +215,7 @@
 		text-overflow: ellipsis;
 		word-break: break-word;
 
-		&:not([href]) {
+		&:not([href]:not([onclick])) {
 		  cursor: default;
 		}
 
