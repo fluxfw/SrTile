@@ -97,6 +97,6 @@ class TileStartSashGUI
 
         self::dic()->ui()->mainTemplate()->addOnLoadCode($start_sahs["onclick"]);
 
-        self::output()->output("",true);
+        self::output()->output("", true);
     }
 }
