@@ -7,6 +7,7 @@ if (file_exists(__DIR__ . "/../../Certificate/vendor/autoload.php")) {
 
 use ILIAS\DI\Container;
 use srag\CustomInputGUIs\SrTile\Loader\CustomInputGUIsLoaderDetector;
+use srag\DIC\SrTile\DevTools\DevToolsCtrl;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\RemovePluginDataConfirm\SrTile\PluginUninstallTrait;
 
@@ -105,6 +106,8 @@ class ilSrTilePlugin extends ilUserInterfaceHookPlugin
         $this->installRemovePluginDataConfirmLanguages();
 
         self::srTile()->notifications4plugin()->installLanguages();
+
+        DevToolsCtrl::installLanguages(self::plugin());
     }
 
 
