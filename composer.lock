@@ -164,7 +164,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\CustomInputGUIs\\": "src/"
+                    "srag\\CustomInputGUIs\\SrTile\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -256,7 +256,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\DIC\\": "src/"
+                    "srag\\DIC\\SrTile\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -283,16 +283,16 @@
         },
         {
             "name": "srag/librariesnamespacechanger",
-            "version": "v0.10.3",
+            "version": "v0.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/LibrariesNamespaceChanger.git",
-                "reference": "d0bf77414b86c2e830e1592f73f37a03406f3266"
+                "reference": "cf71c18cd46491444f1bd3daefb0aace41bc790f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/d0bf77414b86c2e830e1592f73f37a03406f3266",
-                "reference": "d0bf77414b86c2e830e1592f73f37a03406f3266",
+                "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/cf71c18cd46491444f1bd3daefb0aace41bc790f",
+                "reference": "cf71c18cd46491444f1bd3daefb0aace41bc790f",
                 "shasum": ""
             },
             "require": {
@@ -322,7 +322,7 @@
                 "ILIAS",
                 "libraries"
             ],
-            "time": "2020-09-03T12:54:11+00:00"
+            "time": "2020-09-11T10:39:59+00:00"
         },
         {
             "name": "srag/notifications4plugin",
@@ -392,7 +392,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\RemovePluginDataConfirm\\": "src/"
+                    "srag\\RemovePluginDataConfirm\\SrTile\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

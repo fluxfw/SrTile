@@ -189,6 +189,33 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     /**
      * @inheritDoc
      */
+    public function gotoHook()/*: void*/
+    {
+        $target = filter_input(INPUT_GET, "target");
+
+        $matches = [];
+        preg_match("/^uihk_" . ilSrTilePlugin::PLUGIN_ID . "_sahs(_(.*))?/uim", $target, $matches);
+
+        if (is_array($matches) && count($matches) >= 1) {
+            $tile = self::srTile()->tiles()->getInstanceForObjRefId(intval($matches[2]));
+
+            if ($tile === null || !self::srTile()->access()->hasReadAccess($tile->getObjRefId())) {
+                return;
+            }
+
+            self::dic()->ctrl()->setTargetScript("ilias.php"); // Fix ILIAS 5.3 bug
+            self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class); // Fix ILIAS bug
+
+            self::dic()->ctrl()->setParameterByClass(TileStartSashGUI::class, TileStartSashGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
+
+            self::dic()->ctrl()->redirectByClass([ilUIPluginRouterGUI::class, TileStartSashGUI::class], TileStartSashGUI::CMD_START_SASH);
+        }
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     public function modifyGUI(/*string*/ $a_comp, /*string*/ $a_part, /*array*/ $a_par = [])/*: void*/
     {
         $obj_ref_id = self::filterRefId();
@@ -289,32 +316,5 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && $a_part === self::PAR_TABS
             && (self::$load[self::TOOLBAR_LOADER] = true)
             && self::srTile()->tiles()->isObject($obj_ref_id));
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function gotoHook()/*: void*/
-    {
-        $target = filter_input(INPUT_GET, "target");
-
-        $matches = [];
-        preg_match("/^uihk_" . ilSrTilePlugin::PLUGIN_ID . "_sahs(_(.*))?/uim", $target, $matches);
-
-        if (is_array($matches) && count($matches) >= 1) {
-            $tile = self::srTile()->tiles()->getInstanceForObjRefId(intval($matches[2]));
-
-            if ($tile === null || !self::srTile()->access()->hasReadAccess($tile->getObjRefId())) {
-                return;
-            }
-
-            self::dic()->ctrl()->setTargetScript("ilias.php"); // Fix ILIAS 5.3 bug
-            self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class); // Fix ILIAS bug
-
-            self::dic()->ctrl()->setParameterByClass(TileStartSashGUI::class, TileStartSashGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
-
-            self::dic()->ctrl()->redirectByClass([ilUIPluginRouterGUI::class, TileStartSashGUI::class], TileStartSashGUI::CMD_START_SASH);
-        }
     }
 }
