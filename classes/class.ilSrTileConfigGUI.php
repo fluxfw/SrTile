@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
+use srag\DIC\SrTile\DevTools\DevToolsCtrl;
 use srag\DIC\SrTile\DICTrait;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl;
 use srag\Plugins\SrTile\Config\ConfigCtrl;
@@ -14,6 +15,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
  * @ilCtrl_isCalledBy srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl: ilSrTileConfigGUI
+ * @ilCtrl_isCalledBy srag\DIC\SrTile\DevTools\DevToolsCtrl: ilSrTileConfigGUI
  */
 class ilSrTileConfigGUI extends ilPluginConfigGUI
 {
@@ -48,6 +50,10 @@ class ilSrTileConfigGUI extends ilPluginConfigGUI
         switch (strtolower($next_class)) {
             case strtolower(ConfigCtrl::class):
                 self::dic()->ctrl()->forwardCommand(new ConfigCtrl());
+                break;
+
+            case strtolower(DevToolsCtrl::class):
+                self::dic()->ctrl()->forwardCommand(new DevToolsCtrl($this, self::plugin()));
                 break;
 
             case strtolower(NotificationsCtrl::class):
@@ -95,6 +101,8 @@ class ilSrTileConfigGUI extends ilPluginConfigGUI
 
         self::dic()->tabs()->addTab(NotificationsCtrl::TAB_NOTIFICATIONS, self::plugin()->translate("notifications", NotificationsCtrl::LANG_MODULE), self::dic()->ctrl()
             ->getLinkTargetByClass(NotificationsCtrl::class, NotificationsCtrl::CMD_LIST_NOTIFICATIONS));
+
+        DevToolsCtrl::addTabs(self::plugin());
 
         self::dic()->locator()->addItem(ilSrTilePlugin::PLUGIN_NAME, self::dic()->ctrl()->getLinkTarget($this, self::CMD_CONFIGURE));
     }
