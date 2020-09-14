@@ -4,23 +4,24 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
+class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
 {
     public static $files = array (
         'c681cc01b16720d29e29d7ffd2def068' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
+        '4bcfe4c7e91ca39c8a1e9717ca6c36bc' => __DIR__ . '/..' . '/srag/dic/src/Ilias7PreWarn.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\SrTile\\' => 36,
+            'srag\\RemovePluginDataConfirm\\' => 29,
             'srag\\Plugins\\SrTile\\' => 20,
-            'srag\\Notifications4Plugin\\SrTile\\' => 33,
+            'srag\\Notifications4Plugin\\' => 26,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DataTableUI\\SrTile\\' => 24,
-            'srag\\DIC\\SrTile\\' => 16,
-            'srag\\CustomInputGUIs\\SrTile\\' => 28,
-            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
+            'srag\\DataTableUI\\' => 17,
+            'srag\\DIC\\' => 9,
+            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\ActiveRecordConfig\\' => 24,
         ),
         'C' => 
         array (
@@ -29,7 +30,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\SrTile\\' => 
+        'srag\\RemovePluginDataConfirm\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -37,7 +38,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'srag\\Notifications4Plugin\\SrTile\\' => 
+        'srag\\Notifications4Plugin\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/notifications4plugin/src',
         ),
@@ -45,19 +46,19 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DataTableUI\\SrTile\\' => 
+        'srag\\DataTableUI\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/datatable/src',
         ),
-        'srag\\DIC\\SrTile\\' => 
+        'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\SrTile\\' => 
+        'srag\\CustomInputGUIs\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\SrTile\\' => 
+        'srag\\ActiveRecordConfig\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
@@ -342,6 +343,7 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
         'srag\\DIC\\SrTile\\Database\\PdoStatementContextHelper' => __DIR__ . '/..' . '/srag/dic/src/Database/PdoStatementContextHelper.php',
         'srag\\DIC\\SrTile\\DevTools\\DevToolsCtrl' => __DIR__ . '/..' . '/srag/dic/src/DevTools/class.DevToolsCtrl.php',
         'srag\\DIC\\SrTile\\Exception\\DICException' => __DIR__ . '/..' . '/srag/dic/src/Exception/DICException.php',
+        'srag\\DIC\\SrTile\\Ilias7PreWarn' => __DIR__ . '/..' . '/srag/dic/src/Ilias7PreWarn.php',
         'srag\\DIC\\SrTile\\Loader\\AbstractLoaderDetector' => __DIR__ . '/..' . '/srag/dic/src/Loader/AbstractLoaderDetector.php',
         'srag\\DIC\\SrTile\\Output\\Output' => __DIR__ . '/..' . '/srag/dic/src/Output/Output.php',
         'srag\\DIC\\SrTile\\Output\\OutputInterface' => __DIR__ . '/..' . '/srag/dic/src/Output/OutputInterface.php',
@@ -549,10 +551,10 @@ class ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit0a4d83bf327185d9a729d23cfdb06b05::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6::$classMap;
 
         }, null, ClassLoader::class);
     }
