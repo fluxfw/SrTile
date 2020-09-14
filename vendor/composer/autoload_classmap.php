@@ -270,6 +270,7 @@ return array(
     'srag\\DIC\\SrTile\\Database\\PdoStatementContextHelper' => $vendorDir . '/srag/dic/src/Database/PdoStatementContextHelper.php',
     'srag\\DIC\\SrTile\\DevTools\\DevToolsCtrl' => $vendorDir . '/srag/dic/src/DevTools/class.DevToolsCtrl.php',
     'srag\\DIC\\SrTile\\Exception\\DICException' => $vendorDir . '/srag/dic/src/Exception/DICException.php',
+    'srag\\DIC\\SrTile\\Ilias7PreWarn' => $vendorDir . '/srag/dic/src/Ilias7PreWarn.php',
     'srag\\DIC\\SrTile\\Loader\\AbstractLoaderDetector' => $vendorDir . '/srag/dic/src/Loader/AbstractLoaderDetector.php',
     'srag\\DIC\\SrTile\\Output\\Output' => $vendorDir . '/srag/dic/src/Output/Output.php',
     'srag\\DIC\\SrTile\\Output\\OutputInterface' => $vendorDir . '/srag/dic/src/Output/OutputInterface.php',
