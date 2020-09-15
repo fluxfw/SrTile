@@ -14,14 +14,14 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\' => 29,
+            'srag\\RemovePluginDataConfirm\\SrTile\\' => 36,
             'srag\\Plugins\\SrTile\\' => 20,
-            'srag\\Notifications4Plugin\\' => 26,
+            'srag\\Notifications4Plugin\\SrTile\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DataTableUI\\' => 17,
-            'srag\\DIC\\' => 9,
-            'srag\\CustomInputGUIs\\' => 21,
-            'srag\\ActiveRecordConfig\\' => 24,
+            'srag\\DataTableUI\\SrTile\\' => 24,
+            'srag\\DIC\\SrTile\\' => 16,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
+            'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
         array (
@@ -30,7 +30,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\' => 
+        'srag\\RemovePluginDataConfirm\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -38,7 +38,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'srag\\Notifications4Plugin\\' => 
+        'srag\\Notifications4Plugin\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/notifications4plugin/src',
         ),
@@ -46,19 +46,19 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DataTableUI\\' => 
+        'srag\\DataTableUI\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/datatable/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
-        'srag\\ActiveRecordConfig\\' => 
+        'srag\\ActiveRecordConfig\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
