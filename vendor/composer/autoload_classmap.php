@@ -467,7 +467,7 @@ return array(
     'srag\\Plugins\\SrTile\\Tile\\TileFormGUI' => $baseDir . '/src/Tile/TileFormGUI.php',
     'srag\\Plugins\\SrTile\\Tile\\TileGUI' => $baseDir . '/src/Tile/class.TileGUI.php',
     'srag\\Plugins\\SrTile\\Tile\\TileReference' => $baseDir . '/src/Tile/TileReference.php',
-    'srag\\Plugins\\SrTile\\Tile\\TileStartSashGUI' => $baseDir . '/src/Tile/class.TileStartSashGUI.php',
+    'srag\\Plugins\\SrTile\\Tile\\TileStartSahsGUI' => $baseDir . '/src/Tile/class.TileStartSahsGUI.php',
     'srag\\Plugins\\SrTile\\Utils\\SrTileTrait' => $baseDir . '/src/Utils/SrTileTrait.php',
     'srag\\RemovePluginDataConfirm\\SrTile\\BasePluginUninstallTrait' => $vendorDir . '/srag/removeplugindataconfirm/src/BasePluginUninstallTrait.php',
     'srag\\RemovePluginDataConfirm\\SrTile\\PluginUninstallTrait' => $vendorDir . '/srag/removeplugindataconfirm/src/PluginUninstallTrait.php',

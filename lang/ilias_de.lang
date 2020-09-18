@@ -129,6 +129,8 @@ tile_show_preconditions#:#Vorbedingungen anzeigen
 tile_show_recommend_icon#:#Empfehlen-Icon anzeigen
 tile_show_title#:#Titel anzeigen
 tile_show_true#:#Anzeigen
+tile_start_sahs_hint#:#Das automatische Starten des Lernmoduls wird ev. durch Ihren Browser-Popup-Blocker verhindert\nErlauben Sie bitte das Öffnen des Popups\nAlternativ kann es auch manuell über den Button gestartert werden
+tile_start_sahs_start#:#Manuell starten
 tile_tile#:#Kachel
 tile_vertical_align#:#Vertikale-Ausrichtung
 tile_vertical_align_bottom#:#Unten

@@ -129,6 +129,8 @@ tile_show_preconditions#:#Show preconditions (Experimental)
 tile_show_recommend_icon#:#Show recommend icon
 tile_show_title#:#Show title
 tile_show_true#:#Show
+tile_start_sahs_hint#:#The automatic start of the learning module may be prevented by your browser pop-up blocker\nPlease allow the popup to open\nAlternatively, it can also be started manually using the button
+tile_start_sahs_start#:#Start manually
 tile_tile#:#Tile
 tile_vertical_align#:#Vertical align
 tile_vertical_align_bottom#:#Bottom

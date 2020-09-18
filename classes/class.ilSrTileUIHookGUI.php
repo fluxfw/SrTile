@@ -5,7 +5,7 @@ use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Tile\TileGUI;
-use srag\Plugins\SrTile\Tile\TileStartSashGUI;
+use srag\Plugins\SrTile\Tile\TileStartSahsGUI;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -206,9 +206,9 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             self::dic()->ctrl()->setTargetScript("ilias.php"); // Fix ILIAS 5.3 bug
             self::dic()->ctrl()->initBaseClass(ilUIPluginRouterGUI::class); // Fix ILIAS bug
 
-            self::dic()->ctrl()->setParameterByClass(TileStartSashGUI::class, TileStartSashGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
+            self::dic()->ctrl()->setParameterByClass(TileStartSahsGUI::class, TileStartSahsGUI::GET_PARAM_REF_ID, $tile->getObjRefId());
 
-            self::dic()->ctrl()->redirectByClass([ilUIPluginRouterGUI::class, TileStartSashGUI::class], TileStartSashGUI::CMD_START_SASH);
+            self::dic()->ctrl()->redirectByClass([ilUIPluginRouterGUI::class, TileStartSahsGUI::class], TileStartSahsGUI::CMD_START_SAHS);
         }
     }
 

@@ -540,7 +540,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         'srag\\Plugins\\SrTile\\Tile\\TileFormGUI' => __DIR__ . '/../..' . '/src/Tile/TileFormGUI.php',
         'srag\\Plugins\\SrTile\\Tile\\TileGUI' => __DIR__ . '/../..' . '/src/Tile/class.TileGUI.php',
         'srag\\Plugins\\SrTile\\Tile\\TileReference' => __DIR__ . '/../..' . '/src/Tile/TileReference.php',
-        'srag\\Plugins\\SrTile\\Tile\\TileStartSashGUI' => __DIR__ . '/../..' . '/src/Tile/class.TileStartSashGUI.php',
+        'srag\\Plugins\\SrTile\\Tile\\TileStartSahsGUI' => __DIR__ . '/../..' . '/src/Tile/class.TileStartSahsGUI.php',
         'srag\\Plugins\\SrTile\\Utils\\SrTileTrait' => __DIR__ . '/../..' . '/src/Utils/SrTileTrait.php',
         'srag\\RemovePluginDataConfirm\\SrTile\\BasePluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/BasePluginUninstallTrait.php',
         'srag\\RemovePluginDataConfirm\\SrTile\\PluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/PluginUninstallTrait.php',
