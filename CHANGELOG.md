@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.11.1]
+- Allow change icon on before render event
+- Fix before render event not work
+
 ## [1.11.0]
 - Browser popup blocker hint and start manually button learning module
 

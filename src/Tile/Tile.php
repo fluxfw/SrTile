@@ -259,6 +259,10 @@ class Tile extends ActiveRecord
      */
     protected $columns_type = self::DEFAULT_COLUMNS_TYPE;
     /**
+     * @var string|null
+     */
+    protected $custom_icon = null;
+    /**
      * @var int
      *
      * @con_has_field   true
@@ -1182,6 +1186,24 @@ class Tile extends ActiveRecord
 
 
     /**
+     * @return string|null
+     */
+    public function getCustomIcon()/* : ?string*/
+    {
+        return $this->custom_icon;
+    }
+
+
+    /**
+     * @param string|null $custom_icon
+     */
+    public function setCustomIcon(/*?string*/ $custom_icon = null)/* : void*/
+    {
+        $this->custom_icon = $custom_icon;
+    }
+
+
+    /**
      * @return int
      */
     public function getEnableRating() : int
@@ -1296,6 +1318,19 @@ class Tile extends ActiveRecord
     public function setFontSizeType(int $font_size_type)/*: void*/
     {
         $this->font_size_type = $font_size_type;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getIcon() : string
+    {
+        if ($this->custom_icon !== null) {
+            return $this->custom_icon;
+        } else {
+            return ilObject::_getIcon(($this->_getIlObject() !== null ? $this->_getIlObject()->getId() : null));
+        }
     }
 
 

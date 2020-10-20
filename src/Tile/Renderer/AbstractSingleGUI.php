@@ -4,7 +4,6 @@ namespace srag\Plugins\SrTile\Tile\Renderer;
 
 use ilAdvancedSelectionListGUI;
 use ILIAS\UI\Component\Legacy\Legacy;
-use ilObject;
 use ilObjRootFolderGUI;
 use ilRepositoryGUI;
 use ilSrTilePlugin;
@@ -391,7 +390,7 @@ abstract class AbstractSingleGUI implements SingleGUIInterface
         $tpl->setVariableEscaped("ACTIONS_VERTICAL_ALIGN", $this->tile->getActionsVerticalAlign());
 
         if ($this->tile->getObjectIconPosition() !== Tile::POSITION_NONE) {
-            $icon = ilObject::_getIcon(($this->tile->_getIlObject() !== null ? $this->tile->_getIlObject()->getId() : null), "small");
+            $icon = $this->tile->getIcon();
             if (file_exists($icon)) {
                 $tpl_object_icon = self::plugin()->template("Object/object_icon.html");
 

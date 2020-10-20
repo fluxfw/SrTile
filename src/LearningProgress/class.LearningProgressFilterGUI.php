@@ -122,10 +122,7 @@ class LearningProgressFilterGUI
 
         $filter = array_map(function (string $status) : int {
             return intval($status);
-        }, array_values(array_filter($filter, function ($value) : bool {
-            // TODO: Use from MultiSelectSearchNewInputGUI
-            return ($value !== MultiSelectSearchNewInputGUI::EMPTY_PLACEHOLDER);
-        })));
+        }, MultiSelectSearchNewInputGUI::cleanValues($filter));
 
         self::srTile()->learningProgressFilters(self::dic()->user())->setFilter($this->obj_ref_id, $filter);
 
