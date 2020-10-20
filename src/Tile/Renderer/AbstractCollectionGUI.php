@@ -56,10 +56,6 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
 
         $is_parent_css_rendered = false;
         foreach ($this->collection->getTiles() as $tile) {
-            self::dic()->appEventHandler()->raise(IL_COMP_PLUGIN . "/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_CHANGE_TILE_BEFORE_RENDER, [
-                "tile" => $tile
-            ]);
-
             $css .= '#sr_tile_' . $tile->getTileId();
             $css .= '{' . $tile->_getSize() . '}';
 
@@ -120,6 +116,10 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
             $tpl->setVariableEscaped("VIEW", $parent_tile->getView());
 
             $tile_html = self::output()->getHTML(array_map(function (Tile $tile) : SingleGUIInterface {
+                self::dic()->appEventHandler()->raise(IL_COMP_PLUGIN . "/" . ilSrTilePlugin::PLUGIN_NAME, ilSrTilePlugin::EVENT_CHANGE_TILE_BEFORE_RENDER, [
+                    "tile" => $tile
+                ]);
+
                 return self::srTile()->tiles()->renderer()->factory()->newSingleGUIInstance($this, $tile);
             }, $this->collection->getTiles()));
 

@@ -20,7 +20,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DataTableUI\\SrTile\\' => 24,
             'srag\\DIC\\SrTile\\' => 16,
-            'srag\\CustomInputGUIs\\' => 21,
+            'srag\\CustomInputGUIs\\SrTile\\' => 28,
             'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
@@ -54,7 +54,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\' => 
+        'srag\\CustomInputGUIs\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
