@@ -18,9 +18,9 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
             'srag\\Plugins\\SrTile\\' => 20,
             'srag\\Notifications4Plugin\\SrTile\\' => 33,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DataTableUI\\SrTile\\' => 24,
-            'srag\\DIC\\SrTile\\' => 16,
-            'srag\\CustomInputGUIs\\SrTile\\' => 28,
+            'srag\\DataTableUI\\' => 17,
+            'srag\\DIC\\' => 9,
+            'srag\\CustomInputGUIs\\' => 21,
             'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
         'C' => 
@@ -46,15 +46,15 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DataTableUI\\SrTile\\' => 
+        'srag\\DataTableUI\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/datatable/src',
         ),
-        'srag\\DIC\\SrTile\\' => 
+        'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\SrTile\\' => 
+        'srag\\CustomInputGUIs\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
@@ -391,6 +391,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\DateFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/DateFormatter.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\DefaultFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/DefaultFormatter.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\Factory' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/Factory.php',
+        'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\ImageFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/ImageFormatter.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\LanguageVariableFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/LanguageVariableFormatter.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\LearningProgressFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/LearningProgressFormatter.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\LinkFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/LinkFormatter.php',
@@ -426,6 +427,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         'srag\\DataTableUI\\SrTile\\Implementation\\Utils\\AbstractTableBuilder' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Utils/AbstractTableBuilder.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Utils\\DataTableUITrait' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Utils/DataTableUITrait.php',
         'srag\\LibrariesNamespaceChanger\\GeneratePluginPhpAndXml' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/GeneratePluginPhpAndXml.php',
+        'srag\\LibrariesNamespaceChanger\\GeneratePluginReadme' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/GeneratePluginReadme.php',
         'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
         'srag\\LibrariesNamespaceChanger\\PHP72Backport' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/PHP72Backport.php',
         'srag\\LibrariesNamespaceChanger\\PHP7Backport' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/PHP7Backport.php',
