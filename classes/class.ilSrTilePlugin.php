@@ -7,7 +7,7 @@ if (file_exists(__DIR__ . "/../../Certificate/vendor/autoload.php")) {
 
 use ILIAS\DI\Container;
 use srag\CustomInputGUIs\SrTile\Loader\CustomInputGUIsLoaderDetector;
-use srag\DIC\SrTile\DevTools\DevToolsCtrl;
+use srag\DevTools\SrTile\DevToolsCtrl;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 use srag\RemovePluginDataConfirm\SrTile\PluginUninstallTrait;
 

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use srag\DIC\SrTile\DevTools\DevToolsCtrl;
+use srag\DevTools\SrTile\DevToolsCtrl;
 use srag\DIC\SrTile\DICTrait;
 use srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl;
 use srag\Plugins\SrTile\Config\ConfigCtrl;
@@ -15,7 +15,7 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
  * @ilCtrl_isCalledBy srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl: ilSrTileConfigGUI
- * @ilCtrl_isCalledBy srag\DIC\SrTile\DevTools\DevToolsCtrl: ilSrTileConfigGUI
+ * @ilCtrl_isCalledBy srag\DevTools\SrTile\DevToolsCtrl: ilSrTileConfigGUI
  */
 class ilSrTileConfigGUI extends ilPluginConfigGUI
 {
