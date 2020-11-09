@@ -22,7 +22,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
             'srag\\GeneratePluginInfosHelper\\SrTile\\' => 38,
             'srag\\DevTools\\SrTile\\' => 21,
             'srag\\DataTableUI\\SrTile\\' => 24,
-            'srag\\DIC\\' => 9,
+            'srag\\DIC\\SrTile\\' => 16,
             'srag\\CustomInputGUIs\\SrTile\\' => 28,
             'srag\\ActiveRecordConfig\\SrTile\\' => 31,
         ),
@@ -65,7 +65,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         array (
             0 => __DIR__ . '/..' . '/srag/datatable/src',
         ),
-        'srag\\DIC\\' => 
+        'srag\\DIC\\SrTile\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),

@@ -14,7 +14,7 @@ return array(
     'srag\\GeneratePluginInfosHelper\\SrTile\\' => array($vendorDir . '/srag/generateplugininfoshelper/src'),
     'srag\\DevTools\\SrTile\\' => array($vendorDir . '/srag/devtools/src'),
     'srag\\DataTableUI\\SrTile\\' => array($vendorDir . '/srag/datatable/src'),
-    'srag\\DIC\\' => array($vendorDir . '/srag/dic/src'),
+    'srag\\DIC\\SrTile\\' => array($vendorDir . '/srag/dic/src'),
     'srag\\CustomInputGUIs\\SrTile\\' => array($vendorDir . '/srag/custominputguis/src'),
     'srag\\ActiveRecordConfig\\SrTile\\' => array($vendorDir . '/srag/activerecordconfig/src'),
     'ColorThief\\' => array($vendorDir . '/ksubileau/color-thief-php/lib/ColorThief'),
