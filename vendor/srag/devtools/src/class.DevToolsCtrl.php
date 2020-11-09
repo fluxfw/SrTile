@@ -9,7 +9,7 @@ use ilPluginConfigGUI;
 use ilUtil;
 use srag\DIC\SrTile\DICTrait;
 use srag\DIC\SrTile\Plugin\PluginInterface;
-use srag\DIC\SrTile\Util\LibraryLanguageInstaller;
+use srag\LibraryLanguageInstaller\SrTile\LibraryLanguageInstaller;
 
 /**
  * Class DevToolsCtrl
