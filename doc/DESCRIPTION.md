@@ -1,5 +1,3 @@
-# SrTile ILIAS Plugin Description
-
 Tiles:
 ![Tiles](./images/tiles.png)
 
