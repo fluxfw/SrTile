@@ -8,6 +8,11 @@ This is an OpenSource project by studer + raimann ag, CH-Burgdorf (https://stude
 
 This project is licensed under the GPL-3.0-only license
 
+## Requirements
+
+* ILIAS 5.4.0 - 6.999
+* PHP >=7.0
+
 ## Installation
 
 Start at your ILIAS root directory
@@ -80,11 +85,6 @@ class ilXPlugin extends ...
 |-------|------------|---------|
 | `ilSrTilePlugin::EVENT_CHANGE_TILE_BEFORE_RENDER` | `tile => object<Tile>` | Change some tile properties before it will be rendered |
 | `ilSrTilePlugin::EVENT_SHOULD_NOT_DISPLAY_ALERT_MESSAGE` | `lang_module => string`<br>`lang_key => string`<br>`alert_type => string`<br>`should_not_display => &array` | May you want not to to display all alert messages, so you can filter and add `true` to `should_not_display` (Please note `should_not_display` is a reference variable, if it should not works) |
-
-## Requirements
-
-* ILIAS 5.4.0 - 6.999
-* PHP >=7.0
 
 ## Adjustment suggestions
 

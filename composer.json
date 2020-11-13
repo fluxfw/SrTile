@@ -1,5 +1,5 @@
 {
-  "name": "srag/plugins/srtile",
+  "name": "srag/srtile",
   "description": "",
   "version": "1.11.1",
   "extra": {
@@ -62,7 +62,19 @@
       "srag\\Plugins\\SrTile\\": "src/"
     },
     "classmap": [
-      "classes/"
+      "classes/",
+      "src/Config/class.ConfigCtrl.php",
+      "src/Favorite/class.FavoritesGUI.php",
+      "src/LearningProgress/class.LearningProgressFilterGUI.php",
+      "src/ObjectLink/class.ObjectLinksGUI.php",
+      "src/ObjectLink/class.ObjectLinkGUI.php",
+      "src/OnlineStatus/class.OnlineStatusGUI.php",
+      "src/Rating/class.RatingGUI.php",
+      "src/Recommend/class.RecommendGUI.php",
+      "src/Template/class.TemplatesConfigGUI.php",
+      "src/Template/class.TemplateConfigGUI.php",
+      "src/Tile/class.TileGUI.php",
+      "src/Tile/class.TileStartSahsGUI.php"
     ],
     "files": [
       "vendor/srag/dic/src/PHPVersionChecker.php",
