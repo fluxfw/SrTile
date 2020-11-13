@@ -1,27 +1,30 @@
 {
-  "name": "srag/plugins/srtile",
+  "name": "srag/srtile",
   "description": "",
-  "version": "1.11.1",
-  "ilias_plugin": {
-    "id": "srtile",
-    "name": "SrTile",
-    "ilias_min_version": "5.4.0",
-    "ilias_max_version": "6.999",
-    "slot": "Services/UIComponent/UserInterfaceHook",
-    "events": [
-      {
-        "id": "Services/Object",
-        "type": "listen"
-      },
-      {
-        "id": "change_title_before_render",
-        "type": "raise"
-      },
-      {
-        "id": "should_not_display_alert_message",
-        "type": "raise"
-      }
-    ]
+  "version": "1.11.2",
+  "extra": {
+    "ilias_plugin": {
+      "id": "srtile",
+      "name": "SrTile",
+      "ilias_min_version": "5.4.0",
+      "ilias_max_version": "6.999",
+      "slot": "Services/UIComponent/UserInterfaceHook",
+      "events": [
+        {
+          "id": "Services/Object",
+          "type": "listen"
+        },
+        {
+          "id": "change_title_before_render",
+          "type": "raise"
+        },
+        {
+          "id": "should_not_display_alert_message",
+          "type": "raise"
+        }
+      ]
+    },
+    "generate_plugin_readme_template": "SRAG_ILIAS_PLUGIN"
   },
   "type": "project",
   "keywords": [
@@ -47,7 +50,9 @@
     "ksubileau/color-thief-php": "1.4.1",
     "srag/activerecordconfig": ">=0.1.0",
     "srag/custominputguis": ">=0.1.0",
+    "srag/devtools": ">=0.1.0",
     "srag/dic": ">=0.1.0",
+    "srag/generateplugininfoshelper": ">=0.1.0",
     "srag/librariesnamespacechanger": ">=0.1.0",
     "srag/notifications4plugin": ">=0.1.0",
     "srag/removeplugindataconfirm": ">=0.1.0"
@@ -57,7 +62,19 @@
       "srag\\Plugins\\SrTile\\": "src/"
     },
     "classmap": [
-      "classes/"
+      "classes/",
+      "src/Config/class.ConfigCtrl.php",
+      "src/Favorite/class.FavoritesGUI.php",
+      "src/LearningProgress/class.LearningProgressFilterGUI.php",
+      "src/ObjectLink/class.ObjectLinksGUI.php",
+      "src/ObjectLink/class.ObjectLinkGUI.php",
+      "src/OnlineStatus/class.OnlineStatusGUI.php",
+      "src/Rating/class.RatingGUI.php",
+      "src/Recommend/class.RecommendGUI.php",
+      "src/Template/class.TemplatesConfigGUI.php",
+      "src/Template/class.TemplateConfigGUI.php",
+      "src/Tile/class.TileGUI.php",
+      "src/Tile/class.TileStartSahsGUI.php"
     ],
     "files": [
       "vendor/srag/dic/src/PHPVersionChecker.php",
@@ -73,8 +90,8 @@
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
       "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport",
-      "srag\\LibrariesNamespaceChanger\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
-      "srag\\LibrariesNamespaceChanger\\UpdatePluginReadme::updatePluginReadme"
+      "srag\\GeneratePluginInfosHelper\\SrTile\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
+      "srag\\GeneratePluginInfosHelper\\SrTile\\GeneratePluginReadme::generatePluginReadme"
     ]
   }
 }

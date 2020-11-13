@@ -143,6 +143,10 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
                 $matches = [];
                 preg_match('/id="act_([0-9]+)/', $html, $matches);
+                if (!(is_array($matches) && count($matches) >= 2)) {
+                    $matches = [];
+                    preg_match('/[?&]ref_id=([0-9]+)/', $html, $matches);
+                }
                 if (is_array($matches) && count($matches) >= 2) {
 
                     $obj_ref_id = intval($matches[1]);
