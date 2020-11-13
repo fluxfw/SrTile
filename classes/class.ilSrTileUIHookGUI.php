@@ -175,8 +175,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
                                 $html, $matches);
                             if (is_array($matches) && count($matches) >= 1) {
                                 $html = str_ireplace($matches[0], $matches[0] . $actions_html, $html);
-                            } else {
-                                $html = $actions_html . $html;
                             }
 
                             return ["mode" => self::REPLACE, "html" => $html];
