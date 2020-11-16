@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.11.4]
+- Fix edit tile action on newer ILIAS versions
+
 ## [1.11.3]
 - Fix edit tile action on newer ILIAS versions
 

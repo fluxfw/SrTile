@@ -137,47 +137,46 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
         if ($a_par["tpl_id"] === self::ACTIONS_MENU_TEMPLATE && $a_part === self::TEMPLATE_GET) {
 
-            if (!empty(filter_input(INPUT_GET, self::GET_RENDER_EDIT_TILE_ACTION))) {
+            if (strtolower(filter_input(INPUT_GET, "baseClass")) === strtolower(ilRepositoryGUI::class) && self::dic()->ctrl()->getCmd() === "getAsynchItemList") {
 
-                $html = $a_par["html"];
+                if (!empty(filter_input(INPUT_GET, self::GET_RENDER_EDIT_TILE_ACTION))) {
 
-                $matches = [];
-                preg_match('/id="act_([0-9]+)/', $html, $matches);
-                if (!(is_array($matches) && count($matches) >= 2)) {
-                    $matches = [];
-                    preg_match('/[?&]ref_id=([0-9]+)/', $html, $matches);
-                }
-                if (is_array($matches) && count($matches) >= 2) {
+                    $html = $a_par["html"];
 
-                    $obj_ref_id = intval($matches[1]);
+                    $obj_ref_id = intval(filter_input(INPUT_GET, "cmdrefid"));
 
-                    if (self::srTile()->tiles()->isObject($obj_ref_id)) {
+                    if (!empty($obj_ref_id)) {
 
-                        if (self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
+                        if (self::srTile()->tiles()->isObject($obj_ref_id)) {
 
-                            self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_REF_ID, $obj_ref_id);
+                            if (self::srTile()->access()->hasWriteAccess($obj_ref_id)) {
 
-                            $actions = [
-                                [TileGUI::LANG_MODULE, "edit_tile", TileGUI::class, TileGUI::CMD_EDIT_TILE]
-                            ];
+                                self::dic()->ctrl()->setParameterByClass(TileGUI::class, TileGUI::GET_PARAM_REF_ID, $obj_ref_id);
 
-                            $actions_html = self::output()->getHTML(array_map(function (array $action) : string {
-                                return '<li>' . self::output()->getHTML(self::dic()->ui()->factory()->link()->standard('<span class="xsmall">' . self::plugin()
-                                            ->translate($action[1], $action[0]) . '</span>',
-                                        self::dic()->ctrl()->getLinkTargetByClass([
-                                            ilUIPluginRouterGUI::class,
-                                            $action[2]
-                                        ], $action[3]))) . '</li>';
-                            }, $actions));
+                                $actions = [
+                                    [TileGUI::LANG_MODULE, "edit_tile", TileGUI::class, TileGUI::CMD_EDIT_TILE]
+                                ];
 
-                            $matches = [];
-                            preg_match('/<ul\s+class="dropdown-menu pull-right"\s+role="menu"\s+id="ilAdvSelListTable_.*"\s*>/',
-                                $html, $matches);
-                            if (is_array($matches) && count($matches) >= 1) {
-                                $html = str_ireplace($matches[0], $matches[0] . $actions_html, $html);
+                                $actions_html = self::output()->getHTML(array_map(function (array $action) : string {
+                                    return '<li>' . self::output()->getHTML(self::dic()->ui()->factory()->link()->standard('<span class="xsmall">' . self::plugin()
+                                                ->translate($action[1], $action[0]) . '</span>',
+                                            self::dic()->ctrl()->getLinkTargetByClass([
+                                                ilUIPluginRouterGUI::class,
+                                                $action[2]
+                                            ], $action[3]))) . '</li>';
+                                }, $actions));
+
+                                $matches = [];
+                                preg_match('/<ul\s+class="dropdown-menu pull-right"\s+role="menu"\s+id="ilAdvSelListTable_.*"\s*>/',
+                                    $html, $matches);
+                                if (is_array($matches) && count($matches) >= 1) {
+                                    $html = str_ireplace($matches[0], $matches[0] . $actions_html, $html);
+                                } else {
+                                    $html = $actions_html . $html;
+                                }
+
+                                return ["mode" => self::REPLACE, "html" => $html];
                             }
-
-                            return ["mode" => self::REPLACE, "html" => $html];
                         }
                     }
                 }
