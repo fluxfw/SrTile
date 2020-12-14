@@ -65,7 +65,7 @@ class ilXPlugin extends ...
 		switch ($a_component) {
 			case IL_COMP_PLUGIN . "/" . ilSrTilePlugin::PLUGIN_NAME:
 				switch ($a_event) {
-					case ilSrTilePlugin::EVENT_...;
+					case ilSrTilePlugin::EVENT_...:
 						...
 						break;
 
