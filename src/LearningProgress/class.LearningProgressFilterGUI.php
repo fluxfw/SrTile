@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrTile\LearningProgress;
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+
 use ilDashboardGUI;
 use ilLink;
 use ilLPStatus;

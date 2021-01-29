@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+
 use ilLink;
 use ilSrTilePlugin;
 use ilUIPluginRouterGUI;

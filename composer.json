@@ -81,6 +81,7 @@
       "src/Tile/class.TileStartSahsGUI.php"
     ],
     "files": [
+      "src/optional_plugins.php",
       "vendor/srag/dic/src/PHPVersionChecker.php"
     ]
   },

@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
 {
     public static $files = array (
+        '7564ec11f8b6e4c6fd4c7d4ea5424209' => __DIR__ . '/../..' . '/src/optional_plugins.php',
         '80c999f5a06a9659d1dfdd0128147d78' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
     );
 
