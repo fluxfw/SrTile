@@ -8,7 +8,6 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
 {
     public static $files = array (
         '80c999f5a06a9659d1dfdd0128147d78' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
-        '69afd4ee407d9c432900b1da39300f6a' => __DIR__ . '/..' . '/srag/dic/src/Ilias7PreWarn.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -358,7 +357,6 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         'srag\\DIC\\SrTile\\Database\\PdoContextHelper' => __DIR__ . '/..' . '/srag/dic/src/Database/PdoContextHelper.php',
         'srag\\DIC\\SrTile\\Database\\PdoStatementContextHelper' => __DIR__ . '/..' . '/srag/dic/src/Database/PdoStatementContextHelper.php',
         'srag\\DIC\\SrTile\\Exception\\DICException' => __DIR__ . '/..' . '/srag/dic/src/Exception/DICException.php',
-        'srag\\DIC\\SrTile\\Ilias7PreWarn' => __DIR__ . '/..' . '/srag/dic/src/Ilias7PreWarn.php',
         'srag\\DIC\\SrTile\\Loader\\AbstractLoaderDetector' => __DIR__ . '/..' . '/srag/dic/src/Loader/AbstractLoaderDetector.php',
         'srag\\DIC\\SrTile\\Output\\Output' => __DIR__ . '/..' . '/srag/dic/src/Output/Output.php',
         'srag\\DIC\\SrTile\\Output\\OutputInterface' => __DIR__ . '/..' . '/srag/dic/src/Output/OutputInterface.php',
@@ -409,6 +407,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\LanguageVariableFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/LanguageVariableFormatter.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\LearningProgressFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/LearningProgressFormatter.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\LinkFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/LinkFormatter.php',
+        'srag\\DataTableUI\\SrTile\\Implementation\\Column\\Formatter\\MultilineFormatter' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Column/Formatter/MultilineFormatter.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Data\\Data' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Data/Data.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Data\\Factory' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Data/Factory.php',
         'srag\\DataTableUI\\SrTile\\Implementation\\Data\\Fetcher\\AbstractDataFetcher' => __DIR__ . '/..' . '/srag/datatable/src/Implementation/Data/Fetcher/AbstractDataFetcher.php',
