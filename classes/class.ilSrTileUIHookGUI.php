@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/../vendor/autoload.php";
+
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;

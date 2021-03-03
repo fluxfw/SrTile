@@ -147,7 +147,7 @@ final class Repository
     public function getSelectableObjects(int $group_id, int $obj_ref_id) : array
     {
         return array_reduce(array_filter(self::dic()->repositoryTree()->getChildsByType(self::dic()->repositoryTree()->getParentId($obj_ref_id),
-            self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id))), function (array $child) use ($group_id): bool {
+            self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id))), function (array $child) use ($group_id) : bool {
             return ($this->getObjectLink($group_id, $child["child"]) === null);
         }), function (array $childs, array $child) : array {
             $language_text = self::srTile()->ilias()->metadata(ilObjectFactory::getInstanceByRefId($child["child"], false))->getLanguageText();

@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrTile\Recommend;
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+
 use ilPropertyFormGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;

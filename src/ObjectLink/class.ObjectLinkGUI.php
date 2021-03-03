@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrTile\ObjectLink;
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+
 use ilSrTilePlugin;
 use ilUtil;
 use srag\DIC\SrTile\DICTrait;

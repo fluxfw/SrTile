@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrTile\Tile;
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+
 use ilSrTilePlugin;
 use ilUtil;
 use srag\DIC\SrTile\DICTrait;
@@ -100,7 +102,7 @@ class TileStartSahsGUI
         ilUtil::sendInfo(nl2br(self::plugin()->translate("hint", self::LANG_MODULE), false));
 
         self::dic()->toolbar()->addComponent(self::dic()->ui()->factory()->button()->standard(self::plugin()->translate("start", self::LANG_MODULE), "")
-            ->withAdditionalOnLoadCode(function (string $id) use ($start_sahs): string {
+            ->withAdditionalOnLoadCode(function (string $id) use ($start_sahs) : string {
                 return '$("#' . $id . '").click(function () {' . $start_sahs["onclick"] . '});';
             }));
 

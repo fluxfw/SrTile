@@ -1,7 +1,7 @@
 {
   "name": "srag/srtile",
-  "description": "",
-  "version": "1.11.4",
+  "description": "Custom ILIAS tile repository view",
+  "version": "1.11.5",
   "extra": {
     "ilias_plugin": {
       "id": "srtile",
@@ -9,6 +9,7 @@
       "ilias_min_version": "5.4.0",
       "ilias_max_version": "6.999",
       "slot": "Services/UIComponent/UserInterfaceHook",
+      "supports_cli_setup": true,
       "events": [
         {
           "id": "Services/Object",
@@ -24,14 +25,17 @@
         }
       ]
     },
-    "generate_plugin_readme_template": "SRAG_ILIAS_PLUGIN"
+    "generate_plugin_readme_template": "SRAG_ILIAS_PLUGIN",
+    "long_description_template": "src/LONG_DESCRIPTION.md"
   },
   "type": "project",
   "keywords": [
-    "ILIAS",
-    "Plugin"
+    "ilias",
+    "interface",
+    "plugin",
+    "user"
   ],
-  "homepage": "https://github.com/studer-raimann/SrTile",
+  "homepage": "https://github.com/fluxfw/SrTile",
   "license": "GPL-3.0-only",
   "authors": [
     {
@@ -77,8 +81,8 @@
       "src/Tile/class.TileStartSahsGUI.php"
     ],
     "files": [
-      "vendor/srag/dic/src/PHPVersionChecker.php",
-      "vendor/srag/dic/src/Ilias7PreWarn.php"
+      "src/optional_plugins.php",
+      "vendor/srag/dic/src/PHPVersionChecker.php"
     ]
   },
   "config": {

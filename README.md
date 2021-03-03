@@ -2,7 +2,7 @@
 
 # SrTile ILIAS Plugin
 
-
+Custom ILIAS tile repository view
 
 This is an OpenSource project by studer + raimann ag, CH-Burgdorf (https://studer-raimann.ch)
 
@@ -20,7 +20,7 @@ Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
 cd Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
-git clone https://github.com/studer-raimann/SrTile.git SrTile
+git clone https://github.com/fluxfw/SrTile.git SrTile
 ```
 
 Update, activate and config the plugin in the ILIAS Plugin Administration
@@ -37,6 +37,7 @@ Tile config:
 ![Tiles](./doc/images/tile_config.png)
 
 ## Custom event plugins
+
 If you need to adapt some custom SrTile changes which can not be configured to your needs, SrTile will trigger some events, you can listen and react to this in an other custom plugin (plugin type is no matter)
 
 First create or extend a `plugin.xml` in your custom plugin (You need to adapt `PLUGIN_ID` with your own plugin id) to tell ILIAS, your plugins wants to listen to SrTile events (You need also to increase your plugin version for take effect)
@@ -65,7 +66,7 @@ class ilXPlugin extends ...
 		switch ($a_component) {
 			case IL_COMP_PLUGIN . "/" . ilSrTilePlugin::PLUGIN_NAME:
 				switch ($a_event) {
-					case ilSrTilePlugin::EVENT_...;
+					case ilSrTilePlugin::EVENT_...:
 						...
 						break;
 
@@ -88,8 +89,9 @@ class ilXPlugin extends ...
 
 ## Adjustment suggestions
 
-* External users can report suggestions and bugs at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLSRTILE
-* Adjustment suggestions by pull requests via github
+You can report bugs or suggestions at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLSRTILE
+
+There is no guarantee this can be fixed or implemented
 
 ## ILIAS Plugin SLA
 

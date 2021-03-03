@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\SrTile\Template;
 
+require_once __DIR__ . "/../../vendor/autoload.php";
+
 use ilConfirmationGUI;
 use ilSrTilePlugin;
 use ilUtil;
