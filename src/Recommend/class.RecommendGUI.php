@@ -7,6 +7,7 @@ require_once __DIR__ . "/../../vendor/autoload.php";
 use ilPropertyFormGUI;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\DIC\SrTile\Version\PluginVersionParameter;
 use srag\Plugins\SrTile\Tile\Tile;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
@@ -88,7 +89,9 @@ class RecommendGUI
      */
     public function getModal() : string
     {
-        self::dic()->ui()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/js/recommend.min.js");
+        $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
+
+        self::dic()->ui()->mainTemplate()->addJavaScript($version_parameter->appendToUrl(self::plugin()->directory() . "/js/recommend.min.js", self::plugin()->directory() . "/js/recommend.js"));
 
         $modal = self::output()->getHTML(self::dic()->ui()->factory()->modal()->roundtrip("", self::dic()->ui()->factory()->legacy("")));
 

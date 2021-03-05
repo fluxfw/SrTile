@@ -277,6 +277,7 @@ return array(
     'srag\\DIC\\SrTile\\Plugin\\Plugin' => $vendorDir . '/srag/dic/src/Plugin/Plugin.php',
     'srag\\DIC\\SrTile\\Plugin\\PluginInterface' => $vendorDir . '/srag/dic/src/Plugin/PluginInterface.php',
     'srag\\DIC\\SrTile\\Plugin\\Pluginable' => $vendorDir . '/srag/dic/src/Plugin/Pluginable.php',
+    'srag\\DIC\\SrTile\\Version\\PluginVersionParameter' => $vendorDir . '/srag/dic/src/Version/PluginVersionParameter.php',
     'srag\\DIC\\SrTile\\Version\\Version' => $vendorDir . '/srag/dic/src/Version/Version.php',
     'srag\\DIC\\SrTile\\Version\\VersionInterface' => $vendorDir . '/srag/dic/src/Version/VersionInterface.php',
     'srag\\DataTableUI\\SrTile\\Component\\Column\\Column' => $vendorDir . '/srag/datatable/src/Component/Column/Column.php',

@@ -365,6 +365,7 @@ class ComposerStaticInit8c76cf1a99043bea2f91eb62eea324c6
         'srag\\DIC\\SrTile\\Plugin\\Plugin' => __DIR__ . '/..' . '/srag/dic/src/Plugin/Plugin.php',
         'srag\\DIC\\SrTile\\Plugin\\PluginInterface' => __DIR__ . '/..' . '/srag/dic/src/Plugin/PluginInterface.php',
         'srag\\DIC\\SrTile\\Plugin\\Pluginable' => __DIR__ . '/..' . '/srag/dic/src/Plugin/Pluginable.php',
+        'srag\\DIC\\SrTile\\Version\\PluginVersionParameter' => __DIR__ . '/..' . '/srag/dic/src/Version/PluginVersionParameter.php',
         'srag\\DIC\\SrTile\\Version\\Version' => __DIR__ . '/..' . '/srag/dic/src/Version/Version.php',
         'srag\\DIC\\SrTile\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
         'srag\\DataTableUI\\SrTile\\Component\\Column\\Column' => __DIR__ . '/..' . '/srag/datatable/src/Component/Column/Column.php',

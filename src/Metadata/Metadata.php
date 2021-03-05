@@ -6,6 +6,7 @@ use ilMD;
 use ilObject;
 use ilSrTilePlugin;
 use srag\DIC\SrTile\DICTrait;
+use srag\DIC\SrTile\Version\PluginVersionParameter;
 use srag\Plugins\SrTile\Utils\SrTileTrait;
 
 /**
@@ -83,11 +84,13 @@ class Metadata
      */
     public function getLanguageImage() : string
     {
+        $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
+
         $mapping = [
             "en" => "gb"
         ];
 
-        self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . "/vendor/components/flag-icon-css/css/flag-icon.min.css");
+        self::dic()->ui()->mainTemplate()->addCss($version_parameter->appendToUrl(self::plugin()->directory() . "/vendor/components/flag-icon-css/css/flag-icon.min.css"));
 
         $language_code = $this->getLanguageCode();
 

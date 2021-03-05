@@ -5,6 +5,7 @@ namespace srag\Plugins\SrTile\Tile\Renderer;
 use ilSrTilePlugin;
 use ilSrTileUIHookGUI;
 use srag\DIC\SrTile\DICTrait;
+use srag\DIC\SrTile\Version\PluginVersionParameter;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressFilterGUI;
 use srag\Plugins\SrTile\LearningProgress\LearningProgressLegendGUI;
 use srag\Plugins\SrTile\Tile\Tile;
@@ -107,9 +108,11 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
 
         if (count($this->collection->getTiles()) > 0) {
 
+            $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
+
             $parent_tile = self::srTile()->tiles()->getInstanceForObjRefId(ilSrTileUIHookGUI::filterRefId() ?? ROOT_FOLDER_ID);
 
-            self::dic()->ui()->mainTemplate()->addCss(self::plugin()->directory() . "/css/srtile.css");
+            self::dic()->ui()->mainTemplate()->addCss($version_parameter->appendToUrl(self::plugin()->directory() . "/css/srtile.css"));
 
             $tpl = self::plugin()->template("TileCollection/collection.html");
 
@@ -147,6 +150,8 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
      */
     protected function initJS()/*: void*/
     {
-        self::dic()->ui()->mainTemplate()->addJavaScript(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js");
+        $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
+
+        self::dic()->ui()->mainTemplate()->addJavaScript($version_parameter->appendToUrl(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"));
     }
 }
