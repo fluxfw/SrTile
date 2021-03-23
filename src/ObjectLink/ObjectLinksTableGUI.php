@@ -71,7 +71,7 @@ class ObjectLinksTableGUI extends TableGUI
         $this->tpl->setCurrentBlock("column");
         $this->tpl->setVariable("COLUMN", self::output()->getHTML([
             self::dic()->ui()->factory()->glyph()->sortAscending()->withAdditionalOnLoadCode(function (string $id) : string {
-                Waiter::init(Waiter::TYPE_WAITER);
+                Waiter::init(Waiter::TYPE_WAITER, null, self::plugin());
 
                 return '
             $("#' . $id . '").click(function () {
