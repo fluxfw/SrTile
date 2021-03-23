@@ -1,7 +1,7 @@
 {
   "name": "srag/srtile",
   "description": "Custom ILIAS tile repository view",
-  "version": "1.11.5",
+  "version": "1.11.6",
   "extra": {
     "ilias_plugin": {
       "id": "srtile",
@@ -25,7 +25,7 @@
         }
       ]
     },
-    "generate_plugin_readme_template": "SRAG_ILIAS_PLUGIN",
+    "generate_plugin_readme_template": "ILIAS_PLUGIN",
     "long_description_template": "src/LONG_DESCRIPTION.md"
   },
   "type": "project",
@@ -45,9 +45,6 @@
       "role": "Developer"
     }
   ],
-  "support": {
-    "issues": "https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLSRTILE"
-  },
   "require": {
     "php": ">=7.0",
     "components/flag-icon-css": "3.4.6",
