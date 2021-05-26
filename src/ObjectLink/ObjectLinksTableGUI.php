@@ -13,8 +13,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * Class ObjectLinksTableGUI
  *
  * @package srag\Plugins\SrTile\ObjectLink
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class ObjectLinksTableGUI extends TableGUI
 {

@@ -9,8 +9,6 @@ use srag\CustomInputGUIs\SrTile\TableGUI\TableGUI;
  *
  * @package    srag\ActiveRecordConfig\SrTile
  *
- * @author     studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @deprecated Please use TableGUI from CustomInputGUIs instead
  */
 abstract class ActiveRecordConfigTableGUI extends TableGUI

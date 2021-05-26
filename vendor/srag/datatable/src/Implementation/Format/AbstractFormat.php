@@ -16,8 +16,6 @@ use srag\DIC\SrTile\DICTrait;
  * Class AbstractFormat
  *
  * @package srag\DataTableUI\SrTile\Implementation\Format
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 abstract class AbstractFormat implements Format
 {

@@ -72,8 +72,6 @@ use srag\DIC\SrTile\DIC\AbstractDIC;
  * Class ILIAS60DIC
  *
  * @package srag\DIC\SrTile\DIC\Implementation
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class ILIAS60DIC extends AbstractDIC
 {

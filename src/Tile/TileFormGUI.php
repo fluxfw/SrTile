@@ -24,8 +24,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * Class TileFormGUI
  *
  * @package srag\Plugins\srTile\Tile
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class TileFormGUI extends PropertyFormGUI
 {

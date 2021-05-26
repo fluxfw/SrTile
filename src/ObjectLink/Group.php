@@ -12,8 +12,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * Class Group
  *
  * @package srag\Plugins\SrTile\ObjectLink
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class Group extends ActiveRecord
 {

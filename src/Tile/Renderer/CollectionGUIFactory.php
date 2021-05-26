@@ -15,8 +15,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * Class CollectionGUIFactory
  *
  * @package srag\Plugins\SrTile\Tile\Renderer
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class CollectionGUIFactory
 {

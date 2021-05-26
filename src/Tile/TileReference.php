@@ -9,8 +9,6 @@ use ilObjectFactory;
  * Class TileReference
  *
  * @package srag\Plugins\SrTile\Tile
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class TileReference extends Tile
 {

@@ -16,8 +16,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @package           srag\Plugins\SrTile\ObjectLink
  *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_isCalledBy srag\Plugins\SrTile\ObjectLink\ObjectLinksGUI: srag\Plugins\SrTile\Tile\TileGUI
  */
 class ObjectLinksGUI

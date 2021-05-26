@@ -8,8 +8,6 @@ use srag\DIC\SrTile\DICTrait;
  * Class AbstractAjaxAutoCompleteCtrl
  *
  * @package srag\CustomInputGUIs\SrTile\MultiSelectSearchNewInputGUI
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 abstract class AbstractAjaxAutoCompleteCtrl
 {

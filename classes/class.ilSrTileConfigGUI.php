@@ -12,8 +12,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
 /**
  * Class ilSrTileConfigGUI
  *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_isCalledBy srag\Notifications4Plugin\SrTile\Notification\NotificationsCtrl: ilSrTileConfigGUI
  * @ilCtrl_isCalledBy srag\DevTools\SrTile\DevToolsCtrl: ilSrTileConfigGUI
  */

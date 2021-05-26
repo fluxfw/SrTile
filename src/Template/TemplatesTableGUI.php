@@ -11,8 +11,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * Class TemplatesTableGUI
  *
  * @package srag\Plugins\SrTile\Template
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class TemplatesTableGUI extends TableGUI
 {

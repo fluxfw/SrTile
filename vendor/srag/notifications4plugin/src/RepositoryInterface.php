@@ -11,8 +11,6 @@ use srag\Notifications4Plugin\SrTile\Sender\RepositoryInterface as SenderReposit
  * Interface RepositoryInterface
  *
  * @package srag\Notifications4Plugin\SrTile
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 interface RepositoryInterface extends Pluginable
 {
