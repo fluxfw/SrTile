@@ -18,8 +18,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @package           srag\Plugins\SrTile\Favorite
  *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_isCalledBy srag\Plugins\SrTile\Favorite\FavoritesGUI: ilUIPluginRouterGUI
  */
 class FavoritesGUI

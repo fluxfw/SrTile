@@ -22,8 +22,6 @@ use srag\LibraryLanguageInstaller\SrTile\LibraryLanguageInstaller;
  * Class Factory
  *
  * @package srag\DataTableUI\SrTile\Implementation
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class Factory implements FactoryInterface
 {

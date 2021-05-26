@@ -6,8 +6,6 @@ namespace srag\RemovePluginDataConfirm\SrTile;
  * Trait PluginUninstallTrait
  *
  * @package srag\RemovePluginDataConfirm\SrTile
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 trait PluginUninstallTrait
 {

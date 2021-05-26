@@ -11,8 +11,6 @@ use srag\DIC\SrTile\Plugin\PluginInterface;
  * Class PluginVersionParameter
  *
  * @package srag\DIC\SrTile\Version
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class PluginVersionParameter implements Pluginable
 {

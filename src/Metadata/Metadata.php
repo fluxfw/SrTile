@@ -13,8 +13,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * Class Metadata
  *
  * @package srag\Plugins\SrTile\Metadata
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class Metadata
 {

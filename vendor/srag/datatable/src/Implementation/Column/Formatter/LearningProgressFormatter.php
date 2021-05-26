@@ -11,8 +11,6 @@ use srag\DataTableUI\SrTile\Component\Format\Format;
  * Class LearningProgressFormatter
  *
  * @package srag\DataTableUI\SrTile\Implementation\Column\Formatter
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class LearningProgressFormatter extends DefaultFormatter
 {

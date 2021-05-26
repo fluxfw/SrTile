@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.11.8]
+- Update urls
+
 ## [1.11.7]
 - Ignore not supported languages
 

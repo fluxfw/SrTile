@@ -14,8 +14,6 @@ use srag\DIC\SrTile\DICTrait;
  * Class Settings
  *
  * @package srag\DataTableUI\SrTile\Implementation\Settings
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class Settings implements SettingsInterface
 {

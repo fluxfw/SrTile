@@ -14,8 +14,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * Class RecommendFormGUI
  *
  * @package srag\Plugins\SrTile\Recommend
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class RecommendFormGUI extends PropertyFormGUI
 {

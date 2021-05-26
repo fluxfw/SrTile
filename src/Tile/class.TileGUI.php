@@ -17,8 +17,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  *
  * @package           srag\Plugins\SrTile\Tile
  *
- * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
- *
  * @ilCtrl_isCalledBy srag\Plugins\SrTile\Tile\TileGUI: ilUIPluginRouterGUI
  */
 class TileGUI

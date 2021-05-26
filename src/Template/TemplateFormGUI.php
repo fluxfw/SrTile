@@ -8,8 +8,6 @@ use srag\Plugins\SrTile\Tile\TileFormGUI;
  * Class TemplateFormGUI
  *
  * @package srag\Plugins\SrTile\Template
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class TemplateFormGUI extends TileFormGUI
 {

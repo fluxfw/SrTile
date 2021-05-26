@@ -19,8 +19,6 @@ use srag\DataTableUI\SrTile\Implementation\Column\Formatter\DefaultFormatter;
  * Class ActionsDropdownFormatter
  *
  * @package srag\DataTableUI\SrTile\Implementation\Column\Formatter\Actions
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class ActionsDropdownFormatter extends DefaultFormatter implements ActionsFormatter
 {

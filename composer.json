@@ -1,7 +1,7 @@
 {
   "name": "srag/srtile",
   "description": "Custom ILIAS tile repository view",
-  "version": "1.11.7",
+  "version": "1.11.8",
   "extra": {
     "ilias_plugin": {
       "id": "srtile",
@@ -35,13 +35,13 @@
     "plugin",
     "user"
   ],
-  "homepage": "https://github.com/fluxfw/SrTile",
+  "homepage": "https://github.com/fluxapps/SrTile",
   "license": "GPL-3.0-only",
   "authors": [
     {
-      "name": "studer + raimann ag - Team Custom 1",
-      "email": "support-custom1@studer-raimann.ch",
-      "homepage": "https://studer-raimann.ch",
+      "name": "fluxlabs",
+      "email": "support@fluxlabs.ch",
+      "homepage": "https://fluxlabs.ch",
       "role": "Developer"
     }
   ],

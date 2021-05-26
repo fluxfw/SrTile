@@ -8,8 +8,6 @@ use srag\Plugins\SrTile\Tile\Renderer\Container\ContainerCollection;
  * Class DashboardCollection
  *
  * @package srag\Plugins\SrTile\Tile\Renderer\Dashboard
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class DashboardCollection extends ContainerCollection
 {

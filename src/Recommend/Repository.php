@@ -10,8 +10,6 @@ use srag\Plugins\SrTile\Utils\SrTileTrait;
  * Class Repository
  *
  * @package srag\Plugins\SrTile\Recommend
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 final class Repository
 {

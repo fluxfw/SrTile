@@ -22,8 +22,6 @@ use srag\Notifications4Plugin\SrTile\Utils\Notifications4PluginTrait;
  * Class FormBuilder
  *
  * @package srag\Notifications4Plugin\SrTile\Notification\Form
- *
- * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
 class FormBuilder extends AbstractFormBuilder
 {
