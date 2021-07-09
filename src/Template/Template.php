@@ -59,7 +59,7 @@ class Template extends Tile
     /**
      * @param string $object_type
      */
-    public function setObjectType(string $object_type)/*: void*/
+    public function setObjectType(string $object_type) : void
     {
         $this->object_type = $object_type;
     }

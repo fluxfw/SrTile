@@ -106,7 +106,7 @@ class LearningProgressFilter extends ActiveRecord
     /**
      * @param array $filter
      */
-    public function setFilter(array $filter) /*: void*/
+    public function setFilter(array $filter) : void
     {
         $this->filter = $filter;
     }
@@ -124,7 +124,7 @@ class LearningProgressFilter extends ActiveRecord
     /**
      * @param int $filter_id
      */
-    public function setFilterId(int $filter_id)/*: void*/
+    public function setFilterId(int $filter_id) : void
     {
         $this->filter_id = $filter_id;
     }
@@ -142,7 +142,7 @@ class LearningProgressFilter extends ActiveRecord
     /**
      * @param int $obj_ref_id
      */
-    public function setObjRefId(int $obj_ref_id)/*: void*/
+    public function setObjRefId(int $obj_ref_id) : void
     {
         $this->obj_ref_id = $obj_ref_id;
     }
@@ -160,7 +160,7 @@ class LearningProgressFilter extends ActiveRecord
     /**
      * @param int $user_id
      */
-    public function setUserId(int $user_id)/*: void*/
+    public function setUserId(int $user_id) : void
     {
         $this->user_id = $user_id;
     }

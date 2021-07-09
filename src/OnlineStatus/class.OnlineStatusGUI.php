@@ -55,7 +55,7 @@ class OnlineStatusGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->parent_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_PARENT_REF_ID));
 
@@ -98,7 +98,7 @@ class OnlineStatusGUI
     /**
      *
      */
-    protected function setOffline()/*: void*/
+    protected function setOffline() : void
     {
         if (!empty($this->object_ref_ids)) {
             foreach ($this->object_ref_ids as $object_ref_id) {
@@ -119,7 +119,7 @@ class OnlineStatusGUI
     /**
      *
      */
-    protected function setOnline()/*: void*/
+    protected function setOnline() : void
     {
         if (!empty($this->object_ref_ids)) {
             foreach ($this->object_ref_ids as $object_ref_id) {
@@ -140,7 +140,7 @@ class OnlineStatusGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
+    protected function setTabs() : void
     {
 
     }

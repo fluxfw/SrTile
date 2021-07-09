@@ -39,7 +39,7 @@ class TemplatesConfigGUI
     /**
      *
      */
-    public static function addTabs()/*: void*/
+    public static function addTabs() : void
     {
         self::dic()->tabs()->addTab(self::TAB_LIST_TEMPLATES, self::plugin()->translate("templates", self::LANG_MODULE), self::dic()->ctrl()
             ->getLinkTargetByClass(self::class, self::CMD_LIST_TEMPLATES));
@@ -49,7 +49,7 @@ class TemplatesConfigGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->setTabs();
 
@@ -79,7 +79,7 @@ class TemplatesConfigGUI
     /**
      *
      */
-    protected function listTemplates()/*: void*/
+    protected function listTemplates() : void
     {
         self::dic()->tabs()->activateTab(self::TAB_LIST_TEMPLATES);
 
@@ -92,7 +92,7 @@ class TemplatesConfigGUI
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs() : void
     {
 
     }

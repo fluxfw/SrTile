@@ -64,7 +64,7 @@ class Recommend
     /**
      * @param string $message
      */
-    public function setMessage(string $message)/*: void*/
+    public function setMessage(string $message) : void
     {
         $this->message = $message;
     }
@@ -82,7 +82,7 @@ class Recommend
     /**
      * @param string $recommended_to
      */
-    public function setRecommendedTo(string $recommended_to)/*: void*/
+    public function setRecommendedTo(string $recommended_to) : void
     {
         $this->recommended_to = $recommended_to;
     }

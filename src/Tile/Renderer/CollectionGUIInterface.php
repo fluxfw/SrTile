@@ -13,7 +13,7 @@ interface CollectionGUIInterface
     /**
      *
      */
-    public function hideOriginalRowsOfTiles() /*: void*/ ;
+    public function hideOriginalRowsOfTiles() : void;
 
 
     /**

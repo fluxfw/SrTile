@@ -62,7 +62,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
      * @param string $alert_type
      * @param bool   $keep
      */
-    public static function askAndDisplayAlertMessage(string $key, string $module, string $alert_type = "success", bool $keep = true)/*: void*/
+    public static function askAndDisplayAlertMessage(string $key, string $module, string $alert_type = "success", bool $keep = true) : void
     {
         $should_not_display = [];
 
@@ -84,7 +84,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
      *
      * @deprecated
      */
-    public static function filterRefId()/*: ?int*/
+    public static function filterRefId() : ?int
     {
         $obj_ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
 
@@ -189,7 +189,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     /**
      * @inheritDoc
      */
-    public function gotoHook()/*: void*/
+    public function gotoHook() : void
     {
         $target = filter_input(INPUT_GET, "target");
 
@@ -216,7 +216,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     /**
      * @inheritDoc
      */
-    public function modifyGUI(/*string*/ $a_comp, /*string*/ $a_part, /*array*/ $a_par = [])/*: void*/
+    public function modifyGUI(/*string*/ $a_comp, /*string*/ $a_part, /*array*/ $a_par = []) : void
     {
         $obj_ref_id = self::filterRefId();
 

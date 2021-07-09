@@ -57,7 +57,7 @@ class RecommendFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected final function initAction()/*: void*/
+    protected final function initAction() : void
     {
         $this->setFormAction(self::dic()->ctrl()->getFormAction($this->parent, "", "", true));
     }
@@ -66,7 +66,7 @@ class RecommendFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initCommands()/*: void*/
+    protected function initCommands() : void
     {
         $this->addCommandButton(RecommendGUI::CMD_NEW_RECOMMEND, $this->txt("submit"), "tile_recommend_modal_submit");
 
@@ -79,7 +79,7 @@ class RecommendFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initFields()/*: void*/
+    protected function initFields() : void
     {
         $this->fields = [
             "recommended_to" => [
@@ -101,7 +101,7 @@ class RecommendFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected final function initId()/*: void*/
+    protected final function initId() : void
     {
         $this->setId("tile_recommend_modal_form");
     }
@@ -110,7 +110,7 @@ class RecommendFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected final function initTitle()/*: void*/
+    protected final function initTitle() : void
     {
         $this->setTitle(self::plugin()->translate("recommendation", self::LANG_MODULE, [
             $this->recommend->getTile()->_getTitle()
@@ -121,7 +121,7 @@ class RecommendFormGUI extends PropertyFormGUI
     /**
      * @inheritdoc
      */
-    protected function storeValue(string $key, $value)/*: void*/
+    protected function storeValue(string $key, $value) : void
     {
         switch ($key) {
             default:

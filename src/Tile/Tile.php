@@ -568,7 +568,7 @@ class Tile extends ActiveRecord
      *
      * @return int|null
      */
-    public static function modifyTileRefIdForRead(int $obj_ref_id = null)/*: ?int*/
+    public static function modifyTileRefIdForRead(int $obj_ref_id = null) : ?int
     {
         return $obj_ref_id;
     }
@@ -781,7 +781,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $columns
      */
-    public function setColumns(int $columns)/*: void*/
+    public function setColumns(int $columns) : void
     {
         $this->columns = $columns;
     }
@@ -790,7 +790,7 @@ class Tile extends ActiveRecord
     /**
      * @return ilObject|null
      */
-    public function _getIlObject()/*: ?ilObject*/
+    public function _getIlObject() : ?ilObject
     {
         if ($this->il_object === null) {
             $this->il_object = ilObjectFactory::getInstanceByRefId($this->getObjRefId(), false);
@@ -928,7 +928,7 @@ class Tile extends ActiveRecord
     /**
      * @param string $path_of_new_image
      */
-    public function applyNewImage(string $path_of_new_image)/*: void*/
+    public function applyNewImage(string $path_of_new_image) : void
     {
         if (!empty($this->getImage())) {
             if (file_exists($image_old_path = $this->getImagePath())) {
@@ -963,7 +963,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $actions_position
      */
-    public function setActionsPosition(int $actions_position)/*: void*/
+    public function setActionsPosition(int $actions_position) : void
     {
         $this->actions_position = $actions_position;
     }
@@ -981,7 +981,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $actions_vertical_align
      */
-    public function setActionsVerticalAlign(int $actions_vertical_align)/*: void*/
+    public function setActionsVerticalAlign(int $actions_vertical_align) : void
     {
         $this->actions_vertical_align = $actions_vertical_align;
     }
@@ -999,7 +999,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $apply_colors_to_global_skin
      */
-    public function setApplyColorsToGlobalSkin(int $apply_colors_to_global_skin)/*: void*/
+    public function setApplyColorsToGlobalSkin(int $apply_colors_to_global_skin) : void
     {
         $this->apply_colors_to_global_skin = $apply_colors_to_global_skin;
     }
@@ -1037,7 +1037,7 @@ class Tile extends ActiveRecord
     /**
      * @param string $background_color
      */
-    public function setBackgroundColor(string $background_color)/*: void*/
+    public function setBackgroundColor(string $background_color) : void
     {
         $this->background_color = $background_color;
     }
@@ -1055,7 +1055,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $background_color_type
      */
-    public function setBackgroundColorType(int $background_color_type)/*: void*/
+    public function setBackgroundColorType(int $background_color_type) : void
     {
         $this->background_color_type = $background_color_type;
     }
@@ -1096,7 +1096,7 @@ class Tile extends ActiveRecord
     /**
      * @param string $border_color
      */
-    public function setBorderColor(string $border_color)/*: void*/
+    public function setBorderColor(string $border_color) : void
     {
         $this->border_color = $border_color;
     }
@@ -1114,7 +1114,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $border_color_type
      */
-    public function setBorderColorType(int $border_color_type)/*: void*/
+    public function setBorderColorType(int $border_color_type) : void
     {
         $this->border_color_type = $border_color_type;
     }
@@ -1132,7 +1132,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $border_size
      */
-    public function setBorderSize(int $border_size)/*: void*/
+    public function setBorderSize(int $border_size) : void
     {
         $this->border_size = $border_size;
     }
@@ -1150,7 +1150,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $border_size_type
      */
-    public function setBorderSizeType(int $border_size_type)/*: void*/
+    public function setBorderSizeType(int $border_size_type) : void
     {
         $this->border_size_type = $border_size_type;
     }
@@ -1168,7 +1168,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $columns_type
      */
-    public function setColumnsType(int $columns_type)/*: void*/
+    public function setColumnsType(int $columns_type) : void
     {
         $this->columns_type = $columns_type;
     }
@@ -1186,7 +1186,7 @@ class Tile extends ActiveRecord
     /**
      * @return string|null
      */
-    public function getCustomIcon()/* : ?string*/
+    public function getCustomIcon() : ?string
     {
         return $this->custom_icon;
     }
@@ -1195,7 +1195,7 @@ class Tile extends ActiveRecord
     /**
      * @param string|null $custom_icon
      */
-    public function setCustomIcon(/*?string*/ $custom_icon = null)/* : void*/
+    public function setCustomIcon(/*?string*/ $custom_icon = null) : void
     {
         $this->custom_icon = $custom_icon;
     }
@@ -1213,7 +1213,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $enable_rating
      */
-    public function setEnableRating(int $enable_rating)/*: void*/
+    public function setEnableRating(int $enable_rating) : void
     {
         $this->enable_rating = $enable_rating;
     }
@@ -1259,7 +1259,7 @@ class Tile extends ActiveRecord
     /**
      * @param string $font_color
      */
-    public function setFontColor(string $font_color)/*: void*/
+    public function setFontColor(string $font_color) : void
     {
         $this->font_color = $font_color;
     }
@@ -1277,7 +1277,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $font_color_type
      */
-    public function setFontColorType(int $font_color_type)/*: void*/
+    public function setFontColorType(int $font_color_type) : void
     {
         $this->font_color_type = $font_color_type;
     }
@@ -1295,7 +1295,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $font_size
      */
-    public function setFontSize(int $font_size)/*: void*/
+    public function setFontSize(int $font_size) : void
     {
         $this->font_size = $font_size;
     }
@@ -1313,7 +1313,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $font_size_type
      */
-    public function setFontSizeType(int $font_size_type)/*: void*/
+    public function setFontSizeType(int $font_size_type) : void
     {
         $this->font_size_type = $font_size_type;
     }
@@ -1345,7 +1345,7 @@ class Tile extends ActiveRecord
     /**
      * @param string $image
      */
-    public function setImage(string $image)/*: void*/
+    public function setImage(string $image) : void
     {
         $this->image = $image;
     }
@@ -1404,7 +1404,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $image_position
      */
-    public function setImagePosition(int $image_position)/*: void*/
+    public function setImagePosition(int $image_position) : void
     {
         $this->image_position = $image_position;
     }
@@ -1422,7 +1422,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $label_horizontal_align
      */
-    public function setLabelHorizontalAlign(int $label_horizontal_align)/*: void*/
+    public function setLabelHorizontalAlign(int $label_horizontal_align) : void
     {
         $this->label_horizontal_align = $label_horizontal_align;
     }
@@ -1440,7 +1440,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $label_vertical_align
      */
-    public function setLabelVerticalAlign(int $label_vertical_align)/*: void*/
+    public function setLabelVerticalAlign(int $label_vertical_align) : void
     {
         $this->label_vertical_align = $label_vertical_align;
     }
@@ -1458,7 +1458,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $language_flag_position
      */
-    public function setLanguageFlagPosition(int $language_flag_position)/*: void*/
+    public function setLanguageFlagPosition(int $language_flag_position) : void
     {
         $this->language_flag_position = $language_flag_position;
     }
@@ -1476,7 +1476,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $learning_progress_position
      */
-    public function setLearningProgressPosition(int $learning_progress_position)/*: void*/
+    public function setLearningProgressPosition(int $learning_progress_position) : void
     {
         $this->learning_progress_position = $learning_progress_position;
     }
@@ -1494,7 +1494,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $margin
      */
-    public function setMargin(int $margin)/*: void*/
+    public function setMargin(int $margin) : void
     {
         $this->margin = $margin;
     }
@@ -1512,7 +1512,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $margin_type
      */
-    public function setMarginType(int $margin_type)/*: void*/
+    public function setMarginType(int $margin_type) : void
     {
         $this->margin_type = $margin_type;
     }
@@ -1530,7 +1530,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $obj_ref_id
      */
-    public function setObjRefId(int $obj_ref_id)/*: void*/
+    public function setObjRefId(int $obj_ref_id) : void
     {
         $this->obj_ref_id = $obj_ref_id;
     }
@@ -1548,7 +1548,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $object_icon_position
      */
-    public function setObjectIconPosition(int $object_icon_position)/*: void*/
+    public function setObjectIconPosition(int $object_icon_position) : void
     {
         $this->object_icon_position = $object_icon_position;
     }
@@ -1566,7 +1566,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $open_obj_with_one_child_direct
      */
-    public function setOpenObjWithOneChildDirect(int $open_obj_with_one_child_direct)/*: void*/
+    public function setOpenObjWithOneChildDirect(int $open_obj_with_one_child_direct) : void
     {
         $this->open_obj_with_one_child_direct = $open_obj_with_one_child_direct;
     }
@@ -1584,7 +1584,7 @@ class Tile extends ActiveRecord
     /**
      * @param string $recommend_mail_template
      */
-    public function setRecommendMailTemplate(string $recommend_mail_template)/*: void*/
+    public function setRecommendMailTemplate(string $recommend_mail_template) : void
     {
         $this->recommend_mail_template = $recommend_mail_template;
     }
@@ -1602,7 +1602,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $recommend_mail_template_type
      */
-    public function setRecommendMailTemplateType(int $recommend_mail_template_type)/*: void*/
+    public function setRecommendMailTemplateType(int $recommend_mail_template_type) : void
     {
         $this->recommend_mail_template_type = $recommend_mail_template_type;
     }
@@ -1620,7 +1620,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $shadow
      */
-    public function setShadow(int $shadow)/*: void*/
+    public function setShadow(int $shadow) : void
     {
         $this->shadow = $shadow;
     }
@@ -1638,7 +1638,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_actions
      */
-    public function setShowActions(int $show_actions)/*: void*/
+    public function setShowActions(int $show_actions) : void
     {
         $this->show_actions = $show_actions;
     }
@@ -1656,7 +1656,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_download_certificate
      */
-    public function setShowDownloadCertificate(int $show_download_certificate)/*: void*/
+    public function setShowDownloadCertificate(int $show_download_certificate) : void
     {
         $this->show_download_certificate = $show_download_certificate;
     }
@@ -1674,7 +1674,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_favorites_icon
      */
-    public function setShowFavoritesIcon(int $show_favorites_icon)/*: void*/
+    public function setShowFavoritesIcon(int $show_favorites_icon) : void
     {
         $this->show_favorites_icon = $show_favorites_icon;
     }
@@ -1692,7 +1692,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_image_as_background
      */
-    public function setShowImageAsBackground(int $show_image_as_background)/*: void*/
+    public function setShowImageAsBackground(int $show_image_as_background) : void
     {
         $this->show_image_as_background = $show_image_as_background;
     }
@@ -1710,7 +1710,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_language_flag
      */
-    public function setShowLanguageFlag(int $show_language_flag)/*: void*/
+    public function setShowLanguageFlag(int $show_language_flag) : void
     {
         $this->show_language_flag = $show_language_flag;
     }
@@ -1728,7 +1728,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_learning_progress
      */
-    public function setShowLearningProgress(int $show_learning_progress)/*: void*/
+    public function setShowLearningProgress(int $show_learning_progress) : void
     {
         $this->show_learning_progress = $show_learning_progress;
     }
@@ -1746,7 +1746,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_learning_progress_filter
      */
-    public function setShowLearningProgressFilter(int $show_learning_progress_filter)/*: void*/
+    public function setShowLearningProgressFilter(int $show_learning_progress_filter) : void
     {
         $this->show_learning_progress_filter = $show_learning_progress_filter;
     }
@@ -1764,7 +1764,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_learning_progress_legend
      */
-    public function setShowLearningProgressLegend(int $show_learning_progress_legend)/*: void*/
+    public function setShowLearningProgressLegend(int $show_learning_progress_legend) : void
     {
         $this->show_learning_progress_legend = $show_learning_progress_legend;
     }
@@ -1782,7 +1782,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_likes_count
      */
-    public function setShowLikesCount(int $show_likes_count)/*: void*/
+    public function setShowLikesCount(int $show_likes_count) : void
     {
         $this->show_likes_count = $show_likes_count;
     }
@@ -1800,7 +1800,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_object_tabs
      */
-    public function setShowObjectTabs(int $show_object_tabs)/*: void*/
+    public function setShowObjectTabs(int $show_object_tabs) : void
     {
         $this->show_object_tabs = $show_object_tabs;
     }
@@ -1818,7 +1818,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_online_status_icon
      */
-    public function setShowOnlineStatusIcon(int $show_online_status_icon)/*: void*/
+    public function setShowOnlineStatusIcon(int $show_online_status_icon) : void
     {
         $this->show_online_status_icon = $show_online_status_icon;
     }
@@ -1836,7 +1836,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_preconditions
      */
-    public function setShowPreconditions(int $show_preconditions)/*: void*/
+    public function setShowPreconditions(int $show_preconditions) : void
     {
         $this->show_preconditions = $show_preconditions;
     }
@@ -1854,7 +1854,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_recommend_icon
      */
-    public function setShowRecommendIcon(int $show_recommend_icon)/*: void*/
+    public function setShowRecommendIcon(int $show_recommend_icon) : void
     {
         $this->show_recommend_icon = $show_recommend_icon;
     }
@@ -1872,7 +1872,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $show_title
      */
-    public function setShowTitle(int $show_title)/*: void*/
+    public function setShowTitle(int $show_title) : void
     {
         $this->show_title = $show_title;
     }
@@ -1890,7 +1890,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $tile_id
      */
-    public function setTileId(int $tile_id)/*: void*/
+    public function setTileId(int $tile_id) : void
     {
         $this->tile_id = $tile_id;
     }
@@ -1908,7 +1908,7 @@ class Tile extends ActiveRecord
     /**
      * @param int $view
      */
-    public function setView(int $view)/*: void*/
+    public function setView(int $view) : void
     {
         $this->view = $view;
     }

@@ -24,7 +24,7 @@ class TemplateFormGUI extends TileFormGUI
     /**
      * @inheritDoc
      */
-    protected function initCommands()/*: void*/
+    protected function initCommands() : void
     {
         $this->addCommandButton(TemplateConfigGUI::CMD_UPDATE_TEMPLATE, $this->txt("save"));
 

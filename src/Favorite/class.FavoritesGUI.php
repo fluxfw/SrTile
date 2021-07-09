@@ -54,7 +54,7 @@ class FavoritesGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->parent_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_PARENT_REF_ID));
         $this->tile = self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID)));
@@ -91,7 +91,7 @@ class FavoritesGUI
     /**
      *
      */
-    protected function addToFavorites()/*: void*/
+    protected function addToFavorites() : void
     {
         self::srTile()->favorites(self::dic()->user())->addToFavorites($this->tile->getObjRefId());
 
@@ -108,7 +108,7 @@ class FavoritesGUI
     /**
      *
      */
-    protected function removeFromFavorites()/*: void*/
+    protected function removeFromFavorites() : void
     {
         self::srTile()->favorites(self::dic()->user())->removeFromFavorites($this->tile->getObjRefId());
 
@@ -125,7 +125,7 @@ class FavoritesGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
+    protected function setTabs() : void
     {
 
     }

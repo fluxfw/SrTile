@@ -70,7 +70,7 @@ class ObjectLinkFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initCommands()/*: void*/
+    protected function initCommands() : void
     {
         $this->addCommandButton(ObjectLinkGUI::CMD_CREATE_OBJECT_LINK, $this->txt("add"));
         $this->addCommandButton(ObjectLinkGUI::CMD_BACK, $this->txt("cancel"));
@@ -80,7 +80,7 @@ class ObjectLinkFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initFields()/*: void*/
+    protected function initFields() : void
     {
         $this->fields = [
             "obj_ref_id" => [
@@ -97,7 +97,7 @@ class ObjectLinkFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initId()/*: void*/
+    protected function initId() : void
     {
 
     }
@@ -106,7 +106,7 @@ class ObjectLinkFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function initTitle()/*: void*/
+    protected function initTitle() : void
     {
         $this->setTitle($this->txt("add_object_link"));
     }
@@ -115,7 +115,7 @@ class ObjectLinkFormGUI extends PropertyFormGUI
     /**
      * @inheritDoc
      */
-    protected function storeValue(string $key, $value)/*: void*/
+    protected function storeValue(string $key, $value) : void
     {
         switch ($key) {
             default:

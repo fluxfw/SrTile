@@ -51,7 +51,7 @@ class LearningProgressFilterGUI
     /**
      * @param int $obj_ref_id
      */
-    public static function initToolbar(int $obj_ref_id)/*: void*/
+    public static function initToolbar(int $obj_ref_id) : void
     {
         self::dic()->language()->loadLanguageModule("trac");
 
@@ -83,7 +83,7 @@ class LearningProgressFilterGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->obj_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID));
 
@@ -113,7 +113,7 @@ class LearningProgressFilterGUI
     /**
      *
      */
-    public function setFilter()/*: void*/
+    public function setFilter() : void
     {
         $filter = filter_input(INPUT_POST, self::POST_VAR, FILTER_DEFAULT, FILTER_FORCE_ARRAY);
         if (!is_array($filter)) {
@@ -137,7 +137,7 @@ class LearningProgressFilterGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
+    protected function setTabs() : void
     {
 
     }

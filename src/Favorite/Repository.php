@@ -58,7 +58,7 @@ final class Repository
     /**
      * @param int $obj_ref_id
      */
-    public function addToFavorites(int $obj_ref_id)/*: void*/
+    public function addToFavorites(int $obj_ref_id) : void
     {
         self::dic()->favourites()->add($this->user->getId(), $obj_ref_id);
     }
@@ -67,7 +67,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/*:void*/
+    public function dropTables() : void
     {
 
     }
@@ -128,7 +128,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/*:void*/
+    public function installTables() : void
     {
 
     }
@@ -137,7 +137,7 @@ final class Repository
     /**
      * @param int $obj_ref_id
      */
-    public function removeFromFavorites(int $obj_ref_id)/*: void*/
+    public function removeFromFavorites(int $obj_ref_id) : void
     {
         self::dic()->favourites()->remove($this->user->getId(), $obj_ref_id);
     }

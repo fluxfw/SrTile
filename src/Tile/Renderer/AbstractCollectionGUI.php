@@ -43,7 +43,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
     /**
      * @inheritDoc
      */
-    public function hideOriginalRowsOfTiles() /*: void*/
+    public function hideOriginalRowsOfTiles() : void
     {
         $css = '';
 
@@ -141,7 +141,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
     /**
      *
      */
-    protected function initJS()/*: void*/
+    protected function initJS() : void
     {
         $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
 

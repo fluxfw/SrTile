@@ -78,7 +78,7 @@ class Group extends ActiveRecord
     /**
      * @param int $group_id
      */
-    public function setGroupId(int $group_id)/*:void*/
+    public function setGroupId(int $group_id) : void
     {
         $this->group_id = $group_id;
     }

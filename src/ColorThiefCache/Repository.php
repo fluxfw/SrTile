@@ -49,7 +49,7 @@ final class Repository
     /**
      * @param string $image_path
      */
-    public function delete(string $image_path)/*: void*/
+    public function delete(string $image_path) : void
     {
         /**
          * @var ColorThiefCache $colorThiefCache
@@ -68,7 +68,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/*:void*/
+    public function dropTables() : void
     {
         self::dic()->database()->dropTable(ColorThiefCache::TABLE_NAME, false);
     }
@@ -111,7 +111,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/*:void*/
+    public function installTables() : void
     {
         ColorThiefCache::updateDB();
     }
@@ -120,7 +120,7 @@ final class Repository
     /**
      * @param ColorThiefCache $colorThiefCache
      */
-    public function storeColorThiefCache(ColorThiefCache $colorThiefCache)/*:void*/
+    public function storeColorThiefCache(ColorThiefCache $colorThiefCache) : void
     {
         $colorThiefCache->store();
     }
@@ -129,7 +129,7 @@ final class Repository
     /**
      * @param ColorThiefCache $colorThiefCache
      */
-    protected function deleteColorThiefCache(ColorThiefCache $colorThiefCache)/*:void*/
+    protected function deleteColorThiefCache(ColorThiefCache $colorThiefCache) : void
     {
         $colorThiefCache->delete();
     }

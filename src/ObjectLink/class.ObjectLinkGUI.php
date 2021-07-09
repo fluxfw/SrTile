@@ -55,7 +55,7 @@ class ObjectLinkGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->object_link = self::srTile()->objectLinks()->getObjectLink($this->parent->getGroup()->getGroupId(), intval(filter_input(INPUT_GET, self::GET_PARAM_OBJ_REF_ID)));
 
@@ -97,7 +97,7 @@ class ObjectLinkGUI
     /**
      *
      */
-    protected function addObjectLink()/*: void*/
+    protected function addObjectLink() : void
     {
         $form = self::srTile()->objectLinks()->factory()->newFormInstance($this, $this->object_link);
 
@@ -108,7 +108,7 @@ class ObjectLinkGUI
     /**
      *
      */
-    protected function back()/*: void*/
+    protected function back() : void
     {
         self::dic()->ctrl()->redirectByClass(ObjectLinksGUI::class, ObjectLinksGUI::CMD_LIST_OBJECT_LINKS);
     }
@@ -117,7 +117,7 @@ class ObjectLinkGUI
     /**
      *
      */
-    protected function createObjectLink()/*: void*/
+    protected function createObjectLink() : void
     {
         $form = self::srTile()->objectLinks()->factory()->newFormInstance($this, $this->object_link);
 
@@ -158,7 +158,7 @@ class ObjectLinkGUI
     /**
      *
      */
-    protected function removeObjectLink()/*: void*/
+    protected function removeObjectLink() : void
     {
         if ($this->object_link->getObjRefId() !== $this->parent->getParent()->getTile()->getObjRefId()) {
             self::srTile()->objectLinks()->deleteObjectLink($this->object_link);
@@ -173,7 +173,7 @@ class ObjectLinkGUI
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs() : void
     {
         self::dic()->tabs()->clearTargets();
 

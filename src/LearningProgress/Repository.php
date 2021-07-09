@@ -58,7 +58,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/*:void*/
+    public function dropTables() : void
     {
         self::dic()->database()->dropTable(LearningProgressFilter::TABLE_NAME, false);
     }
@@ -100,7 +100,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/*:void*/
+    public function installTables() : void
     {
         LearningProgressFilter::updateDB();
     }
@@ -110,7 +110,7 @@ final class Repository
      * @param int   $obj_ref_id
      * @param array $filter
      */
-    public function setFilter(int $obj_ref_id, array $filter)/*: void*/
+    public function setFilter(int $obj_ref_id, array $filter) : void
     {
         /**
          * @var LearningProgressFilter $learningProgressFilter
@@ -138,7 +138,7 @@ final class Repository
     /**
      * @param LearningProgressFilter $learningProgressFilter
      */
-    protected function storeLearningProgressFilter(LearningProgressFilter $learningProgressFilter)/*:void*/
+    protected function storeLearningProgressFilter(LearningProgressFilter $learningProgressFilter) : void
     {
         $learningProgressFilter->store();
     }

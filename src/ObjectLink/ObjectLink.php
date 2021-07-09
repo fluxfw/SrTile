@@ -107,7 +107,7 @@ class ObjectLink extends ActiveRecord
     /**
      * @param int $group_id
      */
-    public function setGroupId(int $group_id)/*:void*/
+    public function setGroupId(int $group_id) : void
     {
         $this->group_id = $group_id;
     }
@@ -125,7 +125,7 @@ class ObjectLink extends ActiveRecord
     /**
      * @param int $obj_ref_id
      */
-    public function setObjRefId(int $obj_ref_id)/*:void*/
+    public function setObjRefId(int $obj_ref_id) : void
     {
         $this->obj_ref_id = $obj_ref_id;
     }
@@ -152,7 +152,7 @@ class ObjectLink extends ActiveRecord
     /**
      * @param int $object_link_id
      */
-    public function setObjectLinkId(int $object_link_id)/*:void*/
+    public function setObjectLinkId(int $object_link_id) : void
     {
         $this->object_link_id = $object_link_id;
     }
@@ -170,7 +170,7 @@ class ObjectLink extends ActiveRecord
     /**
      * @param int $sort
      */
-    public function setSort(int $sort)/*:void*/
+    public function setSort(int $sort) : void
     {
         $this->sort = $sort;
     }
