@@ -68,7 +68,7 @@ class ObjectLinksTableGUI extends TableGUI
 
         $this->tpl->setCurrentBlock("column");
         $this->tpl->setVariable("COLUMN", self::output()->getHTML([
-            self::dic()->ui()->factory()->glyph()->sortAscending()->withAdditionalOnLoadCode(function (string $id) : string {
+            self::dic()->ui()->factory()->symbol()->glyph()->sortAscending()->withAdditionalOnLoadCode(function (string $id) : string {
                 Waiter::init(Waiter::TYPE_WAITER, null, self::plugin());
 
                 return '
@@ -87,7 +87,7 @@ class ObjectLinksTableGUI extends TableGUI
                 });
             });';
             }),
-            self::dic()->ui()->factory()->glyph()->sortDescending()->withAdditionalOnLoadCode(function (string $id) : string {
+            self::dic()->ui()->factory()->symbol()->glyph()->sortDescending()->withAdditionalOnLoadCode(function (string $id) : string {
                 return '
             $("#' . $id . '").click(function () {
                 il.waiter.show();

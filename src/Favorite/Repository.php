@@ -60,11 +60,7 @@ final class Repository
      */
     public function addToFavorites(int $obj_ref_id)/*: void*/
     {
-        if (self::version()->is6()) {
-            self::dic()->favourites()->add($this->user->getId(), $obj_ref_id);
-        } else {
-            $this->user->addDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
-        }
+        self::dic()->favourites()->add($this->user->getId(), $obj_ref_id);
     }
 
 
@@ -100,11 +96,7 @@ final class Repository
      */
     public function getFavorites() : array
     {
-        if (self::version()->is6()) {
-            $favorites = self::dic()->favourites()->getFavouritesOfUser($this->user->getId());
-        } else {
-            $favorites = $this->user->getDesktopItems();
-        }
+        $favorites = self::dic()->favourites()->getFavouritesOfUser($this->user->getId());
 
         $children = array_map(function (array $favorite) : array {
             return [
@@ -129,12 +121,7 @@ final class Repository
      */
     public function hasFavorite(int $obj_ref_id) : bool
     {
-        if (self::version()->is6()) {
-            return boolval(self::dic()->favourites()->ifIsFavourite($this->user->getId(), $obj_ref_id));
-        } else {
-            return boolval($this->user->isDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()
-                ->lookupObjId($obj_ref_id))));
-        }
+        return boolval(self::dic()->favourites()->ifIsFavourite($this->user->getId(), $obj_ref_id));
     }
 
 
@@ -152,10 +139,6 @@ final class Repository
      */
     public function removeFromFavorites(int $obj_ref_id)/*: void*/
     {
-        if (self::version()->is6()) {
-            self::dic()->favourites()->remove($this->user->getId(), $obj_ref_id);
-        } else {
-            $this->user->dropDesktopItem($obj_ref_id, self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
-        }
+        self::dic()->favourites()->remove($this->user->getId(), $obj_ref_id);
     }
 }

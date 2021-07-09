@@ -102,11 +102,7 @@ class RatingGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            if (self::version()->is6()) {
-                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
-            } else {
-                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-            }
+            self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
         }
     }
 
@@ -132,11 +128,7 @@ class RatingGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            if (self::version()->is6()) {
-                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
-            } else {
-                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-            }
+            self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
         }
     }
 }

@@ -122,8 +122,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
             return [
                 "mode" => self::REPLACE,
-                "html" => self::output()->getHTML(self::version()->is6() ? self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->dashboard($a_par["html"])
-                    : self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->favorites(self::dic()->user()))
+                "html" => self::output()->getHTML(self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->dashboard($a_par["html"]))
             ];
         }
 
@@ -260,7 +259,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && ($baseClass === strtolower(ilDashboardGUI::class) || $baseClass === strtolower(ilPersonalDesktopGUI::class))
             && $a_part === self::TEMPLATE_GET
             && ($a_par["tpl_id"] === self::TEMPLATE_ID_DASHBOARD || $a_par["tpl_id"] === self::TEMPLATE_ID_PERSONAL_DESKTOP)
-            && (self::version()->is6() ? true : (self::$load[self::DASHBOARD_LOADER] = true))
             && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_DASHBOARD));
     }
 

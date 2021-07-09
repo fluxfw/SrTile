@@ -1,12 +1,12 @@
 {
   "name": "srag/srtile",
   "description": "Custom ILIAS tile repository view",
-  "version": "1.11.9",
+  "version": "1.12.0",
   "extra": {
     "ilias_plugin": {
       "id": "srtile",
       "name": "SrTile",
-      "ilias_min_version": "5.4.0",
+      "ilias_min_version": "6.0",
       "ilias_max_version": "6.999",
       "slot": "Services/UIComponent/UserInterfaceHook",
       "events": [

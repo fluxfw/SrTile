@@ -4,7 +4,6 @@ namespace srag\DataTableUI\SrTile\Component;
 
 use ILIAS\UI\Component\Component;
 use ILIAS\UI\Component\Input\Field\FilterInput;
-use ILIAS\UI\Component\Input\Field\Input as FilterInput54;
 use srag\DataTableUI\SrTile\Component\Column\Column;
 use srag\DataTableUI\SrTile\Component\Data\Fetcher\DataFetcher;
 use srag\DataTableUI\SrTile\Component\Format\Browser\BrowserFormat;
@@ -60,7 +59,7 @@ interface Table extends Component, Pluginable
 
 
     /**
-     * @return FilterInput[]|FilterInput54[]
+     * @return FilterInput[]
      */
     public function getFilterFields() : array;
 
@@ -128,7 +127,7 @@ interface Table extends Component, Pluginable
 
 
     /**
-     * @param FilterInput[]|FilterInput54[] $filter_fields
+     * @param FilterInput[] $filter_fields
      *
      * @return self
      */
