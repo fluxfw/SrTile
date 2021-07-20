@@ -55,7 +55,7 @@ class OnlineStatusGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->parent_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_PARENT_REF_ID));
 
@@ -98,7 +98,7 @@ class OnlineStatusGUI
     /**
      *
      */
-    protected function setOffline()/*: void*/
+    protected function setOffline() : void
     {
         if (!empty($this->object_ref_ids)) {
             foreach ($this->object_ref_ids as $object_ref_id) {
@@ -111,11 +111,7 @@ class OnlineStatusGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            if (self::version()->is6()) {
-                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
-            } else {
-                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-            }
+            self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
         }
     }
 
@@ -123,7 +119,7 @@ class OnlineStatusGUI
     /**
      *
      */
-    protected function setOnline()/*: void*/
+    protected function setOnline() : void
     {
         if (!empty($this->object_ref_ids)) {
             foreach ($this->object_ref_ids as $object_ref_id) {
@@ -136,11 +132,7 @@ class OnlineStatusGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            if (self::version()->is6()) {
-                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
-            } else {
-                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-            }
+            self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
         }
     }
 
@@ -148,7 +140,7 @@ class OnlineStatusGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
+    protected function setTabs() : void
     {
 
     }

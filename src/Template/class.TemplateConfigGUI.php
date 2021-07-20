@@ -50,7 +50,7 @@ class TemplateConfigGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->template = self::srTile()->templates()->getByObjectType(strval(filter_input(INPUT_GET, self::GET_PARAM_OBJECT_TYPE)));
 
@@ -84,7 +84,7 @@ class TemplateConfigGUI
     /**
      *
      */
-    protected function back()/*: void*/
+    protected function back() : void
     {
         self::dic()->ctrl()->redirectByClass(TemplatesConfigGUI::class, TemplatesConfigGUI::CMD_LIST_TEMPLATES);
     }
@@ -93,7 +93,7 @@ class TemplateConfigGUI
     /**
      *
      */
-    protected function confirmOverride()/*: void*/
+    protected function confirmOverride() : void
     {
         $confirmation = new ilConfirmationGUI();
 
@@ -111,7 +111,7 @@ class TemplateConfigGUI
     /**
      *
      */
-    protected function editTemplate()/*: void*/
+    protected function editTemplate() : void
     {
         $form = self::srTile()->templates()->factory()->newFormInstance($this, $this->template);
 
@@ -122,7 +122,7 @@ class TemplateConfigGUI
     /**
      *
      */
-    protected function override()/*: void*/
+    protected function override() : void
     {
         self::srTile()->templates()->overrideTilesWithObjectType($this->template->getObjectType());
 
@@ -135,7 +135,7 @@ class TemplateConfigGUI
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs() : void
     {
         self::dic()->tabs()->clearTargets();
 
@@ -150,7 +150,7 @@ class TemplateConfigGUI
     /**
      *
      */
-    protected function updateTemplate()/*: void*/
+    protected function updateTemplate() : void
     {
         $form = self::srTile()->templates()->factory()->newFormInstance($this, $this->template);
 

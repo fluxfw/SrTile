@@ -78,7 +78,7 @@ class ColorThiefCache extends ActiveRecord
     /**
      * @param string $color
      */
-    public function setColor(string $color)/*: void*/
+    public function setColor(string $color) : void
     {
         $this->color = $color;
     }
@@ -105,7 +105,7 @@ class ColorThiefCache extends ActiveRecord
     /**
      * @param string $image_path
      */
-    public function setImagePath(string $image_path)/*: void*/
+    public function setImagePath(string $image_path) : void
     {
         $this->image_path = $image_path;
     }

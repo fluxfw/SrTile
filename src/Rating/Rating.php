@@ -98,7 +98,7 @@ class Rating extends ActiveRecord
     /**
      * @param int $obj_id
      */
-    public function setObjId(int $obj_id)/*: void*/
+    public function setObjId(int $obj_id) : void
     {
         $this->obj_id = $obj_id;
     }
@@ -116,7 +116,7 @@ class Rating extends ActiveRecord
     /**
      * @param int $rating_id
      */
-    public function setRatingId(int $rating_id)/*: void*/
+    public function setRatingId(int $rating_id) : void
     {
         $this->rating_id = $rating_id;
     }
@@ -134,7 +134,7 @@ class Rating extends ActiveRecord
     /**
      * @param int $user_id
      */
-    public function setUserId(int $user_id)/*: void*/
+    public function setUserId(int $user_id) : void
     {
         $this->user_id = $user_id;
     }

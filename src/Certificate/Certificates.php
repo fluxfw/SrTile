@@ -104,7 +104,7 @@ class Certificates
     /**
      * @return string|null
      */
-    public function getCertificateDownloadLink()/*: ?string*/
+    public function getCertificateDownloadLink() : ?string
     {
         $tile = $this->tile->_getSelfOrFirstChildIfShouldDirect();
 

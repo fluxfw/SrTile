@@ -28,7 +28,7 @@ class FixedCollection extends AbstractCollection
     /**
      * @inheritDoc
      */
-    protected function initObjRefIds() /*: void*/
+    protected function initObjRefIds() : void
     {
 
     }

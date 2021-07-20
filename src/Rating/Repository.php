@@ -58,7 +58,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/*:void*/
+    public function dropTables() : void
     {
         self::dic()->database()->dropTable(Rating::TABLE_NAME, false);
     }
@@ -93,7 +93,7 @@ final class Repository
      *
      * @return Rating|null
      */
-    public function getRating(int $obj_id)/*: ?Rating*/
+    public function getRating(int $obj_id) : ?Rating
     {
         /**
          * @var Rating|null $rating
@@ -124,7 +124,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/*:void*/
+    public function installTables() : void
     {
         Rating::updateDB();
     }
@@ -133,7 +133,7 @@ final class Repository
     /**
      * @param int $obj_ref_id
      */
-    public function like(int $obj_ref_id)/*: void*/
+    public function like(int $obj_ref_id) : void
     {
         $obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
@@ -154,7 +154,7 @@ final class Repository
     /**
      * @param int $obj_ref_id
      */
-    public function unlike(int $obj_ref_id)/*: void*/
+    public function unlike(int $obj_ref_id) : void
     {
         $obj_id = intval(self::dic()->objDataCache()->lookupObjId($obj_ref_id));
 
@@ -169,7 +169,7 @@ final class Repository
     /**
      * @param Rating $rating
      */
-    protected function deleteRating(Rating $rating)/*:void*/
+    protected function deleteRating(Rating $rating) : void
     {
         $rating->delete();
     }
@@ -178,7 +178,7 @@ final class Repository
     /**
      * @param Rating $rating
      */
-    protected function storeRating(Rating $rating)/*:void*/
+    protected function storeRating(Rating $rating) : void
     {
         $rating->store();
     }

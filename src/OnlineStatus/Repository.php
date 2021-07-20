@@ -51,7 +51,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/*:void*/
+    public function dropTables() : void
     {
 
     }
@@ -69,7 +69,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/*:void*/
+    public function installTables() : void
     {
 
     }
@@ -106,7 +106,7 @@ final class Repository
      * @param int  $obj_ref_id
      * @param bool $online
      */
-    public function setOnline(int $obj_ref_id, bool $online)/*:void*/
+    public function setOnline(int $obj_ref_id, bool $online) : void
     {
         $obj_id = self::dic()->objDataCache()->lookupObjId($obj_ref_id);
 

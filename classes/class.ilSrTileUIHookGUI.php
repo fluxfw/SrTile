@@ -62,7 +62,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
      * @param string $alert_type
      * @param bool   $keep
      */
-    public static function askAndDisplayAlertMessage(string $key, string $module, string $alert_type = "success", bool $keep = true)/*: void*/
+    public static function askAndDisplayAlertMessage(string $key, string $module, string $alert_type = "success", bool $keep = true) : void
     {
         $should_not_display = [];
 
@@ -84,7 +84,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
      *
      * @deprecated
      */
-    public static function filterRefId()/*: ?int*/
+    public static function filterRefId() : ?int
     {
         $obj_ref_id = filter_input(INPUT_GET, self::GET_PARAM_REF_ID);
 
@@ -122,8 +122,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
 
             return [
                 "mode" => self::REPLACE,
-                "html" => self::output()->getHTML(self::version()->is6() ? self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->dashboard($a_par["html"])
-                    : self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->favorites(self::dic()->user()))
+                "html" => self::output()->getHTML(self::srTile()->tiles()->renderer()->factory()->newCollectionGUIInstance()->dashboard($a_par["html"]))
             ];
         }
 
@@ -190,7 +189,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     /**
      * @inheritDoc
      */
-    public function gotoHook()/*: void*/
+    public function gotoHook() : void
     {
         $target = filter_input(INPUT_GET, "target");
 
@@ -217,7 +216,7 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     /**
      * @inheritDoc
      */
-    public function modifyGUI(/*string*/ $a_comp, /*string*/ $a_part, /*array*/ $a_par = [])/*: void*/
+    public function modifyGUI(/*string*/ $a_comp, /*string*/ $a_part, /*array*/ $a_par = []) : void
     {
         $obj_ref_id = self::filterRefId();
 
@@ -260,7 +259,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
             && ($baseClass === strtolower(ilDashboardGUI::class) || $baseClass === strtolower(ilPersonalDesktopGUI::class))
             && $a_part === self::TEMPLATE_GET
             && ($a_par["tpl_id"] === self::TEMPLATE_ID_DASHBOARD || $a_par["tpl_id"] === self::TEMPLATE_ID_PERSONAL_DESKTOP)
-            && (self::version()->is6() ? true : (self::$load[self::DASHBOARD_LOADER] = true))
             && self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_ON_DASHBOARD));
     }
 

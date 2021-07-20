@@ -52,7 +52,7 @@ class TileGUI
     /**
      * @param int $obj_ref_id
      */
-    public static function addTabs(int $obj_ref_id)/*:void*/
+    public static function addTabs(int $obj_ref_id) : void
     {
         self::dic()->ctrl()->setParameterByClass(self::class, self::GET_PARAM_REF_ID, $obj_ref_id);
 
@@ -66,7 +66,7 @@ class TileGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->tile = self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID)));
 
@@ -117,7 +117,7 @@ class TileGUI
     /**
      *
      */
-    protected function backToObject()/*: void*/
+    protected function backToObject() : void
     {
         self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->tile->getObjRefId()));
     }
@@ -126,7 +126,7 @@ class TileGUI
     /**
      *
      */
-    protected function backToParent()/*: void*/
+    protected function backToParent() : void
     {
         $parent = self::srTile()->tiles()->getParentTile($this->tile);
 
@@ -139,7 +139,7 @@ class TileGUI
     /**
      *
      */
-    protected function editTile()/*: void*/
+    protected function editTile() : void
     {
         self::dic()->tabs()->activateTab(self::TAB_TILE);
 
@@ -152,7 +152,7 @@ class TileGUI
     /**
      *
      */
-    protected function getPreconditions()/*: void*/
+    protected function getPreconditions() : void
     {
         $preconditions = self::srTile()->ilias()->courses()->getPreconditions($this->tile->getObjRefId());
 
@@ -163,7 +163,7 @@ class TileGUI
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs() : void
     {
         self::dic()->tabs()->clearTargets();
 
@@ -188,7 +188,7 @@ class TileGUI
     /**
      *
      */
-    protected function updateTile()/*: void*/
+    protected function updateTile() : void
     {
         self::dic()->tabs()->activateTab(self::TAB_TILE);
 

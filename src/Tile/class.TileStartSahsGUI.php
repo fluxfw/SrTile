@@ -44,7 +44,7 @@ class TileStartSahsGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->tile = self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID)));
 
@@ -78,7 +78,7 @@ class TileStartSahsGUI
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs() : void
     {
 
     }
@@ -87,7 +87,7 @@ class TileStartSahsGUI
     /**
      *
      */
-    protected function startSahs()/*: void*/
+    protected function startSahs() : void
     {
         $start_sahs = $this->tile->_getAdvancedLinkStartSahs($this->tile);
 

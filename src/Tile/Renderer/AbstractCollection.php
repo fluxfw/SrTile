@@ -40,7 +40,7 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      * @inheritDoc
      */
-    public function addTile(Tile $tile)/*: void*/
+    public function addTile(Tile $tile) : void
     {
         $this->tiles[$tile->getTileId()] = $tile;
     }
@@ -58,7 +58,7 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      * @inheritDoc
      */
-    public function removeTile(int $tile_id)/*: void*/
+    public function removeTile(int $tile_id) : void
     {
         if (isset($this->tiles[$tile_id])) {
             unset($this->tiles[$tile_id]);
@@ -69,14 +69,13 @@ abstract class AbstractCollection implements CollectionInterface
     /**
      *
      */
-    protected abstract function initObjRefIds() /*: void*/
-    ;
+    protected abstract function initObjRefIds() : void;
 
 
     /**
      *
      */
-    protected function read() /*: void*/
+    protected function read() : void
     {
         $this->initObjRefIds();
 

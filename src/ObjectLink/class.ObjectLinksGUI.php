@@ -51,7 +51,7 @@ class ObjectLinksGUI
     /**
      *
      */
-    public static function addTabs()/*:void*/
+    public static function addTabs() : void
     {
         if (self::srTile()->config()->getValue(ConfigFormGUI::KEY_ENABLED_OBJECT_LINKS)) {
             self::dic()->tabs()->addTab(self::TAB_LIST_OBJECT_LINKS, self::plugin()->translate("object_links", self::LANG_MODULE), self::dic()->ctrl()->getLinkTargetByClass([
@@ -66,7 +66,7 @@ class ObjectLinksGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->group = self::srTile()->objectLinks()->getGroupByObject($this->parent->getTile()->getObjRefId());
 
@@ -122,7 +122,7 @@ class ObjectLinksGUI
     /**
      *
      */
-    protected function listObjectLinks()/*: void*/
+    protected function listObjectLinks() : void
     {
         self::dic()->tabs()->activateTab(self::TAB_LIST_OBJECT_LINKS);
 
@@ -135,7 +135,7 @@ class ObjectLinksGUI
     /**
      *
      */
-    protected function setTabs()/*: void*/
+    protected function setTabs() : void
     {
 
     }

@@ -15,7 +15,7 @@ class DashboardCollection extends ContainerCollection
     /**
      * @inheritDoc
      */
-    protected function initObjRefIds() /*: void*/
+    protected function initObjRefIds() : void
     {
         preg_match_all('/[?&]ref_id=([0-9]+)/', $this->html, $obj_ref_ids);
 

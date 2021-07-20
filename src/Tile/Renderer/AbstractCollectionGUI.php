@@ -43,7 +43,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
     /**
      * @inheritDoc
      */
-    public function hideOriginalRowsOfTiles() /*: void*/
+    public function hideOriginalRowsOfTiles() : void
     {
         $css = '';
 
@@ -86,11 +86,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
             }
         }
 
-        if (self::version()->is6()) {
-            self::dic()->ui()->mainTemplate()->addCss("data:text/css;base64," . base64_encode($css));
-        } else {
-            self::dic()->ui()->mainTemplate()->addInlineCss($css);
-        }
+        self::dic()->ui()->mainTemplate()->addCss("data:text/css;base64," . base64_encode($css));
     }
 
 
@@ -145,7 +141,7 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
     /**
      *
      */
-    protected function initJS()/*: void*/
+    protected function initJS() : void
     {
         $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
 

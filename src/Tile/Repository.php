@@ -79,7 +79,7 @@ final class Repository
      * @param int $org_obj_ref_id
      * @param int $clone_obj_ref_id
      */
-    public function cloneTile(int $org_obj_ref_id, int $clone_obj_ref_id)/*:void*/
+    public function cloneTile(int $org_obj_ref_id, int $clone_obj_ref_id) : void
     {
         $org_tile = $this->getInstanceForObjRefId($org_obj_ref_id);
 
@@ -100,7 +100,7 @@ final class Repository
         $clone_tile->applyNewImage("");
 
         foreach ($properties as $key => $value) {
-            Closure::bind(function ($key, $value)/*:void*/ {
+            Closure::bind(function ($key, $value) : void {
                 $this->{$key} = $value;
             }, $clone_tile, Tile::class)($key, $value);
         }
@@ -150,7 +150,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/*:void*/
+    public function dropTables() : void
     {
         self::dic()->database()->dropTable(Tile::TABLE_NAME, false);
     }
@@ -219,7 +219,7 @@ final class Repository
      *
      * @deprecated
      */
-    public function getParentTile(Tile $tile)/*:?Tile*/
+    public function getParentTile(Tile $tile) : ?Tile
     {
         if (!isset(self::$parent_tile_cache[$tile->getObjRefId()])) {
             try {
@@ -247,7 +247,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/*:void*/
+    public function installTables() : void
     {
         Tile::updateDB();
 
@@ -478,7 +478,7 @@ final class Repository
     /**
      * @param Tile $tile
      */
-    public function storeTile(Tile $tile)/*:void*/
+    public function storeTile(Tile $tile) : void
     {
         $tile->store();
     }

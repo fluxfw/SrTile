@@ -54,7 +54,7 @@ class RatingGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->parent_ref_id = intval(filter_input(INPUT_GET, self::GET_PARAM_PARENT_REF_ID));
         $this->tile = self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID)));
@@ -93,7 +93,7 @@ class RatingGUI
     /**
      *
      */
-    protected function like()/*: void*/
+    protected function like() : void
     {
         self::srTile()->ratings(self::dic()->user())->like($this->tile->getObjRefId());
 
@@ -102,11 +102,7 @@ class RatingGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            if (self::version()->is6()) {
-                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
-            } else {
-                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-            }
+            self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
         }
     }
 
@@ -114,7 +110,7 @@ class RatingGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
+    protected function setTabs() : void
     {
 
     }
@@ -123,7 +119,7 @@ class RatingGUI
     /**
      *
      */
-    protected function unlike()/*: void*/
+    protected function unlike() : void
     {
         self::srTile()->ratings(self::dic()->user())->unlike($this->tile->getObjRefId());
 
@@ -132,11 +128,7 @@ class RatingGUI
         if (!empty($this->parent_ref_id)) {
             self::dic()->ctrl()->redirectToURL(ilLink::_getStaticLink($this->parent_ref_id));
         } else {
-            if (self::version()->is6()) {
-                self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
-            } else {
-                self::dic()->ctrl()->redirectByClass(ilPersonalDesktopGUI::class, "jumpToSelectedItems");
-            }
+            self::dic()->ctrl()->redirectByClass(ilDashboardGUI::class, "jumpToSelectedItems");
         }
     }
 }

@@ -34,7 +34,7 @@ class ContainerCollection extends AbstractCollection
     /**
      * @inheritDoc
      */
-    protected function initObjRefIds() /*: void*/
+    protected function initObjRefIds() : void
     {
         $obj_ref_ids = [];
 

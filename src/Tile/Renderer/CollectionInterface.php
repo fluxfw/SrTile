@@ -15,7 +15,7 @@ interface CollectionInterface
     /**
      * @param Tile $tile
      */
-    public function addTile(Tile $tile)/*: void*/ ;
+    public function addTile(Tile $tile) : void;
 
 
     /**
@@ -27,5 +27,5 @@ interface CollectionInterface
     /**
      * @param int $tile_id
      */
-    public function removeTile(int $tile_id)/*: void*/ ;
+    public function removeTile(int $tile_id) : void;
 }

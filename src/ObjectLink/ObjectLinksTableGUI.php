@@ -62,13 +62,13 @@ class ObjectLinksTableGUI extends TableGUI
     /**
      * @param ObjectLink $object_link
      */
-    protected function fillRow(/*ObjectLink*/ $object_link)/*: void*/
+    protected function fillRow(/*ObjectLink*/ $object_link) : void
     {
         self::dic()->ctrl()->setParameterByClass(ObjectLinkGUI::class, ObjectLinkGUI::GET_PARAM_OBJ_REF_ID, $object_link->getObjRefId());
 
         $this->tpl->setCurrentBlock("column");
         $this->tpl->setVariable("COLUMN", self::output()->getHTML([
-            self::dic()->ui()->factory()->glyph()->sortAscending()->withAdditionalOnLoadCode(function (string $id) : string {
+            self::dic()->ui()->factory()->symbol()->glyph()->sortAscending()->withAdditionalOnLoadCode(function (string $id) : string {
                 Waiter::init(Waiter::TYPE_WAITER, null, self::plugin());
 
                 return '
@@ -87,7 +87,7 @@ class ObjectLinksTableGUI extends TableGUI
                 });
             });';
             }),
-            self::dic()->ui()->factory()->glyph()->sortDescending()->withAdditionalOnLoadCode(function (string $id) : string {
+            self::dic()->ui()->factory()->symbol()->glyph()->sortDescending()->withAdditionalOnLoadCode(function (string $id) : string {
                 return '
             $("#' . $id . '").click(function () {
                 il.waiter.show();
@@ -152,7 +152,7 @@ class ObjectLinksTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initColumns()/*: void*/
+    protected function initColumns() : void
     {
         $this->addColumn("");
 
@@ -165,7 +165,7 @@ class ObjectLinksTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initCommands()/*: void*/
+    protected function initCommands() : void
     {
         self::dic()->toolbar()->addComponent(self::dic()->ui()->factory()->button()->standard($this->txt("add_object_link"), self::dic()->ctrl()
             ->getLinkTargetByClass(ObjectLinkGUI::class, ObjectLinkGUI::CMD_ADD_OBJECT_LINK)));
@@ -175,7 +175,7 @@ class ObjectLinksTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initData()/*: void*/
+    protected function initData() : void
     {
         $this->setExternalSegmentation(true);
         $this->setExternalSorting(true);
@@ -187,7 +187,7 @@ class ObjectLinksTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initFilterFields()/*: void*/
+    protected function initFilterFields() : void
     {
         $this->filter_fields = [];
     }
@@ -196,7 +196,7 @@ class ObjectLinksTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initId()/*: void*/
+    protected function initId() : void
     {
         $this->setId(ilSrTilePlugin::PLUGIN_ID . "_object_links");
     }
@@ -205,7 +205,7 @@ class ObjectLinksTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initTitle()/*: void*/
+    protected function initTitle() : void
     {
         $this->setTitle($this->txt("object_links"));
     }

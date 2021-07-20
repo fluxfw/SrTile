@@ -53,7 +53,7 @@ class TemplatesTableGUI extends TableGUI
     /**
      * @param Template $template
      */
-    protected function fillRow(/*Template*/ $template)/*: void*/
+    protected function fillRow(/*Template*/ $template) : void
     {
         self::dic()->ctrl()->setParameterByClass(TemplateConfigGUI::class, TemplateConfigGUI::GET_PARAM_OBJECT_TYPE, $template->getObjectType());
 
@@ -90,7 +90,7 @@ class TemplatesTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initColumns()/*: void*/
+    protected function initColumns() : void
     {
         parent::initColumns();
 
@@ -101,7 +101,7 @@ class TemplatesTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initData()/*: void*/
+    protected function initData() : void
     {
         $this->setExternalSegmentation(true);
         $this->setExternalSorting(true);
@@ -113,7 +113,7 @@ class TemplatesTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initFilterFields()/*: void*/
+    protected function initFilterFields() : void
     {
         $this->filter_fields = [];
     }
@@ -122,7 +122,7 @@ class TemplatesTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initId()/*: void*/
+    protected function initId() : void
     {
         $this->setId(ilSrTilePlugin::PLUGIN_ID . "_templates");
     }
@@ -131,7 +131,7 @@ class TemplatesTableGUI extends TableGUI
     /**
      * @inheritDoc
      */
-    protected function initTitle()/*: void*/
+    protected function initTitle() : void
     {
         $this->setTitle($this->txt("templates"));
     }

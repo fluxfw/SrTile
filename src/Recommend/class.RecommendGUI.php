@@ -47,7 +47,7 @@ class RecommendGUI
     /**
      *
      */
-    public function executeCommand()/*: void*/
+    public function executeCommand() : void
     {
         $this->recommend = self::srTile()->recommends()->factory()->newInstance(self::srTile()->tiles()->getInstanceForObjRefId(intval(filter_input(INPUT_GET, self::GET_PARAM_REF_ID))));
 
@@ -111,7 +111,7 @@ class RecommendGUI
     /**
      *
      */
-    protected function addRecommend()/*: void*/
+    protected function addRecommend() : void
     {
         $message = null;
 
@@ -124,7 +124,7 @@ class RecommendGUI
     /**
      *
      */
-    protected function newRecommend()/*: void*/
+    protected function newRecommend() : void
     {
         $message = null;
 
@@ -151,7 +151,7 @@ class RecommendGUI
     /**
      *
      */
-    protected function setTabs()/*:void*/
+    protected function setTabs() : void
     {
 
     }
@@ -164,8 +164,7 @@ class RecommendGUI
     protected function show(/*?string*/
         $message,
         ilPropertyFormGUI $form
-    )/*: void*/
-    {
+    ) : void {
         $tpl = self::plugin()->template("Recommend/recommend_modal.html");
 
         if ($message !== null) {

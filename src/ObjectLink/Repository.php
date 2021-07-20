@@ -52,7 +52,7 @@ final class Repository
     /**
      * @param ObjectLink $object_link
      */
-    public function deleteObjectLink(ObjectLink $object_link)/*:void*/
+    public function deleteObjectLink(ObjectLink $object_link) : void
     {
         $object_link->delete();
     }
@@ -61,7 +61,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/*:void*/
+    public function dropTables() : void
     {
         self::dic()->database()->dropTable(Group::TABLE_NAME, false);
         self::dic()->database()->dropTable(ObjectLink::TABLE_NAME, false);
@@ -108,7 +108,7 @@ final class Repository
      *
      * @return ObjectLink|null
      */
-    public function getObjectLink(int $group_id, int $obj_ref_id)/*:?ObjectLink*/
+    public function getObjectLink(int $group_id, int $obj_ref_id) : ?ObjectLink
     {
         /**
          * @var ObjectLink|null $object_link
@@ -199,7 +199,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/*:void*/
+    public function installTables() : void
     {
         Group::updateDB();
         ObjectLink::updateDB();
@@ -209,7 +209,7 @@ final class Repository
     /**
      * @param ObjectLink $object_link
      */
-    public function moveObjectLinkDown(ObjectLink $object_link)/*: void*/
+    public function moveObjectLinkDown(ObjectLink $object_link) : void
     {
         $object_link->setSort($object_link->getSort() + 15);
 
@@ -222,7 +222,7 @@ final class Repository
     /**
      * @param ObjectLink $object_link
      */
-    public function moveObjectLinkUp(ObjectLink $object_link)/*: void*/
+    public function moveObjectLinkUp(ObjectLink $object_link) : void
     {
         $object_link->setSort($object_link->getSort() - 15);
 
@@ -270,7 +270,7 @@ final class Repository
      * @param ObjectLink $object_link
      * @param bool       $merge
      */
-    public function storeObjectLink(ObjectLink $object_link, bool $merge = true)/*:void*/
+    public function storeObjectLink(ObjectLink $object_link, bool $merge = true) : void
     {
         if (empty($object_link->getObjectLinkId())) {
             if ($merge) {
@@ -303,7 +303,7 @@ final class Repository
     /**
      * @param Group $group
      */
-    protected function deleteGroup(Group $group)/*:void*/
+    protected function deleteGroup(Group $group) : void
     {
         $group->delete();
 
@@ -318,7 +318,7 @@ final class Repository
      *
      * @return Group|null
      */
-    protected function getGroupById(int $group_id)/*:?Group*/
+    protected function getGroupById(int $group_id) : ?Group
     {
         /**
          * @var Group|null $group
@@ -337,7 +337,7 @@ final class Repository
      *
      * @return ObjectLink|null
      */
-    protected function getObjectLinkByObjRefId(int $obj_ref_id)/*:?ObjectLink*/
+    protected function getObjectLinkByObjRefId(int $obj_ref_id) : ?ObjectLink
     {
         /**
          * @var ObjectLink|null $object_link
@@ -354,7 +354,7 @@ final class Repository
     /**
      * @param int $group_id
      */
-    protected function reSortObjectLinks(int $group_id)/*: void*/
+    protected function reSortObjectLinks(int $group_id) : void
     {
         $object_links = $this->getObjectLinks($group_id);
 
@@ -372,7 +372,7 @@ final class Repository
     /**
      * @param Group $group
      */
-    protected function storeGroup(Group $group)/*:void*/
+    protected function storeGroup(Group $group) : void
     {
         $group->store();
     }

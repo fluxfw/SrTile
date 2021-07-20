@@ -1,15 +1,14 @@
 {
   "name": "srag/srtile",
   "description": "Custom ILIAS tile repository view",
-  "version": "1.11.9",
+  "version": "1.12.0",
   "extra": {
     "ilias_plugin": {
       "id": "srtile",
       "name": "SrTile",
-      "ilias_min_version": "5.4.0",
-      "ilias_max_version": "6.999",
+      "ilias_min_version": "6.0",
+      "ilias_max_version": "7.999",
       "slot": "Services/UIComponent/UserInterfaceHook",
-      "supports_cli_setup": true,
       "events": [
         {
           "id": "Services/Object",
@@ -24,9 +23,7 @@
           "type": "raise"
         }
       ]
-    },
-    "generate_plugin_readme_template": "ILIAS_PLUGIN",
-    "long_description_template": "src/LONG_DESCRIPTION.md"
+    }
   },
   "type": "project",
   "keywords": [
@@ -46,7 +43,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.2",
     "components/flag-icon-css": "3.4.6",
     "ksubileau/color-thief-php": "1.4.1",
     "srag/activerecordconfig": ">=0.1.0",
@@ -90,9 +87,7 @@
   "scripts": {
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
-      "srag\\LibrariesNamespaceChanger\\PHP72Backport::PHP72Backport",
-      "srag\\GeneratePluginInfosHelper\\SrTile\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
-      "srag\\GeneratePluginInfosHelper\\SrTile\\GeneratePluginReadme::generatePluginReadme"
+      "srag\\GeneratePluginInfosHelper\\SrTile\\GeneratePluginPhpAndXml::generatePluginPhpAndXml"
     ],
     "update-version": [
       "srag\\GeneratePluginInfosHelper\\SrTile\\UpdateVersion::updateVersion"

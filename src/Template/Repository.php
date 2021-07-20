@@ -64,7 +64,7 @@ final class Repository
     /**
      * @param Tile $tile
      */
-    public function applyToTile(Tile $tile)/*:void*/
+    public function applyToTile(Tile $tile) : void
     {
         $object_type = strval(self::dic()->objDataCache()->lookupType(self::dic()->objDataCache()->lookupObjId($tile->getObjRefId())));
 
@@ -86,7 +86,7 @@ final class Repository
         $tile->applyNewImage("");
 
         foreach ($properties as $key => $value) {
-            Closure::bind(function ($key, $value)/*:void*/ {
+            Closure::bind(function ($key, $value) : void {
                 $this->{$key} = $value;
             }, $tile, Tile::class)($key, $value);
         }
@@ -101,7 +101,7 @@ final class Repository
     /**
      * @internal
      */
-    public function dropTables()/*:void*/
+    public function dropTables() : void
     {
         self::dic()->database()->dropTable(Template::TABLE_NAME, false);
     }
@@ -170,7 +170,7 @@ final class Repository
     /**
      * @internal
      */
-    public function installTables()/*:void*/
+    public function installTables() : void
     {
         Template::updateDB();
     }
@@ -179,7 +179,7 @@ final class Repository
     /**
      * @param string $object_type
      */
-    public function overrideTilesWithObjectType(string $object_type)/*: void*/
+    public function overrideTilesWithObjectType(string $object_type) : void
     {
         /**
          * @var Tile[] $tiles
