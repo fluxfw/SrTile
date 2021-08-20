@@ -1,7 +1,7 @@
 {
   "name": "srag/srtile",
   "description": "Custom ILIAS tile repository view",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "extra": {
     "ilias_plugin": {
       "id": "srtile",
@@ -87,7 +87,8 @@
   "scripts": {
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
-      "srag\\GeneratePluginInfosHelper\\SrTile\\GeneratePluginPhpAndXml::generatePluginPhpAndXml"
+      "srag\\GeneratePluginInfosHelper\\SrTile\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
+      "vendor/srag/notifications4plugin/bin/twig_php74_patch.php"
     ],
     "update-version": [
       "srag\\GeneratePluginInfosHelper\\SrTile\\UpdateVersion::updateVersion"
