@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
+use ILIAS\Services\UICore\MetaTemplate\PageContentGUI;
 use srag\DIC\SrTile\DICTrait;
 use srag\Plugins\SrTile\Config\ConfigFormGUI;
 use srag\Plugins\SrTile\Recommend\RecommendGUI;
@@ -20,7 +21,6 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     use SrTileTrait;
 
     const ACTIONS_MENU_TEMPLATE = "Services/UIComponent/AdvancedSelectionList/tpl.adv_selection_list.html";
-    const ADMIN_FOOTER_TPL_ID = "tpl.adm_content.html";
     const DASHBOARD_LOADER = "tile_dashboard_loader";
     const GET_PARAM_REF_ID = "ref_id";
     const GET_PARAM_TARGET = "target";
@@ -32,8 +32,11 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     const TAB_PERM_ID = "perm";
     const TEMPLATE_GET = "template_get";
     const TEMPLATE_ID_DASHBOARD = "src/UI/templates/default/Item/tpl.group.html";
+    const TEMPLATE_ID_MAIN = "tpl.main.html";
+    const TEMPLATE_ID_PAGE_CONTENT = "tpl.page_content.html";
     const TEMPLATE_ID_PERSONAL_DESKTOP = "Services/PersonalDesktop/tpl.pd_list_block.html";
     const TEMPLATE_ID_REPOSITORY = "Services/Container/tpl.container_list_block.html";
+    const TEMPLATE_SHOW = "template_show";
     const TOOLBAR_LOADER = "tile_toolbar_loader";
     /**
      * @var bool[]
@@ -272,7 +275,8 @@ class ilSrTileUIHookGUI extends ilUIHookPluginGUI
     protected function matchRecommendModal(string $a_part, array $a_par) : bool
     {
         return (!self::$load[self::RECOMMEND_MODAL_LOADER]
-            && $a_par["tpl_id"] === self::ADMIN_FOOTER_TPL_ID
+            && ($a_par["tpl_id"] === self::TEMPLATE_ID_MAIN && $a_part === self::TEMPLATE_SHOW
+                || $a_par["tpl_obj"] instanceof PageContentGUI && ($a_par["tpl_id"] === self::TEMPLATE_ID_PAGE_CONTENT || $a_par["tpl_id"] === null) && $a_part === self::TEMPLATE_SHOW)
             && (self::$load[self::RECOMMEND_MODAL_LOADER] = true));
     }
 

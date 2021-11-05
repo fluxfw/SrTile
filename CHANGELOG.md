@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.12.3]
+- Fix recommend modal
+
 ## [1.12.2]
 - Twig PHP 7.4 patch
 
