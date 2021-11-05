@@ -1,7 +1,7 @@
 {
   "name": "srag/srtile",
   "description": "Custom ILIAS tile repository view",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "extra": {
     "ilias_plugin": {
       "id": "srtile",
