@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.12.4]
+- Move `ilias7_core_apply_ilctrl_patch.sh`
+
 ## [1.12.3]
 - Fix recommend modal
 
