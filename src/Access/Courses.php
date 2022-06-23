@@ -56,6 +56,6 @@ final class Courses
     {
         return array_map(function (array $precondition) : int {
             return intval($precondition["trigger_ref_id"]);
-        }, ilConditionHandler::_getPersistedConditionsOfTarget($obj_ref_id, self::dic()->objDataCache()->lookupObjId($obj_ref_id));
+        }, ilConditionHandler::_getPersistedConditionsOfTarget($obj_ref_id, self::dic()->objDataCache()->lookupObjId($obj_ref_id)));
     }
 }
