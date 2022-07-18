@@ -1,30 +1,7 @@
 {
   "name": "srag/srtile",
   "description": "Custom ILIAS tile repository view",
-  "version": "1.12.5",
-  "extra": {
-    "ilias_plugin": {
-      "id": "srtile",
-      "name": "SrTile",
-      "ilias_min_version": "6.0",
-      "ilias_max_version": "7.999",
-      "slot": "Services/UIComponent/UserInterfaceHook",
-      "events": [
-        {
-          "id": "Services/Object",
-          "type": "listen"
-        },
-        {
-          "id": "change_title_before_render",
-          "type": "raise"
-        },
-        {
-          "id": "should_not_display_alert_message",
-          "type": "raise"
-        }
-      ]
-    }
-  },
+  "version": "1.13.0",
   "type": "project",
   "keywords": [
     "ilias",
@@ -32,16 +9,7 @@
     "plugin",
     "user"
   ],
-  "homepage": "https://github.com/fluxapps/SrTile",
   "license": "GPL-3.0-only",
-  "authors": [
-    {
-      "name": "fluxlabs",
-      "email": "support@fluxlabs.ch",
-      "homepage": "https://fluxlabs.ch",
-      "role": "Developer"
-    }
-  ],
   "require": {
     "php": ">=7.2",
     "components/flag-icon-css": "3.4.6",
@@ -50,7 +18,6 @@
     "srag/custominputguis": ">=0.1.0",
     "srag/devtools": ">=0.1.0",
     "srag/dic": ">=0.1.0",
-    "srag/generateplugininfoshelper": ">=0.1.0",
     "srag/librariesnamespacechanger": ">=0.1.0",
     "srag/notifications4plugin": ">=0.1.0",
     "srag/removeplugindataconfirm": ">=0.1.0"
@@ -87,11 +54,7 @@
   "scripts": {
     "pre-autoload-dump": [
       "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces",
-      "srag\\GeneratePluginInfosHelper\\SrTile\\GeneratePluginPhpAndXml::generatePluginPhpAndXml",
       "vendor/srag/notifications4plugin/bin/twig_php74_patch.php"
-    ],
-    "update-version": [
-      "srag\\GeneratePluginInfosHelper\\SrTile\\UpdateVersion::updateVersion"
     ]
   }
 }

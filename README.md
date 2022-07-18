@@ -16,7 +16,7 @@ Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
 cd Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
-git clone https://github.com/fluxapps/SrTile.git SrTile
+git clone https://github.com/fluxfw/SrTile.git SrTile
 ```
 
 Update, activate and config the plugin in the ILIAS Plugin Administration
