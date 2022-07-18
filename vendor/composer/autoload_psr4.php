@@ -11,7 +11,6 @@ return array(
     'srag\\Notifications4Plugin\\SrTile\\' => array($vendorDir . '/srag/notifications4plugin/src'),
     'srag\\LibraryLanguageInstaller\\SrTile\\' => array($vendorDir . '/srag/librarylanguageinstaller/src'),
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
-    'srag\\GeneratePluginInfosHelper\\SrTile\\' => array($vendorDir . '/srag/generateplugininfoshelper/src'),
     'srag\\DevTools\\SrTile\\' => array($vendorDir . '/srag/devtools/src'),
     'srag\\DataTableUI\\SrTile\\' => array($vendorDir . '/srag/datatable/src'),
     'srag\\DIC\\SrTile\\' => array($vendorDir . '/srag/dic/src'),

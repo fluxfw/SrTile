@@ -6,9 +6,6 @@
     "Plugin"
   ],
   "license": "GPL-3.0-only",
-  "contributors": [
-    "fluxlabs <support@fluxlabs.ch> (https://fluxlabs.ch)"
-  ],
   "dependencies": {
     "@iconfu/svg-inject": "1.2.3"
   },
