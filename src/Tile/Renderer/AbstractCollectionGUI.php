@@ -87,17 +87,6 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
 
 
     /**
-     *
-     */
-    protected function initJS() : void
-    {
-        $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
-
-        self::dic()->ui()->mainTemplate()->addJavaScript($version_parameter->appendToUrl(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"));
-    }
-
-
-    /**
      * @return string
      */
     protected function getCss() : string
@@ -144,5 +133,16 @@ abstract class AbstractCollectionGUI implements CollectionGUIInterface
         }
 
         return '<link href="' . htmlspecialchars("data:text/css;base64," . base64_encode($css)) . '" rel="stylesheet">';
+    }
+
+
+    /**
+     *
+     */
+    protected function initJS() : void
+    {
+        $version_parameter = PluginVersionParameter::getInstance()->withPlugin(self::plugin());
+
+        self::dic()->ui()->mainTemplate()->addJavaScript($version_parameter->appendToUrl(self::plugin()->directory() . "/node_modules/@iconfu/svg-inject/dist/svg-inject.min.js"));
     }
 }
