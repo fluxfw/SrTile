@@ -11,12 +11,6 @@ interface CollectionGUIInterface
 {
 
     /**
-     *
-     */
-    public function hideOriginalRowsOfTiles() : void;
-
-
-    /**
      * @return string
      */
     public function render() : string;
